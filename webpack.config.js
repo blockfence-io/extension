@@ -24,7 +24,7 @@ var options = {
   mode: process.env.NODE_ENV || "development",
 
   entry: {
-    popup: path.join(__dirname, "src", "pages", "Popup", "index.js"),
+    popup: path.join(__dirname, "src", "pages", "Popup", "index.tsx"),
   },
 
   output: {
@@ -47,18 +47,7 @@ var options = {
           {
             loader: "css-loader",
           },
-          {
-            loader: "sass-loader",
-            options: {
-              sourceMap: true,
-            },
-          },
         ],
-      },
-      {
-        test: new RegExp(".(" + fileExtensions.join("|") + ")$"),
-        type: "asset/resource",
-        exclude: /node_modules/,
       },
       {
         test: /\.html$/,
@@ -71,6 +60,9 @@ var options = {
         use: [
           {
             loader: "source-map-loader",
+          },
+          {
+            loader: 'babel-loader',
           },
         ],
         exclude: /node_modules/,
