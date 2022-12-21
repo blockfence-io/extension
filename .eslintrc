@@ -1,11 +1,11 @@
 {
-    "root": true,
     "parser": "@babel/eslint-parser",
-    "plugins": ["@typescript-eslint"],
-    "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended"
-    ],
-    "ignorePatterns": ["webpack.config.js"]
+    "plugins": ["react", "@typescript-eslint"],
+    "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:@typescript-eslint/eslint-recommended"],
+    "ignorePatterns": ["webpack.config.js"],
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    }
 }
