@@ -1,51 +1,54 @@
-var webpack = require('webpack'),
-  path = require('path');
+var webpack = require("webpack");
+var path = require("path");
+var HtmlWebpackPlugin = require("html-webpack-plugin");
 
-const ASSET_PATH = process.env.ASSET_PATH || '/';
+const ASSET_PATH = process.env.ASSET_PATH || "/";
 
 var alias = {
-  'react-dom': '@hot-loader/react-dom',
+  "react-dom": "@hot-loader/react-dom",
 };
 
 
 var fileExtensions = [
-  'jpg',
-  'jpeg',
-  'png',
-  'gif',
-  'eot',
-  'otf',
-  'svg',
-  'ttf',
-  'woff',
-  'woff2',
+  "jpg",
+  "jpeg",
+  "png",
+  "gif",
+  "eot",
+  "otf",
+  "svg",
+  "ttf",
+  "woff",
+  "woff2",
 ];
 
-
 var options = {
-  mode: process.env.NODE_ENV || 'development',
+  mode: process.env.NODE_ENV || "development",
   entry: {
-    popup: path.join(__dirname, 'src', 'pages', 'Popup', 'index.js'),
+    popup: path.join(__dirname, "src", "pages", "Popup", "index.js"),
   },
+
   output: {
-    filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'build'),
+    filename: "[name].bundle.js",
+    path: path.resolve(__dirname, "build"),
     clean: true,
     publicPath: ASSET_PATH,
   },
   module: {
     rules: [
       {
+        // look for .css or .scss files
         test: /\.(css|scss)$/,
+        // in the `src` directory
         use: [
           {
-            loader: 'style-loader',
+            loader: "style-loader",
           },
           {
-            loader: 'css-loader',
+            loader: "css-loader",
           },
           {
-            loader: 'sass-loader',
+            loader: "sass-loader",
             options: {
               sourceMap: true,
             },
@@ -53,22 +56,19 @@ var options = {
         ],
       },
       {
-        test: new RegExp('.(' + fileExtensions.join('|') + ')$'),
-        type: 'asset/resource',
+        test: new RegExp(".(" + fileExtensions.join("|") + ")$"),
+        type: "asset/resource",
         exclude: /node_modules/,
-    
       },
       {
         test: /\.html$/,
-        loader: 'html-loader',
+        loader: "html-loader",
         exclude: /node_modules/,
       },
-      { test: /\.(ts|tsx)$/, loader: 'ts-loader', exclude: /node_modules/ },
+      { test: /\.(ts|tsx)$/, loader: "ts-loader", exclude: /node_modules/ },
       {
         test: /\.(js|jsx)$/,
-        use: [
-        
-        ],
+        use: [],
         exclude: /node_modules/,
       },
     ],
@@ -76,14 +76,19 @@ var options = {
   resolve: {
     alias: alias,
     extensions: fileExtensions
-      .map((extension) => '.' + extension)
-      .concat(['.js', '.jsx', '.ts', '.tsx', '.css']),
+      .map((extension) => "." + extension)
+      .concat([".js", ".jsx", ".ts", ".tsx", ".css"]),
   },
   plugins: [
-    
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, "src", "pages", "Popup", "index.html"),
+      filename: "popup.html",
+      chunks: ["popup"],
+      cache: false,
+    }),
   ],
   infrastructureLogging: {
-    level: 'info',
+    level: "info",
   },
 };
 
