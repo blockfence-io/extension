@@ -4,7 +4,7 @@
     "description": "Blockfence chrome extensions",
     "scripts": {
         "dev": "webpack --watch",
-        "build": "webpack",
+        "build": "npm run lint && webpack",
         "prettier": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,md}'",
         "lint": "eslint . --ext .tsx"
     },
