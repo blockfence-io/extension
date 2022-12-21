@@ -1,11 +1,15 @@
-var webpack = require('webpack');
-var path = require('path');
-var HtmlPlugin = require('html-webpack-plugin');
-var CopyPlugin = require('copy-webpack-plugin');
-var TerserPlugin = require('terser-webpack-plugin');
-var { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack');
+const path = require('path');
 
-var env = require('./utils/env');
+const HtmlPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+
+
+const env = require('./utils/env');
 
 var options = {
     mode: process.env.NODE_ENV || 'development',
@@ -65,6 +69,8 @@ var options = {
     plugins: [
         // Clean build/* folder prior to building
         new CleanWebpackPlugin({ verbose: false }),
+
+        new ESLintPlugin(),
 
         // Copy manifest.json file to build + update internal fields
         new CopyPlugin({
