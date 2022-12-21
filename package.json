@@ -1,0 +1,6 @@
+{
+  "name": "blockfence",
+  "version": "0.1.0",
+  "description": "Blockfence chrome extensions",
+  "packageManager": "yarn@3.2.4"
+}
