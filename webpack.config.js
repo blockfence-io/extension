@@ -7,8 +7,6 @@ const TerserPlugin = require('terser-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-
-
 const env = require('./utils/env');
 
 var options = {
@@ -16,6 +14,7 @@ var options = {
 
     entry: {
         popup: path.join(__dirname, 'src', 'pages', 'Popup', 'index.tsx'),
+        content: path.join(__dirname, 'src', 'pages', 'Content', 'index.ts'),
     },
 
     output: {
@@ -64,6 +63,10 @@ var options = {
                 exclude: /node_modules/,
             },
         ],
+    },
+
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
     },
 
     plugins: [
