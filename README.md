@@ -21,5 +21,22 @@ You can load it to Chrome by:
 
 ## Development Notes
 
--   Content: Website DOM Modifier to block access to page?
--   Popup: Plugin Popup window (Clicking on plugin icon)
+### Background Script
+
+-   A single instance Javascript extension code that handles all of our logic
+-   All of our capabilities functions are developed here
+
+Here we can listen to:
+
+-   chrome.webNavigation.onBeforeNavigate
+
+### Content Script
+
+-   Loaded in _each_ website and allows us to manipulate it
+-   Sandboxed
+-   Can communicate using sendMessage
+
+### See examples
+
+https://github.com/rahulgi/Blacklist/
+https://github.com/penge/block-site/
