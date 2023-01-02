@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { render } from 'react-dom';
 import styled from 'styled-components';
 
-import './reset.css';
+import '../../shared/reset.css';
 
 const Button = styled.button`
     background: palevioletred;

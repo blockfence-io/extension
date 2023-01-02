@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { render } from 'react-dom';
 import styled from 'styled-components';
 
-import './reset.css';
+import '../../shared/reset.css';
 
 const Button = styled.button`
     background: palevioletred;
@@ -21,15 +21,29 @@ const Container = styled.div`
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    background: black;
+    height: 100vh;
+    color: white;
+
+    & h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+    & h2 {
+        font-size: 1.5rem;
+        margin-bottom: 4rem;
+    }
 `;
 
 function Panel() {
     const [counter, setCounter] = useState(0);
     return (
         <Container>
-            <h1>This site was blocked</h1>
-            <p>Here is a react test</p>
-            <p>{counter} clicks</p>
+            <h1>Blockfence</h1>
+
+            <h2>No Facebook for you</h2>
+
+            <p>In the meanwhilte, I can count your clicks... You have clicked {counter} times</p>
             <Button
                 onClick={() => {
                     setCounter(counter + 1);
