@@ -25,18 +25,29 @@ You can load it to Chrome by:
 
 -   A single instance Javascript extension code that handles all of our logic
 -   All of our capabilities functions are developed here
-
-Here we can listen to:
-
--   chrome.webNavigation.onBeforeNavigate
+-   Here we can listen to: `chrome.webNavigation.onBeforeNavigate`
 
 ### Content Script
 
 -   Loaded in _each_ website and allows us to manipulate it
 -   Sandboxed
 -   Can communicate using sendMessage
+-   Currently do nothing
 
-### See examples
+## Extension Roadmap
 
-https://github.com/rahulgi/Blacklist/
-https://github.com/penge/block-site/
+### Phishing Protection
+
+1. Add local blocklist cache
+
+2. Add 'ignore and open website anyway' capability
+
+3. Update local cache with popular predefined list
+
+4. Limit detection to Blockchain related website (can we identify blockchain api usage?)
+
+5. When server is down - make sure no impact occurres and a some user warning is shown ("blockfence is temporary down")
+
+6. Code cleanup
+
+7. Security: Understand cache access and who can update/remove it?
