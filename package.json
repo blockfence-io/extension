@@ -6,7 +6,7 @@
         "dev": "webpack --watch",
         "build": "npm run lint && webpack",
         "prettier": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,md}'",
-        "lint": "eslint . --ext .tsx"
+        "lint": "eslint . --ext .tsx,.ts,.js"
     },
     "dependencies": {
         "@types/chrome": "^0.0.206",
