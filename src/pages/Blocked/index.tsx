@@ -1,44 +1,10 @@
 import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import styled from 'styled-components';
 import getUrlParams from '../../helpers/getURLParams';
+
+import { Button } from '../../components/Button';
 import '../../shared/reset.css';
-
-const Button = styled.button`
-    background: palevioletred;
-    color: white;
-
-    font-size: 1em;
-    margin: 1em;
-    padding: 0.25em 1em;
-    border: 2px solid palevioletred;
-    border-radius: 3px;
-`;
-
-const Container = styled.div`
-    padding: 1rem;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    background: black;
-    height: 100vh;
-    color: white;
-
-    & h1 {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-    }
-    & h2 {
-        font-size: 1.5rem;
-        margin-bottom: 2rem;
-    }
-
-    & h3 {
-        font-size: 1.2rem;
-        margin-bottom: 4rem;
-    }
-`;
+import * as Styled from './index.styled';
 
 function Panel() {
     const [counter, setCounter] = useState(0);
@@ -46,7 +12,7 @@ function Panel() {
     console.log(urlParams);
 
     return (
-        <Container>
+        <Styled.Container>
             <h1>Blockfence</h1>
 
             <h2>Whoops... This website looks suspicious</h2>
@@ -61,7 +27,7 @@ function Panel() {
             >
                 Click
             </Button>
-        </Container>
+        </Styled.Container>
     );
 }
 
