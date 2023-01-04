@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import styled from 'styled-components';
 
 import '../../shared/reset.css';
@@ -42,4 +42,6 @@ function Panel() {
     );
 }
 
-render(<Panel />, window.document.querySelector('#app-container'));
+const container = window.document.querySelector('#app-container');
+const root = createRoot(container as Element);
+root.render(<Panel />);
