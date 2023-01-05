@@ -15,8 +15,9 @@ var options = {
     entry: {
         popup: path.join(__dirname, 'src', 'pages', 'Popup', 'index.tsx'),
         blocked: path.join(__dirname, 'src', 'pages', 'Blocked', 'index.tsx'),
-        content: path.join(__dirname, 'src', 'scripts', 'content', 'index.ts'),
         background: path.join(__dirname, 'src', 'scripts', 'background', 'index.ts'),
+        content: path.join(__dirname, 'src', 'scripts', 'content', 'index.ts'),
+        attach: path.join(__dirname, 'src', 'scripts', 'content', 'attach.ts'),
     },
 
     output: {

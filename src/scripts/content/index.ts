@@ -1,6 +1,11 @@
-import { printLine } from './modules/print';
+function injectScript(url: string) {
+    const script = document.createElement('script');
+    script.src = chrome.runtime.getURL(url);
+    script.async = false;
+    script.type = 'module';
 
-console.log('Content script works!');
-console.log('Must reload extension for modifications to take effect.');
+    const node = document.head || document.documentElement;
+    node.prepend(script);
+}
 
-printLine("Using the 'printLine' function from the Print Module");
+injectScript('attach.bundle.js');
