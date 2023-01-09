@@ -31,8 +31,4 @@ export type JsonRpcCallback<TResult, TError> = (error: Error, response: JsonRpcR
 
 // Ethereum Request types
 
-export type ProviderSend<T> = (
-    request: JsonRpcRequest<T>,
-    callback: (error: any, response: any) => void
-) => Promise<any>;
-export type ProviderRequest<T> = (request: JsonRpcRequest<T>) => Promise<any>;
+export type ProviderRequest<T> = (request: JsonRpcRequest<T>) => Promise<unknown>;
