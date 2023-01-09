@@ -8,4 +8,5 @@ function injectScript(url: string) {
     node.prepend(script);
 }
 
+/* Inject wallet attach script */
 injectScript('attach.bundle.js');
