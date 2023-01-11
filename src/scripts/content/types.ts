@@ -28,7 +28,10 @@ export interface JsonRpcError<TError> {
 
 export type JsonRpcResponse<TResult, TError> = JsonRpcResult<TResult> | JsonRpcError<TError>;
 export type JsonRpcCallback<TResult, TError> = (error: Error, response: JsonRpcResponse<TResult, TError>) => unknown;
-
-// Ethereum Request types
-
 export type ProviderRequest<T> = (request: JsonRpcRequest<T>) => Promise<unknown>;
+
+export type TransactionEvent = {
+    triggerType: string;
+    requestType: string;
+    payload: unknown;
+};

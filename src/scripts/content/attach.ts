@@ -1,19 +1,16 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import detectEthereumProvider from '@metamask/detect-provider';
-import { JsonRpcRequest, JsonRpcCallback, ProviderRequest } from './types';
+import { JsonRpcRequest, JsonRpcCallback, ProviderRequest, TransactionEvent } from './types';
 import { ExternalProvider } from '@ethersproject/providers';
 
-function showPopup() {
-    console.log('!! Triggering Page Event');
-    const message = {
-        transaction: 1234,
+function triggerBlockfence(triggerType: string, requestType: string, payload: unknown) {
+    const message: TransactionEvent = {
+        triggerType,
+        requestType,
+        payload,
     };
     const event = new CustomEvent('FromPage', { detail: message });
     window.dispatchEvent(event);
-
-    // chrome.runtime.sendMessage({ data: 'Hello from content script!' }, function (response) {
-    //     console.log(response);
-    // });
 }
 
 function wrapSend(provider: ExternalProvider) {
@@ -78,7 +75,7 @@ function wrapRequest(provider: ExternalProvider) {
         console.log('## Request Wrapper - Method', request.method);
         console.log('## Request Wrapper - Params', request.params);
         if (request.method === 'eth_sendTransaction') {
-            showPopup();
+            triggerBlockfence('request', request.method, request.params);
         }
         return originalRequest(request);
     };

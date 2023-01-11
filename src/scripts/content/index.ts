@@ -4,6 +4,7 @@
     * Injected Script runs in the 'page' level and not in the 'content script' level
         * Page can't access the chrome.runtime or other extension API
 */
+import { TransactionEvent } from './types';
 
 // Attach on Page scope
 function injectScript(url: string) {
@@ -19,10 +20,10 @@ function injectScript(url: string) {
 // Listen for page level events
 window.addEventListener(
     'FromPage',
-    function (evt) {
-        console.log('Wallet triggered an event');
-        console.log(chrome.runtime);
-        chrome.runtime.sendMessage({ data: 'Hello from content script!' }, function (response) {
+    function (event) {
+        const details: TransactionEvent = (<any>event).detail;
+        console.log('Wallet triggered an event: ');
+        chrome.runtime.sendMessage(details, function (response) {
             console.log(response);
         });
     },

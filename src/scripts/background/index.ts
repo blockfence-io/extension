@@ -2,6 +2,9 @@ import getBlockedPage from '../../helpers/getBlockedPage';
 import isBlockedURL from '../../helpers/isBlockedURL';
 import { showPopup } from '../../helpers/showPopup';
 
+// TBD: Move to a better location
+import { TransactionEvent } from '../content/types';
+
 // URL Blocking Listener
 chrome.webNavigation.onBeforeNavigate.addListener((details) => {
     const { tabId, url, frameId } = details;
@@ -21,9 +24,11 @@ chrome.webNavigation.onBeforeNavigate.addListener((details) => {
 /* Listening to single messages (UDP like) */
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     console.log('## Received message: ');
-    console.log(request.data);
+    console.log(request);
 
-    showPopup();
+    const payload: TransactionEvent = request.detail;
+
+    showPopup(payload);
 
     console.log(sender.tab ? 'from a content script:' + sender.tab.url : 'from the extension');
     if (request.greeting === 'hello') {

@@ -1,4 +1,6 @@
-export const showPopup = async () => {
+import { TransactionEvent } from '../scripts/content/types';
+
+export const showPopup = async (payload: TransactionEvent) => {
     const currentWindow = await chrome.windows.getCurrent();
     const popupWindow = await chrome.windows.create({
         url: `walletpopup.html`,
