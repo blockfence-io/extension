@@ -6,17 +6,12 @@ import '../../shared/reset.css';
 import * as Styled from './index.styled';
 
 function Panel() {
-    function triggerPopup() {
-        console.log('# Triggering popup');
-        chrome.runtime.sendMessage({ data: 'Hello from content script!' }, function (response) {
-            console.log(response);
-        });
-    }
-
     return (
         <Styled.Container>
             <h1>blockfence</h1>
-            <Button onClick={triggerPopup}>Trigger popup</Button>
+            <h3>Checking your transaction....</h3>
+            <Button>Decline</Button>
+            <Button>Continue</Button>
         </Styled.Container>
     );
 }

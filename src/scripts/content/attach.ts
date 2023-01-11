@@ -3,6 +3,19 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import { JsonRpcRequest, JsonRpcCallback, ProviderRequest } from './types';
 import { ExternalProvider } from '@ethersproject/providers';
 
+function showPopup() {
+    console.log('!! Triggering Page Event');
+    const message = {
+        transaction: 1234,
+    };
+    const event = new CustomEvent('FromPage', { detail: message });
+    window.dispatchEvent(event);
+
+    // chrome.runtime.sendMessage({ data: 'Hello from content script!' }, function (response) {
+    //     console.log(response);
+    // });
+}
+
 function wrapSend(provider: ExternalProvider) {
     if (!provider.send) return;
     const originalSend = provider.send;
@@ -14,8 +27,8 @@ function wrapSend(provider: ExternalProvider) {
             // TBD: Same handler as request
             const method = requestOrMethod as string;
             const params = callbackOrParams as unknown;
-            console.log('## Request Wrapper - Method', method);
-            console.log('## Request Wrapper - Params', params);
+            console.log('##1 Request Wrapper - Method', method);
+            console.log('##1 Request Wrapper - Params', params);
         }
 
         const request = requestOrMethod as JsonRpcRequest<Array<unknown>>;
@@ -64,6 +77,9 @@ function wrapRequest(provider: ExternalProvider) {
     const request: ProviderRequest<unknown[] | undefined> = (request) => {
         console.log('## Request Wrapper - Method', request.method);
         console.log('## Request Wrapper - Params', request.params);
+        if (request.method === 'eth_sendTransaction') {
+            showPopup();
+        }
         return originalRequest(request);
     };
 
@@ -78,6 +94,7 @@ async function attach() {
         wrapSend(provider);
         wrapSendAsync(provider);
         wrapRequest(provider);
+        console.log('@@ ... Done');
     } else {
         console.log('Please install MetaMask!');
         console.log(document.getElementById('interpretation-and-definitions'));

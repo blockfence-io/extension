@@ -32,7 +32,7 @@ You can load it to Chrome by:
 -   Loaded in _each_ website and allows us to manipulate it
 -   Sandboxed
 -   Can communicate using sendMessage
--   Currently do nothing
+-   Monitors ethereum wallet
 
 ## Extension Roadmap
 
