@@ -16,11 +16,19 @@
         {
             "matches": ["http://*/*", "https://*/*", "<all_urls>"],
             "js": ["content.bundle.js"],
-            "css": []
+            "css": [],
+            "all_frames": true,
+            "run_at": "document_start"
         }
     ],
     "action": {
         "default_popup": "popup.html"
     },
-    "permissions": ["activeTab", "declarativeContent", "storage", "webNavigation"]
+    "permissions": ["activeTab", "declarativeContent", "storage", "webNavigation"],
+    "web_accessible_resources": [
+        {
+            "resources": ["attach.bundle.js"],
+            "matches": ["<all_urls>"]
+        }
+    ]
 }

@@ -14,9 +14,11 @@ var options = {
 
     entry: {
         popup: path.join(__dirname, 'src', 'pages', 'Popup', 'index.tsx'),
+        walletpopup: path.join(__dirname, 'src', 'pages', 'WalletPopup', 'index.tsx'),
         blocked: path.join(__dirname, 'src', 'pages', 'Blocked', 'index.tsx'),
-        content: path.join(__dirname, 'src', 'scripts', 'content', 'index.ts'),
         background: path.join(__dirname, 'src', 'scripts', 'background', 'index.ts'),
+        content: path.join(__dirname, 'src', 'scripts', 'content', 'index.ts'),
+        attach: path.join(__dirname, 'src', 'scripts', 'content', 'attach.ts'),
     },
 
     output: {
@@ -109,6 +111,13 @@ var options = {
         }),
 
         // Copy HTML file
+        new HtmlPlugin({
+            template: path.join(__dirname, 'src', 'pages', 'WalletPopup', 'index.html'),
+            filename: 'walletpopup.html',
+            chunks: ['walletpopup'],
+            cache: false,
+        }),
+
         new HtmlPlugin({
             template: path.join(__dirname, 'src', 'pages', 'Popup', 'index.html'),
             filename: 'popup.html',

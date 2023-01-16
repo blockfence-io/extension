@@ -1,6 +1,34 @@
-import { printLine } from './modules/print';
+/*
+    This is a content script
+    * Content script is accessible to `chorme.runtime` for example.
+    * Injected Script runs in the 'page' level and not in the 'content script' level
+        * Page can't access the chrome.runtime or other extension API
+*/
+import { TransactionEvent } from './types';
 
-console.log('Content script works!');
-console.log('Must reload extension for modifications to take effect.');
+// Attach on Page scope
+function injectScript(url: string) {
+    const script = document.createElement('script');
+    script.src = chrome.runtime.getURL(url);
+    script.async = false;
+    script.type = 'module';
 
-printLine("Using the 'printLine' function from the Print Module");
+    const node = document.head || document.documentElement;
+    node.prepend(script);
+}
+
+// Listen for page level events
+window.addEventListener(
+    'FromPage',
+    function (event) {
+        const details: TransactionEvent = (<any>event).detail;
+        console.log('Wallet triggered an event: ');
+        chrome.runtime.sendMessage(details, function (response) {
+            console.log(response);
+        });
+    },
+    false
+);
+
+/* Inject wallet attach script */
+injectScript('attach.bundle.js');
