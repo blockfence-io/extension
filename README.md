@@ -51,3 +51,19 @@ You can load it to Chrome by:
 6. Code cleanup
 
 7. Security: Understand cache access and who can update/remove it?
+
+8. Security Auditing
+
+### Wallet Protection
+
+1. Create a mechanism to transmit all tx data, not through get parameters
+
+2. Fix window positioning
+
+3. Send tx address to backend
+
+4. Security Auditing
+
+### Extension Settings
+
+TBD
