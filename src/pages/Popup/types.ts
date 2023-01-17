@@ -1,3 +1,9 @@
 export type TxDescription = {
-    result: string;
+    name: string;
+    description: string;
 };
+
+export type QueryError = {
+    error: string;
+};
+
