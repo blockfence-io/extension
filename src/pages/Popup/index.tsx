@@ -32,7 +32,7 @@ function Panel() {
             </Styled.Form>
 
             {to === '' && (
-                <Styled.Help>Enter an address to find out more about a smart contract and it works</Styled.Help>
+                <Styled.Help>Enter an address to find out more about a smart contract and how it works</Styled.Help>
             )}
 
             {to && <ContentDecoder to={to} showAccountAddress={false} />}

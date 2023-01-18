@@ -21,22 +21,23 @@ function wrapSend(provider: ExternalProvider) {
     const send = (requestOrMethod: unknown, callbackOrParams: unknown) => {
         // "request" like overloading: payloadOrMethod is method  and callbackOrParams is params
         if (typeof requestOrMethod === 'string') {
-            // TBD: Same handler as request
+            // Same handler as request
             const method = requestOrMethod as string;
-            const params = callbackOrParams as unknown;
-            console.log('##1 Request Wrapper - Method', method);
-            console.log('##1 Request Wrapper - Params', params);
+            const params = callbackOrParams as Array<unknown>;
+            if (method === 'eth_sendTransaction') {
+                triggerBlockfence('request', method, params[0]);
+            }
         }
 
         const request = requestOrMethod as JsonRpcRequest<Array<unknown>>;
-        const callback = callbackOrParams as JsonRpcCallback<unknown, unknown>;
+        // const callback = callbackOrParams as JsonRpcCallback<unknown, unknown>;
 
         // "sendAsync" like overloading
         if (callbackOrParams) {
-            // TBD: same handles as sendAsync
-            console.log('## Send Async - Method', request.method);
-            console.log('## Send Async - Params', request.params);
-            console.log('## Send Async - Params', callback);
+            if (request.method === 'eth_sendTransaction') {
+                const payloadParams = request.params as Array<unknown>;
+                triggerBlockfence('request', request.method, payloadParams[0]);
+            }
         }
 
         // Third case doesn't supports transaction, make sure it's ok to leave as is
@@ -46,7 +47,7 @@ function wrapSend(provider: ExternalProvider) {
         }
 
         // @ts-ignore
-        return originalSend(...rest);
+        return originalSend(requestOrMethod, callbackOrParams);
     };
 
     // @ts-ignore
@@ -58,8 +59,10 @@ function wrapSendAsync(provider: ExternalProvider) {
     const originalSendAsync = provider.sendAsync;
 
     const sendAsync = (payload: JsonRpcRequest<Array<unknown>>, callback: JsonRpcCallback<unknown, unknown>) => {
-        console.log('## Send Async - Method', payload.method);
-        console.log('## Send Async - Params', payload.params);
+        if (payload.method === 'eth_sendTransaction') {
+            const payloadParams = payload.params as Array<unknown>;
+            triggerBlockfence('request', payload.method, payloadParams[0]);
+        }
         return originalSendAsync(payload, callback);
     };
 
@@ -72,10 +75,8 @@ function wrapRequest(provider: ExternalProvider) {
 
     const originalRequest = provider.request;
     const request: ProviderRequest<unknown[] | undefined> = (request) => {
-        console.log('## Request Wrapper - Method', request.method);
-        console.log('## Request Wrapper - Params', request.params);
-        const payload = request.params as Array<unknown>;
         if (request.method === 'eth_sendTransaction') {
+            const payload = request.params as Array<unknown>;
             triggerBlockfence('request', request.method, payload[0]);
         }
         return originalRequest(request);
