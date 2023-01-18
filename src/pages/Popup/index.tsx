@@ -2,13 +2,13 @@ import axios, { AxiosError } from 'axios';
 import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { Button } from '../../components/Button';
-import { Input } from '../../components/Input';
+import { Button } from '../../components/UI/Button';
+import { Input } from '../../components/UI/Input';
 import '../../shared/reset.css';
 import * as Styled from './index.styled';
 import { TxDescription } from './types';
 import { ErrorResponse } from './types';
-import Loader from '../../components/Loader';
+import Loader from '../../components/UI/Loader';
 import './font.css';
 
 const url = 'https://9q30xzk2r0.execute-api.us-east-1.amazonaws.com/staging/chat';

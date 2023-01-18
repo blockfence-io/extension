@@ -1,7 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { Button } from '../../components/Button';
+import { Button } from '../../components/UI/Button';
 import '../../shared/reset.css';
 import * as Styled from './index.styled';
 
