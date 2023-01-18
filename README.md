@@ -6,7 +6,7 @@ The extension is automatically triggered on each transaction and shows a popup w
 
 Additionally, you can manually query our platform by cliking on the extension icon.
 
-You can get download the official extension from [Chrome Web Store](https://chrome.google.com/webstore/category/extensions)
+You can get the official extension from [Chrome Web Store](https://chrome.google.com/webstore/category/extensions)
 
 ## Developers Mode
 
