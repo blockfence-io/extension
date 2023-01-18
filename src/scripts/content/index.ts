@@ -20,9 +20,8 @@ function injectScript(url: string) {
 // Listen for page level events
 window.addEventListener(
     'FromPage',
-    function (event) {
-        const details: TransactionEvent = (<any>event).detail;
-        chrome.runtime.sendMessage(details, function (response) {
+    function (event: CustomEventInit<TransactionEvent>) {
+        chrome.runtime.sendMessage(event.detail, function (response) {
             console.log(response);
         });
     },

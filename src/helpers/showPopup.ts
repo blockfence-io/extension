@@ -9,8 +9,10 @@ export const showPopup = async (event: TransactionEvent) => {
         console.log('Opening popup...');
         console.log(popupUrl);
 
-        const currentWindow = await chrome.windows.getCurrent();
-        const popupWindow = await chrome.windows.create({
+        // const currentWindow =
+        await chrome.windows.getCurrent();
+        // const popupWindow =
+        await chrome.windows.create({
             url: popupUrl,
             type: 'popup',
             top: 100,
@@ -19,5 +21,4 @@ export const showPopup = async (event: TransactionEvent) => {
             height: 460,
         });
     }
-    // window.open("popup.html", "extension_popup", "width=300,height=400,status=no,scrollbars=yes,resizable=no");
 };
