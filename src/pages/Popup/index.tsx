@@ -26,7 +26,7 @@ function Panel() {
             <Styled.Label>Smart Contract Address</Styled.Label>
             <Styled.Form onSubmit={handleSubmit}>
                 <Input type='text' value={input} onChange={(e) => setInput(e.target.value)} style={{ flex: 1 }} />
-                <Button type='submit' disabled={input === ''}>
+                <Button type='submit' disabled={input === '' || input === to}>
                     Send
                 </Button>
             </Styled.Form>
