@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const Container = styled.div`
+const Container = styled.div`
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -13,7 +13,7 @@ export const Container = styled.div`
     align-items: center;
 `;
 
-export const Elipsis = styled.div`
+const Elipsis = styled.div`
     display: inline-block;
     position: relative;
     width: 80px;
@@ -71,7 +71,7 @@ export const Elipsis = styled.div`
     }
 `;
 
-export default function Loader() {
+export function Loader() {
     return (
         <Container>
             <Elipsis>
