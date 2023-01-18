@@ -1,4 +1,4 @@
-import { TransactionEvent } from '../scripts/content/types';
+import { TransactionEvent } from '../types/jsonrpc';
 
 export const showPopup = async (event: TransactionEvent) => {
     const { triggerType, requestType, payload } = event;

@@ -4,7 +4,7 @@
     * Injected Script runs in the 'page' level and not in the 'content script' level
         * Page can't access the chrome.runtime or other extension API
 */
-import { TransactionEvent } from './types';
+import { TransactionEvent } from '../../types/jsonrpc';
 
 // Attach on Page scope
 function injectScript(url: string) {

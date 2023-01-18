@@ -2,8 +2,7 @@ import getBlockedPage from '../../helpers/getBlockedPage';
 import isBlockedURL from '../../helpers/isBlockedURL';
 import { showPopup } from '../../helpers/showPopup';
 
-// TBD: Move to a better location
-import { TransactionEvent } from '../content/types';
+import { TransactionEvent } from '../../types/jsonrpc';
 
 // URL Blocking Listener
 chrome.webNavigation.onBeforeNavigate.addListener((details) => {

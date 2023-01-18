@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import detectEthereumProvider from '@metamask/detect-provider';
-import { JsonRpcRequest, JsonRpcCallback, ProviderRequest, TransactionEvent } from './types';
+import { JsonRpcRequest, JsonRpcCallback, ProviderRequest, TransactionEvent } from '../../types/jsonrpc';
 import { ExternalProvider } from '@ethersproject/providers';
 
 function triggerBlockfence(triggerType: string, requestType: string, payload: unknown) {

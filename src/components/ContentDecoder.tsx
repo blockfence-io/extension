@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import React, { useState, useEffect } from 'react';
 
-import { TxDescription, ErrorResponse } from '../shared/types';
+import { TxDescription, ErrorResponse } from '../types/api';
 
 import { Loader } from './UI/Loader';
 import * as Styled from './ContentDecoder.styles';
