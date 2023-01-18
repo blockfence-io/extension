@@ -2,6 +2,10 @@
 
 This Chrome extension allows users to decode and understand a blockchain smart contract.
 
+The extension is automatically triggered on each transaction and shows a popup with a detailed description of the transaction's contract.
+
+Additionally, you can manually query our platform by cliking on the extension icon.
+
 You can get download the official extension from [Chrome Web Extensions Store](https://chrome.google.com/webstore/category/extensions)
 
 ## Developers Mode

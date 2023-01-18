@@ -6,7 +6,7 @@ import { TxDescription, ErrorResponse } from '../types/api';
 import { Loader } from './UI/Loader';
 import * as Styled from './ContentDecoder.styles';
 
-const url = 'https://9q30xzk2r0.execute-api.us-east-1.amazonaws.com/staging/chat';
+const url = process.env.API_SERVER;
 
 interface ContentDecoderProps {
     to: string;

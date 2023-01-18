@@ -5,6 +5,7 @@ const HtmlPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const DotenvPlugin = require('dotenv-webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const env = require('./utils/env');
@@ -77,6 +78,8 @@ var options = {
         new CleanWebpackPlugin({ verbose: false }),
 
         new ESLintPlugin(),
+
+        new DotenvPlugin(),
 
         // Copy manifest.json file to build + update internal fields
         new CopyPlugin({
