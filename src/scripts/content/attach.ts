@@ -92,10 +92,8 @@ async function attach() {
         wrapSend(provider);
         wrapSendAsync(provider);
         wrapRequest(provider);
-        console.log('@@ ... Done');
     } else {
-        console.log('Please install MetaMask!');
-        console.log(document.getElementById('interpretation-and-definitions'));
+        console.log('@ No wallet found');
     }
 }
 

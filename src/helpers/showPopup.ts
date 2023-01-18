@@ -6,8 +6,6 @@ export const showPopup = async (event: TransactionEvent) => {
     if (triggerType === 'request' && requestType === 'eth_sendTransaction') {
         const searchParams = new URLSearchParams(payload as Record<string, string>);
         const popupUrl = `walletpopup.html?${searchParams.toString()}`;
-        console.log('Opening popup...');
-        console.log(popupUrl);
 
         // const currentWindow =
         await chrome.windows.getCurrent();

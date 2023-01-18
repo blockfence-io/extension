@@ -15,7 +15,6 @@ var options = {
     entry: {
         popup: path.join(__dirname, 'src', 'pages', 'Popup', 'index.tsx'),
         walletpopup: path.join(__dirname, 'src', 'pages', 'WalletPopup', 'index.tsx'),
-        blocked: path.join(__dirname, 'src', 'pages', 'Blocked', 'index.tsx'),
         background: path.join(__dirname, 'src', 'scripts', 'background', 'index.ts'),
         content: path.join(__dirname, 'src', 'scripts', 'content', 'index.ts'),
         attach: path.join(__dirname, 'src', 'scripts', 'content', 'attach.ts'),
@@ -122,13 +121,6 @@ var options = {
             template: path.join(__dirname, 'src', 'pages', 'Popup', 'index.html'),
             filename: 'popup.html',
             chunks: ['popup'],
-            cache: false,
-        }),
-
-        new HtmlPlugin({
-            template: path.join(__dirname, 'src', 'pages', 'Blocked', 'index.html'),
-            filename: 'blocked.html',
-            chunks: ['blocked'],
             cache: false,
         }),
     ],
