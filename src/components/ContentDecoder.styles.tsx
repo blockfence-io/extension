@@ -1,43 +1,15 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-    padding: 1rem;
-    display: flex;
-    justify-content: top;
-    flex-direction: column;
-    /* border: 1px solid #050344; */
-    height: 100vh;
-    width: 100vw;
-
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    color: white;
-    background: rgb(0, 0, 0);
-    background: linear-gradient(
-        170deg,
-        rgba(0, 0, 0, 1) 0%,
-        rgba(5, 3, 68, 1) 2%,
-        rgba(0, 0, 0, 1) 26%,
-        rgba(0, 0, 0, 1) 69%,
-        rgba(1, 9, 50, 1) 98%,
-        rgba(0, 0, 0, 1) 100%
-    );
-`;
-
 export const Title = styled.h1`
     font-size: 1.4rem;
     font-weight: 400;
     text-align: left;
     color: #bcffbc;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
 `;
 
-export const Description = styled.p`
-    text-align: left;
-    font-size: 0.9rem;
+export const Description = styled.span`
     font-weight: 300;
-    margin-bottom: 1rem;
 `;
 
 export const Subtitle = styled.h3`
@@ -59,10 +31,13 @@ export const Label = styled.label`
     margin-bottom: 0.3rem;
 `;
 
-export const InputError = styled.div`
-    color: #e96f6f;
-    font-size: 0.9rem;
-    margin-top: 5px;
+export const LoadingContainer = styled.div`
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
 `;
 
 export const Error = styled.div`
@@ -94,9 +69,4 @@ export const Reponse = styled.div`
     font-weight: 300;
     font-size: 0.95rem;
     line-height: 1.4;
-`;
-
-export const Form = styled.form`
-    display: flex;
-    gap: 10px;
 `;

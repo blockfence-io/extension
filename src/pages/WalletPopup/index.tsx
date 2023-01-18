@@ -1,17 +1,23 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { Button } from '../../components/Button';
-import '../../shared/reset.css';
+import { ContentDecoder } from '../../components/ContentDecoder';
 import * as Styled from './index.styled';
 
+import '../../shared/reset.css';
+import '../../shared/font.css';
+
 function Panel() {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const to = urlSearchParams.get('to');
+
     return (
         <Styled.Container>
-            <h1>blockfence</h1>
-            <h3>Checking your transaction....</h3>
-            <Button>Decline</Button>
-            <Button>Continue</Button>
+            <Styled.Title>
+                blockfence | <span style={{ fontWeight: 300 }}>contract decoder</span>
+            </Styled.Title>
+
+            {to && <ContentDecoder to={to} showAccountAddress={true} />}
         </Styled.Container>
     );
 }
