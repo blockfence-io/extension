@@ -22,7 +22,6 @@ window.addEventListener(
     'FromPage',
     function (event) {
         const details: TransactionEvent = (<any>event).detail;
-        console.log('Wallet triggered an event: ');
         chrome.runtime.sendMessage(details, function (response) {
             console.log(response);
         });

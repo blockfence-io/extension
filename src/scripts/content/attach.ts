@@ -74,8 +74,9 @@ function wrapRequest(provider: ExternalProvider) {
     const request: ProviderRequest<unknown[] | undefined> = (request) => {
         console.log('## Request Wrapper - Method', request.method);
         console.log('## Request Wrapper - Params', request.params);
+        const payload = request.params as Array<unknown>;
         if (request.method === 'eth_sendTransaction') {
-            triggerBlockfence('request', request.method, request.params);
+            triggerBlockfence('request', request.method, payload[0]);
         }
         return originalRequest(request);
     };
