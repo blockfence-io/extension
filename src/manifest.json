@@ -24,7 +24,7 @@
     "action": {
         "default_popup": "popup.html"
     },
-    "permissions": ["activeTab", "declarativeContent", "storage", "webNavigation"],
+    "permissions": ["activeTab", "declarativeContent"],
     "web_accessible_resources": [
         {
             "resources": ["attach.bundle.js"],
