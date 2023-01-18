@@ -3,7 +3,6 @@ export type TxDescription = {
     description: string;
 };
 
-export type QueryError = {
+export type ErrorResponse = {
     error: string;
 };
-

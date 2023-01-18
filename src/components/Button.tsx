@@ -1,12 +1,15 @@
 import styled from 'styled-components';
 
 export const Button = styled.button`
-    background: palevioletred;
-    color: white;
+    font-size: 0.8rem;
+    width: 25%;
+    background-color: #e5eaf7;
+    color: #28499b;
+    padding: 4px 4px;
+    border: 1px solid #28499b;
+    border-radius: 4px;
 
-    font-size: 1em;
-    margin: 1em;
-    padding: 0.25em 1em;
-    border: 2px solid palevioletred;
-    border-radius: 3px;
+    &:disabled {
+        opacity: 0.5;
+    }
 `;
