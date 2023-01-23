@@ -1,7 +1,10 @@
 import { TransactionEvent } from '../types/jsonrpc';
 
 const WALLET_NOTIFICATION_WIDTH = 360;
+
 const EXTENSION_WIDTH = 400;
+const EXTENSION_HEIGHT = 460;
+const FOCUS_TIMEOUT = 200;
 
 async function getPosition() {
     // Get opening page position
@@ -38,7 +41,7 @@ export const showPopup = async (event: TransactionEvent) => {
             top,
             left,
             width: EXTENSION_WIDTH,
-            height: 460,
+            height: EXTENSION_HEIGHT,
             focused: false, // Wallets code usually position themselves according to latest focused window
         });
 
@@ -47,6 +50,6 @@ export const showPopup = async (event: TransactionEvent) => {
             if (popupWindow.id) {
                 chrome.windows.update(popupWindow.id, { focused: true });
             }
-        }, 200);
+        }, FOCUS_TIMEOUT);
     }
 };
