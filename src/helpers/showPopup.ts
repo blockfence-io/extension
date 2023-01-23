@@ -3,7 +3,7 @@ import { TransactionEvent } from '../types/jsonrpc';
 const WALLET_NOTIFICATION_WIDTH = 360;
 
 const EXTENSION_WIDTH = 400;
-const EXTENSION_HEIGHT = 460;
+const EXTENSION_HEIGHT = 500;
 const FOCUS_TIMEOUT = 200;
 
 async function getPosition() {

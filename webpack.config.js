@@ -50,6 +50,19 @@ var options = {
                 exclude: /node_modules/,
             },
 
+            // SVG Images
+            {
+                test: /\.svg$/i,
+                type: 'asset',
+                resourceQuery: /url/, // *.svg?url
+            },
+            {
+                test: /\.svg$/i,
+                issuer: /\.[jt]sx?$/,
+                resourceQuery: { not: [/url/] }, // exclude react component if *.svg?url
+                use: ['@svgr/webpack'],
+            },
+
             // TypeScript
             { test: /\.(ts|tsx)$/, loader: 'ts-loader', exclude: /node_modules/ },
 
@@ -70,7 +83,7 @@ var options = {
     },
 
     resolve: {
-        extensions: ['.tsx', '.ts', '.js'],
+        extensions: ['.tsx', '.ts', '.js', '.svg'],
     },
 
     plugins: [
