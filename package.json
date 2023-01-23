@@ -1,6 +1,6 @@
 {
     "name": "blockfence",
-    "version": "0.1.0",
+    "version": "0.1.2",
     "description": "Blockfence chrome extensions",
     "scripts": {
         "dev": "webpack --watch",
