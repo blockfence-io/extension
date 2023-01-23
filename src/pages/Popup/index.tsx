@@ -5,6 +5,7 @@ import * as Styled from './index.styled';
 import { Button } from '../../components/UI/Button';
 import { Input } from '../../components/UI/Input';
 import { ContentDecoder } from '../../components/ContentDecoder';
+import { WebsiteURL } from '../../components/WebsiteURL';
 import '../../shared/reset.css';
 import '../../shared/font.css';
 
@@ -22,7 +23,6 @@ function Panel() {
             <Styled.Title>
                 blockfence | <Styled.Description>contract decoder</Styled.Description>
             </Styled.Title>
-
             <Styled.Label>Smart Contract Address</Styled.Label>
             <Styled.Form onSubmit={handleSubmit}>
                 <Input type='text' value={input} onChange={(e) => setInput(e.target.value)} style={{ flex: 1 }} />
@@ -30,12 +30,11 @@ function Panel() {
                     Send
                 </Button>
             </Styled.Form>
-
             {to === '' && (
                 <Styled.Help>Enter an address to find out more about a smart contract and how it works</Styled.Help>
             )}
-
             {to && <ContentDecoder to={to} showAccountAddress={false} />}
+            <WebsiteURL />
         </Styled.Container>
     );
 }

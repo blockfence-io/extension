@@ -85,7 +85,7 @@ export function ContentDecoder({ to, showAccountAddress }: ContentDecoderProps) 
                     <Styled.Subtitle>Contract Name</Styled.Subtitle>
                     <Styled.Reponse>{result.name}</Styled.Reponse>
                     <Styled.Subtitle>Contract Description</Styled.Subtitle>
-                    <Styled.Reponse>{result.description}</Styled.Reponse>
+                    <Styled.Reponse style={{ flex: 1 }}>{result.description}</Styled.Reponse>
                 </>
             )}
         </>
