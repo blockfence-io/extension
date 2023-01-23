@@ -1,7 +1,30 @@
 import { TransactionEvent } from '../types/jsonrpc';
 
+const WALLET_NOTIFICATION_WIDTH = 360;
+const EXTENSION_WIDTH = 400;
+
+async function getPosition() {
+    // Get opening page position
+    const latestWindow = await chrome.windows.getLastFocused();
+
+    if (
+        latestWindow.left !== undefined &&
+        latestWindow.top !== undefined &&
+        latestWindow.width !== undefined &&
+        latestWindow.height !== undefined
+    ) {
+        const top = latestWindow.top;
+        const left = latestWindow.left + latestWindow.width - WALLET_NOTIFICATION_WIDTH - EXTENSION_WIDTH;
+        return { top, left };
+    }
+
+    return { top: 100, left: 100 };
+}
+
 export const showPopup = async (event: TransactionEvent) => {
     const { triggerType, requestType, payload } = event;
+
+    const { top, left } = await getPosition();
 
     if (triggerType === 'request' && requestType === 'eth_sendTransaction') {
         const searchParams = new URLSearchParams(payload as Record<string, string>);
@@ -9,14 +32,21 @@ export const showPopup = async (event: TransactionEvent) => {
 
         // const currentWindow =
         await chrome.windows.getCurrent();
-        // const popupWindow =
-        await chrome.windows.create({
+        const popupWindow = await chrome.windows.create({
             url: popupUrl,
             type: 'popup',
-            top: 100,
-            left: 100,
-            width: 400,
+            top,
+            left,
+            width: EXTENSION_WIDTH,
             height: 460,
+            focused: false, // Wallets code usually position themselves according to latest focused window
         });
+
+        // Make sure popup window is focused
+        setTimeout(() => {
+            if (popupWindow.id) {
+                chrome.windows.update(popupWindow.id, { focused: true });
+            }
+        }, 200);
     }
 };
