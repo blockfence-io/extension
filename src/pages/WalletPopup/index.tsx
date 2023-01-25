@@ -2,7 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 
 import { ContentDecoder } from '../../components/ContentDecoder';
-import { WebsiteURL } from '../../components/WebsiteURL';
+import { WebsiteURL, GithubURL } from '../../components/WebsiteURL';
 import * as Styled from './index.styled';
 
 import '../../shared/reset.css';
@@ -19,7 +19,10 @@ function Panel() {
             </Styled.Title>
 
             {to && <ContentDecoder to={to} showAccountAddress={true} />}
-            <WebsiteURL />
+            <Styled.Footer>
+                <WebsiteURL />
+                <GithubURL />
+            </Styled.Footer>
         </Styled.Container>
     );
 }

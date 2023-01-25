@@ -6,9 +6,9 @@ import { Button } from '../../components/UI/Button';
 import { Input } from '../../components/UI/Input';
 import { ContentDecoder } from '../../components/ContentDecoder';
 import { GithubURL, WebsiteURL } from '../../components/WebsiteURL';
+import { NetworkSelector } from '../../components/NetworkSelector';
 import '../../shared/reset.css';
 import '../../shared/font.css';
-import { NetworkSelector } from '../../components/UI/NetworkSelector';
 
 function Panel() {
     const [input, setInput] = useState('');
@@ -39,7 +39,9 @@ function Panel() {
                 <Styled.Help>Enter an address to find out more about a smart contract and how it works</Styled.Help>
             )}
             {to && <ContentDecoder to={to} showAccountAddress={false} />}
-
+            {/* <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Radio onChange={(e) => {}} label='Automatically track transactions' />
+            </div> */}
             <Styled.Footer>
                 <WebsiteURL />
                 <GithubURL />

@@ -10,7 +10,7 @@ export const Container = styled.div`
     user-select: none;
 
     &:hover {
-        background: #bcffbc47;
+        background: #bcffbc40;
     }
 `;
 
