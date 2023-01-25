@@ -1,4 +1,4 @@
-import { TransactionEvent } from '../types/jsonrpc';
+import { TransactionEvent } from '../types/internal';
 
 const WALLET_NOTIFICATION_WIDTH = 360;
 
@@ -24,13 +24,13 @@ async function getPosition() {
     return { top: 100, left: 100 };
 }
 
-export const showPopup = async (event: TransactionEvent) => {
+export const showPopup = async (chainId: string, event: TransactionEvent) => {
     const { triggerType, requestType, payload } = event;
-
     const { top, left } = await getPosition();
 
     if (triggerType === 'request' && requestType === 'eth_sendTransaction') {
-        const searchParams = new URLSearchParams(payload as Record<string, string>);
+        const data: Record<string, string> = { chainId, ...(payload as Record<string, string>) };
+        const searchParams = new URLSearchParams(data);
         const popupUrl = `walletpopup.html?${searchParams.toString()}`;
 
         // const currentWindow =

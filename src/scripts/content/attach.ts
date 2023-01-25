@@ -1,14 +1,26 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import detectEthereumProvider from '@metamask/detect-provider';
-import { JsonRpcRequest, JsonRpcCallback, ProviderRequest, TransactionEvent } from '../../types/jsonrpc';
 import { ExternalProvider } from '@ethersproject/providers';
 
-function triggerBlockfence(triggerType: string, requestType: string, payload: unknown) {
-    const message: TransactionEvent = {
-        triggerType,
-        requestType,
-        payload,
+import { JsonRpcRequest, JsonRpcCallback, ProviderRequest } from '../../types/jsonrpc';
+import { InternalMessage, InternalMessageType } from '../../types/internal';
+
+function triggerUpdateChainID(chainId: number) {
+    const message: InternalMessage = {
+        type: InternalMessageType.UpdateChainIDEvent,
+        event: { chainId },
     };
+
+    const event = new CustomEvent('FromPage', { detail: message });
+    window.dispatchEvent(event);
+}
+
+function triggerBlockfence(triggerType: string, requestType: string, payload: unknown) {
+    const message: InternalMessage = {
+        type: InternalMessageType.TransactionEvent,
+        event: { triggerType, requestType, payload },
+    };
+
     const event = new CustomEvent('FromPage', { detail: message });
     window.dispatchEvent(event);
 }
@@ -86,6 +98,13 @@ function wrapRequest(provider: ExternalProvider) {
     provider.request = request;
 }
 
+async function updateChainID(provider: ExternalProvider) {
+    if (!provider.request) return;
+
+    const chainId = await provider.request({ method: 'eth_chainId' });
+    triggerUpdateChainID(chainId);
+}
+
 async function attach() {
     const provider = await detectEthereumProvider();
 
@@ -93,6 +112,7 @@ async function attach() {
         wrapSend(provider);
         wrapSendAsync(provider);
         wrapRequest(provider);
+        updateChainID(provider);
     } else {
         console.log('@ No wallet found');
     }
