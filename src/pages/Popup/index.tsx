@@ -13,7 +13,7 @@ import '../../shared/font.css';
 function Panel() {
     const [input, setInput] = useState('');
     const [to, setTo] = useState('');
-    const [network, setNetwork] = useState(1);
+    const [chainId, setChainId] = useState('0x1');
 
     async function handleSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -27,7 +27,7 @@ function Panel() {
             </Styled.Title>
             <Styled.Label>Smart Contract Address</Styled.Label>
             <Styled.Form onSubmit={handleSubmit}>
-                <NetworkSelector onChange={setNetwork} />
+                <NetworkSelector onChange={setChainId} />
 
                 <Input type='text' value={input} onChange={(e) => setInput(e.target.value)} style={{ flex: 1 }} />
                 <Button type='submit' disabled={input === '' || input === to}>
@@ -38,7 +38,7 @@ function Panel() {
             {to === '' && (
                 <Styled.Help>Enter an address to find out more about a smart contract and how it works</Styled.Help>
             )}
-            {to && <ContentDecoder to={to} showAccountAddress={false} />}
+            {to && <ContentDecoder chainId={chainId} to={to} showAccountAddress={false} />}
             {/* <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <Radio onChange={(e) => {}} label='Automatically track transactions' />
             </div> */}

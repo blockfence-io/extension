@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import * as Styled from './NetworkSelector.styles';
 
 const OPTIONS = [
-    { name: 'Mainnet', value: 1 },
-    { name: 'Goerli', value: 5 },
-    { name: 'Sepolia', value: 11155111 },
+    { name: 'Mainnet', value: '0x1' },
+    { name: 'Goerli', value: '0x5' },
+    { name: 'Sepolia', value: '0x0xaa36a7' },
 ];
 
 interface NetworkSelectorProps {
-    onChange: (value: number) => void;
+    onChange: (value: string) => void;
 }
 
 export function NetworkSelector({ onChange }: NetworkSelectorProps) {
@@ -31,6 +31,7 @@ export function NetworkSelector({ onChange }: NetworkSelectorProps) {
                             key={option.value}
                             onClick={() => {
                                 setNetwork(option);
+                                onChange(option.value);
                                 setHidden(true);
                             }}
                         >

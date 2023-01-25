@@ -11,6 +11,7 @@ import '../../shared/font.css';
 function Panel() {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const to = urlSearchParams.get('to');
+    const chainId: string = urlSearchParams.get('chainId') || '0x1';
 
     return (
         <Styled.Container>
@@ -18,7 +19,7 @@ function Panel() {
                 blockfence | <span style={{ fontWeight: 300 }}>contract decoder</span>
             </Styled.Title>
 
-            {to && <ContentDecoder to={to} showAccountAddress={true} />}
+            {to && <ContentDecoder chainId={chainId} to={to} showAccountAddress={true} />}
             <Styled.Footer>
                 <WebsiteURL />
                 <GithubURL />
