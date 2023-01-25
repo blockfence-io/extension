@@ -5,13 +5,15 @@ import * as Styled from './index.styled';
 import { Button } from '../../components/UI/Button';
 import { Input } from '../../components/UI/Input';
 import { ContentDecoder } from '../../components/ContentDecoder';
-import { WebsiteURL } from '../../components/WebsiteURL';
+import { GithubURL, WebsiteURL } from '../../components/WebsiteURL';
 import '../../shared/reset.css';
 import '../../shared/font.css';
+import { NetworkSelector } from '../../components/UI/NetworkSelector';
 
 function Panel() {
     const [input, setInput] = useState('');
     const [to, setTo] = useState('');
+    const [network, setNetwork] = useState(1);
 
     async function handleSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -25,16 +27,23 @@ function Panel() {
             </Styled.Title>
             <Styled.Label>Smart Contract Address</Styled.Label>
             <Styled.Form onSubmit={handleSubmit}>
+                <NetworkSelector onChange={setNetwork} />
+
                 <Input type='text' value={input} onChange={(e) => setInput(e.target.value)} style={{ flex: 1 }} />
                 <Button type='submit' disabled={input === '' || input === to}>
                     Send
                 </Button>
             </Styled.Form>
+
             {to === '' && (
                 <Styled.Help>Enter an address to find out more about a smart contract and how it works</Styled.Help>
             )}
             {to && <ContentDecoder to={to} showAccountAddress={false} />}
-            <WebsiteURL />
+
+            <Styled.Footer>
+                <WebsiteURL />
+                <GithubURL />
+            </Styled.Footer>
         </Styled.Container>
     );
 }
