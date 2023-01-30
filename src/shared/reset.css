@@ -1,9 +1,6 @@
 html {
     box-sizing: border-box;
     font-size: 16px;
-
-    color: white;
-    background: rgb(0, 0, 0);
 }
 
 *,
@@ -38,12 +35,5 @@ img {
 }
 
 a {
-    font-weight: 300;
     color: white;
-    text-decoration: none;
-    opacity: 0.8;
-}
-
-a:hover {
-    opacity: 1;
 }

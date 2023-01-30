@@ -1,10 +1,22 @@
 import styled from 'styled-components';
 
 export const Input = styled.input`
-    font-size: 0.8rem;
-    padding: 4px 4px;
-    box-sizing: border-box;
-    border: 1px solid #28499b;
-    border-radius: 4px;
-    color: #28499b;
+    padding: 6px 6px;
+    color: white;
+
+    border: none;
+    background: none;
+
+    border-bottom: 1px solid #ffffff80;
+    transition: 0.2s;
+
+    &::placeholder {
+        color: #ffffffc2;
+    }
+
+    &:focus {
+        border-bottom: 1px solid #ffffff;
+        outline: none;
+        background: #ffffff1a;
+    }
 `;

@@ -3,7 +3,9 @@ import React, { useState, useEffect } from 'react';
 
 import { TxDescription, ErrorResponse } from '../types/api';
 
+import { Header } from './Header';
 import { Loader } from './UI/Loader';
+
 import * as Styled from './ContentDecoder.styles';
 
 const url = process.env.API_SERVER;
@@ -74,6 +76,8 @@ export function ContentDecoder({ chainId = '1', to, showAccountAddress }: Conten
                     <div>Whoops! It looks like we have encountered an unexpected error</div>
                 </Styled.Error>
             )}
+
+            {result && <Header to={to} network='Ethereum Mainnet' />}
 
             {result && showAccountAddress && (
                 <>

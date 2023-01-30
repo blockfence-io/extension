@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-    padding: 1rem;
-    min-width: 350px;
+    padding: 0;
+    min-width: 376px;
     min-height: 400px;
     display: flex;
     justify-content: top;
