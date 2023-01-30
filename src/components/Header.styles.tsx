@@ -9,8 +9,6 @@ export const Container = styled.div<RiskProps>`
     color: white;
     background: ${(props) => (props.severity ? theme.riskText[props.severity] : theme.riskText.normal)};
 
-    width: 376px;
-
     display: flex;
     flex-direction: column;
     padding: 16px 20px 0 20px;
