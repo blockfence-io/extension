@@ -32,5 +32,5 @@ You can load it to Chrome by:
 To run Ladle stories:
 
 ```
-pnpm ladle serve
+npm run ladle
 ```

@@ -64,11 +64,12 @@ var options = {
             },
 
             // TypeScript
-            { test: /\.(ts|tsx)$/, loader: 'ts-loader', exclude: /node_modules/ },
+            { test: /\.(ts|tsx)$/, exclude: [/node_modules/, /\.stories\.tsx$/], loader: 'ts-loader' },
 
             // React JSX
             {
                 test: /\.(js|jsx)$/,
+                exclude: [/node_modules/, /\.stories\.jsx$/],
                 use: [
                     {
                         loader: 'source-map-loader',
@@ -77,7 +78,6 @@ var options = {
                         loader: 'babel-loader',
                     },
                 ],
-                exclude: /node_modules/,
             },
         ],
     },
