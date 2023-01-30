@@ -26,3 +26,11 @@ You can load it to Chrome by:
 2. Enable **Developer mode**
 3. Click on **[Load unpacked]**
 4. Choose the `build` folder
+
+### Ladle UI Stories
+
+To run Ladle stories:
+
+```
+pnpm ladle serve
+```
