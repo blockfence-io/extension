@@ -5,6 +5,7 @@ import { TxDescription, ErrorResponse } from '../types/api';
 
 import { Header } from './Header';
 import { Loader } from './UI/Loader';
+import { Collapsable } from './UI/Collapsable';
 
 import * as Styled from './ContentDecoder.styles';
 
@@ -79,20 +80,20 @@ export function ContentDecoder({ chainId = '1', to, showAccountAddress }: Conten
 
             {result && <Header to={to} network='Ethereum Mainnet' />}
 
-            {result && showAccountAddress && (
+            {/* {false && result && showAccountAddress && (
                 <>
                     <Styled.Subtitle>Contract Address</Styled.Subtitle>
                     <Styled.Reponse>{to}</Styled.Reponse>
                 </>
-            )}
+            )} */}
 
             {result && (
-                <>
-                    <Styled.Subtitle>Contract Name</Styled.Subtitle>
-                    <Styled.Reponse>{result.name}</Styled.Reponse>
-                    <Styled.Subtitle>Contract Description</Styled.Subtitle>
-                    <Styled.Reponse style={{ flex: 1 }}>{result.description}</Styled.Reponse>
-                </>
+                <Styled.Results>
+                    <Collapsable title='Spotlight'>
+                        <Styled.ContractName>{result.name}</Styled.ContractName>
+                        {result.description}
+                    </Collapsable>
+                </Styled.Results>
             )}
         </>
     );

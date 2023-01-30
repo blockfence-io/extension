@@ -6,7 +6,7 @@ export const Container = styled.div`
     align-items: center;
     gap: 10px;
     font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(0, 0, 0, 0.8);
 `;
 
 export const Slider = styled.span`

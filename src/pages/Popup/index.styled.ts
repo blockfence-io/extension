@@ -7,19 +7,6 @@ export const Container = styled.div`
     display: flex;
     justify-content: top;
     flex-direction: column;
-    /* border: 1px solid #050344; */
-
-    color: white;
-    background: rgb(0, 0, 0);
-    background: linear-gradient(
-        170deg,
-        rgba(0, 0, 0, 1) 0%,
-        rgba(5, 3, 68, 1) 2%,
-        rgba(0, 0, 0, 1) 26%,
-        rgba(0, 0, 0, 1) 69%,
-        rgba(1, 9, 50, 1) 98%,
-        rgba(0, 0, 0, 1) 100%
-    );
 `;
 
 export const Title = styled.h1`

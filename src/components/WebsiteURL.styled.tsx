@@ -6,7 +6,7 @@ export const Link = styled.a`
     gap: 6px;
 
     & svg {
-        fill: white;
+        fill: black;
         width: 14px;
     }
 `;
