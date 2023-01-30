@@ -7,7 +7,7 @@ interface RiskProps {
 
 export const Container = styled.div<RiskProps>`
     color: white;
-    background: ${(props) => (props.severity ? theme.riskText[props.severity] : theme.riskText.normal)};
+    background: ${(props) => (props.severity ? theme.riskBackground[props.severity] : theme.riskText.normal)};
 
     display: flex;
     flex-direction: column;
