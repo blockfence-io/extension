@@ -1,5 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@300;400;600&display=swap');
+@font-face {
+    font-family: 'Metropolis';
+    src: url('../assets/font/Metropolis-ExtraLight.woff2') format('woff2');
+    font-weight: 300; /* 300 */
+}
+
+@font-face {
+    font-family: 'Metropolis';
+    src: url('../assets/font/Metropolis-Regular.woff2') format('woff2');
+    font-weight: normal; /* 400 */
+}
+
+@font-face {
+    font-family: 'Metropolis';
+    src: url('../assets/font/Metropolis-Medium.woff2') format('woff2');
+    font-weight: bold; /* 700 */
+}
 
 body {
-    font-family: 'Sofia Sans', sans-serif;
+    font-family: 'Metropolis', sans-serif;
 }
