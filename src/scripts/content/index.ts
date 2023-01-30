@@ -4,7 +4,7 @@
     * Injected Script runs in the 'page' level and not in the 'content script' level
         * Page can't access the chrome.runtime or other extension API
 */
-import { TransactionEvent } from '../../types/jsonrpc';
+import { InternalMessage } from '../../types/internal';
 
 // Attach on Page scope
 function injectScript(url: string) {
@@ -20,7 +20,7 @@ function injectScript(url: string) {
 // Listen for page level events
 window.addEventListener(
     'FromPage',
-    function (event: CustomEventInit<TransactionEvent>) {
+    function (event: CustomEventInit<InternalMessage>) {
         chrome.runtime.sendMessage(event.detail, function (response) {
             console.log(response);
         });

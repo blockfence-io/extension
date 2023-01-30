@@ -100,3 +100,10 @@ export const Form = styled.form`
     display: flex;
     gap: 10px;
 `;
+
+export const Footer = styled.div`
+    margin-top: 0.5rem;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+`;

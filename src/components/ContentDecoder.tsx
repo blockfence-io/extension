@@ -9,11 +9,12 @@ import * as Styled from './ContentDecoder.styles';
 const url = process.env.API_SERVER;
 
 interface ContentDecoderProps {
+    chainId?: string;
     to: string;
     showAccountAddress: boolean;
 }
 
-export function ContentDecoder({ to, showAccountAddress }: ContentDecoderProps) {
+export function ContentDecoder({ chainId = '1', to, showAccountAddress }: ContentDecoderProps) {
     const [result, setResult] = useState<TxDescription | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
@@ -29,6 +30,7 @@ export function ContentDecoder({ to, showAccountAddress }: ContentDecoderProps) 
                 method: 'post',
                 url,
                 data: {
+                    chain_id: chainId,
                     transaction: {
                         to,
                     },
@@ -54,7 +56,7 @@ export function ContentDecoder({ to, showAccountAddress }: ContentDecoderProps) 
         if (to) {
             fetchData();
         }
-    }, [to]);
+    }, [to, chainId]);
 
     return (
         <>

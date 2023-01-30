@@ -61,3 +61,10 @@ export const Help = styled.div`
     opacity: 0.7;
     user-select: none;
 `;
+
+export const Footer = styled.div`
+    margin-top: 0.5rem;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+`;
