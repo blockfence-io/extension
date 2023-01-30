@@ -7,14 +7,18 @@
 import { InternalMessage } from '../../types/internal';
 
 // Attach on Page scope
-function injectScript(url: string) {
-    const script = document.createElement('script');
-    script.src = chrome.runtime.getURL(url);
-    script.async = false;
-    script.type = 'module';
+async function injectScript(url: string) {
+    const storage = await chrome.storage.local.get('enableHooks');
 
-    const node = document.head || document.documentElement;
-    node.prepend(script);
+    if (storage.enableHooks) {
+        const script = document.createElement('script');
+        script.src = chrome.runtime.getURL(url);
+        script.async = false;
+        script.type = 'module';
+
+        const node = document.head || document.documentElement;
+        node.prepend(script);
+    }
 }
 
 // Listen for page level events
