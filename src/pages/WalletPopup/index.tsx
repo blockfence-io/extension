@@ -15,10 +15,6 @@ function Panel() {
 
     return (
         <Styled.Container>
-            <Styled.Title>
-                blockfence | <span style={{ fontWeight: 300 }}>contract decoder</span>
-            </Styled.Title>
-
             {to && <ContentDecoder chainId={chainId} to={to} showAccountAddress={true} />}
             <Styled.Footer>
                 <WebsiteURL />

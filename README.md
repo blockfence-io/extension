@@ -8,7 +8,7 @@ The extension is automatically triggered on each transaction and shows a popup w
 
 Additionally, you can manually query our platform by cliking on the extension icon.
 
-You can get the official extension from [Chrome Web Store](https://chrome.google.com/webstore/category/extensions)
+You can get the official extension from [Chrome Web Store](https://chrome.google.com/webstore/detail/blockfence/cpgbcelefhmacblaocimfilfnchkghba)
 
 ## Developers Mode
 
@@ -26,3 +26,11 @@ You can load it to Chrome by:
 2. Enable **Developer mode**
 3. Click on **[Load unpacked]**
 4. Choose the `build` folder
+
+### Ladle UI Stories
+
+To run Ladle stories:
+
+```
+npm run ladle
+```

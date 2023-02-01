@@ -32,5 +32,7 @@ window.addEventListener(
     false
 );
 
+console.log('@@@ Show ppoupp');
+
 /* Inject wallet attach script */
 injectScript('attach.bundle.js');
