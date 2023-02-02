@@ -3,7 +3,8 @@ import { createRoot } from 'react-dom/client';
 
 import { ContentDecoder } from '../../components/ContentDecoder';
 import { WebsiteURL, GithubURL } from '../../components/WebsiteURL';
-import * as Styled from './index.styled';
+
+import * as Layout from '../../components/Layout.styles';
 
 import '../../shared/reset.css';
 import '../../shared/font.css';
@@ -14,13 +15,13 @@ function Panel() {
     const chainId: string = urlSearchParams.get('chainId') || '0x1';
 
     return (
-        <Styled.Container>
-            {to && <ContentDecoder chainId={chainId} to={to} />}
-            <Styled.Footer>
+        <Layout.Container style={{ minHeight: 'initial' }}>
+            <Layout.Body>{to && <ContentDecoder chainId={chainId} to={to} />}</Layout.Body>
+            <Layout.Footer>
                 <WebsiteURL />
                 <GithubURL />
-            </Styled.Footer>
-        </Styled.Container>
+            </Layout.Footer>
+        </Layout.Container>
     );
 }
 

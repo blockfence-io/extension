@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import * as Styled from './index.styled';
 import { Radio } from '../../components/UI/Radio';
 import { ContentDecoder } from '../../components/ContentDecoder';
 import { GithubURL, WebsiteURL } from '../../components/WebsiteURL';
+import { SearchBar } from '../../components/SearchBar';
+
+import * as Layout from '../../components/Layout.styles';
+import * as Styled from './index.styled';
 
 import '../../shared/reset.css';
 import '../../shared/font.css';
-import { SearchBar } from '../../components/SearchBar';
 
 function Panel() {
     const [to, setTo] = useState('');
@@ -35,30 +37,30 @@ function Panel() {
     }, []);
 
     return (
-        <Styled.Container>
-            <Styled.Header>
+        <Layout.Container>
+            <Layout.Header>
                 <SearchBar onClick={handleClick} />
-            </Styled.Header>
+            </Layout.Header>
 
-            <Styled.Body>
+            <Layout.Body>
                 {to === '' && (
                     <Styled.Help>Enter an address to find out more about a smart contract and how it works</Styled.Help>
                 )}
                 {to && <ContentDecoder chainId={chainId} to={to} />}
-                {/* <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1rem' }}>
                     <Radio
                         onChange={updateSettings}
                         value={enableHooks || false}
                         disabled={enableHooks === null}
                         label='Notify on every transaction'
                     />
-                </div> */}
-            </Styled.Body>
-            <Styled.Footer>
+                </div>
+            </Layout.Body>
+            <Layout.Footer>
                 <WebsiteURL />
                 <GithubURL />
-            </Styled.Footer>
-        </Styled.Container>
+            </Layout.Footer>
+        </Layout.Container>
     );
 }
 
