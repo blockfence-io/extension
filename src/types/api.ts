@@ -10,11 +10,11 @@ export type ErrorResponse = {
 export type Severity = 'NONE' | 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
 
 export type Risk = {
-    AnalyzerName: string;
-    Icon: string;
-    Severity: Severity;
-    Findings: {
-        Description: string;
+    analyzerName: string;
+    icon: string;
+    severity: Severity;
+    findings: {
+        description: string;
     }[];
 };
 

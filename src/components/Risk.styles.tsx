@@ -33,7 +33,7 @@ export const Title = styled.div`
 
 export const Severity = styled.div`
     font-weight: 700;
-    color: ${theme.riskText.medium};
+    color: ${theme.riskText.MEDIUM};
 `;
 
 export const Icon = styled.div``;

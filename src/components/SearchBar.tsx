@@ -3,11 +3,12 @@ import React, { useState } from 'react';
 import { Button } from './UI/Button';
 import { Input } from './UI/Input';
 import { NetworkSelector } from './NetworkSelector';
+import { Severity } from '../types/api';
 
 import * as Styled from './SearchBar.styles';
 
 interface SearchBarProps {
-    severity?: undefined | 'medium' | 'high';
+    severity?: undefined | Severity;
     onClick: (chainId: string, to: string) => void;
 }
 

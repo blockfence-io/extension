@@ -79,7 +79,7 @@ export function ContentDecoder({ chainId = '1', to }: ContentDecoderProps) {
                 </Styled.Error>
             )}
 
-            {result && <Header to={to} network='Ethereum Mainnet' />}
+            {result && <Header to={to} network='Ethereum Mainnet' severity={result ? result.severity : 'NONE'} />}
 
             {result && (
                 <Styled.Results>

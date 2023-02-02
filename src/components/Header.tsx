@@ -9,10 +9,10 @@ interface HeaderProps {
     network: string;
     to: string;
     url?: string | undefined;
-    severity: Types.Severity;
+    severity?: Types.Severity | undefined;
 }
 
-const severityTitle = {
+const severityTitle: { [key in Types.Severity]: string } = {
     NONE: 'No risks found',
     LOW: 'Low Risk',
     MEDIUM: 'Medium Risk',
@@ -41,7 +41,7 @@ export function Header({ url, network, to, severity }: HeaderProps) {
             </Styled.InfoList>
 
             <Styled.Fill />
-            <Styled.Risk severity={severity}>{severity ? severityTitle[severity] : 'No risks found'}</Styled.Risk>
+            <Styled.Risk severity={severity}>{severity ? severityTitle[severity] : ''}</Styled.Risk>
         </Styled.Container>
     );
 }
