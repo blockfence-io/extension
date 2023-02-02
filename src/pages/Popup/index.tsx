@@ -41,7 +41,7 @@ function Panel() {
             {to === '' && (
                 <Styled.Help>Enter an address to find out more about a smart contract and how it works</Styled.Help>
             )}
-            {to && <ContentDecoder chainId={chainId} to={to} showAccountAddress={false} />}
+            {to && <ContentDecoder chainId={chainId} to={to} />}
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1rem' }}>
                 <Radio
                     onChange={updateSettings}

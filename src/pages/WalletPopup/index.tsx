@@ -15,7 +15,7 @@ function Panel() {
 
     return (
         <Styled.Container>
-            {to && <ContentDecoder chainId={chainId} to={to} showAccountAddress={true} />}
+            {to && <ContentDecoder chainId={chainId} to={to} />}
             <Styled.Footer>
                 <WebsiteURL />
                 <GithubURL />

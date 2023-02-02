@@ -1,16 +1,13 @@
 import styled from 'styled-components';
+import * as theme from '../shared/theme';
 
 export const Container = styled.div`
-    border: 1px solid #dadce0;
-    border-radius: 5px;
-
     display: flex;
     flex-direction: column;
-    padding: 14px;
-    gap: 16px;
+    margin: 2px 10px;
 
     &:not(:last-child) {
-        margin-bottom: 20px;
+        border-bottom: 1px ${theme.fieldBorder} solid;
     }
 `;
 
@@ -20,20 +17,35 @@ export const Header = styled.div`
 
     display: flex;
     flex-direction: row;
+    align-items: center;
+    gap: 8px;
 
     user-select: none;
     cursor: pointer;
+
+    padding: 8px 0;
 `;
 
 export const Title = styled.div`
     flex: 1;
+    font-weight: 300;
+`;
+
+export const Severity = styled.div`
+    font-weight: 700;
+    color: ${theme.riskText.medium};
 `;
 
 export const Icon = styled.div``;
 
+export const Action = styled.div``;
+
 export const Body = styled.div`
-    font-weight: 300;
+    font-weight: normal;
     font-size: 14px;
-    line-height: 18px;
+    line-height: 24px;
     color: #707070;
+    margin-bottom: 16px;
 `;
+
+export const Finding = styled.div``;

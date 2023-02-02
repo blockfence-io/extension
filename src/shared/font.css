@@ -16,6 +16,12 @@
     font-weight: bold; /* 700 */
 }
 
+@font-face {
+    font-family: 'Metropolis';
+    src: url('../assets/font/Metropolis-SemiBold.woff2') format('woff2');
+    font-weight: 800;
+}
+
 body {
     font-family: 'Metropolis', sans-serif;
 }
