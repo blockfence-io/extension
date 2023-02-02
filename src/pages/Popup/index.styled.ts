@@ -8,8 +8,7 @@ export const Container = styled.div`
     height: 100vh;
     width: 100vw;
     min-width: 376px;
-    min-height: 400px;
-    height: 550px;
+    min-height: 550px;
 `;
 
 export const Header = styled.header`
