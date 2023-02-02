@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Results = styled.div`
     padding: 20px;
+    overflow-y: auto;
 `;
 
 export const Subtitle = styled.h3`

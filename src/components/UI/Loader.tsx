@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import LoaderAnimation from '../../assets/loader.svg';
 
 const Container = styled.div`
     width: 100%;
@@ -7,7 +8,7 @@ const Container = styled.div`
     margin: 8px 0;
     text-align: center;
     font-size: 18px;
-    color: white;
+    color: black;
     justify-content: top;
     flex-direction: column;
     align-items: center;
@@ -25,7 +26,7 @@ const Elipsis = styled.div`
         width: 13px;
         height: 13px;
         border-radius: 50%;
-        background: #fff;
+        background: black;
         animation-timing-function: cubic-bezier(0, 1, 1, 0);
     }
     & div:nth-child(1) {
@@ -74,12 +75,7 @@ const Elipsis = styled.div`
 export function Loader() {
     return (
         <Container>
-            <Elipsis>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </Elipsis>
+            <LoaderAnimation />
         </Container>
     );
 }

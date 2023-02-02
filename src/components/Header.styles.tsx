@@ -1,13 +1,16 @@
 import styled from 'styled-components';
+
+import { Link } from './UI/Link';
+import * as Types from '../types/api';
 import * as theme from '../shared/theme';
 
 interface RiskProps {
-    severity: undefined | 'medium' | 'high';
+    severity: Types.Severity | undefined;
 }
 
 export const Container = styled.div<RiskProps>`
     color: white;
-    background: ${(props) => (props.severity ? theme.riskBackground[props.severity] : theme.riskText.normal)};
+    background: ${(props) => (props.severity ? theme.riskBackground[props.severity] : theme.riskText.NONE)};
 
     display: flex;
     flex-direction: column;
@@ -15,6 +18,10 @@ export const Container = styled.div<RiskProps>`
     gap: 16px;
 
     font-size: 12px;
+
+    & > ${Link} {
+        color: white;
+    }
 `;
 
 export const InfoList = styled.div`
@@ -27,7 +34,7 @@ export const Risk = styled.div<RiskProps>`
     font-weight: bold;
     border-radius: 5px 5px 0px 0px;
 
-    color: ${(props) => (props.severity ? theme.riskText[props.severity] : theme.riskText.normal)};
+    color: ${(props) => (props.severity ? theme.riskText[props.severity] : theme.riskText.NONE)};
     background: white;
     text-align: center;
     padding: 14px;

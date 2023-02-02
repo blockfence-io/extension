@@ -8,7 +8,7 @@ interface CollapsableProps {
     defaultState?: boolean;
 }
 
-export function Collapsable({ title, children, defaultState = true }: CollapsableProps) {
+export function Collapsable({ title, children, defaultState = false }: CollapsableProps) {
     const [visible, setVisible] = useState(defaultState);
 
     function toggle() {

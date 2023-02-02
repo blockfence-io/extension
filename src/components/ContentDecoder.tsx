@@ -1,24 +1,24 @@
 import axios, { AxiosError } from 'axios';
 import React, { useState, useEffect } from 'react';
 
-import { TxDescription, ErrorResponse } from '../types/api';
+import { EngineResponse, ErrorResponse } from '../types/api';
 
 import { Header } from './Header';
 import { Loader } from './UI/Loader';
 import { Collapsable } from './UI/Collapsable';
+import { Risk } from './Risk';
 
 import * as Styled from './ContentDecoder.styles';
 
-const url = process.env.API_SERVER;
+const BASE_URL = process.env.API_SERVER;
 
 interface ContentDecoderProps {
     chainId?: string;
     to: string;
-    showAccountAddress: boolean;
 }
 
-export function ContentDecoder({ chainId = '1', to, showAccountAddress }: ContentDecoderProps) {
-    const [result, setResult] = useState<TxDescription | null>(null);
+export function ContentDecoder({ chainId = '1', to }: ContentDecoderProps) {
+    const [result, setResult] = useState<EngineResponse | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [fatalError, setFatalError] = useState<boolean>(false);
@@ -31,8 +31,9 @@ export function ContentDecoder({ chainId = '1', to, showAccountAddress }: Conten
         try {
             const response = await axios({
                 method: 'post',
-                url,
+                url: BASE_URL,
                 data: {
+                    plugin: 'BROWSER',
                     chain_id: chainId,
                     transaction: {
                         to,
@@ -78,20 +79,19 @@ export function ContentDecoder({ chainId = '1', to, showAccountAddress }: Conten
                 </Styled.Error>
             )}
 
-            {result && <Header to={to} network='Ethereum Mainnet' />}
-
-            {/* {false && result && showAccountAddress && (
-                <>
-                    <Styled.Subtitle>Contract Address</Styled.Subtitle>
-                    <Styled.Reponse>{to}</Styled.Reponse>
-                </>
-            )} */}
+            {result && <Header to={to} network='Ethereum Mainnet' severity={result ? result.severity : 'NONE'} />}
 
             {result && (
                 <Styled.Results>
-                    <Collapsable title='Spotlight'>
+                    <Collapsable title='Spotlight' defaultState={true}>
                         <Styled.ContractName>{result.name}</Styled.ContractName>
                         {result.description}
+                    </Collapsable>
+
+                    <Collapsable title='Fraud Analysis'>
+                        {result.risks.map((risk, id) => (
+                            <Risk key={id} risk={risk} />
+                        ))}
                     </Collapsable>
                 </Styled.Results>
             )}
