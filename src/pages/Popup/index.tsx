@@ -36,20 +36,24 @@ function Panel() {
 
     return (
         <Styled.Container>
-            <SearchBar onClick={handleClick} />
+            <Styled.Header>
+                <SearchBar onClick={handleClick} />
+            </Styled.Header>
 
-            {to === '' && (
-                <Styled.Help>Enter an address to find out more about a smart contract and how it works</Styled.Help>
-            )}
-            {to && <ContentDecoder chainId={chainId} to={to} />}
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1rem' }}>
-                <Radio
-                    onChange={updateSettings}
-                    value={enableHooks || false}
-                    disabled={enableHooks === null}
-                    label='Notify on every transaction'
-                />
-            </div>
+            <Styled.Body>
+                {to === '' && (
+                    <Styled.Help>Enter an address to find out more about a smart contract and how it works</Styled.Help>
+                )}
+                {to && <ContentDecoder chainId={chainId} to={to} />}
+                {/* <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1rem' }}>
+                    <Radio
+                        onChange={updateSettings}
+                        value={enableHooks || false}
+                        disabled={enableHooks === null}
+                        label='Notify on every transaction'
+                    />
+                </div> */}
+            </Styled.Body>
             <Styled.Footer>
                 <WebsiteURL />
                 <GithubURL />

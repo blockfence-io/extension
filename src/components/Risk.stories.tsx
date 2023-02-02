@@ -5,43 +5,43 @@ import { Risk as RiskType } from '../types/api';
 
 const risks: RiskType[] = [
     {
-        AnalyzerName: 'Forta Networks',
-        Findings: [
+        analyzerName: 'Forta Networks',
+        findings: [
             {
-                Description: 'No Threats Detected by Forta Networks',
+                description: 'No Threats Detected by Forta Networks',
             },
             {
-                Description: 'No Threats Detected by Forta Networks',
+                description: 'No Threats Detected by Forta Networks',
             },
             {
-                Description: 'No Threats Detected by Forta Networks',
+                description: 'No Threats Detected by Forta Networks',
             },
             {
-                Description: 'No Threats Detected by Forta Networks',
+                description: 'No Threats Detected by Forta Networks',
             },
         ],
-        Icon: 'https://blockfence-assets.s3.amazonaws.com/icons/forta.png',
-        Severity: 'NONE',
+        icon: 'https://blockfence-assets.s3.amazonaws.com/icons/forta.png',
+        severity: 'NONE',
     },
     {
-        AnalyzerName: 'Analyzer Test',
-        Findings: [
+        analyzerName: 'Analyzer Test',
+        findings: [
             {
-                Description: 'No Threats Detected by Forta Networks',
+                description: 'No Threats Detected by Forta Networks',
             },
         ],
-        Icon: 'https://blockfence-assets.s3.amazonaws.com/icons/forta.png',
-        Severity: 'NONE',
+        icon: 'https://blockfence-assets.s3.amazonaws.com/icons/forta.png',
+        severity: 'NONE',
     },
     {
-        AnalyzerName: 'Forta Networks',
-        Findings: [
+        analyzerName: 'Forta Networks',
+        findings: [
             {
-                Description: 'No Threats Detected by Forta Networks',
+                description: 'No Threats Detected by Forta Networks',
             },
         ],
-        Icon: 'https://blockfence-assets.s3.amazonaws.com/icons/forta.png',
-        Severity: 'NONE',
+        icon: 'https://blockfence-assets.s3.amazonaws.com/icons/forta.png',
+        severity: 'NONE',
     },
 ];
 

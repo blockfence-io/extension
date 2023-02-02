@@ -10,8 +10,6 @@ export const Form = styled.form<RiskProps>`
     color: white;
     background: ${(props) => (props.severity ? theme.riskText[props.severity] : theme.riskText.NONE)};
 
-    width: 376px;
-
     display: flex;
     flex-direction: row;
     align-items: center;
