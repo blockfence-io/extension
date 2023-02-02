@@ -41,7 +41,7 @@ export function Header({ url, network, to, severity }: HeaderProps) {
             </Styled.InfoList>
 
             <Styled.Fill />
-            <Styled.Risk severity={severity}>{severity ? severityTitle[severity] : ''}</Styled.Risk>
+            <Styled.Risk severity={severity}>{severity ? severityTitle[severity] : 'NO RISKS FOUND'}</Styled.Risk>
         </Styled.Container>
     );
 }
