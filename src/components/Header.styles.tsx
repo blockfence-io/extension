@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+
+import { Link } from './UI/Link';
+
 import * as theme from '../shared/theme';
 
 interface RiskProps {
@@ -15,6 +18,10 @@ export const Container = styled.div<RiskProps>`
     gap: 16px;
 
     font-size: 12px;
+
+    & > ${Link} {
+        color: white;
+    }
 `;
 
 export const InfoList = styled.div`
