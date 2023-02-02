@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import LoaderAnimation from '../../assets/loader.svg';
 
 const Container = styled.div`
     width: 100%;
@@ -74,12 +75,7 @@ const Elipsis = styled.div`
 export function Loader() {
     return (
         <Container>
-            <Elipsis>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </Elipsis>
+            <LoaderAnimation />
         </Container>
     );
 }
