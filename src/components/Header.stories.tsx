@@ -7,6 +7,7 @@ export const Default = () => (
             to='0xdd0ba6a96Aae2A2031536eD255d77459dE937fD2'
             network='Ethereum Mainnet'
             url='http://www.google.com'
+            severity='HIGH'
         />
     </div>
 );
@@ -17,7 +18,7 @@ export const Medium = () => (
             to='0xdd0ba6a96Aae2A2031536eD255d77459dE937fD2'
             network='Ethereum Mainnet'
             url='http://www.google.com'
-            severity='medium'
+            severity='MEDIUM'
         />
     </div>
 );
@@ -28,7 +29,7 @@ export const High = () => (
             to='0xdd0ba6a96Aae2A2031536eD255d77459dE937fD2'
             network='Ethereum Mainnet'
             url='http://www.google.com'
-            severity='high'
+            severity='HIGH'
         />
     </div>
 );
@@ -39,12 +40,13 @@ export const WithURL = () => (
             to='0xdd0ba6a96Aae2A2031536eD255d77459dE937fD2'
             network='Ethereum Mainnet'
             url='http://www.google.com'
+            severity='LOW'
         />
     </div>
 );
 
 export const WithoutURL = () => (
     <div style={{ width: '370px' }}>
-        <Header to='0xdd0ba6a96Aae2A2031536eD255d77459dE937fD2' network='Ethereum Mainnet' />
+        <Header to='0xdd0ba6a96Aae2A2031536eD255d77459dE937fD2' network='Ethereum Mainnet' severity='NONE' />
     </div>
 );

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import * as Types from '../types/api';
 import { Link } from './UI/Link';
 
 import * as Styled from './Header.styles';
@@ -8,12 +9,15 @@ interface HeaderProps {
     network: string;
     to: string;
     url?: string | undefined;
-    severity?: undefined | 'medium' | 'high';
+    severity: Types.Severity;
 }
 
 const severityTitle = {
-    medium: 'Medium Risk',
-    high: 'High Risk',
+    NONE: 'No risks found',
+    LOW: 'Low Risk',
+    MEDIUM: 'Medium Risk',
+    HIGH: 'High Risk',
+    CRITICAL: 'Critical Risk',
 };
 
 export function Header({ url, network, to, severity }: HeaderProps) {
