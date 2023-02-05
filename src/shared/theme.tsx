@@ -3,7 +3,7 @@ import { Severity } from '../types/api';
 export const fieldBorder = '#DADCE0';
 
 export const riskText: { [key in Severity]: string } = {
-    NONE: '#00b903',
+    NONE: '#351254',
     LOW: '#FF7A00',
     MEDIUM: '#FF7A00',
     HIGH: '#D80000',
