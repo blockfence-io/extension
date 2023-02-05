@@ -22,7 +22,7 @@ export function Risk({ risk, defaultState = false }: RiskProps) {
                     <img src={risk.icon} width='24' />
                 </Styled.Icon>
                 <Styled.Title>{risk.analyzerName}</Styled.Title>
-                <Styled.Severity>{risk.severity}</Styled.Severity>
+                <Styled.Severity severity={risk.severity}>{risk.severity ? risk.severity : 'NO RISKS FOUND'}</Styled.Severity>
                 <Styled.Action>{visible ? '-' : '+'}</Styled.Action>
             </Styled.Header>
             {visible && (
