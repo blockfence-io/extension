@@ -29,6 +29,7 @@ export function ContentDecoder({ chainId = '1', to }: ContentDecoderProps) {
         setFatalError(false);
         setResult(null);
         try {
+            const url = await getActiveTabUrl();
             const response = await axios({
                 method: 'post',
                 url: BASE_URL,
@@ -37,6 +38,9 @@ export function ContentDecoder({ chainId = '1', to }: ContentDecoderProps) {
                     chain_id: chainId,
                     transaction: {
                         to,
+                    },
+                    browser_data: {
+                        url,
                     },
                 },
             });
@@ -97,4 +101,16 @@ export function ContentDecoder({ chainId = '1', to }: ContentDecoderProps) {
             )}
         </>
     );
+}
+
+async function getActiveTabUrl() {
+    return new Promise(function (resolve, reject) {
+        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+            if (tabs.length > 0) {
+                resolve(tabs[0].url);
+            } else {
+                reject('No active tab found');
+            }
+        });
+    });
 }
