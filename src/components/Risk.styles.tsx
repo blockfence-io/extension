@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 import * as theme from '../shared/theme';
+import * as Types from '../types/api';
+
+interface RiskProps {
+    severity: Types.Severity | undefined;
+}
 
 export const Container = styled.div`
     display: flex;
@@ -31,9 +36,9 @@ export const Title = styled.div`
     font-weight: 300;
 `;
 
-export const Severity = styled.div`
+export const Severity = styled.div<RiskProps>`
     font-weight: 700;
-    color: ${theme.riskText.MEDIUM};
+    color: ${(props) => (props.severity ? theme.riskText[props.severity] : theme.riskText.NONE)};
 `;
 
 export const Icon = styled.div``;

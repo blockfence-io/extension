@@ -19,10 +19,12 @@ export function Risk({ risk, defaultState = false }: RiskProps) {
         <Styled.Container>
             <Styled.Header onClick={toggle}>
                 <Styled.Icon>
-                    <img src='https://blockfence-assets.s3.amazonaws.com/icons/forta.png' width='24' />
+                    <img src={risk.icon} width='24' />
                 </Styled.Icon>
                 <Styled.Title>{risk.analyzerName}</Styled.Title>
-                <Styled.Severity>{risk.severity}</Styled.Severity>
+                <Styled.Severity severity={risk.severity}>
+                    {risk.severity ? risk.severity : 'NO RISKS FOUND'}
+                </Styled.Severity>
                 <Styled.Action>{visible ? '-' : '+'}</Styled.Action>
             </Styled.Header>
             {visible && (
