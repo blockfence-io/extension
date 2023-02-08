@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+
+import { UilEllipsisV } from '@iconscout/react-unicons';
+
 import * as Styled from './Menu.styles';
 export { Title, Body, Separator, Link } from './Menu.styles';
-
-import OptionsIcon from '../../assets/icons/menu.svg';
 
 interface MenuProps {
     children: React.ReactNode;
@@ -14,7 +15,7 @@ export function Menu({ children }: MenuProps) {
     return (
         <Styled.Container>
             <Styled.Controller visible={visible} onClick={() => setVisible(!visible)}>
-                <OptionsIcon />
+                <UilEllipsisV size='16' />
             </Styled.Controller>
             <Styled.Overlay visible={visible}>{children}</Styled.Overlay>
         </Styled.Container>

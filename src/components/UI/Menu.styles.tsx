@@ -15,6 +15,7 @@ export const Container = styled.div`
 export const Overlay = styled.div<OverlayProps>`
     position: absolute;
     top: 0;
+    margin-top: -4px;
     right: 0;
     width: 200px;
     background: #f8f8f8;
@@ -35,7 +36,7 @@ export const Overlay = styled.div<OverlayProps>`
 
 export const Controller = styled.div<OverlayProps>`
     position: relative;
-    padding: 8px 8px;
+    padding: 4px 6px;
     font-size: 20px;
     z-index: 50;
 

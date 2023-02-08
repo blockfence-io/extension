@@ -1,7 +1,10 @@
 import React from 'react';
 
 import * as Types from '../types/api';
+import { Icon } from '@iconscout/react-unicons';
 import { Link } from './UI/Link';
+
+import { UilExclamationTriangle, UilExclamationCircle, UilSmile } from '@iconscout/react-unicons';
 
 import * as Styled from './Header.styles';
 
@@ -20,7 +23,16 @@ const severityTitle: { [key in Types.Severity]: string } = {
     CRITICAL: 'Critical Risk',
 };
 
+const severityIcons: { [key in Types.Severity]: Icon | undefined } = {
+    NONE: undefined,
+    LOW: UilSmile,
+    MEDIUM: UilExclamationCircle,
+    HIGH: UilExclamationTriangle,
+    CRITICAL: UilExclamationTriangle,
+};
+
 export function Header({ url, network, to, severity }: HeaderProps) {
+    const SeverityIcon = severity ? severityIcons[severity] : undefined;
     return (
         <Styled.Container severity={severity}>
             {url && (
@@ -39,9 +51,11 @@ export function Header({ url, network, to, severity }: HeaderProps) {
                     <Styled.Info.Value>{to}</Styled.Info.Value>
                 </Styled.Info.Group>
             </Styled.InfoList>
-
             <Styled.Fill />
-            <Styled.Risk severity={severity}>{severity ? severityTitle[severity] : 'NO RISKS FOUND'}</Styled.Risk>
+            <Styled.Risk severity={severity}>
+                {SeverityIcon && <SeverityIcon size='22' />}
+                <Styled.RiskText>{severity ? severityTitle[severity] : 'NO RISKS FOUND'}</Styled.RiskText>
+            </Styled.Risk>
         </Styled.Container>
     );
 }
