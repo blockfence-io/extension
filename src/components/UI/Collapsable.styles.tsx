@@ -7,7 +7,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     padding: 8px 14px;
-    gap: 16px;
+    gap: 10px;
 
     &:not(:last-child) {
         margin-bottom: 20px;
