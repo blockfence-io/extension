@@ -9,8 +9,9 @@ import { InternalMessage } from '../../types/internal';
 // Attach on Page scope
 async function injectScript(url: string) {
     const storage = await chrome.storage.local.get('enableHooks');
+    const enabled = typeof storage.enableHooks == 'boolean' ? storage.enableHooks : true;
 
-    if (storage.enableHooks) {
+    if (enabled) {
         const script = document.createElement('script');
         script.src = chrome.runtime.getURL(url);
         script.async = false;
