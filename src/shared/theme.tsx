@@ -1,4 +1,6 @@
 import { Severity } from '../types/api';
+import { UilExclamationTriangle, UilExclamationCircle, UilSmile } from '@iconscout/react-unicons';
+import { Icon } from '@iconscout/react-unicons';
 
 export const fieldBorder = '#DADCE0';
 
@@ -16,4 +18,12 @@ export const riskBackground: { [key in Severity]: string } = {
     MEDIUM: 'linear-gradient(95.2deg, #FF7A00 1.02%, #FF8B24 100%)',
     HIGH: 'linear-gradient(95.2deg, #BE0404 1.02%, #D80000 100%)',
     CRITICAL: 'linear-gradient(95.2deg, #BE0404 1.02%, #D80000 100%)',
+};
+
+export const riskIcons: { [key in Severity]: Icon | undefined } = {
+    NONE: undefined,
+    LOW: UilSmile,
+    MEDIUM: UilExclamationCircle,
+    HIGH: UilExclamationTriangle,
+    CRITICAL: UilExclamationTriangle,
 };

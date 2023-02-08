@@ -1,11 +1,9 @@
 import React from 'react';
 
 import * as Types from '../types/api';
-import { Icon } from '@iconscout/react-unicons';
 import { Link } from './UI/Link';
 
-import { UilExclamationTriangle, UilExclamationCircle, UilSmile } from '@iconscout/react-unicons';
-
+import { riskIcons } from '../shared/theme';
 import * as Styled from './Header.styles';
 
 interface HeaderProps {
@@ -23,16 +21,8 @@ const severityTitle: { [key in Types.Severity]: string } = {
     CRITICAL: 'Critical Risk',
 };
 
-const severityIcons: { [key in Types.Severity]: Icon | undefined } = {
-    NONE: undefined,
-    LOW: UilSmile,
-    MEDIUM: UilExclamationCircle,
-    HIGH: UilExclamationTriangle,
-    CRITICAL: UilExclamationTriangle,
-};
-
 export function Header({ url, network, to, severity }: HeaderProps) {
-    const SeverityIcon = severity ? severityIcons[severity] : undefined;
+    const SeverityIcon = severity ? riskIcons[severity] : undefined;
     return (
         <Styled.Container severity={severity}>
             {url && (
