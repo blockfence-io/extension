@@ -1,8 +1,11 @@
 import React from 'react';
 
 import * as Types from '../types/api';
+
+import { Copy } from './UI/Copy';
 import { Link } from './UI/Link';
 
+import { riskIcons } from '../shared/theme';
 import * as Styled from './Header.styles';
 
 interface HeaderProps {
@@ -21,6 +24,8 @@ const severityTitle: { [key in Types.Severity]: string } = {
 };
 
 export function Header({ url, network, to, severity }: HeaderProps) {
+    const SeverityIcon = severity ? riskIcons[severity] : undefined;
+
     return (
         <Styled.Container severity={severity}>
             {url && (
@@ -37,11 +42,18 @@ export function Header({ url, network, to, severity }: HeaderProps) {
                 <Styled.Info.Group>
                     <Styled.Info.Title>Contract address</Styled.Info.Title>
                     <Styled.Info.Value>{to}</Styled.Info.Value>
+                    <Styled.Info.Copy>
+                        <Copy text={to} size='14'>
+                            copy address
+                        </Copy>
+                    </Styled.Info.Copy>
                 </Styled.Info.Group>
             </Styled.InfoList>
-
             <Styled.Fill />
-            <Styled.Risk severity={severity}>{severity ? severityTitle[severity] : 'NO RISKS FOUND'}</Styled.Risk>
+            <Styled.Risk severity={severity}>
+                {SeverityIcon && <SeverityIcon size='22' />}
+                <Styled.RiskText>{severity ? severityTitle[severity] : 'NO RISKS FOUND'}</Styled.RiskText>
+            </Styled.Risk>
         </Styled.Container>
     );
 }

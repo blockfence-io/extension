@@ -30,17 +30,25 @@ export const InfoList = styled.div`
 `;
 
 export const Risk = styled.div<RiskProps>`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
     font-size: 20px;
     font-weight: bold;
     border-radius: 5px 5px 0px 0px;
 
     color: ${(props) => (props.severity ? theme.riskText[props.severity] : theme.riskText.NONE)};
     background: white;
-    text-align: center;
     padding: 14px;
     text-transform: uppercase;
 
     margin: 0 40px;
+`;
+
+export const RiskText = styled.div`
+    margin-top: 2px;
 `;
 
 const Group = styled.div`
@@ -65,10 +73,15 @@ const Value = styled.div`
     text-overflow: ellipsis;
 `;
 
+const Copy = styled.div`
+    margin-top: 2px;
+`;
+
 export const Info = {
     Group,
     Title,
     Value,
+    Copy,
 };
 
 export const Fill = styled.div`

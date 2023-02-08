@@ -27,10 +27,9 @@ export function SearchBar({ severity, onClick }: SearchBarProps) {
     return (
         <Styled.Form severity={severity} onSubmit={handleSubmit}>
             <NetworkSelector onChange={setChainId} />
-
             <Input type='text' value={input} onChange={(e) => setInput(e.target.value)} style={{ flex: 1 }} />
-            <Button type='submit' disabled={input === '' || isLoading}>
-                Send
+            <Button type='submit' disabled={input === '' || isLoading} style={{ flex: 0 }}>
+                Scan
             </Button>
         </Styled.Form>
     );

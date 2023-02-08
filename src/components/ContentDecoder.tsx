@@ -1,12 +1,17 @@
-import axios, { AxiosError } from 'axios';
 import React, { useState, useEffect } from 'react';
+import axios, { AxiosError } from 'axios';
 
 import { EngineResponse, ErrorResponse } from '../types/api';
+import { networkMapping } from './NetworkSelector';
 
 import { Header } from './Header';
 import { Loader } from './UI/Loader';
 import { Collapsable } from './UI/Collapsable';
 import { Risk } from './Risk';
+
+import SpotlightIcon from '../assets/icons/spotlight.svg';
+import RadarIcon from '../assets/icons/radar-icon.svg';
+import ChatGPTIcon from '../assets/icons/chatgpt.svg';
 
 import * as Styled from './ContentDecoder.styles';
 
@@ -83,16 +88,22 @@ export function ContentDecoder({ chainId = '1', to }: ContentDecoderProps) {
                 </Styled.Error>
             )}
 
-            {result && <Header to={to} network='Ethereum Mainnet' severity={result ? result.severity : 'NONE'} />}
+            {result && (
+                <Header to={to} network={networkMapping[chainId]} severity={result ? result.severity : 'NONE'} />
+            )}
 
             {result && (
                 <Styled.Results>
-                    <Collapsable title='Spotlight' defaultState={true}>
+                    <Collapsable title='Spotlight' icon={<SpotlightIcon />} defaultState={true}>
                         <Styled.ContractName>{result.name}</Styled.ContractName>
                         {result.description}
+                        <Styled.Copyrights>
+                            <ChatGPTIcon />
+                            powered by ChatGPT
+                        </Styled.Copyrights>
                     </Collapsable>
 
-                    <Collapsable title='Fraud Analysis'>
+                    <Collapsable title='Fraud Analysis' icon={<RadarIcon />}>
                         {result.risks.map((risk, id) => (
                             <Risk key={id} risk={risk} />
                         ))}

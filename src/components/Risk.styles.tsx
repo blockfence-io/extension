@@ -33,12 +33,23 @@ export const Header = styled.div`
 
 export const Title = styled.div`
     flex: 1;
-    font-weight: 300;
+    color: black;
+
+    font-weight: 400;
+    font-size: 13px;
 `;
 
 export const Severity = styled.div<RiskProps>`
-    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    font-size: 12px;
+    font-weight: 800;
     color: ${(props) => (props.severity ? theme.riskText[props.severity] : theme.riskText.NONE)};
+`;
+
+export const SeverityName = styled.div`
+    margin-top: 2px;
 `;
 
 export const Icon = styled.div``;

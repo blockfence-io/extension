@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import * as theme from '../shared/theme';
 
 export const Container = styled.div`
     display: grid;
@@ -14,8 +15,12 @@ export const Container = styled.div`
 export const Header = styled.header`
     grid-area: header;
     display: flex;
-    justify-content: top;
-    flex-direction: column;
+    align-items: center;
+
+    color: white;
+    background: ${theme.riskText.NONE};
+    padding: 8px 10px;
+    gap: 6px;
 `;
 
 export const Body = styled.div`

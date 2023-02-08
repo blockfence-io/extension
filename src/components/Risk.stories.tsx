@@ -21,7 +21,7 @@ const risks: RiskType[] = [
             },
         ],
         icon: 'https://blockfence-assets.s3.amazonaws.com/icons/forta.png',
-        severity: 'NONE',
+        severity: 'HIGH',
     },
     {
         analyzerName: 'Analyzer Test',
@@ -31,7 +31,7 @@ const risks: RiskType[] = [
             },
         ],
         icon: 'https://blockfence-assets.s3.amazonaws.com/icons/forta.png',
-        severity: 'NONE',
+        severity: 'MEDIUM',
     },
     {
         analyzerName: 'Forta Networks',
@@ -41,7 +41,7 @@ const risks: RiskType[] = [
             },
         ],
         icon: 'https://blockfence-assets.s3.amazonaws.com/icons/forta.png',
-        severity: 'NONE',
+        severity: 'LOW',
     },
 ];
 
