@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Button } from './UI/Button';
 import { Input } from './UI/Input';
-// import { NetworkSelector } from './NetworkSelector';
+import { NetworkSelector } from './NetworkSelector';
 import { Severity } from '../types/api';
 
 import * as Styled from './SearchBar.styles';
@@ -26,7 +26,7 @@ export function SearchBar({ severity, onClick }: SearchBarProps) {
 
     return (
         <Styled.Form severity={severity} onSubmit={handleSubmit}>
-            {/* <NetworkSelector onChange={setChainId} /> */}
+            <NetworkSelector onChange={setChainId} />
             <Input type='text' value={input} onChange={(e) => setInput(e.target.value)} style={{ flex: 1 }} />
             <Button type='submit' disabled={input === '' || isLoading} style={{ flex: 0 }}>
                 Scan

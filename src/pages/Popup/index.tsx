@@ -61,10 +61,6 @@ function Panel() {
                 )}
                 {to && <ContentDecoder chainId={chainId} to={to} />}
             </Layout.Body>
-            {/* <Layout.Footer>
-                <WebsiteURL />
-                <GithubURL />
-            </Layout.Footer> */}
         </Layout.Container>
     );
 }

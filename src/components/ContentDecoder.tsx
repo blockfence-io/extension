@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios, { AxiosError } from 'axios';
 
 import { EngineResponse, ErrorResponse } from '../types/api';
+import { networkMapping } from './NetworkSelector';
 
 import { Header } from './Header';
 import { Loader } from './UI/Loader';
@@ -87,7 +88,9 @@ export function ContentDecoder({ chainId = '1', to }: ContentDecoderProps) {
                 </Styled.Error>
             )}
 
-            {result && <Header to={to} network='Ethereum Mainnet' severity={result ? result.severity : 'NONE'} />}
+            {result && (
+                <Header to={to} network={networkMapping[chainId]} severity={result ? result.severity : 'NONE'} />
+            )}
 
             {result && (
                 <Styled.Results>
