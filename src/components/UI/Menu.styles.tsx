@@ -6,6 +6,10 @@ interface OverlayProps {
 
 export const Container = styled.div`
     position: relative;
+
+    & a {
+        margin: 8px 0;
+    }
 `;
 
 export const Overlay = styled.div<OverlayProps>`
@@ -13,9 +17,8 @@ export const Overlay = styled.div<OverlayProps>`
     top: 0;
     right: 0;
     width: 200px;
-    min-height: 200px;
     background: #f8f8f8;
-    padding: 24px;
+    padding: 24px 20px 10px 20px;
 
     font-size: 12px;
     color: #494949;
@@ -55,16 +58,15 @@ export const Title = styled.h3`
 `;
 
 export const Body = styled.div`
-    line-height: 18px;
+    line-height: 20px;
 `;
 
 export const Separator = styled.hr`
     border: none;
     border-top: 1px solid #dadce0;
-    margin: 10px 0;
+    margin: 12px 0;
 `;
 
 export const Link = styled.a`
-    line-height: 20px;
     display: block;
 `;

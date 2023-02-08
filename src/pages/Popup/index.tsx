@@ -50,9 +50,8 @@ function Panel() {
                         The Blockfence Extension will Automatically Pop-Up in Active Mode for Every Transaction
                     </Menu.Body>
                     <Menu.Separator />
-                    <Menu.Link href='#'>About Blockfence</Menu.Link>
-                    <Menu.Link href='#'>Term of use</Menu.Link>
-                    <Menu.Link href='#'>GitHub</Menu.Link>
+                    <GithubURL />
+                    <WebsiteURL />
                 </Menu.Menu>
             </Layout.Header>
 
@@ -62,10 +61,10 @@ function Panel() {
                 )}
                 {to && <ContentDecoder chainId={chainId} to={to} />}
             </Layout.Body>
-            <Layout.Footer>
+            {/* <Layout.Footer>
                 <WebsiteURL />
                 <GithubURL />
-            </Layout.Footer>
+            </Layout.Footer> */}
         </Layout.Container>
     );
 }
