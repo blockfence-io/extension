@@ -73,10 +73,15 @@ const Value = styled.div`
     text-overflow: ellipsis;
 `;
 
+const Copy = styled.div`
+    margin-top: 2px;
+`;
+
 export const Info = {
     Group,
     Title,
     Value,
+    Copy,
 };
 
 export const Fill = styled.div`
