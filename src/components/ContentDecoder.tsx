@@ -8,6 +8,9 @@ import { Loader } from './UI/Loader';
 import { Collapsable } from './UI/Collapsable';
 import { Risk } from './Risk';
 
+import SpotlightIcon from '../assets/icons/spotlight.svg';
+import RadarIcon from '../assets/icons/radar-icon.svg';
+
 import * as Styled from './ContentDecoder.styles';
 
 const BASE_URL = process.env.API_SERVER;
@@ -83,12 +86,12 @@ export function ContentDecoder({ chainId = '1', to }: ContentDecoderProps) {
 
             {result && (
                 <Styled.Results>
-                    <Collapsable title='Spotlight' defaultState={true}>
+                    <Collapsable title='Spotlight' icon={<SpotlightIcon />} defaultState={true}>
                         <Styled.ContractName>{result.name}</Styled.ContractName>
                         {result.description}
                     </Collapsable>
 
-                    <Collapsable title='Fraud Analysis'>
+                    <Collapsable title='Fraud Analysis' icon={<RadarIcon />}>
                         {result.risks.map((risk, id) => (
                             <Risk key={id} risk={risk} />
                         ))}

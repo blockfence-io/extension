@@ -6,7 +6,7 @@ export const Container = styled.div`
 
     display: flex;
     flex-direction: column;
-    padding: 14px;
+    padding: 8px 14px;
     gap: 16px;
 
     &:not(:last-child) {
@@ -20,6 +20,7 @@ export const Header = styled.div`
 
     display: flex;
     flex-direction: row;
+    align-items: center;
 
     user-select: none;
     cursor: pointer;
@@ -27,9 +28,14 @@ export const Header = styled.div`
 
 export const Title = styled.div`
     flex: 1;
+    font-weight: 800;
+    font-size: 16px;
+    padding: 6px 0;
 `;
 
-export const Icon = styled.div``;
+export const Icon = styled.div`
+    padding-right: 6px;
+`;
 
 export const Body = styled.div`
     font-weight: 300;
