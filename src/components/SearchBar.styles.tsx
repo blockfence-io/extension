@@ -7,14 +7,11 @@ interface RiskProps {
 }
 
 export const Form = styled.form<RiskProps>`
-    color: white;
-    background: ${(props) => (props.severity ? theme.riskText[props.severity] : theme.riskText.NONE)};
-
     display: flex;
     flex-direction: row;
-    align-items: center;
-    padding: 16px 20px;
+    /* align-items: center; */
     gap: 8px;
+    flex: 1;
 
     font-size: 12px;
 `;

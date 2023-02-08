@@ -5,6 +5,7 @@ import { Radio } from '../../components/UI/Radio';
 import { ContentDecoder } from '../../components/ContentDecoder';
 import { GithubURL, WebsiteURL } from '../../components/WebsiteURL';
 import { SearchBar } from '../../components/SearchBar';
+import * as Menu from '../../components/UI/Menu';
 
 import * as Layout from '../../components/Layout.styles';
 import * as Styled from './index.styled';
@@ -40,6 +41,19 @@ function Panel() {
         <Layout.Container>
             <Layout.Header>
                 <SearchBar onClick={handleClick} />
+                <Menu.Menu>
+                    <Menu.Title>
+                        <div>Active Mode</div>
+                        <Radio onChange={updateSettings} value={enableHooks || false} disabled={enableHooks === null} />
+                    </Menu.Title>
+                    <Menu.Body>
+                        The Blockfence Extension will Automatically Pop-Up in Active Mode for Every Transaction
+                    </Menu.Body>
+                    <Menu.Separator />
+                    <Menu.Link href='#'>About Blockfence</Menu.Link>
+                    <Menu.Link href='#'>Term of use</Menu.Link>
+                    <Menu.Link href='#'>GitHub</Menu.Link>
+                </Menu.Menu>
             </Layout.Header>
 
             <Layout.Body>
@@ -47,14 +61,6 @@ function Panel() {
                     <Styled.Help>Enter an address to find out more about a smart contract and how it works</Styled.Help>
                 )}
                 {to && <ContentDecoder chainId={chainId} to={to} />}
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1rem' }}>
-                    <Radio
-                        onChange={updateSettings}
-                        value={enableHooks || false}
-                        disabled={enableHooks === null}
-                        label='Notify on every transaction'
-                    />
-                </div>
             </Layout.Body>
             <Layout.Footer>
                 <WebsiteURL />
