@@ -38,13 +38,11 @@ jobs:
               # npm install @typescript-eslint/eslint-plugin @typescript-eslint/parser @babel/eslint-parser
 
             - name: Run ESLint
-              run: |
-                  npm run lint
-              # run: npx eslint .
-              #     --config .eslintrc
-              #     --ext .js,.jsx,.ts,.tsx
-              #     --format @microsoft/eslint-formatter-sarif
-              #     --output-file eslint-results.sarif
+              run: npx eslint .
+                  --config .eslintrc
+                  --ext .js,.jsx,.ts,.tsx
+                  --format @microsoft/eslint-formatter-sarif
+                  --output-file eslint-results.sarif
               continue-on-error: true
 
             - name: Upload analysis results to GitHub
