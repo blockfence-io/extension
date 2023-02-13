@@ -30,7 +30,7 @@ export function ContentDecoder({ to, chainId = '1', result }: ContentDecoderProp
                     {result.description}
                     <Styled.Copyrights>
                         <ChatGPTIcon />
-                        powered by ChatGPT
+                        Powered by OpenAI
                     </Styled.Copyrights>
                 </Collapsable>
 
