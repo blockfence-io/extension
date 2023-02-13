@@ -24,6 +24,8 @@ export const Header = styled.header<HeaderProps>`
 
     color: white;
     background: ${(props) => (props.severity ? theme.riskBackground[props.severity] : theme.riskText.NONE)};
+    border-bottom: 1px #ffffff40 solid;
+
     padding: 8px 10px;
     gap: 6px;
 `;

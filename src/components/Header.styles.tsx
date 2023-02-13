@@ -14,7 +14,7 @@ export const Container = styled.div<RiskProps>`
 
     display: flex;
     flex-direction: column;
-    padding: 16px 20px 0 20px;
+    padding: 20px 20px 0 20px;
     gap: 16px;
 
     font-size: 12px;
