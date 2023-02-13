@@ -29,6 +29,12 @@ export const InfoList = styled.div`
     gap: 12px;
 `;
 
+export const URLLink = styled(Link)`
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+`;
+
 export const Risk = styled.div<RiskProps>`
     display: flex;
     align-items: center;
