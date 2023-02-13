@@ -17,7 +17,7 @@ async function getActiveTabUrl() {
     });
 }
 
-export function useGetAnalytics() {
+export function useGetResults() {
     const [result, setResult] = useState<EngineResponse | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);

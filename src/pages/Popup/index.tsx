@@ -7,7 +7,7 @@ import { SettingsMenu } from '../../components/SettingsMenu';
 import { ErrorMessage, LoadingMessage } from '../../components/PageMessages';
 import { ContentDecoder } from '../../components/ContentDecoder';
 
-import { useGetAnalytics } from '../../shared/api';
+import { useGetResults } from '../../shared/api';
 import * as Styled from './index.styled';
 
 import '../../shared/reset.css';
@@ -16,7 +16,7 @@ import '../../shared/font.css';
 function Panel() {
     const [to, setTo] = useState('');
     const [chainId, setChainId] = useState('0x1');
-    const { result, isLoading, error, fatalError, getData } = useGetAnalytics();
+    const { result, isLoading, error, fatalError, getData } = useGetResults();
 
     async function handleClick(chainId: string, to: string) {
         setChainId(chainId);

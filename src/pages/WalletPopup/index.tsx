@@ -6,13 +6,13 @@ import { ContentDecoder } from '../../components/ContentDecoder';
 import { ErrorMessage, LoadingMessage } from '../../components/PageMessages';
 import { WebsiteURL, GithubURL } from '../../components/WebsiteURL';
 
-import { useGetAnalytics } from '../../shared/api';
+import { useGetResults } from '../../shared/api';
 
 import '../../shared/reset.css';
 import '../../shared/font.css';
 
 function Panel() {
-    const { result, isLoading, error, fatalError, getData } = useGetAnalytics();
+    const { result, isLoading, error, fatalError, getData } = useGetResults();
 
     const urlSearchParams = new URLSearchParams(window.location.search);
     const to = urlSearchParams.get('to');
