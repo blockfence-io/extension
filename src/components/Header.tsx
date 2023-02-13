@@ -3,7 +3,6 @@ import React from 'react';
 import * as Types from '../types/api';
 
 import { Copy } from './UI/Copy';
-import { Link } from './UI/Link';
 
 import { riskIcons } from '../shared/theme';
 import * as Styled from './Header.styles';
