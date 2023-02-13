@@ -94,12 +94,12 @@ export function ContentDecoder({ chainId = '1', to }: ContentDecoderProps) {
 
             {result && (
                 <Styled.Results>
-                    <Collapsable title='Spotlight' icon={<SpotlightIcon />} defaultState={true}>
+                    <Collapsable title='Description' icon={<SpotlightIcon />} defaultState={true}>
                         <Styled.ContractName>{result.name}</Styled.ContractName>
                         {result.description}
                         <Styled.Copyrights>
                             <ChatGPTIcon />
-                            powered by ChatGPT
+                            Powered by OpenAI
                         </Styled.Copyrights>
                     </Collapsable>
 
