@@ -12,6 +12,16 @@ export const Default = () => (
     </div>
 );
 
+export const LongURL = () => (
+    <div style={{ width: '370px' }}>
+        <Header
+            to='0xdd0ba6a96Aae2A2031536eD255d77459dE937fD2'
+            network='Ethereum Mainnet'
+            url='https://github.com/mackbowes/metl-ui/blob/667786f4bf6a6b8c4cb23ca72e18efd526b2a371/utils/web3modal.js'
+        />
+    </div>
+);
+
 export const RisksToggle = () => {
     const [severity, setSeverity] = useState<Severity | undefined>('NONE');
 

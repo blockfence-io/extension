@@ -25,7 +25,7 @@ export function ContentDecoder({ to, chainId = '1', result }: ContentDecoderProp
             <Header to={to} network={networkMapping[chainId]} severity={result ? result.severity : 'NONE'} />
 
             <Styled.Results>
-                <Collapsable title='Spotlight' icon={<SpotlightIcon />} defaultState={true}>
+                <Collapsable title='Description' icon={<SpotlightIcon />} defaultState={true}>
                     <Styled.ContractName>{result.name}</Styled.ContractName>
                     {result.description}
                     <Styled.Copyrights>

@@ -3,7 +3,6 @@ import React from 'react';
 import * as Types from '../types/api';
 
 import { Copy } from './UI/Copy';
-import { Link } from './UI/Link';
 
 import { riskIcons } from '../shared/theme';
 import * as Styled from './Header.styles';
@@ -26,12 +25,14 @@ const severityTitle: { [key in Types.Severity]: string } = {
 export function Header({ url, network, to, severity }: HeaderProps) {
     const SeverityIcon = severity ? riskIcons[severity] : undefined;
 
+    const formattedAddress = (to: string) => `${to.slice(0, 8)}...${to.slice(-4)}`.toUpperCase();
+
     return (
         <Styled.Container severity={severity}>
             {url && (
-                <Link href={url} target='_blank' rel='noreferrer'>
+                <Styled.URLLink href={url} target='_blank' rel='noreferrer'>
                     {url}
-                </Link>
+                </Styled.URLLink>
             )}
 
             <Styled.InfoList>
@@ -41,12 +42,10 @@ export function Header({ url, network, to, severity }: HeaderProps) {
                 </Styled.Info.Group>
                 <Styled.Info.Group>
                     <Styled.Info.Title>Contract address</Styled.Info.Title>
-                    <Styled.Info.Value>{to}</Styled.Info.Value>
-                    <Styled.Info.Copy>
-                        <Copy text={to} size='14'>
-                            copy address
-                        </Copy>
-                    </Styled.Info.Copy>
+                    <Styled.Info.Value>
+                        {formattedAddress(to)} <Copy text={to} size='14' />
+                    </Styled.Info.Value>
+                    <Styled.Info.Copy></Styled.Info.Copy>
                 </Styled.Info.Group>
             </Styled.InfoList>
             <Styled.Fill />
