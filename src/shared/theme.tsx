@@ -13,8 +13,8 @@ export const riskText: { [key in Severity]: string } = {
 };
 
 export const riskBackground: { [key in Severity]: string } = {
-    NONE: 'linear-gradient(95.2deg, #00b903 1.02%, #00b903 100%)',
-    LOW: 'linear-gradient(95.2deg, #FF7A00 1.02%, #FF8B24 100%)',
+    NONE: 'linear-gradient(95.2deg, #00b903 1.02%, #00d703 100%)',
+    LOW: 'linear-gradient(95.2deg, #ceb800 1.02%, #dfc700 100%)',
     MEDIUM: 'linear-gradient(95.2deg, #FF7A00 1.02%, #FF8B24 100%)',
     HIGH: 'linear-gradient(95.2deg, #BE0404 1.02%, #D80000 100%)',
     CRITICAL: 'linear-gradient(95.2deg, #BE0404 1.02%, #D80000 100%)',

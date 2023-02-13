@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Severity } from '../types/api';
 import * as theme from '../shared/theme';
 
 export const Container = styled.div`
@@ -12,13 +13,19 @@ export const Container = styled.div`
     min-height: 550px;
 `;
 
-export const Header = styled.header`
+interface HeaderProps {
+    severity: undefined | Severity;
+}
+
+export const Header = styled.header<HeaderProps>`
     grid-area: header;
     display: flex;
     align-items: center;
 
     color: white;
-    background: ${theme.riskText.NONE};
+    background: ${(props) => (props.severity ? theme.riskBackground[props.severity] : theme.riskText.NONE)};
+    border-bottom: 1px #ffffff40 solid;
+
     padding: 8px 10px;
     gap: 6px;
 `;

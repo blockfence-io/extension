@@ -3,16 +3,14 @@ import React, { useState } from 'react';
 import { Button } from './UI/Button';
 import { Input } from './UI/Input';
 import { NetworkSelector } from './NetworkSelector';
-import { Severity } from '../types/api';
 
 import * as Styled from './SearchBar.styles';
 
 interface SearchBarProps {
-    severity?: undefined | Severity;
     onClick: (chainId: string, to: string) => void;
 }
 
-export function SearchBar({ severity, onClick }: SearchBarProps) {
+export function SearchBar({ onClick }: SearchBarProps) {
     const [input, setInput] = useState('');
     const [chainId, setChainId] = useState('0x1');
     const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +23,7 @@ export function SearchBar({ severity, onClick }: SearchBarProps) {
     }
 
     return (
-        <Styled.Form severity={severity} onSubmit={handleSubmit}>
+        <Styled.Form onSubmit={handleSubmit}>
             <NetworkSelector onChange={setChainId} />
             <Input type='text' value={input} onChange={(e) => setInput(e.target.value)} style={{ flex: 1 }} />
             <Button type='submit' disabled={input === '' || isLoading} style={{ flex: 0 }}>

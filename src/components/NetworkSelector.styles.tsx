@@ -5,13 +5,15 @@ export const Container = styled.div`
     align-items: center;
     position: relative;
     font-size: 0.8rem;
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 4px 8px;
     border-radius: 2px;
     user-select: none;
+    transition: 0.1s;
 
     &:hover {
         background: #bcffbc40;
+        border: 1px solid rgba(255, 255, 255, 0.5);
     }
 `;
 
