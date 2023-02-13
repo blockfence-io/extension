@@ -17,6 +17,7 @@ build
 .DS_Store
 .env
 .env.local
+.env.*
 .env.development.local
 .env.test.local
 .env.production.local
