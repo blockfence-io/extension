@@ -17,19 +17,12 @@ import '../../shared/font.css';
 function Panel() {
     const [to, setTo] = useState('');
     const [chainId, setChainId] = useState('0x1');
-
-    const asyncResults = useAsyncCallback(async () => {
-        return fetchResult(chainId, to);
-    });
+    const asyncResults = useAsyncCallback(async (chainId, to) => fetchResult(chainId, to));
 
     async function handleClick(chainId: string, to: string) {
         setChainId(chainId);
         setTo(to);
-        await asyncResults.execute();
-    }
-
-    if (asyncResults.error) {
-        console.log(asyncResults.error.cause);
+        await asyncResults.execute(chainId, to);
     }
 
     return (
@@ -46,10 +39,6 @@ function Panel() {
 
                 {asyncResults.loading && <LoadingMessage />}
                 {asyncResults.error && <ErrorMessage>A{asyncResults.error.message}</ErrorMessage>}
-                {/* {fatalError && (
-                    <ErrorMessage withIcon>Whoops! It looks like we have encountered an unexpected error</ErrorMessage>
-                )} */}
-
                 {asyncResults.result && <ContentDecoder chainId={chainId} to={to} result={asyncResults.result} />}
             </Layout.Body>
         </Layout.Container>

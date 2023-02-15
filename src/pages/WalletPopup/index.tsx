@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { useAsync, useAsyncCallback } from 'react-async-hook';
+import { useAsync } from 'react-async-hook';
 
 import * as Layout from '../../components/Layout.styles';
 import { ContentDecoder } from '../../components/ContentDecoder';
@@ -16,25 +16,13 @@ function Panel() {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const to = urlSearchParams.get('to') || '';
     const chainId: string = urlSearchParams.get('chainId') || '0x1';
-
     const asyncResults = useAsync(fetchResult, [chainId, to]);
-
-    // const asyncResults = useAsyncCallback(async () => {
-    //     return fetchResult(chainId, to || '1');
-    // });
 
     return (
         <Layout.Container style={{ minHeight: 'initial' }}>
             <Layout.Body>
-                {/* <button disabled={asyncResults.loading} onClick={asyncResults.execute}>
-                    Get REsults
-                </button> */}
                 {asyncResults.loading && <LoadingMessage />}
                 {asyncResults.error && <ErrorMessage>{asyncResults.error.message}</ErrorMessage>}
-                {/* {fatalError && (
-                    <ErrorMessage withIcon>Whoops! It looks like we have encountered an unexpected error</ErrorMessage>
-                )} */}
-
                 {asyncResults.result && to && <ContentDecoder chainId={chainId} to={to} result={asyncResults.result} />}
             </Layout.Body>
             <Layout.Footer>
