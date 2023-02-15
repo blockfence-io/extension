@@ -42,6 +42,25 @@ export const Footer = styled.footer`
 
     padding: 0.5rem 20px;
     display: flex;
-    gap: 10px;
-    justify-content: space-between;
+    gap: 22px;
+    justify-content: flex-start;
+`;
+
+export const Banner = styled.div`
+    display: inline-block;
+    color: #ffffffe3;
+    background: rgba(172, 16, 16, 0.52);
+    border-radius: 1px;
+    font-weight: 800;
+    font-size: 10px;
+    padding: 2px 40px;
+
+    position: fixed;
+    bottom: 12px;
+    right: -40px;
+    transform: rotate(-45deg);
+
+    z-index: 20;
+
+    user-select: none;
 `;
