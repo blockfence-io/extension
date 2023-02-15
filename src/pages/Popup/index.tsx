@@ -38,7 +38,7 @@ function Panel() {
                 )}
 
                 {asyncResults.loading && <LoadingMessage />}
-                {asyncResults.error && <ErrorMessage>A{asyncResults.error.message}</ErrorMessage>}
+                {asyncResults.error && <ErrorMessage>{asyncResults.error.message}</ErrorMessage>}
                 {asyncResults.result && <ContentDecoder chainId={chainId} to={to} result={asyncResults.result} />}
             </Layout.Body>
         </Layout.Container>
