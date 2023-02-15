@@ -26,6 +26,7 @@ function Panel() {
 
     return (
         <Layout.Container>
+            <Layout.Banner>ALPHA</Layout.Banner>
             <Layout.Header severity={result ? result.severity : undefined}>
                 <SearchBar onClick={handleClick} />
                 <SettingsMenu />

@@ -26,6 +26,7 @@ function Panel() {
 
     return (
         <Layout.Container style={{ minHeight: 'initial' }}>
+            <Layout.Banner>ALPHA</Layout.Banner>
             <Layout.Body>
                 {isLoading && <LoadingMessage />}
                 {error && <ErrorMessage>{error}</ErrorMessage>}
