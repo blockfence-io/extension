@@ -3,6 +3,8 @@ import styled from 'styled-components';
 export const Results = styled.div`
     padding: 20px;
     overflow-y: auto;
+
+    position: relative;
 `;
 
 export const Subtitle = styled.h3`
@@ -37,4 +39,31 @@ export const Copyrights = styled.div`
         vertical-align: top;
         margin-right: 5px;
     }
+`;
+
+export const Banner = styled.div`
+    background: rgba(172, 16, 16, 0.52);
+    color: #ffffffe3;
+    border-radius: 1px;
+    /* display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center; */
+
+    display: inline-block;
+    position: absolute;
+    position: absolute;
+    padding: 4px 40px;
+    font-weight: 800;
+
+    left: -38px;
+    top: 14px;
+    transform: rotate(-45deg);
+
+    /* position: fixed;
+    top: auto;
+    bottom: 16px;
+    left: auto;
+    right: -37px;
+    font-size: 12px; */
 `;
