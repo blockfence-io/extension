@@ -1,74 +1,51 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import * as Styled from './index.styled';
-import { Button } from '../../components/UI/Button';
-import { Input } from '../../components/UI/Input';
-import { Radio } from '../../components/UI/Radio';
+import * as Layout from '../../components/Layout.styles';
+import { SearchBar } from '../../components/SearchBar';
+import { SettingsMenu } from '../../components/SettingsMenu';
+import { ErrorMessage, LoadingMessage } from '../../components/PageMessages';
 import { ContentDecoder } from '../../components/ContentDecoder';
-import { GithubURL, WebsiteURL } from '../../components/WebsiteURL';
-import { NetworkSelector } from '../../components/NetworkSelector';
+
+import { useGetResults } from '../../shared/api';
+import * as Styled from './index.styled';
 
 import '../../shared/reset.css';
 import '../../shared/font.css';
 
 function Panel() {
-    const [input, setInput] = useState('');
     const [to, setTo] = useState('');
     const [chainId, setChainId] = useState('0x1');
-    const [enableHooks, setEnableHooks] = useState<boolean | null>(null);
+    const { result, isLoading, error, fatalError, getData } = useGetResults();
 
-    async function handleSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
-        event.preventDefault();
-        setTo(input);
+    async function handleClick(chainId: string, to: string) {
+        setChainId(chainId);
+        setTo(to);
+        await getData(to, chainId);
     }
-
-    async function updateSettings(enableHooks: boolean) {
-        setEnableHooks(enableHooks);
-        await chrome.storage.local.set({ enableHooks: enableHooks });
-    }
-
-    async function getEnableHooksStatus() {
-        const storage = await chrome.storage.local.get('enableHooks');
-        setEnableHooks(storage.enableHooks);
-    }
-
-    useEffect(() => {
-        getEnableHooksStatus();
-    }, []);
 
     return (
-        <Styled.Container>
-            <Styled.Title>
-                blockfence | <Styled.Description>contract decoder</Styled.Description>
-            </Styled.Title>
-            <Styled.Label>Smart Contract Address</Styled.Label>
-            <Styled.Form onSubmit={handleSubmit}>
-                <NetworkSelector onChange={setChainId} />
+        <Layout.Container>
+            <Layout.Banner>ALPHA</Layout.Banner>
+            <Layout.Header severity={result ? result.severity : undefined}>
+                <SearchBar onClick={handleClick} />
+                <SettingsMenu />
+            </Layout.Header>
 
-                <Input type='text' value={input} onChange={(e) => setInput(e.target.value)} style={{ flex: 1 }} />
-                <Button type='submit' disabled={input === '' || input === to}>
-                    Send
-                </Button>
-            </Styled.Form>
+            <Layout.Body>
+                {to === '' && (
+                    <Styled.Help>Enter an address to find out more about a smart contract and how it works</Styled.Help>
+                )}
 
-            {to === '' && (
-                <Styled.Help>Enter an address to find out more about a smart contract and how it works</Styled.Help>
-            )}
-            {to && <ContentDecoder chainId={chainId} to={to} showAccountAddress={false} />}
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1rem' }}>
-                <Radio
-                    onChange={updateSettings}
-                    value={enableHooks || false}
-                    disabled={enableHooks === null}
-                    label='Notify on every transaction'
-                />
-            </div>
-            <Styled.Footer>
-                <WebsiteURL />
-                <GithubURL />
-            </Styled.Footer>
-        </Styled.Container>
+                {isLoading && <LoadingMessage />}
+                {error && <ErrorMessage>{error}</ErrorMessage>}
+                {fatalError && (
+                    <ErrorMessage withIcon>Whoops! It looks like we have encountered an unexpected error</ErrorMessage>
+                )}
+
+                {result && <ContentDecoder chainId={chainId} to={to} result={result} />}
+            </Layout.Body>
+        </Layout.Container>
     );
 }
 

@@ -2,11 +2,11 @@ import styled from 'styled-components';
 
 export const Link = styled.a`
     display: flex;
-    margin-top: 0.7rem;
+    align-items: center;
     gap: 6px;
 
     & svg {
-        fill: white;
+        fill: black;
         width: 14px;
     }
 `;
