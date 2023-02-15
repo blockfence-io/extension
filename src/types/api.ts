@@ -4,7 +4,7 @@ export type TxDescription = {
 };
 
 export type ErrorResponse = {
-    error: string;
+    message: string;
 };
 
 export type Severity = 'NONE' | 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';

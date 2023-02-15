@@ -20,6 +20,7 @@ function Panel() {
 
     return (
         <Layout.Container style={{ minHeight: 'initial' }}>
+            <Layout.Banner>ALPHA</Layout.Banner>
             <Layout.Body>
                 {asyncResults.loading && <LoadingMessage />}
                 {asyncResults.error && <ErrorMessage>{asyncResults.error.message}</ErrorMessage>}

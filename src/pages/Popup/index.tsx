@@ -30,6 +30,7 @@ function Panel() {
 
     return (
         <Layout.Container>
+            <Layout.Banner>ALPHA</Layout.Banner>
             <Layout.Header severity={analyzeResult.result?.severity}>
                 <SearchBar onClick={handleClick} disabled={analyzeResult.loading || descriptionResult.loading} />
                 <SettingsMenu />

@@ -37,8 +37,8 @@ export const fetchDescription = async (chainId: string, to: string): Promise<Eng
         if (axios.isAxiosError(error) && error.response) {
             const axiosError = error as AxiosError<ErrorResponse>;
 
-            if (axiosError.response?.data.error) {
-                throw new Error(axiosError.response.data.error);
+            if (axiosError.response?.data.message) {
+                throw new Error(axiosError.response.data.message);
             }
         }
         throw new Error("Whoops, something went wrong. Hang tight, we're working on it. Give it another shot later.");
@@ -67,8 +67,8 @@ export const fetchAnalyze = async (chainId: string, to: string): Promise<EngineR
         if (axios.isAxiosError(error) && error.response) {
             const axiosError = error as AxiosError<ErrorResponse>;
 
-            if (axiosError.response?.data.error) {
-                throw new Error(axiosError.response.data.error);
+            if (axiosError.response?.data.message) {
+                throw new Error(axiosError.response.data.message);
             }
         }
         throw new Error("Whoops, something went wrong. Hang tight, we're working on it. Give it another shot later.");
