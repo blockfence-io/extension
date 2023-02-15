@@ -27,6 +27,14 @@ You can load it to Chrome by:
 3. Click on **[Load unpacked]**
 4. Choose the `build` folder
 
+## Release
+
+In order to build a production version:
+
+```
+NODE_ENV=production npm run build
+```
+
 ### Ladle UI Stories
 
 To run Ladle stories:
