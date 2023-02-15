@@ -17,15 +17,14 @@ import '../../shared/font.css';
 function Panel() {
     const [to, setTo] = useState('');
     const [chainId, setChainId] = useState('0x1');
-    // const asyncResults = useAsyncCallback(async (chainId, to) => fetchResult(chainId, to));
     const descriptionResult = useAsyncCallback(async (chainId, to) => fetchDescription(chainId, to));
     const analyzeResult = useAsyncCallback(async (chainId, to) => fetchAnalyze(chainId, to));
 
     async function handleClick(chainId: string, to: string) {
         setChainId(chainId);
         setTo(to);
-        await descriptionResult.execute(chainId, to);
-        await analyzeResult.execute(chainId, to);
+        descriptionResult.execute(chainId, to);
+        analyzeResult.execute(chainId, to);
     }
 
     return (
@@ -41,9 +40,16 @@ function Panel() {
                     <Styled.Help>Enter an address to find out more about a smart contract and how it works</Styled.Help>
                 )}
 
-                {analyzeResult.loading && <LoadingMessage />}
+                {(analyzeResult.loading || descriptionResult.loading) && <LoadingMessage />}
                 {analyzeResult.error && <ErrorMessage>{analyzeResult.error.message}</ErrorMessage>}
-                {/* {asyncResults.result && <ContentDecoder chainId={chainId} to={to} result={asyncResults.result} />} */}
+                {analyzeResult.result && descriptionResult.result && (
+                    <ContentDecoder
+                        chainId={chainId}
+                        to={to}
+                        analyzeResult={analyzeResult.result}
+                        descriptionResult={descriptionResult.result}
+                    />
+                )}
             </Layout.Body>
         </Layout.Container>
     );

@@ -15,12 +15,12 @@ async function getActiveTabUrl() {
     });
 }
 
-export const fetchDescription = async (chainId: string, to: string): Promise<EngineResponse> => {
+const _fetchFunction = async (page: string, chainId: string, to: string): Promise<EngineResponse> => {
     try {
         const url = await getActiveTabUrl();
         const response = await axios({
             method: 'post',
-            url: `${BASE_URL}/chat`,
+            url: `${BASE_URL}/${page}`,
             data: {
                 plugin: 'BROWSER',
                 chain_id: chainId,
@@ -45,32 +45,10 @@ export const fetchDescription = async (chainId: string, to: string): Promise<Eng
     }
 };
 
-export const fetchAnalyze = async (chainId: string, to: string): Promise<EngineResponse> => {
-    try {
-        const url = await getActiveTabUrl();
-        const response = await axios({
-            method: 'post',
-            url: `${BASE_URL}/analyze`,
-            data: {
-                plugin: 'BROWSER',
-                chain_id: chainId,
-                transaction: {
-                    to,
-                },
-                browser_data: {
-                    url,
-                },
-            },
-        });
-        return response.data;
-    } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-            const axiosError = error as AxiosError<ErrorResponse>;
+export const fetchDescription = async (chainId: string, to: string): Promise<EngineResponse> => {
+    return _fetchFunction('chat', chainId, to);
+};
 
-            if (axiosError.response?.data.message) {
-                throw new Error(axiosError.response.data.message);
-            }
-        }
-        throw new Error("Whoops, something went wrong. Hang tight, we're working on it. Give it another shot later.");
-    }
+export const fetchAnalyze = async (chainId: string, to: string): Promise<EngineResponse> => {
+    return _fetchFunction('analyze', chainId, to);
 };

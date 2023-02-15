@@ -16,18 +16,25 @@ import { EngineResponse } from '../types/api';
 interface ContentDecoderProps {
     to: string;
     chainId?: string;
-    result: EngineResponse;
+    descriptionResult: EngineResponse;
+    analyzeResult: EngineResponse;
 }
 
-export function ContentDecoder({ to, chainId = '1', result }: ContentDecoderProps) {
+export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeResult }: ContentDecoderProps) {
+    const name = descriptionResult ? descriptionResult.name : analyzeResult.name;
+
     return (
         <>
-            <Header to={to} network={networkMapping[chainId]} severity={result ? result.severity : 'NONE'} />
+            <Header
+                to={to}
+                network={networkMapping[chainId]}
+                severity={analyzeResult ? analyzeResult.severity : 'NONE'}
+            />
 
             <Styled.Results>
                 <Collapsable title='Description' icon={<SpotlightIcon />} defaultState={true}>
-                    <Styled.ContractName>{result.name}</Styled.ContractName>
-                    {result.description}
+                    <Styled.ContractName>{name}</Styled.ContractName>
+                    {descriptionResult.description}
                     <Styled.Copyrights>
                         <ChatGPTIcon />
                         Powered by OpenAI
@@ -35,7 +42,7 @@ export function ContentDecoder({ to, chainId = '1', result }: ContentDecoderProp
                 </Collapsable>
 
                 <Collapsable title='Fraud Analysis' icon={<RadarIcon />}>
-                    {result.risks.map((risk, id) => (
+                    {analyzeResult.risks.map((risk, id) => (
                         <Risk key={id} risk={risk} />
                     ))}
                 </Collapsable>
