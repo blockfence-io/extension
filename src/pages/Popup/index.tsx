@@ -17,7 +17,6 @@ import '../../shared/font.css';
 function Panel() {
     const [to, setTo] = useState('');
     const [chainId, setChainId] = useState('0x1');
-    // const { result, isLoading, error, fatalError, getData } = useGetResults();
 
     const asyncResults = useAsyncCallback(async () => {
         return fetchResult(chainId, to);
@@ -26,14 +25,17 @@ function Panel() {
     async function handleClick(chainId: string, to: string) {
         setChainId(chainId);
         setTo(to);
-        // await getData(to, chainId);
         await asyncResults.execute();
+    }
+
+    if (asyncResults.error) {
+        console.log(asyncResults.error.cause);
     }
 
     return (
         <Layout.Container>
             <Layout.Header severity={asyncResults.result?.severity}>
-                <SearchBar onClick={handleClick} />
+                <SearchBar onClick={handleClick} disabled={asyncResults.loading} />
                 <SettingsMenu />
             </Layout.Header>
 
@@ -43,7 +45,7 @@ function Panel() {
                 )}
 
                 {asyncResults.loading && <LoadingMessage />}
-                {asyncResults.error && <ErrorMessage>{asyncResults.error.message}</ErrorMessage>}
+                {asyncResults.error && <ErrorMessage>A{asyncResults.error.message}</ErrorMessage>}
                 {/* {fatalError && (
                     <ErrorMessage withIcon>Whoops! It looks like we have encountered an unexpected error</ErrorMessage>
                 )} */}

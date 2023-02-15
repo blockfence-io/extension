@@ -18,22 +18,27 @@ async function getActiveTabUrl() {
 }
 
 export const fetchResult = async (chainId: string, to: string): Promise<EngineResponse> => {
-    const url = await getActiveTabUrl();
-    const response = await axios({
-        method: 'post',
-        url: BASE_URL,
-        data: {
-            plugin: 'BROWSER',
-            chain_id: chainId,
-            transaction: {
-                to,
+    try {
+        const url = await getActiveTabUrl();
+        const response = await axios({
+            method: 'post',
+            url: BASE_URL,
+            data: {
+                plugin: 'BROWSER',
+                chain_id: chainId,
+                transaction: {
+                    to,
+                },
+                browser_data: {
+                    url,
+                },
             },
-            browser_data: {
-                url,
-            },
-        },
-    });
-    return response.data;
+        });
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        throw new Error('Hello');
+    }
 };
 
 export function useGetResults() {
