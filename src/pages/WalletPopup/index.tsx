@@ -7,7 +7,7 @@ import { ContentDecoder } from '../../components/ContentDecoder';
 import { ErrorMessage, LoadingMessage } from '../../components/PageMessages';
 import { WebsiteURL, GithubURL } from '../../components/WebsiteURL';
 
-import { fetchDescription } from '../../shared/api';
+import { fetchDescription, fetchAnalyze } from '../../shared/api';
 
 import '../../shared/reset.css';
 import '../../shared/font.css';
@@ -16,15 +16,23 @@ function Panel() {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const to = urlSearchParams.get('to') || '';
     const chainId: string = urlSearchParams.get('chainId') || '0x1';
-    const asyncResults = useAsync(fetchDescription, [chainId, to]);
+    const descriptionResult = useAsync(fetchDescription, [chainId, to]);
+    const analyzeResult = useAsync(fetchAnalyze, [chainId, to]);
 
     return (
         <Layout.Container style={{ minHeight: 'initial' }}>
             <Layout.Banner>ALPHA</Layout.Banner>
             <Layout.Body>
-                {asyncResults.loading && <LoadingMessage />}
-                {asyncResults.error && <ErrorMessage>{asyncResults.error.message}</ErrorMessage>}
-                {asyncResults.result && to && <ContentDecoder chainId={chainId} to={to} result={asyncResults.result} />}
+                {(analyzeResult.loading || descriptionResult.loading) && <LoadingMessage />}
+                {analyzeResult.error && <ErrorMessage>{analyzeResult.error.message}</ErrorMessage>}
+                {analyzeResult.result && descriptionResult.result && (
+                    <ContentDecoder
+                        chainId={chainId}
+                        to={to}
+                        analyzeResult={analyzeResult.result}
+                        descriptionResult={descriptionResult.result}
+                    />
+                )}
             </Layout.Body>
             <Layout.Footer>
                 <WebsiteURL />
