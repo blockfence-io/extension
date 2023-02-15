@@ -21,7 +21,7 @@ function Panel() {
     async function handleClick(chainId: string, to: string) {
         setChainId(chainId);
         setTo(to);
-        getData(to, chainId);
+        await getData(to, chainId);
     }
 
     return (
