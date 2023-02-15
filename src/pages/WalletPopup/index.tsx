@@ -7,7 +7,7 @@ import { ContentDecoder } from '../../components/ContentDecoder';
 import { ErrorMessage, LoadingMessage } from '../../components/PageMessages';
 import { WebsiteURL, GithubURL } from '../../components/WebsiteURL';
 
-import { fetchResult } from '../../shared/api';
+import { fetchDescription } from '../../shared/api';
 
 import '../../shared/reset.css';
 import '../../shared/font.css';
@@ -16,7 +16,7 @@ function Panel() {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const to = urlSearchParams.get('to') || '';
     const chainId: string = urlSearchParams.get('chainId') || '0x1';
-    const asyncResults = useAsync(fetchResult, [chainId, to]);
+    const asyncResults = useAsync(fetchDescription, [chainId, to]);
 
     return (
         <Layout.Container style={{ minHeight: 'initial' }}>

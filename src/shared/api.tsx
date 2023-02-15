@@ -15,12 +15,42 @@ async function getActiveTabUrl() {
     });
 }
 
-export const fetchResult = async (chainId: string, to: string): Promise<EngineResponse> => {
+export const fetchDescription = async (chainId: string, to: string): Promise<EngineResponse> => {
     try {
         const url = await getActiveTabUrl();
         const response = await axios({
             method: 'post',
-            url: BASE_URL,
+            url: `${BASE_URL}/chat`,
+            data: {
+                plugin: 'BROWSER',
+                chain_id: chainId,
+                transaction: {
+                    to,
+                },
+                browser_data: {
+                    url,
+                },
+            },
+        });
+        return response.data;
+    } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+            const axiosError = error as AxiosError<ErrorResponse>;
+
+            if (axiosError.response?.data.error) {
+                throw new Error(axiosError.response.data.error);
+            }
+        }
+        throw new Error("Whoops, something went wrong. Hang tight, we're working on it. Give it another shot later.");
+    }
+};
+
+export const fetchAnalyze = async (chainId: string, to: string): Promise<EngineResponse> => {
+    try {
+        const url = await getActiveTabUrl();
+        const response = await axios({
+            method: 'post',
+            url: `${BASE_URL}/analyze`,
             data: {
                 plugin: 'BROWSER',
                 chain_id: chainId,
