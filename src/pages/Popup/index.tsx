@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import { useAsyncCallback } from 'react-async-hook';
 
 import * as Layout from '../../components/Layout.styles';
 import { SearchBar } from '../../components/SearchBar';
@@ -7,7 +8,7 @@ import { SettingsMenu } from '../../components/SettingsMenu';
 import { ErrorMessage, LoadingMessage } from '../../components/PageMessages';
 import { ContentDecoder } from '../../components/ContentDecoder';
 
-import { useGetResults } from '../../shared/api';
+import { fetchResult } from '../../shared/api';
 import * as Styled from './index.styled';
 
 import '../../shared/reset.css';
@@ -16,17 +17,22 @@ import '../../shared/font.css';
 function Panel() {
     const [to, setTo] = useState('');
     const [chainId, setChainId] = useState('0x1');
-    const { result, isLoading, error, fatalError, getData } = useGetResults();
+    // const { result, isLoading, error, fatalError, getData } = useGetResults();
+
+    const asyncResults = useAsyncCallback(async () => {
+        return fetchResult(chainId, to);
+    });
 
     async function handleClick(chainId: string, to: string) {
         setChainId(chainId);
         setTo(to);
-        await getData(to, chainId);
+        // await getData(to, chainId);
+        await asyncResults.execute();
     }
 
     return (
         <Layout.Container>
-            <Layout.Header severity={result ? result.severity : undefined}>
+            <Layout.Header severity={asyncResults.result?.severity}>
                 <SearchBar onClick={handleClick} />
                 <SettingsMenu />
             </Layout.Header>
@@ -36,13 +42,13 @@ function Panel() {
                     <Styled.Help>Enter an address to find out more about a smart contract and how it works</Styled.Help>
                 )}
 
-                {isLoading && <LoadingMessage />}
-                {error && <ErrorMessage>{error}</ErrorMessage>}
-                {fatalError && (
+                {asyncResults.loading && <LoadingMessage />}
+                {asyncResults.error && <ErrorMessage>{asyncResults.error.message}</ErrorMessage>}
+                {/* {fatalError && (
                     <ErrorMessage withIcon>Whoops! It looks like we have encountered an unexpected error</ErrorMessage>
-                )}
+                )} */}
 
-                {result && <ContentDecoder chainId={chainId} to={to} result={result} />}
+                {asyncResults.result && <ContentDecoder chainId={chainId} to={to} result={asyncResults.result} />}
             </Layout.Body>
         </Layout.Container>
     );

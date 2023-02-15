@@ -1,39 +1,41 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { useAsync, useAsyncCallback } from 'react-async-hook';
 
 import * as Layout from '../../components/Layout.styles';
 import { ContentDecoder } from '../../components/ContentDecoder';
 import { ErrorMessage, LoadingMessage } from '../../components/PageMessages';
 import { WebsiteURL, GithubURL } from '../../components/WebsiteURL';
 
-import { useGetResults } from '../../shared/api';
+import { fetchResult } from '../../shared/api';
 
 import '../../shared/reset.css';
 import '../../shared/font.css';
 
 function Panel() {
-    const { result, isLoading, error, fatalError, getData } = useGetResults();
-
     const urlSearchParams = new URLSearchParams(window.location.search);
-    const to = urlSearchParams.get('to');
+    const to = urlSearchParams.get('to') || '';
     const chainId: string = urlSearchParams.get('chainId') || '0x1';
 
-    useEffect(() => {
-        if (to) {
-            getData(to, chainId);
-        }
-    }, [to, chainId]);
+    const asyncResults = useAsync(fetchResult, [chainId, to]);
+
+    // const asyncResults = useAsyncCallback(async () => {
+    //     return fetchResult(chainId, to || '1');
+    // });
 
     return (
         <Layout.Container style={{ minHeight: 'initial' }}>
             <Layout.Body>
-                {isLoading && <LoadingMessage />}
-                {error && <ErrorMessage>{error}</ErrorMessage>}
-                {fatalError && (
+                {/* <button disabled={asyncResults.loading} onClick={asyncResults.execute}>
+                    Get REsults
+                </button> */}
+                {asyncResults.loading && <LoadingMessage />}
+                {asyncResults.error && <ErrorMessage>{asyncResults.error.message}</ErrorMessage>}
+                {/* {fatalError && (
                     <ErrorMessage withIcon>Whoops! It looks like we have encountered an unexpected error</ErrorMessage>
-                )}
+                )} */}
 
-                {result && to && <ContentDecoder chainId={chainId} to={to} result={result} />}
+                {asyncResults.result && to && <ContentDecoder chainId={chainId} to={to} result={asyncResults.result} />}
             </Layout.Body>
             <Layout.Footer>
                 <WebsiteURL />

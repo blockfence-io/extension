@@ -17,6 +17,25 @@ async function getActiveTabUrl() {
     });
 }
 
+export const fetchResult = async (chainId: string, to: string): Promise<EngineResponse> => {
+    const url = await getActiveTabUrl();
+    const response = await axios({
+        method: 'post',
+        url: BASE_URL,
+        data: {
+            plugin: 'BROWSER',
+            chain_id: chainId,
+            transaction: {
+                to,
+            },
+            browser_data: {
+                url,
+            },
+        },
+    });
+    return response.data;
+};
+
 export function useGetResults() {
     const [result, setResult] = useState<EngineResponse | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
