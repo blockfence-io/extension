@@ -48,8 +48,8 @@ export function useGetResults() {
         } catch (error) {
             if (axios.isAxiosError(error) && error.response) {
                 const axiosError = error as AxiosError<ErrorResponse>;
-                if (axiosError.response?.data.error) {
-                    setError(axiosError.response.data.error);
+                if (axiosError.response?.data.message) {
+                    setError(axiosError.response.data.message);
                 } else {
                     setFatalError(true);
                 }
