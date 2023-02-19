@@ -18,9 +18,16 @@ export type Risk = {
     }[];
 };
 
+export type ServerResponse = {
+    [key: string]: any;
+};
+
 export type EngineResponse = {
     name: string;
     severity: Severity;
-    description: string;
     risks: Risk[];
+};
+
+export type ChatResponse = {
+    description: string;
 };

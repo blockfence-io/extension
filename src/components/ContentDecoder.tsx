@@ -12,30 +12,43 @@ import ChatGPTIcon from '../assets/icons/chatgpt.svg';
 
 import * as Styled from './ContentDecoder.styles';
 import { EngineResponse } from '../types/api';
+import { SmallLoader } from './UI/Loader';
 
 interface ContentDecoderProps {
     to: string;
     chainId?: string;
-    result: EngineResponse;
+    descriptionResult: string | undefined;
+    analyzeResult: EngineResponse;
 }
 
-export function ContentDecoder({ to, chainId = '1', result }: ContentDecoderProps) {
+export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeResult }: ContentDecoderProps) {
+    const descriptionLoader = (
+        <>
+            Loading Description...
+            <SmallLoader />
+        </>
+    );
+
     return (
         <>
-            <Header to={to} network={networkMapping[chainId]} severity={result ? result.severity : 'NONE'} />
+            <Header
+                to={to}
+                network={networkMapping[chainId]}
+                severity={analyzeResult ? analyzeResult.severity : 'NONE'}
+            />
 
             <Styled.Results>
                 <Collapsable title='Description' icon={<SpotlightIcon />} defaultState={true}>
-                    <Styled.ContractName>{result.name}</Styled.ContractName>
-                    {result.description}
+                    <Styled.ContractName>Name: {analyzeResult.name}</Styled.ContractName>
+                    {(descriptionResult && descriptionResult) || descriptionLoader}
                     <Styled.Copyrights>
                         <ChatGPTIcon />
                         Powered by OpenAI
                     </Styled.Copyrights>
                 </Collapsable>
 
-                <Collapsable title='Fraud Analysis' icon={<RadarIcon />}>
-                    {result.risks.map((risk, id) => (
+                <Collapsable title='Fraud Analysis' icon={<RadarIcon />} defaultState={true}>
+                    {analyzeResult.risks.map((risk, id) => (
                         <Risk key={id} risk={risk} />
                     ))}
                 </Collapsable>

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import LoaderAnimation from '../../assets/loader.svg';
+import LoaderAnimationSmall from '../../assets/loader-small.svg';
 
 const Container = styled.div`
     width: 100%;
@@ -18,6 +19,14 @@ export function Loader() {
     return (
         <Container>
             <LoaderAnimation />
+        </Container>
+    );
+}
+
+export function SmallLoader() {
+    return (
+        <Container>
+            <LoaderAnimationSmall />
         </Container>
     );
 }
