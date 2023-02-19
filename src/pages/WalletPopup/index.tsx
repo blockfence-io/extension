@@ -19,7 +19,8 @@ function Panel() {
     const descriptionResult = useAsync(fetchDescription, [chainId, to]);
     const analyzeResult = useAsync(fetchAnalyze, [chainId, to]);
 
-    const chatError = 'gpt is experiencing some technical issues... please try again later'; // TODO: dup code will be removed once we all user-facing strings to constants file
+    const chatError =
+        "GPT-3's experiencing some technical difficulties, but don't worry, our team's on it. In the meantime, give it another try or holla at us if you need a hand.";
 
     return (
         <Layout.Container style={{ minHeight: 'initial' }}>

@@ -26,7 +26,8 @@ function Panel() {
         descriptionResult.execute(chainId, to);
         analyzeResult.execute(chainId, to);
     }
-    const chatError = 'gpt is experiencing some technical issues... please try again later';
+    const chatError =
+        "GPT-3's experiencing some technical difficulties, but don't worry, our team's on it. In the meantime, give it another try or holla at us if you need a hand.";
 
     return (
         <Layout.Container>

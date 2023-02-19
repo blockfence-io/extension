@@ -11,8 +11,8 @@ import RadarIcon from '../assets/icons/radar-icon.svg';
 import ChatGPTIcon from '../assets/icons/chatgpt.svg';
 
 import * as Styled from './ContentDecoder.styles';
-import { ChatResponse, EngineResponse } from '../types/api';
-import { Loader } from './UI/Loader';
+import { EngineResponse } from '../types/api';
+import { SmallLoader } from './UI/Loader';
 
 interface ContentDecoderProps {
     to: string;
@@ -22,6 +22,13 @@ interface ContentDecoderProps {
 }
 
 export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeResult }: ContentDecoderProps) {
+    const descriptionLoader = (
+        <>
+            Loading Description...
+            <SmallLoader />
+        </>
+    );
+
     return (
         <>
             <Header
@@ -32,15 +39,15 @@ export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeRe
 
             <Styled.Results>
                 <Collapsable title='Description' icon={<SpotlightIcon />} defaultState={true}>
-                    <Styled.ContractName>{analyzeResult.name}</Styled.ContractName>
-                    {(descriptionResult && descriptionResult) || <Loader />}
+                    <Styled.ContractName>Name: {analyzeResult.name}</Styled.ContractName>
+                    {(descriptionResult && descriptionResult) || descriptionLoader}
                     <Styled.Copyrights>
                         <ChatGPTIcon />
                         Powered by OpenAI
                     </Styled.Copyrights>
                 </Collapsable>
 
-                <Collapsable title='Fraud Analysis' icon={<RadarIcon />}>
+                <Collapsable title='Fraud Analysis' icon={<RadarIcon />} defaultState={true}>
                     {analyzeResult.risks.map((risk, id) => (
                         <Risk key={id} risk={risk} />
                     ))}
