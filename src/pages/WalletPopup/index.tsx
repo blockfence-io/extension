@@ -19,18 +19,20 @@ function Panel() {
     const descriptionResult = useAsync(fetchDescription, [chainId, to]);
     const analyzeResult = useAsync(fetchAnalyze, [chainId, to]);
 
+    const chatError = 'gpt is experiencing some technical issues... please try again later'; // TODO: dup code will be removed once we all user-facing strings to constants file
+
     return (
         <Layout.Container style={{ minHeight: 'initial' }}>
             <Layout.Banner>ALPHA</Layout.Banner>
             <Layout.Body>
-                {(analyzeResult.loading || descriptionResult.loading) && <LoadingMessage />}
+                {analyzeResult.loading && <LoadingMessage />}
                 {analyzeResult.error && <ErrorMessage>{analyzeResult.error.message}</ErrorMessage>}
-                {analyzeResult.result && descriptionResult.result && (
+                {analyzeResult.result && (
                     <ContentDecoder
                         chainId={chainId}
                         to={to}
                         analyzeResult={analyzeResult.result}
-                        descriptionResult={descriptionResult.result}
+                        descriptionResult={descriptionResult.error ? chatError : descriptionResult.result?.description}
                     />
                 )}
             </Layout.Body>

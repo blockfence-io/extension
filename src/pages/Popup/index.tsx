@@ -26,6 +26,7 @@ function Panel() {
         descriptionResult.execute(chainId, to);
         analyzeResult.execute(chainId, to);
     }
+    const chatError = 'gpt is experiencing some technical issues... please try again later';
 
     return (
         <Layout.Container>
@@ -40,14 +41,14 @@ function Panel() {
                     <Styled.Help>Enter an address to find out more about a smart contract and how it works</Styled.Help>
                 )}
 
-                {(analyzeResult.loading || descriptionResult.loading) && <LoadingMessage />}
+                {analyzeResult.loading && <LoadingMessage />}
                 {analyzeResult.error && <ErrorMessage>{analyzeResult.error.message}</ErrorMessage>}
-                {analyzeResult.result && descriptionResult.result && (
+                {analyzeResult.result && (
                     <ContentDecoder
                         chainId={chainId}
                         to={to}
                         analyzeResult={analyzeResult.result}
-                        descriptionResult={descriptionResult.result}
+                        descriptionResult={descriptionResult.error ? chatError : descriptionResult.result?.description}
                     />
                 )}
             </Layout.Body>

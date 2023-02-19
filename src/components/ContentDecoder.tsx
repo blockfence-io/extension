@@ -11,18 +11,17 @@ import RadarIcon from '../assets/icons/radar-icon.svg';
 import ChatGPTIcon from '../assets/icons/chatgpt.svg';
 
 import * as Styled from './ContentDecoder.styles';
-import { EngineResponse } from '../types/api';
+import { ChatResponse, EngineResponse } from '../types/api';
+import { Loader } from './UI/Loader';
 
 interface ContentDecoderProps {
     to: string;
     chainId?: string;
-    descriptionResult: EngineResponse;
+    descriptionResult: string | undefined;
     analyzeResult: EngineResponse;
 }
 
 export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeResult }: ContentDecoderProps) {
-    const name = descriptionResult ? descriptionResult.name : analyzeResult.name;
-
     return (
         <>
             <Header
@@ -33,8 +32,8 @@ export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeRe
 
             <Styled.Results>
                 <Collapsable title='Description' icon={<SpotlightIcon />} defaultState={true}>
-                    <Styled.ContractName>{name}</Styled.ContractName>
-                    {descriptionResult.description}
+                    <Styled.ContractName>{analyzeResult.name}</Styled.ContractName>
+                    {(descriptionResult && descriptionResult) || <Loader />}
                     <Styled.Copyrights>
                         <ChatGPTIcon />
                         Powered by OpenAI

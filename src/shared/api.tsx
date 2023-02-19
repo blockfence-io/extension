@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import { EngineResponse, ErrorResponse } from '../types/api';
+import { ChatResponse, EngineResponse, ErrorResponse, ServerResponse } from '../types/api';
 
 const BASE_URL = process.env.API_SERVER;
 
@@ -15,8 +15,10 @@ async function getActiveTabUrl() {
     });
 }
 
-const _fetchFunction = async (page: string, chainId: string, to: string): Promise<EngineResponse> => {
+const _fetchFunction = async (page: string, chainId: string, to: string): Promise<ServerResponse> => {
+    // Todo: use generic type instead of general 'serverResponse'
     try {
+        console.log('sending request: ' + `${BASE_URL}/${page}`);
         const url = await getActiveTabUrl();
         const response = await axios({
             method: 'post',
@@ -45,10 +47,10 @@ const _fetchFunction = async (page: string, chainId: string, to: string): Promis
     }
 };
 
-export const fetchDescription = async (chainId: string, to: string): Promise<EngineResponse> => {
-    return _fetchFunction('chat', chainId, to);
+export const fetchDescription = async (chainId: string, to: string): Promise<ChatResponse> => {
+    return _fetchFunction('chat', chainId, to) as Promise<ChatResponse>;
 };
 
 export const fetchAnalyze = async (chainId: string, to: string): Promise<EngineResponse> => {
-    return _fetchFunction('analyze', chainId, to);
+    return _fetchFunction('analyze', chainId, to) as Promise<EngineResponse>;
 };
