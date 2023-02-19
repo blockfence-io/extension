@@ -15,19 +15,6 @@ const Container = styled.div`
     align-items: center;
 `;
 
-const SmallContainer = styled.div`
-    width: 100%;
-    height: 100px;
-    padding: 12px 20px;
-    margin: 8px 0;
-    text-align: center;
-    font-size: 18px;
-    color: black;
-    justify-content: top;
-    flex-direction: column;
-    align-items: center;
-`;
-
 export function Loader() {
     return (
         <Container>
