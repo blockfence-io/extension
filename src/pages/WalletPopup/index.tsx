@@ -8,11 +8,10 @@ import { ErrorMessage, LoadingMessage } from '../../components/PageMessages';
 import { WebsiteURL, GithubURL } from '../../components/WebsiteURL';
 
 import { fetchDescription, fetchAnalyze } from '../../shared/api';
+import { logPageView } from '../../shared/logs';
 
 import '../../shared/reset.css';
 import '../../shared/font.css';
-
-import { logPageView } from '../../shared/logs';
 
 function Panel() {
     const urlSearchParams = new URLSearchParams(window.location.search);
