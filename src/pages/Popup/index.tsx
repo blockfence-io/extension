@@ -15,6 +15,9 @@ import * as Styled from './index.styled';
 import '../../shared/reset.css';
 import '../../shared/font.css';
 
+const chatError =
+    "GPT-3's experiencing some technical difficulties, but don't worry, our team's on it. In the meantime, give it another try or holla at us if you need a hand.";
+
 function Panel() {
     const [to, setTo] = useState('');
     const [chainId, setChainId] = useState('0x1');
@@ -70,10 +73,6 @@ function Panel() {
         analyzeResult.execute(chainId, to);
         logSearchClick(to, chainId);
     }
-    const chatError =
-        "GPT-3's experiencing some technical difficulties, but don't worry, our team's on it. In the meantime, give it another try or holla at us if you need a hand.";
-
-    console.log('## Res: ', analyzeResult.result);
 
     return (
         <Layout.Container>
