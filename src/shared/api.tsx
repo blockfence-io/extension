@@ -18,7 +18,6 @@ async function getActiveTabUrl() {
 
 async function _fetchFunction<ResponseType>(page: string, chainId: string, to: string): Promise<ResponseType> {
     try {
-        console.log('sending request: ' + `${BASE_URL}/${page}`);
         const url = await getActiveTabUrl();
         const response = await axios({
             method: 'post',
