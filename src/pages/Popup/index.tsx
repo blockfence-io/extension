@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { useAsyncCallback } from 'react-async-hook';
 
@@ -16,8 +16,7 @@ import '../../shared/font.css';
 
 import { init } from '@amplitude/analytics-browser';
 import * as amplitude from '@amplitude/analytics-browser';
-
-init('cad0450cba5bd31153ac7136f375f193');
+import { logPageView, logSearchClick } from '../../shared/logs';
 
 function Panel() {
     const [to, setTo] = useState('');
@@ -25,13 +24,10 @@ function Panel() {
     const descriptionResult = useAsyncCallback(async (chainId, to) => fetchDescription(chainId, to));
     const analyzeResult = useAsyncCallback(async (chainId, to) => fetchAnalyze(chainId, to));
 
-    function logSearchClick(to: string, chainId: string) {
-        const eventProperties = {
-            to: to,
-            chainId: chainId,
-        };
-        amplitude.track('Search Button Clicked', eventProperties);
-    }
+    useEffect(() => {
+        logPageView('Popup');
+    }, []);
+
     async function handleClick(chainId: string, to: string) {
         setChainId(chainId);
         setTo(to);

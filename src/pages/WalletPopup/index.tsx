@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { useAsync } from 'react-async-hook';
 
@@ -12,9 +12,7 @@ import { fetchDescription, fetchAnalyze } from '../../shared/api';
 import '../../shared/reset.css';
 import '../../shared/font.css';
 
-import { init } from '@amplitude/analytics-browser';
-
-init('cad0450cba5bd31153ac7136f375f193');
+import { logPageView } from '../../shared/logs';
 
 function Panel() {
     const urlSearchParams = new URLSearchParams(window.location.search);
@@ -22,6 +20,10 @@ function Panel() {
     const chainId: string = urlSearchParams.get('chainId') || '0x1';
     const descriptionResult = useAsync(fetchDescription, [chainId, to]);
     const analyzeResult = useAsync(fetchAnalyze, [chainId, to]);
+
+    useEffect(() => {
+        logPageView('Wallet Popup');
+    }, []);
 
     const chatError =
         "GPT-3's experiencing some technical difficulties, but don't worry, our team's on it. In the meantime, give it another try or holla at us if you need a hand.";
