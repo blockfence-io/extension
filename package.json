@@ -10,6 +10,7 @@
         "lint": "eslint . --ext .tsx,.ts,.js"
     },
     "dependencies": {
+        "@amplitude/analytics-browser": "^1.8.0",
         "@iconscout/react-unicons": "^1.1.6",
         "@metamask/detect-provider": "^2.0.0",
         "@types/chrome": "^0.0.206",
@@ -20,6 +21,8 @@
         "ethers": "^5.7.2",
         "lodash": "^4.17.21",
         "react": "^18.2.0",
+        "react-async-hook": "^4.0.0",
+        "react-content-loader": "^6.2.0",
         "react-dom": "^18.2.0",
         "styled-components": "^5.3.6"
     },

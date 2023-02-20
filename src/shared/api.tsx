@@ -1,7 +1,6 @@
-import { useState } from 'react';
 import axios, { AxiosError } from 'axios';
-
-import { EngineResponse, ErrorResponse } from '../types/api';
+import { ChatResponse, EngineResponse, ErrorResponse } from '../types/api';
+import { logException } from '../shared/logs';
 
 const BASE_URL = process.env.API_SERVER;
 
@@ -17,48 +16,40 @@ async function getActiveTabUrl() {
     });
 }
 
-export function useGetResults() {
-    const [result, setResult] = useState<EngineResponse | null>(null);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
-    const [fatalError, setFatalError] = useState<boolean>(false);
-
-    async function getData(to: string, chainId?: string) {
-        setIsLoading(true);
-        setError(null);
-        setFatalError(false);
-        setResult(null);
-        try {
-            const url = await getActiveTabUrl();
-            const response = await axios({
-                method: 'post',
-                url: BASE_URL,
-                data: {
-                    plugin: 'BROWSER',
-                    chain_id: chainId,
-                    transaction: {
-                        to,
-                    },
-                    browser_data: {
-                        url,
-                    },
+async function _fetchFunction<ResponseType>(page: string, chainId: string, to: string): Promise<ResponseType> {
+    try {
+        const url = await getActiveTabUrl();
+        const response = await axios({
+            method: 'post',
+            url: `${BASE_URL}/${page}`,
+            data: {
+                plugin: 'BROWSER',
+                chain_id: chainId,
+                transaction: {
+                    to,
                 },
-            });
-            setResult(response.data);
-        } catch (error) {
-            if (axios.isAxiosError(error) && error.response) {
-                const axiosError = error as AxiosError<ErrorResponse>;
-                if (axiosError.response?.data.message) {
-                    setError(axiosError.response.data.message);
-                } else {
-                    setFatalError(true);
-                }
-            } else {
-                setFatalError(true);
+                browser_data: {
+                    url,
+                },
+            },
+        });
+        return response.data;
+    } catch (error) {
+        logException(error);
+        if (axios.isAxiosError(error) && error.response) {
+            const axiosError = error as AxiosError<ErrorResponse>;
+            if (axiosError.response?.data.message) {
+                throw new Error(axiosError.response.data.message);
             }
         }
-        setIsLoading(false);
+        throw new Error("Whoops, something went wrong. Hang tight, we're working on it. Give it another shot later.");
     }
-
-    return { result, isLoading, error, fatalError, getData };
 }
+
+export const fetchDescription = async (chainId: string, to: string): Promise<ChatResponse> => {
+    return _fetchFunction<ChatResponse>('chat', chainId, to);
+};
+
+export const fetchAnalyze = async (chainId: string, to: string): Promise<EngineResponse> => {
+    return _fetchFunction<EngineResponse>('analyze', chainId, to);
+};

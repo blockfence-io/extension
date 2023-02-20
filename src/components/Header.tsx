@@ -15,7 +15,7 @@ interface HeaderProps {
 }
 
 const severityTitle: { [key in Types.Severity]: string } = {
-    NONE: 'No risks found',
+    NONE: 'No Risks Found',
     LOW: 'Low Risk',
     MEDIUM: 'Medium Risk',
     HIGH: 'High Risk',

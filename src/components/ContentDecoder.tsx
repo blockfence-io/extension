@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { networkMapping } from './NetworkSelector';
-
-import { Header } from './Header';
 import { Collapsable } from './UI/Collapsable';
+import { Placeholder } from './UI/Loader';
+import { Header } from './Header';
 import { Risk } from './Risk';
+import { networkMapping } from './NetworkSelector';
 
 import SpotlightIcon from '../assets/icons/spotlight.svg';
 import RadarIcon from '../assets/icons/radar-icon.svg';
@@ -16,26 +16,37 @@ import { EngineResponse } from '../types/api';
 interface ContentDecoderProps {
     to: string;
     chainId?: string;
-    result: EngineResponse;
+    descriptionResult: string | undefined;
+    analyzeResult: EngineResponse;
 }
 
-export function ContentDecoder({ to, chainId = '1', result }: ContentDecoderProps) {
+export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeResult }: ContentDecoderProps) {
     return (
         <>
-            <Header to={to} network={networkMapping[chainId]} severity={result ? result.severity : 'NONE'} />
+            <Header
+                to={to}
+                network={networkMapping[chainId]}
+                severity={analyzeResult ? analyzeResult.severity : 'NONE'}
+            />
 
             <Styled.Results>
                 <Collapsable title='Description' icon={<SpotlightIcon />} defaultState={true}>
-                    <Styled.ContractName>{result.name}</Styled.ContractName>
-                    {result.description}
-                    <Styled.Copyrights>
-                        <ChatGPTIcon />
-                        Powered by OpenAI
-                    </Styled.Copyrights>
+                    {analyzeResult.name !== '' && <Styled.ContractName>Name: {analyzeResult.name}</Styled.ContractName>}
+                    {descriptionResult ? (
+                        <>
+                            {descriptionResult}
+                            <Styled.Copyrights>
+                                <ChatGPTIcon />
+                                Powered by OpenAI
+                            </Styled.Copyrights>
+                        </>
+                    ) : (
+                        <Placeholder />
+                    )}
                 </Collapsable>
 
-                <Collapsable title='Fraud Analysis' icon={<RadarIcon />}>
-                    {result.risks.map((risk, id) => (
+                <Collapsable title='Fraud Analysis' icon={<RadarIcon />} defaultState={true}>
+                    {analyzeResult.risks.map((risk, id) => (
                         <Risk key={id} risk={risk} />
                     ))}
                 </Collapsable>
