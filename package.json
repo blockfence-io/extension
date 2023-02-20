@@ -10,6 +10,7 @@
         "lint": "eslint . --ext .tsx,.ts,.js"
     },
     "dependencies": {
+        "@amplitude/analytics-browser": "^1.8.0",
         "@iconscout/react-unicons": "^1.1.6",
         "@metamask/detect-provider": "^2.0.0",
         "@types/chrome": "^0.0.206",

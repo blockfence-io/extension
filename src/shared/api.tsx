@@ -1,5 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import { ChatResponse, EngineResponse, ErrorResponse } from '../types/api';
+import { logException } from '../shared/logs';
 
 const BASE_URL = process.env.API_SERVER;
 
@@ -35,9 +36,9 @@ async function _fetchFunction<ResponseType>(page: string, chainId: string, to: s
         });
         return response.data;
     } catch (error) {
+        logException(error);
         if (axios.isAxiosError(error) && error.response) {
             const axiosError = error as AxiosError<ErrorResponse>;
-
             if (axiosError.response?.data.message) {
                 throw new Error(axiosError.response.data.message);
             }
