@@ -31,11 +31,9 @@ export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeRe
 
             <Styled.Results>
                 <Collapsable title='Description' icon={<SpotlightIcon />} defaultState={true}>
+                    {analyzeResult.name !== '' && <Styled.ContractName>Name: {analyzeResult.name}</Styled.ContractName>}
                     {descriptionResult ? (
                         <>
-                            {analyzeResult.name !== '' && (
-                                <Styled.ContractName>Name: {analyzeResult.name}</Styled.ContractName>
-                            )}
                             {descriptionResult}
                             <Styled.Copyrights>
                                 <ChatGPTIcon />
