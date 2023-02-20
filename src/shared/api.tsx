@@ -37,7 +37,6 @@ async function _fetchFunction<ResponseType>(page: string, chainId: string, to: s
     } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
             const axiosError = error as AxiosError<ErrorResponse>;
-
             if (axiosError.response?.data.message) {
                 throw new Error(axiosError.response.data.message);
             }

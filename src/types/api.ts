@@ -18,10 +18,6 @@ export type Risk = {
     }[];
 };
 
-export type ServerResponse = {
-    [key: string]: any;
-};
-
 export type EngineResponse = {
     name: string;
     severity: Severity;

@@ -14,8 +14,6 @@ import * as Styled from './index.styled';
 import '../../shared/reset.css';
 import '../../shared/font.css';
 
-import { init } from '@amplitude/analytics-browser';
-import * as amplitude from '@amplitude/analytics-browser';
 import { logPageView, logSearchClick } from '../../shared/logs';
 
 function Panel() {
