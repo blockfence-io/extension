@@ -4,11 +4,15 @@ import { logException } from '../shared/logs';
 
 const BASE_URL = process.env.API_SERVER;
 
-async function getActiveTabUrl() {
+async function maybeGetActiveTabUrl(): Promise<string> {
+    const storage = await chrome.storage.local.get({ enableUrlAnalysis: true });
+    if (!storage.enableUrlAnalysis) {
+        return Promise.resolve('');
+    }
     return new Promise(function (resolve, reject) {
         chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
             if (tabs.length > 0) {
-                resolve(tabs[0].url);
+                resolve(tabs[0].url || '');
             } else {
                 reject('No active tab found');
             }
@@ -18,7 +22,7 @@ async function getActiveTabUrl() {
 
 async function _fetchFunction<ResponseType>(page: string, chainId: string, to: string): Promise<ResponseType> {
     try {
-        const url = await getActiveTabUrl();
+        const url = await maybeGetActiveTabUrl();
         const response = await axios({
             method: 'post',
             url: `${BASE_URL}/${page}`,

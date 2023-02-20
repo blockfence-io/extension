@@ -23,6 +23,13 @@ export function logToggleActiveMode(enable: boolean) {
     amplitude.track('Toggle Active Mode', eventProperties);
 }
 
+export function logToggleUrlTracking(enable: boolean) {
+    const eventProperties = {
+        enable: enable,
+    };
+    amplitude.track('Toggle Url Tracking', eventProperties);
+}
+
 export function logSettingsMenuClick() {
     amplitude.track('Settings Menu Clicked');
 }
