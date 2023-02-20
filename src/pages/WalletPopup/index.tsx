@@ -12,6 +12,10 @@ import { fetchDescription, fetchAnalyze } from '../../shared/api';
 import '../../shared/reset.css';
 import '../../shared/font.css';
 
+import { init } from '@amplitude/analytics-browser';
+
+init('cad0450cba5bd31153ac7136f375f193');
+
 function Panel() {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const to = urlSearchParams.get('to') || '';

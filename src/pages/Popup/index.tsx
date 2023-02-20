@@ -14,17 +14,30 @@ import * as Styled from './index.styled';
 import '../../shared/reset.css';
 import '../../shared/font.css';
 
+import { init } from '@amplitude/analytics-browser';
+import * as amplitude from '@amplitude/analytics-browser';
+
+init('cad0450cba5bd31153ac7136f375f193');
+
 function Panel() {
     const [to, setTo] = useState('');
     const [chainId, setChainId] = useState('0x1');
     const descriptionResult = useAsyncCallback(async (chainId, to) => fetchDescription(chainId, to));
     const analyzeResult = useAsyncCallback(async (chainId, to) => fetchAnalyze(chainId, to));
 
+    function logSearchClick(to: string, chainId: string) {
+        const eventProperties = {
+            to: to,
+            chainId: chainId,
+        };
+        amplitude.track('Search Button Clicked', eventProperties);
+    }
     async function handleClick(chainId: string, to: string) {
         setChainId(chainId);
         setTo(to);
         descriptionResult.execute(chainId, to);
         analyzeResult.execute(chainId, to);
+        logSearchClick(to, chainId);
     }
     const chatError =
         "GPT-3's experiencing some technical difficulties, but don't worry, our team's on it. In the meantime, give it another try or holla at us if you need a hand.";
