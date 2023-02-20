@@ -1,12 +1,13 @@
 import axios, { AxiosError } from 'axios';
 import { ChatResponse, EngineResponse, ErrorResponse } from '../types/api';
 import { logException } from '../shared/logs';
+import * as storage from '../shared/storage';
 
 const BASE_URL = process.env.API_SERVER;
 
 async function maybeGetActiveTabUrl(): Promise<string> {
-    const storage = await chrome.storage.local.get({ enableUrlAnalysis: true });
-    if (!storage.enableUrlAnalysis) {
+    const enableUrlAnalysis = await storage.getEnableUrlAnalysis();
+    if (!enableUrlAnalysis) {
         return Promise.resolve('');
     }
     return new Promise(function (resolve, reject) {

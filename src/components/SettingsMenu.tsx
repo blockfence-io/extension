@@ -4,6 +4,7 @@ import { Radio } from '../components/UI/Radio';
 import { GithubURL, WebsiteURL } from '../components/WebsiteURL';
 import * as Menu from '../components/UI/Menu';
 import * as Logger from '../shared/logs';
+import * as storage from '../shared/storage';
 
 export function SettingsMenu() {
     const [enableHooks, setEnableHooks] = useState<boolean | null>(null);
@@ -11,24 +12,24 @@ export function SettingsMenu() {
 
     async function updateActiveModeSettings(enableHooks: boolean) {
         setEnableHooks(enableHooks);
-        await chrome.storage.local.set({ enableHooks: enableHooks });
+        storage.setEnableHooks(enableHooks);
         Logger.logToggleActiveMode(enableHooks);
     }
 
     async function updateUrlAnalysisSettings(isEnabled: boolean) {
         setEnableUrlAnalysis(isEnabled);
-        await chrome.storage.local.set({ enableUrlAnalysis: isEnabled });
+        storage.setEnableUrlAnalysis(isEnabled);
         Logger.logToggleUrlTracking(isEnabled);
     }
 
     async function getEnableHooksStatus() {
-        const storage = await chrome.storage.local.get({ enableHooks: true });
-        setEnableHooks(storage.enableHooks);
+        const enableHooks = await storage.getEnableHooks();
+        setEnableHooks(enableHooks);
     }
 
     async function getUrlAnalysisSettings() {
-        const storage = await chrome.storage.local.get({ enableUrlAnalysis: true });
-        setEnableUrlAnalysis(storage.enableUrlAnalysis);
+        const isEnabled = await storage.getEnableUrlAnalysis();
+        setEnableUrlAnalysis(isEnabled);
     }
 
     useEffect(() => {
