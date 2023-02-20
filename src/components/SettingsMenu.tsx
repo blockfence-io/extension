@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Radio } from '../components/UI/Radio';
 import { GithubURL, WebsiteURL } from '../components/WebsiteURL';
 import * as Menu from '../components/UI/Menu';
+import { logToggleActiveMode } from '../shared/logs';
 
 export function SettingsMenu() {
     const [enableHooks, setEnableHooks] = useState<boolean | null>(null);
@@ -10,6 +11,7 @@ export function SettingsMenu() {
     async function updateSettings(enableHooks: boolean) {
         setEnableHooks(enableHooks);
         await chrome.storage.local.set({ enableHooks: enableHooks });
+        logToggleActiveMode(enableHooks);
     }
 
     async function getEnableHooksStatus() {

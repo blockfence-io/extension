@@ -1,7 +1,18 @@
 import { init } from '@amplitude/analytics-browser';
 import * as amplitude from '@amplitude/analytics-browser';
 
-init('cad0450cba5bd31153ac7136f375f193');
+init(process.env.AMPLITUDE_KEY || '');
+
+export function logToggleActiveMode(enable: boolean) {
+    const eventProperties = {
+        enable: enable,
+    };
+    amplitude.track('Toggle Active Mode', eventProperties);
+}
+
+export function logSettingsMenuClick() {
+    amplitude.track('Settings Menu Clicked');
+}
 
 export function logPageView(name: string) {
     const eventProperties = {
