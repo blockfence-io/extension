@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-import { Radio } from '../components/UI/Radio';
 import { GithubURL, WebsiteURL } from '../components/WebsiteURL';
 import * as Menu from '../components/UI/Menu';
 import * as Logger from '../shared/logs';
 import * as storage from '../shared/storage';
+import { RadioMenuItem } from '../components/RadioMenuItem';
 
 export function SettingsMenu() {
     const [enableHooks, setEnableHooks] = useState<boolean | null>(null);
@@ -39,33 +39,21 @@ export function SettingsMenu() {
 
     return (
         <Menu.Menu>
-            <Menu.Title>
-                <div>Active Mode</div>
-                <Radio
-                    onChange={updateActiveModeSettings}
-                    value={enableHooks || false}
-                    disabled={enableHooks === null}
-                />
-            </Menu.Title>
-            <Menu.Body>
-                The Blockfence Extension will Automatically Pop-Up in Active Mode for Every Transaction
-            </Menu.Body>
+            <RadioMenuItem
+                title='Active Mode'
+                body='The Blockfence Extension will Automatically Pop-Up in Active Mode for Every Transaction'
+                onValueChange={updateActiveModeSettings}
+                enable={enableHooks}
+            />
             <Menu.Separator />
-
-            <Menu.Title>
-                <div>Url Analysis</div>
-                <Radio
-                    onChange={updateUrlAnalysisSettings}
-                    value={enableUrlAnalysis || false}
-                    disabled={enableUrlAnalysis === null}
-                />
-            </Menu.Title>
-            <Menu.Body>
-                The Blockfence Extension will use the current URL to Analyze the Transaction and search for phishing
-                attacks
-            </Menu.Body>
+            <RadioMenuItem
+                title='Url Analysis'
+                body='The Blockfence Extension will use the current URL to Analyze the Transaction and search for phishing
+                attacks'
+                onValueChange={updateUrlAnalysisSettings}
+                enable={enableUrlAnalysis}
+            />
             <Menu.Separator />
-
             <GithubURL />
             <WebsiteURL />
         </Menu.Menu>
