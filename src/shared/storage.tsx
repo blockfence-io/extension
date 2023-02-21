@@ -9,7 +9,7 @@ export const setEnableHooks = async (isEnabled: boolean) => {
 
 export const getEnableUrlAnalysis = async () => {
     const storage = await chrome.storage.local.get({ enableUrlAnalysis: true });
-    return storage.enableHooks;
+    return storage.enableUrlAnalysis;
 };
 
 export const setEnableUrlAnalysis = async (isEnabled: boolean) => {
