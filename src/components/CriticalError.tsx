@@ -1,10 +1,13 @@
 import React from 'react';
-import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary';
+import { ErrorBoundary as ReactErrorBoundary, FallbackProps } from 'react-error-boundary';
 import LogoWhite from '../assets/logo-sad-white.svg';
+import { logCriticalError } from '../shared/logs';
 
 import * as Styled from './CriticalError.styles';
 
-export function ErrorPage() {
+export function ErrorPage({ error }: FallbackProps) {
+    logCriticalError(error);
+
     return (
         <Styled.Container role='alert'>
             <Styled.Logo>

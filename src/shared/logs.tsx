@@ -45,3 +45,8 @@ export function logSearchClick(to: string, chainId: string) {
 export function logButtonClick(name: string, properties: object) {
     amplitude.track(name + ' Button Clicked', properties);
 }
+
+export function logCriticalError(error: Error) {
+    console.log({ message: error.message, stack: error.stack?.toString() });
+    amplitude.track('Render Crash', { message: error.message, stack: error.stack?.toString() });
+}
