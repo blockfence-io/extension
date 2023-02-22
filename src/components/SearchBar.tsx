@@ -29,7 +29,13 @@ export function SearchBar({ onClick, disabled }: SearchBarProps) {
     return (
         <Styled.Form onSubmit={handleSubmit}>
             <NetworkSelector onChange={onNetworkChange} />
-            <Input type='text' value={input} onChange={(e) => setInput(e.target.value)} style={{ flex: 1 }} />
+            <Input
+                type='text'
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                style={{ flex: 1 }}
+                pattern='0x.{40}'
+            />
             <Button type='submit' disabled={input === '' || disabled} style={{ flex: 0 }}>
                 Scan
             </Button>
