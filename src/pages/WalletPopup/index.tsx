@@ -6,6 +6,7 @@ import * as Layout from '../../components/Layout.styles';
 import { ContentDecoder } from '../../components/ContentDecoder';
 import { ErrorMessage, LoadingMessage } from '../../components/PageMessages';
 import { WebsiteURL, GithubURL } from '../../components/WebsiteURL';
+import { ErrorBoundary } from '../../components/CriticalError';
 
 import { fetchDescription, fetchAnalyze } from '../../shared/api';
 
@@ -30,23 +31,27 @@ function Panel() {
 
     return (
         <Layout.Container style={{ minHeight: 'initial' }}>
-            <Layout.Banner>ALPHA</Layout.Banner>
-            <Layout.Body>
-                {analyzeResult.loading && <LoadingMessage />}
-                {analyzeResult.error && <ErrorMessage>{analyzeResult.error.message}</ErrorMessage>}
-                {analyzeResult.result && (
-                    <ContentDecoder
-                        chainId={chainId}
-                        to={to}
-                        analyzeResult={analyzeResult.result}
-                        descriptionResult={descriptionResult.error ? chatError : descriptionResult.result?.description}
-                    />
-                )}
-            </Layout.Body>
-            <Layout.Footer>
-                <WebsiteURL />
-                <GithubURL />
-            </Layout.Footer>
+            <ErrorBoundary>
+                <Layout.Banner>ALPHA</Layout.Banner>
+                <Layout.Body>
+                    {analyzeResult.loading && <LoadingMessage />}
+                    {analyzeResult.error && <ErrorMessage>{analyzeResult.error.message}</ErrorMessage>}
+                    {analyzeResult.result && (
+                        <ContentDecoder
+                            chainId={chainId}
+                            to={to}
+                            analyzeResult={analyzeResult.result}
+                            descriptionResult={
+                                descriptionResult.error ? chatError : descriptionResult.result?.description
+                            }
+                        />
+                    )}
+                </Layout.Body>
+                <Layout.Footer>
+                    <WebsiteURL />
+                    <GithubURL />
+                </Layout.Footer>
+            </ErrorBoundary>
         </Layout.Container>
     );
 }
