@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
-import { useAsyncCallback, AsyncState } from 'react-async-hook';
+import { useAsyncCallback } from 'react-async-hook';
 
 import * as Layout from '../../components/Layout.styles';
 import { SearchBar } from '../../components/SearchBar';
