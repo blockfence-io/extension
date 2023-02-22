@@ -7,6 +7,7 @@ import { SearchBar } from '../../components/SearchBar';
 import { SettingsMenu } from '../../components/SettingsMenu';
 import { ErrorMessage, LoadingMessage } from '../../components/PageMessages';
 import { ContentDecoder } from '../../components/ContentDecoder';
+import { ErrorBoundary } from '../../components/CriticalError';
 
 import { fetchAnalyze, fetchDescription } from '../../shared/api';
 import { logPageView, logSearchClick } from '../../shared/logs';
@@ -76,28 +77,34 @@ function Panel() {
 
     return (
         <Layout.Container>
-            <Layout.Banner>ALPHA</Layout.Banner>
-            <Layout.Header severity={analyzeResult.result?.severity}>
-                <SearchBar onClick={handleClick} disabled={analyzeResult.loading || descriptionResult.loading} />
-                <SettingsMenu />
-            </Layout.Header>
+            <ErrorBoundary>
+                <Layout.Banner>ALPHA</Layout.Banner>
+                <Layout.Header severity={analyzeResult.result?.severity}>
+                    <SearchBar onClick={handleClick} disabled={analyzeResult.loading || descriptionResult.loading} />
+                    <SettingsMenu />
+                </Layout.Header>
 
-            <Layout.Body>
-                {to === '' && (
-                    <Styled.Help>Enter an address to find out more about a smart contract and how it works</Styled.Help>
-                )}
+                <Layout.Body>
+                    {to === '' && (
+                        <Styled.Help>
+                            Enter an address to find out more about a smart contract and how it works
+                        </Styled.Help>
+                    )}
 
-                {analyzeResult.loading && <LoadingMessage />}
-                {analyzeResult.error && <ErrorMessage>{analyzeResult.error.message}</ErrorMessage>}
-                {analyzeResult.result && (
-                    <ContentDecoder
-                        chainId={chainId}
-                        to={to}
-                        analyzeResult={analyzeResult.result}
-                        descriptionResult={descriptionResult.error ? chatError : descriptionResult.result?.description}
-                    />
-                )}
-            </Layout.Body>
+                    {analyzeResult.loading && <LoadingMessage />}
+                    {analyzeResult.error && <ErrorMessage>{analyzeResult.error.message}</ErrorMessage>}
+                    {analyzeResult.result && (
+                        <ContentDecoder
+                            chainId={chainId}
+                            to={to}
+                            analyzeResult={analyzeResult.result}
+                            descriptionResult={
+                                descriptionResult.error ? chatError : descriptionResult.result?.description
+                            }
+                        />
+                    )}
+                </Layout.Body>
+            </ErrorBoundary>
         </Layout.Container>
     );
 }
