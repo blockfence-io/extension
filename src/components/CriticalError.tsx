@@ -24,14 +24,5 @@ interface ErrorBoundaryProps {
 }
 
 export function ErrorBoundary({ children }: ErrorBoundaryProps) {
-    return (
-        <ReactErrorBoundary
-            FallbackComponent={ErrorPage}
-            onReset={() => {
-                // reset the state of your app so the error doesn't happen again
-            }}
-        >
-            {children}
-        </ReactErrorBoundary>
-    );
+    return <ReactErrorBoundary FallbackComponent={ErrorPage}>{children}</ReactErrorBoundary>;
 }
