@@ -113,6 +113,12 @@ async function attach() {
         wrapSendAsync(provider);
         wrapRequest(provider);
         updateChainID(provider);
+
+        provider.on('chainChanged', (chainId) => {
+            // Handle the new chain.
+            console.log('@ chainChanged', chainId);
+            triggerUpdateChainID(chainId);
+        });
     } else {
         console.log('@ No wallet found');
     }
