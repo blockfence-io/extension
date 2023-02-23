@@ -116,7 +116,6 @@ async function attach() {
 
         provider.on('chainChanged', (chainId) => {
             // Handle the new chain.
-            console.log('@ chainChanged', chainId);
             triggerUpdateChainID(chainId);
         });
     } else {
