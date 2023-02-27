@@ -21,8 +21,6 @@ interface ContentDecoderProps {
 }
 
 export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeResult }: ContentDecoderProps) {
-    let x = 12;
-
     return (
         <>
             <Header
