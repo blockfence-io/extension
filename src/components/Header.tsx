@@ -47,7 +47,7 @@ export function Header({ url, network, to, severity, isContract = true }: Header
                 </Styled.Info.Icon>
 
                 <Styled.Info.Group>
-                    <Styled.Info.Title>{isContract ? 'Contract address' : 'EOA Address'}</Styled.Info.Title>
+                    <Styled.Info.Title>{isContract ? 'Contract address' : 'EOA address'}</Styled.Info.Title>
                     <Styled.Info.Value>
                         {formattedAddress(to)} <Copy text={to} size='14' />
                     </Styled.Info.Value>
