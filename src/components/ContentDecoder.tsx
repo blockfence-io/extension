@@ -27,6 +27,7 @@ export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeRe
                 to={to}
                 network={networkMapping[chainId]}
                 severity={analyzeResult ? analyzeResult.severity : 'NONE'}
+                isContract={analyzeResult.isContract}
             />
 
             <Styled.Results>

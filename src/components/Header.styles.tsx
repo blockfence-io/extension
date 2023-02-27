@@ -63,8 +63,11 @@ const Group = styled.div`
     display: flex;
     flex-direction: column;
     gap: 4px;
+`;
 
-    overflow: hidden;
+const Icon = styled.div`
+    opacity: 0.8;
+    align-items: flex-end;
 `;
 
 const Title = styled.div`
@@ -75,8 +78,6 @@ const Value = styled.div`
     font-size: 14px;
     font-weight: bold;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 `;
 
 const Copy = styled.div`
@@ -88,6 +89,7 @@ export const Info = {
     Title,
     Value,
     Copy,
+    Icon,
 };
 
 export const Fill = styled.div`
