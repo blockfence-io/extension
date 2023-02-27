@@ -21,7 +21,7 @@ export type Risk = {
 export type EngineResponse = {
     name: string;
     severity: Severity;
-    isContract: boolean;
+    is_contract: boolean;
     risks: Risk[];
 };
 
