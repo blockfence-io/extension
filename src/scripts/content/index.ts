@@ -5,12 +5,13 @@
         * Page can't access the chrome.runtime or other extension API
 */
 import { InternalMessage } from '../../types/internal';
+import * as storage from '../../shared/storage';
 
 // Attach on Page scope
 async function injectScript(url: string) {
-    const storage = await chrome.storage.local.get('enableHooks');
+    const enabled = await storage.getEnableHooks();
 
-    if (storage.enableHooks) {
+    if (enabled) {
         const script = document.createElement('script');
         script.src = chrome.runtime.getURL(url);
         script.async = false;

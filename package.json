@@ -4,22 +4,29 @@
     "description": "Blockfence chrome extensions",
     "scripts": {
         "dev": "webpack --watch",
+        "ladle": "ladle serve",
         "build": "npm run lint && webpack",
         "prettier": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,md}'",
         "lint": "eslint . --config .eslintrc.json --ext .js,.jsx,.ts,.tsx",
         "lint-githhub": "eslint . --config .eslintrc.json --ext .js,.jsx,.ts,.tsx"
     },
     "dependencies": {
+        "@amplitude/analytics-browser": "^1.8.0",
+        "@iconscout/react-unicons": "^1.1.6",
         "@metamask/detect-provider": "^2.0.0",
         "@microsoft/eslint-formatter-sarif": "^3.0.0",
         "@types/chrome": "^0.0.206",
         "@types/react": "^18.0.26",
         "@types/react-dom": "^18.0.9",
         "axios": "^1.2.2",
+        "copy-to-clipboard": "^3.3.3",
         "ethers": "^5.7.2",
         "lodash": "^4.17.21",
         "react": "^18.2.0",
+        "react-async-hook": "^4.0.0",
+        "react-content-loader": "^6.2.0",
         "react-dom": "^18.2.0",
+        "react-error-boundary": "^3.1.4",
         "styled-components": "^5.3.6"
     },
     "devDependencies": {
@@ -27,6 +34,7 @@
         "@babel/eslint-parser": "^7.19.1",
         "@babel/preset-env": "^7.20.2",
         "@babel/preset-react": "^7.18.6",
+        "@ladle/react": "^2.5.1",
         "@svgr/webpack": "^6.5.1",
         "@types/styled-components": "^5.1.26",
         "@typescript-eslint/eslint-plugin": "^5.47.0",

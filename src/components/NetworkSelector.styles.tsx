@@ -1,16 +1,19 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     position: relative;
     font-size: 0.8rem;
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 4px 8px;
-    border-radius: 6px;
+    border-radius: 2px;
     user-select: none;
+    transition: 0.1s;
 
     &:hover {
         background: #bcffbc40;
+        border: 1px solid rgba(255, 255, 255, 0.5);
     }
 `;
 
@@ -18,23 +21,25 @@ export const Options = styled.div`
     position: absolute;
     left: 0;
     /* right: 0; */
-    top: auto;
+    top: 0;
     text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    border: 1px solid #351253;
     background: white;
     color: black;
-    border-radius: 6px;
+    border-radius: 2px;
     z-index: 100;
     overflow: hidden;
-    margin-top: 6px;
+    margin-top: 24px;
+    margin-left: -1px;
 `;
 
 export const Option = styled.div`
     user-select: none;
-    padding: 4px 8px;
+    padding: 8px 8px;
 
     &:hover {
-        background: #bcffbc;
+        background: #351253;
+        color: white;
     }
 `;
 

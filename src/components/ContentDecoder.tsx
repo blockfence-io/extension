@@ -1,95 +1,57 @@
-import axios, { AxiosError } from 'axios';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-import { TxDescription, ErrorResponse } from '../types/api';
+import { Collapsable } from './UI/Collapsable';
+import { Placeholder } from './UI/Loader';
+import { Header } from './Header';
+import { Risk } from './Risk';
+import { networkMapping } from './NetworkSelector';
 
-import { Loader } from './UI/Loader';
+import SpotlightIcon from '../assets/icons/spotlight.svg';
+import RadarIcon from '../assets/icons/radar-icon.svg';
+import ChatGPTIcon from '../assets/icons/chatgpt.svg';
+
 import * as Styled from './ContentDecoder.styles';
-
-const url = process.env.API_SERVER;
+import { EngineResponse } from '../types/api';
 
 interface ContentDecoderProps {
-    chainId?: string;
     to: string;
-    showAccountAddress: boolean;
+    chainId?: string;
+    descriptionResult: string | undefined;
+    analyzeResult: EngineResponse;
 }
 
-export function ContentDecoder({ chainId = '1', to, showAccountAddress }: ContentDecoderProps) {
-    const [result, setResult] = useState<TxDescription | null>(null);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
-    const [fatalError, setFatalError] = useState<boolean>(false);
-
-    async function fetchData() {
-        setIsLoading(true);
-        setError(null);
-        setFatalError(false);
-        setResult(null);
-        try {
-            const response = await axios({
-                method: 'post',
-                url,
-                data: {
-                    chain_id: chainId,
-                    transaction: {
-                        to,
-                    },
-                },
-            });
-            setResult(response.data);
-        } catch (error) {
-            if (axios.isAxiosError(error) && error.response) {
-                const axiosError = error as AxiosError<ErrorResponse>;
-                if (axiosError.response?.data.error) {
-                    setError(axiosError.response.data.error);
-                } else {
-                    setFatalError(true);
-                }
-            } else {
-                setFatalError(true);
-            }
-        }
-        setIsLoading(false);
-    }
-
-    useEffect(() => {
-        if (to) {
-            fetchData();
-        }
-    }, [to, chainId]);
-
+export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeResult }: ContentDecoderProps) {
     return (
         <>
-            {isLoading && (
-                <Styled.LoadingContainer>
-                    <Loader />
-                </Styled.LoadingContainer>
-            )}
+            <Header
+                to={to}
+                network={networkMapping[chainId]}
+                severity={analyzeResult ? analyzeResult.severity : 'NONE'}
+                isContract={analyzeResult.is_contract}
+            />
 
-            {error && <Styled.Error>{error}</Styled.Error>}
+            <Styled.Results>
+                <Collapsable title='Description' icon={<SpotlightIcon />} defaultState={true}>
+                    {analyzeResult.name !== '' && <Styled.ContractName>Name: {analyzeResult.name}</Styled.ContractName>}
+                    {descriptionResult ? (
+                        <>
+                            {descriptionResult}
+                            <Styled.Copyrights>
+                                <ChatGPTIcon />
+                                Powered by OpenAI
+                            </Styled.Copyrights>
+                        </>
+                    ) : (
+                        <Placeholder />
+                    )}
+                </Collapsable>
 
-            {fatalError && (
-                <Styled.Error>
-                    <Styled.SadFace>:(</Styled.SadFace>
-                    <div>Whoops! It looks like we have encountered an unexpected error</div>
-                </Styled.Error>
-            )}
-
-            {result && showAccountAddress && (
-                <>
-                    <Styled.Subtitle>Contract Address</Styled.Subtitle>
-                    <Styled.Reponse>{to}</Styled.Reponse>
-                </>
-            )}
-
-            {result && (
-                <>
-                    <Styled.Subtitle>Contract Name</Styled.Subtitle>
-                    <Styled.Reponse>{result.name}</Styled.Reponse>
-                    <Styled.Subtitle>Contract Description</Styled.Subtitle>
-                    <Styled.Reponse style={{ flex: 1 }}>{result.description}</Styled.Reponse>
-                </>
-            )}
+                <Collapsable title='Fraud Analysis' icon={<RadarIcon />} defaultState={false}>
+                    {analyzeResult.risks.map((risk, id) => (
+                        <Risk key={id} risk={risk} />
+                    ))}
+                </Collapsable>
+            </Styled.Results>
         </>
     );
 }
