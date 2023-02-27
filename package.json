@@ -8,7 +8,7 @@
         "build": "npm run lint && webpack",
         "prettier": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,md}'",
         "lint": "eslint . --config .eslintrc.json --ext .js,.jsx,.ts,.tsx",
-        "lint-github": "eslint . --config .eslintrc.json --ext .js,.jsx,.ts,.tsx"
+        "lint-github": "eslint . --config .eslintrc.json --ext .js,.jsx,.ts,.tsx --format @microsoft/eslint-formatter-sarif --output-file eslint-results.sarif"
     },
     "dependencies": {
         "@amplitude/analytics-browser": "^1.8.0",
