@@ -45,7 +45,7 @@ export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeRe
                     )}
                 </Collapsable>
 
-                <Collapsable title='Fraud Analysis' icon={<RadarIcon />} defaultState={true}>
+                <Collapsable title='Fraud Analysis' icon={<RadarIcon />} defaultState={false}>
                     {analyzeResult.risks.map((risk, id) => (
                         <Risk key={id} risk={risk} />
                     ))}
