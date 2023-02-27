@@ -26,6 +26,11 @@ export function SearchBar({ onClick, disabled }: SearchBarProps) {
         await onClick(chainId, input);
     }
 
+    const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+        setInput(event.target.value);
+        event.currentTarget.setCustomValidity('');
+    };
+
     const setInvalidMessage: React.FormEventHandler<HTMLInputElement> = (event) => {
         event.currentTarget.setCustomValidity('Input must be a valid address');
     };
@@ -36,7 +41,7 @@ export function SearchBar({ onClick, disabled }: SearchBarProps) {
             <Input
                 type='text'
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={handleChange}
                 style={{ flex: 1 }}
                 pattern='0x.{40}'
                 onInvalid={setInvalidMessage}
