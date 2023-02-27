@@ -4,6 +4,7 @@ import { logException } from '../shared/logs';
 import * as storage from '../shared/storage';
 
 const BASE_URL = process.env.API_SERVER;
+const API_KEY = process.env.API_KEY;
 
 async function maybeGetActiveTabUrl(): Promise<string> {
     const enableUrlAnalysis = await storage.getEnableUrlAnalysis();
@@ -27,6 +28,9 @@ async function _fetchFunction<ResponseType>(page: string, chainId: string, to: s
         const response = await axios({
             method: 'post',
             url: `${BASE_URL}/${page}`,
+            headers: {
+                'x-api-key': API_KEY,
+            },
             data: {
                 plugin: 'BROWSER',
                 chain_id: chainId,
