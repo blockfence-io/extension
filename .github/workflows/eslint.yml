@@ -28,9 +28,16 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v3
 
-            - name: Listing
+            - name: PWD
+              run: |
+                  pwd
+
+            - name: Listing 1
               run: |
                   ls /home/runner/work/extension
+
+            - name: Listing 2
+              run: |
                   ls /home/runner/work/extension/extension
 
             - name: Install ESLint
