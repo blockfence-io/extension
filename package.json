@@ -7,12 +7,14 @@
         "ladle": "ladle serve",
         "build": "npm run lint && webpack",
         "prettier": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,md}'",
-        "lint": "eslint . --ext .tsx,.ts,.js"
+        "lint": "eslint . --config .eslintrc.json ",
+        "lint-github": "eslint .  --format @microsoft/eslint-formatter-sarif --output-file eslint-results.sarif --config .eslintrc.json"
     },
     "dependencies": {
         "@amplitude/analytics-browser": "^1.8.0",
         "@iconscout/react-unicons": "^1.1.6",
         "@metamask/detect-provider": "^2.0.0",
+        "@microsoft/eslint-formatter-sarif": "^2.1.7",
         "@types/chrome": "^0.0.206",
         "@types/react": "^18.0.26",
         "@types/react-dom": "^18.0.9",
@@ -42,9 +44,9 @@
         "copy-webpack-plugin": "^11.0.0",
         "css-loader": "^6.7.3",
         "dotenv-webpack": "^8.0.1",
-        "eslint": "^8.30.0",
-        "eslint-plugin-react": "^7.31.11",
-        "eslint-webpack-plugin": "^3.2.0",
+        "eslint": "^8.35.0",
+        "eslint-plugin-react": "^7.32.2",
+        "eslint-webpack-plugin": "^4.0.0",
         "html-loader": "^4.2.0",
         "html-webpack-plugin": "^5.5.0",
         "prettier": "^2.8.1",
