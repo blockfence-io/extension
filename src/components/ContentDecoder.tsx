@@ -19,7 +19,6 @@ export function ContentDecoder({ chainId = '1', to, showAccountAddress }: Conten
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [fatalError, setFatalError] = useState<boolean>(false);
-    const x = 123;
 
     async function fetchData() {
         setIsLoading(true);
