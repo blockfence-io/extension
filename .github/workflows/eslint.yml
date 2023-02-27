@@ -33,11 +33,11 @@ jobs:
                   npm install
 
             - name: Run ESLint
-              run: npm run lint
-              # continue-on-error: true
+              run: npm run lint-github
+              continue-on-error: true
 
-            # - name: Upload analysis results to GitHub
-            #   uses: github/codeql-action/upload-sarif@v2
-            #   with:
-            #       sarif_file: eslint-results.sarif
-            #       wait-for-processing: true
+            - name: Upload analysis results to GitHub
+              uses: github/codeql-action/upload-sarif@v2
+              with:
+                  sarif_file: eslint-results.sarif
+                  wait-for-processing: true
