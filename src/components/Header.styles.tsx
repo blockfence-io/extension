@@ -26,7 +26,7 @@ export const Container = styled.div<RiskProps>`
 
 export const InfoList = styled.div`
     display: flex;
-    gap: 12px;
+    gap: 6px;
 `;
 
 export const URLLink = styled(Link)`
@@ -67,7 +67,8 @@ const Group = styled.div`
 
 const Icon = styled.div`
     opacity: 0.8;
-    align-items: flex-end;
+    text-align: right;
+    flex: 1;
 `;
 
 const Title = styled.div`
