@@ -28,27 +28,12 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v3
 
-            - name: PWD
-              run: |
-                  pwd
-
-            - name: Listing 1
-              run: |
-                  ls /home/runner/work/extension
-
-            - name: Listing 2
-              run: |
-                  ls /home/runner/work/extension/extension
-
             - name: Install ESLint
               run: |
-                  pwd
                   npm install
-                  npm install @microsoft/eslint-formatter-sarif@2.1.7
 
             - name: Run ESLint
-              # run: npx eslint . --config .eslintrc.json --ext .js,.jsx,.ts,.tsx --format @microsoft/eslint-formatter-sarif --output-file eslint-results.sarif
-              run: npm run lint
+              run: npm run lint-github
               continue-on-error: true
 
             - name: Upload analysis results to GitHub

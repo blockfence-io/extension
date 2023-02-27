@@ -6,10 +6,12 @@
         "dev": "webpack --watch",
         "build": "npm run lint && webpack",
         "prettier": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,md}'",
-        "lint": "eslint . --ext .tsx,.ts,.js"
+        "lint": "eslint . --config .eslintrc.json --ext .js,.jsx,.ts,.tsx",
+        "lint-githhub": "eslint . --config .eslintrc.json --ext .js,.jsx,.ts,.tsx"
     },
     "dependencies": {
         "@metamask/detect-provider": "^2.0.0",
+        "@microsoft/eslint-formatter-sarif": "^3.0.0",
         "@types/chrome": "^0.0.206",
         "@types/react": "^18.0.26",
         "@types/react-dom": "^18.0.9",
