@@ -19,8 +19,9 @@ function Panel() {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const to = urlSearchParams.get('to') || '';
     const chainId: string = urlSearchParams.get('chainId') || '0x1';
+    const url: string = urlSearchParams.get('url') || '';
     const descriptionResult = useAsync(fetchDescription, [chainId, to]);
-    const analyzeResult = useAsync(fetchAnalyze, [chainId, to]);
+    const analyzeResult = useAsync(fetchAnalyze, [chainId, to, url]);
 
     useEffect(() => {
         logPageView('Wallet Popup');

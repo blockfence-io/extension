@@ -10,6 +10,7 @@ import { ContentDecoder } from '../../components/ContentDecoder';
 import { ErrorBoundary } from '../../components/CriticalError';
 
 import { fetchAnalyze, fetchDescription } from '../../shared/api';
+import { getActiveTabUrl } from '../../helpers/getActiveTab';
 import * as Styled from './index.styled';
 
 import '../../shared/reset.css';
@@ -21,7 +22,7 @@ function Panel() {
     const [to, setTo] = useState('');
     const [chainId, setChainId] = useState('0x1');
     const descriptionResult = useAsyncCallback(async (chainId, to) => fetchDescription(chainId, to));
-    const analyzeResult = useAsyncCallback(async (chainId, to) => fetchAnalyze(chainId, to));
+    const analyzeResult = useAsyncCallback(async (chainId, to, url) => fetchAnalyze(chainId, to, url));
 
     useEffect(() => {
         logPageView('Popup');
@@ -30,8 +31,9 @@ function Panel() {
     async function handleClick(chainId: string, to: string) {
         setChainId(chainId);
         setTo(to);
+        const url = await getActiveTabUrl();
         descriptionResult.execute(chainId, to);
-        analyzeResult.execute(chainId, to);
+        analyzeResult.execute(chainId, to, url);
         logSearchClick(to, chainId);
     }
     const chatError =
