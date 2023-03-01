@@ -8,10 +8,10 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 const DotenvPlugin = require('dotenv-webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const env = require('./utils/env');
+const env = process.env.NODE_ENV || 'development';
 
 var options = {
-    mode: process.env.NODE_ENV || 'development',
+    mode: env,
 
     entry: {
         popup: path.join(__dirname, 'src', 'pages', 'Popup', 'index.tsx'),
@@ -92,7 +92,9 @@ var options = {
 
         new ESLintPlugin(),
 
-        new DotenvPlugin(),
+        new DotenvPlugin({
+            path: env === 'production' ? '.env.production' : '.env',
+        }),
 
         // Copy manifest.json file to build + update internal fields
         new CopyPlugin({
@@ -143,7 +145,7 @@ var options = {
 };
 
 // Remove 'eval' and minify on production
-if (env.NODE_ENV === 'development') {
+if (env === 'development') {
     options.devtool = 'cheap-module-source-map';
 } else {
     options.optimization = {
