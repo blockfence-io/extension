@@ -1,7 +1,11 @@
 import { init } from '@amplitude/analytics-browser';
 import * as amplitude from '@amplitude/analytics-browser';
 
-init(process.env.AMPLITUDE_KEY || '');
+const APP_VERSION = chrome.runtime.getManifest().version;
+
+init(process.env.AMPLITUDE_KEY || '', undefined, {
+    appVersion: APP_VERSION,
+});
 
 export function logException(error: unknown) {
     amplitude.logEvent('Exception', {
