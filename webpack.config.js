@@ -94,6 +94,7 @@ var options = {
 
         new DotenvPlugin({
             path: env === 'production' ? '.env.production' : '.env',
+            systemvars: true,
         }),
 
         // Copy manifest.json file to build + update internal fields
