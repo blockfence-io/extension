@@ -5,10 +5,10 @@ const WALLET_NOTIFICATION_WIDTH = 360;
 
 const EXTENSION_WIDTH = 400;
 const EXTENSION_HEIGHT = 550;
-const FOCUS_TIMEOUT = 200;
+const FOCUS_TIMEOUT = 20;
+const RETRIES_COUNT = 15;
 
 async function getPosition() {
-    // Get opening page position
     const latestWindow = await chrome.windows.getLastFocused();
 
     if (
@@ -23,6 +23,35 @@ async function getPosition() {
     }
 
     return { top: 100, left: 100 };
+}
+
+async function isMetamaskFocused() {
+    const latestWindow = await chrome.windows.getLastFocused();
+    const tabs = await chrome.tabs.query({ active: true, windowId: latestWindow.id });
+    if (tabs && tabs[0] && tabs[0].title && tabs[0].title.toLowerCase().includes('metamask')) {
+        // Found metamask window
+        return true;
+    }
+    return false;
+}
+
+function asyncTimeout(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function focusBlockfence(blockfenceWindowId: number) {
+    let retries = RETRIES_COUNT;
+
+    // Wait until metamask window is focused
+    while (retries > 0) {
+        await asyncTimeout(FOCUS_TIMEOUT);
+        if (await isMetamaskFocused()) {
+            retries = 0;
+        }
+        retries--;
+    }
+
+    chrome.windows.update(blockfenceWindowId, { focused: true });
 }
 
 export const showPopup = async (chainId: string, event: TransactionEvent) => {
@@ -47,11 +76,8 @@ export const showPopup = async (chainId: string, event: TransactionEvent) => {
             focused: false, // Wallets code usually position themselves according to latest focused window
         });
 
-        // Make sure popup window is focused
-        setTimeout(() => {
-            if (popupWindow.id) {
-                chrome.windows.update(popupWindow.id, { focused: true });
-            }
-        }, FOCUS_TIMEOUT);
+        if (popupWindow.id) {
+            focusBlockfence(popupWindow.id);
+        }
     }
 };
