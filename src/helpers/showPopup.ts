@@ -1,3 +1,4 @@
+import { getEnableHooks } from '../shared/storage';
 import { TransactionEvent } from '../types/internal';
 import { getActiveTabUrl } from './getActiveTab';
 
@@ -52,6 +53,10 @@ async function waitForMetamaskWindowId() {
 }
 
 export const showPopup = async (chainId: string, event: TransactionEvent) => {
+    // Runtime verification in case someone disabled the hook without reload window
+    const enabled = await getEnableHooks();
+    if (!enabled) return;
+
     const { triggerType, requestType, payload } = event;
     const { top, left } = await getPosition();
     const url = await getActiveTabUrl();
