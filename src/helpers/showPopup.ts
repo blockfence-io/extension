@@ -6,7 +6,10 @@ const WALLET_NOTIFICATION_WIDTH = 360;
 const EXTENSION_WIDTH = 400;
 const EXTENSION_HEIGHT = 550;
 const FOCUS_TIMEOUT = 20;
-const RETRIES_COUNT = 15;
+const RETRIES_COUNT = 20;
+
+let g_latest_metamask_window_id: number | undefined = undefined;
+let g_latest_blockfence_window_id: number | undefined = undefined;
 
 async function getPosition() {
     const latestWindow = await chrome.windows.getLastFocused();
@@ -30,6 +33,9 @@ async function isMetamaskFocused() {
     const tabs = await chrome.tabs.query({ active: true, windowId: latestWindow.id });
     if (tabs && tabs[0] && tabs[0].title && tabs[0].title.toLowerCase().includes('metamask')) {
         // Found metamask window
+        console.log('## Metamask tab');
+        console.log(tabs[0]);
+        g_latest_metamask_window_id = latestWindow.id;
         return true;
     }
     return false;
@@ -77,7 +83,24 @@ export const showPopup = async (chainId: string, event: TransactionEvent) => {
         });
 
         if (popupWindow.id) {
+            g_latest_blockfence_window_id = popupWindow.id;
             focusBlockfence(popupWindow.id);
         }
+
+        // Listen to metamask close
+        chrome.tabs.onRemoved.addListener(waitForMetamaskCloseEvent);
     }
 };
+
+function waitForMetamaskCloseEvent(tabId: number, removeInfo: chrome.tabs.TabRemoveInfo) {
+    if (removeInfo.windowId === g_latest_metamask_window_id) {
+        if (g_latest_blockfence_window_id) {
+            console.log('@@@@ Blockfence window id:', g_latest_blockfence_window_id);
+            chrome.windows.remove(g_latest_blockfence_window_id);
+            g_latest_blockfence_window_id = undefined;
+        }
+        g_latest_metamask_window_id = undefined;
+        // Remove listener
+        chrome.tabs.onRemoved.removeListener(waitForMetamaskCloseEvent);
+    }
+}
