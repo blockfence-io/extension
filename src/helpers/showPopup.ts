@@ -6,7 +6,7 @@ const WALLET_NOTIFICATION_WIDTH = 360;
 const EXTENSION_WIDTH = 400;
 const EXTENSION_HEIGHT = 550;
 const FOCUS_TIMEOUT = 20;
-const RETRIES_COUNT = 20;
+const RETRIES_COUNT = 25;
 
 async function getPosition() {
     const latestWindow = await chrome.windows.getLastFocused();
@@ -29,9 +29,6 @@ async function findMetamaskWindowId() {
     const latestWindow = await chrome.windows.getLastFocused();
     const tabs = await chrome.tabs.query({ active: true, windowId: latestWindow.id });
     if (tabs && tabs[0] && tabs[0].title && tabs[0].title.toLowerCase().includes('metamask')) {
-        // Found metamask window
-        console.log('## Metamask tab');
-        console.log(tabs[0]);
         return latestWindow.id;
     }
 }
