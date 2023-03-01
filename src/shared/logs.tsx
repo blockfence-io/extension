@@ -16,11 +16,11 @@ export function logNetworkChange(network: string) {
     amplitude.track('Network Change', eventProperties);
 }
 
-export function logToggleActiveMode(enable: boolean) {
+export function logSettingsToggled(name: string, enable: boolean) {
     const eventProperties = {
         enable: enable,
     };
-    amplitude.track('Toggle Active Mode', eventProperties);
+    amplitude.track('Toggle Settings ' + name, eventProperties);
 }
 
 export function logSettingsMenuClick() {
@@ -44,4 +44,9 @@ export function logSearchClick(to: string, chainId: string) {
 
 export function logButtonClick(name: string, properties: object) {
     amplitude.track(name + ' Button Clicked', properties);
+}
+
+export function logCriticalError(error: Error) {
+    console.log({ message: error.message, stack: error.stack?.toString() });
+    amplitude.track('Render Crash', { message: error.message, stack: error.stack?.toString() });
 }

@@ -1,4 +1,5 @@
 import { TransactionEvent } from '../types/internal';
+import { getActiveTabUrl } from './getActiveTab';
 
 const WALLET_NOTIFICATION_WIDTH = 360;
 
@@ -27,9 +28,10 @@ async function getPosition() {
 export const showPopup = async (chainId: string, event: TransactionEvent) => {
     const { triggerType, requestType, payload } = event;
     const { top, left } = await getPosition();
+    const url = await getActiveTabUrl();
 
     if (triggerType === 'request' && requestType === 'eth_sendTransaction') {
-        const data: Record<string, string> = { chainId, ...(payload as Record<string, string>) };
+        const data: Record<string, string> = { url, chainId, ...(payload as Record<string, string>) };
         const searchParams = new URLSearchParams(data);
         const popupUrl = `walletpopup.html?${searchParams.toString()}`;
 

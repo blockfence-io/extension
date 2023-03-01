@@ -26,7 +26,7 @@ export const Container = styled.div<RiskProps>`
 
 export const InfoList = styled.div`
     display: flex;
-    gap: 12px;
+    gap: 6px;
 `;
 
 export const URLLink = styled(Link)`
@@ -63,8 +63,12 @@ const Group = styled.div`
     display: flex;
     flex-direction: column;
     gap: 4px;
+`;
 
-    overflow: hidden;
+const Icon = styled.div`
+    opacity: 0.8;
+    text-align: right;
+    flex: 1;
 `;
 
 const Title = styled.div`
@@ -75,8 +79,6 @@ const Value = styled.div`
     font-size: 14px;
     font-weight: bold;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 `;
 
 const Copy = styled.div`
@@ -88,6 +90,7 @@ export const Info = {
     Title,
     Value,
     Copy,
+    Icon,
 };
 
 export const Fill = styled.div`

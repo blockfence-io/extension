@@ -3,25 +3,21 @@ import { ChatResponse, EngineResponse, ErrorResponse } from '../types/api';
 import { logException } from '../shared/logs';
 
 const BASE_URL = process.env.API_SERVER;
+const API_KEY = process.env.API_KEY;
 
-async function getActiveTabUrl() {
-    return new Promise(function (resolve, reject) {
-        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-            if (tabs.length > 0) {
-                resolve(tabs[0].url);
-            } else {
-                reject('No active tab found');
-            }
-        });
-    });
-}
-
-async function _fetchFunction<ResponseType>(page: string, chainId: string, to: string): Promise<ResponseType> {
+async function _fetchFunction<ResponseType>(
+    page: string,
+    chainId: string,
+    to: string,
+    url: string
+): Promise<ResponseType> {
     try {
-        const url = await getActiveTabUrl();
         const response = await axios({
             method: 'post',
             url: `${BASE_URL}/${page}`,
+            headers: {
+                'x-api-key': API_KEY,
+            },
             data: {
                 plugin: 'BROWSER',
                 chain_id: chainId,
@@ -47,9 +43,9 @@ async function _fetchFunction<ResponseType>(page: string, chainId: string, to: s
 }
 
 export const fetchDescription = async (chainId: string, to: string): Promise<ChatResponse> => {
-    return _fetchFunction<ChatResponse>('chat', chainId, to);
+    return _fetchFunction<ChatResponse>('chat', chainId, to, '');
 };
 
-export const fetchAnalyze = async (chainId: string, to: string): Promise<EngineResponse> => {
-    return _fetchFunction<EngineResponse>('analyze', chainId, to);
+export const fetchAnalyze = async (chainId: string, to: string, url: string): Promise<EngineResponse> => {
+    return _fetchFunction<EngineResponse>('analyze', chainId, to, url);
 };

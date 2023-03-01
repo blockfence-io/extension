@@ -56,6 +56,11 @@ export const Title = styled.h3`
     gap: 12px;
     font-weight: 800;
     margin-bottom: 10px;
+    padding-right: 10px;
+
+    & > div:first-child {
+        flex: 1;
+    }
 `;
 
 export const Body = styled.div`
