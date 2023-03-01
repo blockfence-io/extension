@@ -5,10 +5,10 @@ const WALLET_NOTIFICATION_WIDTH = 360;
 
 const EXTENSION_WIDTH = 400;
 const EXTENSION_HEIGHT = 550;
-const FOCUS_TIMEOUT = 200;
+const FOCUS_TIMEOUT = 20;
+const RETRIES_COUNT = 25;
 
 async function getPosition() {
-    // Get opening page position
     const latestWindow = await chrome.windows.getLastFocused();
 
     if (
@@ -23,6 +23,32 @@ async function getPosition() {
     }
 
     return { top: 100, left: 100 };
+}
+
+async function findMetamaskWindowId() {
+    const latestWindow = await chrome.windows.getLastFocused();
+    const tabs = await chrome.tabs.query({ active: true, windowId: latestWindow.id });
+    if (tabs && tabs[0] && tabs[0].title && tabs[0].title.toLowerCase().includes('metamask')) {
+        return latestWindow.id;
+    }
+}
+
+function asyncTimeout(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function waitForMetamaskWindowId() {
+    let retries = RETRIES_COUNT;
+
+    // Wait until metamask window is focused
+    while (retries > 0) {
+        await asyncTimeout(FOCUS_TIMEOUT);
+        const metamaskWindowId = await findMetamaskWindowId();
+        if (metamaskWindowId) {
+            return metamaskWindowId;
+        }
+        retries--;
+    }
 }
 
 export const showPopup = async (chainId: string, event: TransactionEvent) => {
@@ -47,11 +73,26 @@ export const showPopup = async (chainId: string, event: TransactionEvent) => {
             focused: false, // Wallets code usually position themselves according to latest focused window
         });
 
-        // Make sure popup window is focused
-        setTimeout(() => {
-            if (popupWindow.id) {
-                chrome.windows.update(popupWindow.id, { focused: true });
-            }
-        }, FOCUS_TIMEOUT);
+        if (popupWindow.id) {
+            // Wait until wallet window is found (or timeout)
+            const walletWindowId = await waitForMetamaskWindowId();
+
+            // Listen to wallet close
+            if (walletWindowId) closeWindowWithOther(popupWindow.id, walletWindowId);
+
+            // Focus Blockfence window
+            chrome.windows.update(popupWindow.id, { focused: true });
+        }
     }
 };
+
+function closeWindowWithOther(targetWindowId: number, listeningWindowId: number) {
+    function handler(tabId: number, removeInfo: chrome.tabs.TabRemoveInfo) {
+        if (removeInfo.windowId === listeningWindowId) {
+            chrome.windows.remove(targetWindowId);
+            chrome.tabs.onRemoved.removeListener(handler);
+        }
+    }
+
+    chrome.tabs.onRemoved.addListener(handler);
+}
