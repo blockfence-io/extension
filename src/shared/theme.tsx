@@ -30,3 +30,10 @@ export const riskIcons: { [key in Severity]: Icon | undefined } = {
     HIGH: UilExclamationTriangle,
     CRITICAL: UilExclamationTriangle,
 };
+
+export const mediaWidth = {
+    mobile: '375px',
+    tablet: '768px',
+    smallLaptop: '1200px', // 1024?
+    largeDisplay: '1440px',
+};

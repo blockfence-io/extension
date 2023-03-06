@@ -14,6 +14,7 @@ var options = {
     mode: env,
 
     entry: {
+        standalone: path.join(__dirname, 'src', 'pages', 'Standalone', 'index.tsx'),
         popup: path.join(__dirname, 'src', 'pages', 'Popup', 'index.tsx'),
         walletpopup: path.join(__dirname, 'src', 'pages', 'WalletPopup', 'index.tsx'),
         background: path.join(__dirname, 'src', 'scripts', 'background', 'index.ts'),
@@ -140,6 +141,13 @@ var options = {
             template: path.join(__dirname, 'src', 'pages', 'Popup', 'index.html'),
             filename: 'popup.html',
             chunks: ['popup'],
+            cache: false,
+        }),
+
+        new HtmlPlugin({
+            template: path.join(__dirname, 'src', 'pages', 'Standalone', 'index.html'),
+            filename: 'standalone.html',
+            chunks: ['standalone'],
             cache: false,
         }),
     ],

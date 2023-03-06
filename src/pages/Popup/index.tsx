@@ -3,10 +3,9 @@ import { createRoot } from 'react-dom/client';
 import { useAsyncCallback } from 'react-async-hook';
 
 import * as Layout from '../../components/Layout.styles';
+import { Results } from '../../components/Results';
 import { SearchBar } from '../../components/SearchBar';
 import { SettingsMenu } from '../../components/SettingsMenu';
-import { ErrorMessage, LoadingMessage } from '../../components/PageMessages';
-import { ContentDecoder } from '../../components/ContentDecoder';
 import { ErrorBoundary } from '../../components/CriticalError';
 
 import { fetchAnalyze, fetchDescription } from '../../shared/api';
@@ -36,9 +35,6 @@ function Panel() {
         analyzeResult.execute(chainId, to, url);
         logSearchClick(to, chainId);
     }
-    const chatError =
-        "GPT-3's experiencing some technical difficulties, but don't worry, our team's on it. In the meantime, give it another try or holla at us if you need a hand.";
-
     return (
         <Layout.Container>
             <ErrorBoundary>
@@ -55,18 +51,12 @@ function Panel() {
                         </Styled.Help>
                     )}
 
-                    {analyzeResult.loading && <LoadingMessage />}
-                    {analyzeResult.error && <ErrorMessage>{analyzeResult.error.message}</ErrorMessage>}
-                    {analyzeResult.result && (
-                        <ContentDecoder
-                            chainId={chainId}
-                            to={to}
-                            analyzeResult={analyzeResult.result}
-                            descriptionResult={
-                                descriptionResult.error ? chatError : descriptionResult.result?.description
-                            }
-                        />
-                    )}
+                    <Results
+                        chainId={chainId}
+                        to={to}
+                        analyzeResult={analyzeResult}
+                        descriptionResult={descriptionResult}
+                    />
                 </Layout.Body>
             </ErrorBoundary>
         </Layout.Container>

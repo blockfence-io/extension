@@ -1,7 +1,8 @@
 import { init } from '@amplitude/analytics-browser';
 import * as amplitude from '@amplitude/analytics-browser';
 
-const APP_VERSION = chrome.runtime.getManifest().version;
+const APP_VERSION =
+    typeof chrome !== 'undefined' && chrome.runtime ? chrome.runtime.getManifest().version : 'standalone';
 
 init(process.env.AMPLITUDE_KEY || '', undefined, {
     appVersion: APP_VERSION,
