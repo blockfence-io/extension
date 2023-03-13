@@ -29,7 +29,7 @@ function Panel() {
     return (
         <Layout.Container style={{ minHeight: 'initial' }}>
             <ErrorBoundary>
-                <Layout.Banner>ALPHA</Layout.Banner>
+                <Layout.Banner>BETA</Layout.Banner>
                 <Layout.Body>
                     <Results
                         chainId={chainId}
