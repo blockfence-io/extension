@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Logo from '../../assets/logo-white.svg';
+import ChromeLogo from '../../assets/icons/chrome.svg';
 
 import { UilGithub } from '@iconscout/react-unicons';
 import { UilTwitter } from '@iconscout/react-unicons';
@@ -18,6 +19,14 @@ export function Navbar() {
                 <Styled.Company>Blockfence</Styled.Company>
             </Styled.Logo>
             <Styled.Navigation>
+                <Styled.ExtensionsLink
+                    href='https://chrome.google.com/webstore/detail/blockfence/cpgbcelefhmacblaocimfilfnchkghba'
+                    target='_blank'
+                    rel='noreferrer'
+                >
+                    <ChromeLogo />
+                    Add to chrome
+                </Styled.ExtensionsLink>
                 <a href='https://github.com/blockfence-io/extension' target='_blank' rel='noreferrer'>
                     <UilGithub size={ICON_SIZE} />
                 </a>
@@ -27,12 +36,6 @@ export function Navbar() {
                 <a href='https://twitter.com/blockfence_io' target='_blank' rel='noreferrer'>
                     <UilTwitter size={ICON_SIZE} />
                 </a>
-                {/* <a href='https://www.reddit.com/r/blockfence/' target='_blank' rel='noreferrer'>
-                    <UilRedditAlienAlt size={ICON_SIZE} />
-                </a> */}
-                {/* <a href='https://www.blockfence.io' target='_blank' rel='noreferrer'>
-                    <UilHome size={ICON_SIZE} />
-                </a> */}
             </Styled.Navigation>
         </Styled.Container>
     );
