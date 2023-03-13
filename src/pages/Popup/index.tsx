@@ -12,6 +12,8 @@ import { fetchAnalyze, fetchDescription } from '../../shared/api';
 import { getActiveTabUrl } from '../../helpers/getActiveTab';
 import * as Styled from './index.styled';
 
+import Logo from '../../assets/logo-white.svg';
+
 import '../../shared/reset.css';
 import '../../shared/font.css';
 
@@ -40,12 +42,28 @@ export function PopupPanel({ hideAlpha = false, hideSettings = false }: PopupPan
         analyzeResult.execute(chainId, to, url);
         logSearchClick(to, chainId);
     }
+
+    const compact = to !== '';
+
     return (
         <ErrorBoundary>
-            {!hideAlpha && <Layout.Banner>ALPHA</Layout.Banner>}
+            {!hideAlpha && <Layout.Banner>BETA</Layout.Banner>}
+
+            <Layout.Logo hidden={compact}>
+                <Logo />
+                <div>Blockfence</div>
+            </Layout.Logo>
+
+            <Layout.FloatingSettings>{!hideSettings && !compact && <SettingsMenu />}</Layout.FloatingSettings>
+
             <Layout.Header severity={analyzeResult.result?.severity}>
-                <SearchBar onClick={handleClick} disabled={analyzeResult.loading || descriptionResult.loading} />
-                {!hideSettings && <SettingsMenu />}
+                <SearchBar
+                    onClick={handleClick}
+                    disabled={analyzeResult.loading || descriptionResult.loading}
+                    severity={analyzeResult.result?.severity}
+                    compact={compact}
+                />
+                {!hideSettings && compact && <SettingsMenu />}
             </Layout.Header>
 
             <Layout.Body>

@@ -7,10 +7,12 @@ export const Help = styled.div`
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    font-size: 1rem;
+    font-size: 16px;
     width: 60%;
     align-self: center;
     font-weight: 300;
-    opacity: 0.7;
+    opacity: 0.8;
     user-select: none;
+    color: #6445c0;
+    line-height: 28px;
 `;
