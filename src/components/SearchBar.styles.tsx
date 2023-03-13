@@ -14,7 +14,7 @@ export const Form = styled.form<FormProps>`
 
     font-size: 12px;
 
-    padding: ${(props) => (props.compact ? '10px 6px' : '22px 30px')};
+    padding: ${(props) => (props.compact ? '10px 6px' : '22px 22px')};
     border-radius: 6px;
     gap: ${(props) => (props.compact ? '10px' : '14px')};
 
