@@ -31,7 +31,6 @@ export const Header = styled.header<HeaderProps>`
         css`
             border-bottom: 1px #ffffff40 solid;
         `}
-    padding: 0 6px;
     gap: 2px;
 `;
 
