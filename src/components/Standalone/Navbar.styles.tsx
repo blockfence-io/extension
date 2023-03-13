@@ -70,6 +70,11 @@ export const ExtensionsLink = styled.a`
     align-items: center;
     gap: 12px;
 
+    /* Mobile */
+    @media (max-width: ${mediaWidth.tablet}) {
+        display: none;
+    }
+
     &:hover {
         text-decoration: none;
         background: #a93cff;
