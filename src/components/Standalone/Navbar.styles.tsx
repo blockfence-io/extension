@@ -61,14 +61,15 @@ export const ExtensionsLink = styled.a`
     background: #8f00ff;
     border-radius: 50px;
 
-    font-size: 16px;
+    font-size: 14px;
+    letter-spacing: 0.6px;
     font-weight: bold;
 
-    padding: 10px 20px;
+    padding: 10px 14px;
 
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
 
     /* Mobile */
     @media (max-width: ${mediaWidth.tablet}) {
@@ -81,7 +82,7 @@ export const ExtensionsLink = styled.a`
     }
 
     & svg {
-        height: 30px;
+        height: 26px;
 
         &:hover {
             opacity: 1;
