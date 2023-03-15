@@ -1,13 +1,13 @@
 import React from 'react';
-import GlobeIcon from '../assets/globe-solid.svg';
-import GithubIcon from '../assets/github.svg';
+import BlockfenceIcon from '../assets/logo-circle.svg';
+import GithubIcon from '../assets/icons/github.svg';
 import * as Styled from './WebsiteURL.styled';
 
 export function WebsiteURL() {
     return (
         <Styled.Link href='https://blockfence.io' target='_blank' rel='noreferrer'>
             <div>
-                <GlobeIcon />
+                <BlockfenceIcon />
             </div>
             <div>blockfence.io</div>
         </Styled.Link>

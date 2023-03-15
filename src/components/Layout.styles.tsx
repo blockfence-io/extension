@@ -1,12 +1,12 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Severity } from '../types/api';
 import * as theme from '../shared/theme';
 
 export const Container = styled.div`
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr auto;
-    grid-template-areas: 'header' 'body' 'footer';
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas: 'huge-logo' 'header' 'body' 'footer';
     height: 100vh;
     width: 100vw;
     min-width: 376px;
@@ -15,6 +15,7 @@ export const Container = styled.div`
 
 interface HeaderProps {
     severity: undefined | Severity;
+    compact?: boolean;
 }
 
 export const Header = styled.header<HeaderProps>`
@@ -24,10 +25,14 @@ export const Header = styled.header<HeaderProps>`
 
     color: white;
     background: ${(props) => (props.severity ? theme.riskBackground[props.severity] : theme.riskText.NONE)};
-    border-bottom: 1px #ffffff40 solid;
 
-    padding: 8px 10px;
-    gap: 6px;
+    ${(props) =>
+        props.compact &&
+        css`
+            border-bottom: 1px #ffffff40 solid;
+        `}
+    padding: 0 6px;
+    gap: 2px;
 `;
 
 export const Body = styled.div`
@@ -44,6 +49,51 @@ export const Footer = styled.footer`
     display: flex;
     gap: 22px;
     justify-content: flex-start;
+`;
+
+export const FloatingSettings = styled.footer`
+    position: absolute;
+    right: 10px;
+    top: 10px;
+`;
+
+interface LogoProps {
+    hidden: boolean;
+}
+
+export const Logo = styled.div<LogoProps>`
+    grid-area: huge-logo;
+    /* height: 160px; */
+    height: ${(props) => (props.hidden ? '0px' : '160px')};
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: ${theme.primaryColor};
+    gap: 20px;
+
+    transition: all 0.5s ease;
+
+    overflow: hidden;
+
+    /* Logo */
+    & div {
+        font-size: 30px;
+        font-weight: 700;
+        color: white;
+
+        opacity: ${(props) => (props.hidden ? '0' : '1')};
+        transition: all 0.5s ease;
+    }
+
+    /* Icon */
+    & svg {
+        opacity: ${(props) => (props.hidden ? '0' : '1')};
+        transition: all 0.5s ease;
+
+        width: 50px;
+    }
 `;
 
 export const Banner = styled.div`

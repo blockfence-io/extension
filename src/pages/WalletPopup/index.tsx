@@ -3,8 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { useAsync } from 'react-async-hook';
 
 import * as Layout from '../../components/Layout.styles';
-import { ContentDecoder } from '../../components/ContentDecoder';
-import { ErrorMessage, LoadingMessage } from '../../components/PageMessages';
+import { Results } from '../../components/Results';
 import { WebsiteURL, GithubURL } from '../../components/WebsiteURL';
 import { ErrorBoundary } from '../../components/CriticalError';
 
@@ -27,26 +26,17 @@ function Panel() {
         logPageView('Wallet Popup');
     }, []);
 
-    const chatError =
-        "GPT-3's experiencing some technical difficulties, but don't worry, our team's on it. In the meantime, give it another try or holla at us if you need a hand.";
-
     return (
         <Layout.Container style={{ minHeight: 'initial' }}>
             <ErrorBoundary>
-                <Layout.Banner>ALPHA</Layout.Banner>
+                <Layout.Banner>BETA</Layout.Banner>
                 <Layout.Body>
-                    {analyzeResult.loading && <LoadingMessage />}
-                    {analyzeResult.error && <ErrorMessage>{analyzeResult.error.message}</ErrorMessage>}
-                    {analyzeResult.result && (
-                        <ContentDecoder
-                            chainId={chainId}
-                            to={to}
-                            analyzeResult={analyzeResult.result}
-                            descriptionResult={
-                                descriptionResult.error ? chatError : descriptionResult.result?.description
-                            }
-                        />
-                    )}
+                    <Results
+                        chainId={chainId}
+                        to={to}
+                        analyzeResult={analyzeResult}
+                        descriptionResult={descriptionResult}
+                    />
                 </Layout.Body>
                 <Layout.Footer>
                     <WebsiteURL />

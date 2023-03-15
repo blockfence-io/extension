@@ -16,7 +16,7 @@ export function SettingsMenu() {
             />
             <Menu.Separator />
             <RadioMenuItem
-                title='Url Analysis'
+                title='URL Analysis'
                 body='The Blockfence Extension will use the current URL to Analyze the Transaction and search for phishing
                 attacks'
                 onValueChange={storage.setEnableUrlAnalysis}

@@ -8,7 +8,7 @@ export const primaryBackground = 'linear-gradient(144deg,#180c33 -47.75%,#3a0da3
 export const fieldBorder = '#DADCE0';
 
 export const riskText: { [key in Severity]: string } = {
-    NONE: '#351254',
+    NONE: '#6445C0',
     LOW: '#dfc700',
     MEDIUM: '#FF7A00',
     HIGH: '#D80000',
@@ -29,4 +29,11 @@ export const riskIcons: { [key in Severity]: Icon | undefined } = {
     MEDIUM: UilExclamationCircle,
     HIGH: UilExclamationTriangle,
     CRITICAL: UilExclamationTriangle,
+};
+
+export const mediaWidth = {
+    mobile: '375px',
+    tablet: '768px',
+    smallLaptop: '1200px', // 1024?
+    largeDisplay: '1440px',
 };
