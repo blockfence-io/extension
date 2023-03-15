@@ -1,0 +1,58 @@
+name: Build and Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    inputs:
+      version:
+        description: 'Release version number'
+        required: true
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set environment variable
+        run: |
+          echo "NODE_ENV=production" >> $GITHUB_ENV
+
+      - name: Update manifest.json
+        run: sed -i.bak "s/\"version\": \".*\"/\"version\": \"$GITHUB_ACTION_VERSION\"/" manifest.json && rm manifest.json.bak
+        env:
+          GITHUB_ACTION_VERSION: ${{ github.event.inputs.version }}
+
+      - name: Create release
+        uses: actions/create-release@v1
+        id: create_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.event.inputs.version }}
+          release_name: Release ${{ github.event.inputs.version }}
+          body: |
+            This is the ${{ github.event.inputs.version }} release
+          draft: false
+          prerelease: false
+
+      - name: Build
+        run: npm run build
+
+      - name: Compress build artifacts
+        uses: montudor/action-zip@v0.2.0
+        with:
+          args: "-r release.zip build/"
+
+      - name: Upload release asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./release.zip
+          asset_name: release.zip
+          asset_content_type: application/zip
