@@ -49,6 +49,7 @@ export function SearchBar({ onClick, disabled, severity, compact }: SearchBarPro
                 style={{ flex: 1 }}
                 pattern='0x.{40}'
                 onInvalid={setInvalidMessage}
+                autoFocus
             />
             <Button type='submit' disabled={input === '' || disabled} style={{ flex: 0 }}>
                 Scan
