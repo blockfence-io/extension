@@ -71,8 +71,8 @@ export const Background = styled.div`
 export const LayoutContainer = styled.div`
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr auto;
-    grid-template-areas: 'header' 'body' 'footer';
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas: 'huge-logo' 'header' 'body' 'footer';
 
     width: 400px;
     min-height: 600px;
@@ -95,7 +95,7 @@ export const Extension = styled.div`
 
     border-radius: 5px;
     overflow: hidden;
-    box-shadow: -6.15957px 8.21277px 18.4787px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 0px 1px #a93cff5c, -6.15957px 8.21277px 18.4787px rgb(0 0 0 / 15%);
 
     /* Mobile */
     @media (max-width: ${mediaWidth.tablet}) {

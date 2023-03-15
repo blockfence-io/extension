@@ -5,14 +5,18 @@ import { Input } from './UI/Input';
 import { NetworkSelector } from './NetworkSelector';
 import { logNetworkChange } from '../shared/logs';
 
+import { Severity } from '../types/api';
+
 import * as Styled from './SearchBar.styles';
 
 interface SearchBarProps {
     onClick: (chainId: string, to: string) => void;
     disabled: boolean;
+    severity: undefined | Severity;
+    compact?: boolean;
 }
 
-export function SearchBar({ onClick, disabled }: SearchBarProps) {
+export function SearchBar({ onClick, disabled, severity, compact }: SearchBarProps) {
     const [input, setInput] = useState('');
     const [chainId, setChainId] = useState('0x1');
 
@@ -36,7 +40,7 @@ export function SearchBar({ onClick, disabled }: SearchBarProps) {
     };
 
     return (
-        <Styled.Form onSubmit={handleSubmit}>
+        <Styled.Form onSubmit={handleSubmit} severity={severity} compact={compact}>
             <NetworkSelector onChange={onNetworkChange} />
             <Input
                 type='text'
