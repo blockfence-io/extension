@@ -1,6 +1,6 @@
 import React from 'react';
 import BlockfenceIcon from '../assets/logo-circle.svg';
-import GithubIcon from '../assets/github.svg';
+import GithubIcon from '../assets/icons/github.svg';
 import * as Styled from './WebsiteURL.styled';
 
 export function WebsiteURL() {
