@@ -18,11 +18,21 @@ export type Risk = {
     }[];
 };
 
+export type DataEnrichment = {
+    stats: Stat[];
+};
+
+export type Stat = {
+    name: string;
+    value: string;
+};
+
 export type EngineResponse = {
     name: string;
     severity: Severity;
     is_contract: boolean;
     risks: Risk[];
+    dapp: DataEnrichment;
 };
 
 export type ChatResponse = {

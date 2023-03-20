@@ -46,6 +46,22 @@ export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeRe
                     )}
                 </Collapsable>
 
+                {analyzeResult.dapp && (
+                    <Collapsable title='Dapp Data' icon={<RadarIcon />} defaultState={false}>
+                        {analyzeResult.dapp.stats.map((stat, id) => (
+                            <Styled.ContractName>
+                                {stat.name}: {stat.value}
+                            </Styled.ContractName>
+                        ))}
+                        <>
+                            <Styled.Copyrights>
+                                <ChatGPTIcon />
+                                Powered by DappRadar
+                            </Styled.Copyrights>
+                        </>
+                    </Collapsable>
+                )}
+
                 <Collapsable title='Fraud Analysis' icon={<RadarIcon />} defaultState={false}>
                     {analyzeResult.risks.map((risk, id) => (
                         <Risk key={id} risk={risk} />
