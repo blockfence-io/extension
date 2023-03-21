@@ -19,6 +19,9 @@ export type Risk = {
 };
 
 export type DataEnrichment = {
+    title: string;
+    powered_by?: string;
+    icon?: string;
     stats: Stat[];
 };
 
@@ -32,7 +35,7 @@ export type EngineResponse = {
     severity: Severity;
     is_contract: boolean;
     risks: Risk[];
-    dapp: DataEnrichment;
+    data_enrichments: DataEnrichment[];
 };
 
 export type ChatResponse = {
