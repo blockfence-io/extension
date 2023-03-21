@@ -13,20 +13,20 @@ interface EnrichmentProps {
 export function Enrichment({ dataEnrichment, defaultState = false }: EnrichmentProps) {
     return (
         <Collapsable title={dataEnrichment.title} icon={<RadarIcon />} defaultState={defaultState}>
+            <Styled.ExtensionsLink href={dataEnrichment.link} target='_blank' rel='noreferrer'>
+                {dataEnrichment.powered_by && (
+                    <Styled.PoweredBy>
+                        <img src={dataEnrichment.icon} width='24' />
+                        {dataEnrichment.powered_by}
+                    </Styled.PoweredBy>
+                )}
+            </Styled.ExtensionsLink>
             {dataEnrichment.stats.map((stat, id) => (
                 <>
                     <Styled.Title key={id}>{stat.name}</Styled.Title>
                     {stat.value}
                 </>
             ))}
-            <>
-                {dataEnrichment.powered_by && (
-                    <Styled.Copyrights>
-                        <img src={dataEnrichment.icon} width='24' />
-                        {dataEnrichment.powered_by}
-                    </Styled.Copyrights>
-                )}
-            </>
         </Collapsable>
     );
 }
