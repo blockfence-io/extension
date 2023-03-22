@@ -12,7 +12,7 @@ import RadarIcon from '../assets/icons/radar-icon.svg';
 import ChatGPTIcon from '../assets/icons/chatgpt.svg';
 
 import * as Styled from './ContentDecoder.styles';
-import { DataEnrichment, EngineResponse } from '../types/api';
+import { EngineResponse } from '../types/api';
 
 interface ContentDecoderProps {
     to: string;
