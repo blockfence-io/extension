@@ -5,6 +5,7 @@ import { Placeholder } from './UI/Loader';
 import { Header } from './Header';
 import { Risk } from './Risk';
 import { networkMapping } from './NetworkSelector';
+import { Enrichment } from './Enrichment';
 
 import SpotlightIcon from '../assets/icons/spotlight.svg';
 import RadarIcon from '../assets/icons/radar-icon.svg';
@@ -45,6 +46,11 @@ export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeRe
                         <Placeholder />
                     )}
                 </Collapsable>
+
+                {analyzeResult.data_enrichments &&
+                    analyzeResult.data_enrichments.map((dataEnrichment, id) => (
+                        <Enrichment key={id} dataEnrichment={dataEnrichment} defaultState={false} />
+                    ))}
 
                 <Collapsable title='Fraud Analysis' icon={<RadarIcon />} defaultState={false}>
                     {analyzeResult.risks.map((risk, id) => (
