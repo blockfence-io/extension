@@ -23,6 +23,7 @@ export type DataEnrichment = {
     link?: string;
     powered_by?: string;
     icon?: string;
+    dapp_logo?: string;
     stats: Stat[];
 };
 
