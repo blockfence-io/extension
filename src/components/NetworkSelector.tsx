@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import * as Styled from './NetworkSelector.styles';
 
+// TODO - get this from the API
+
 const OPTIONS = [
     { name: 'Mainnet', value: '0x1' },
     { name: 'Goerli', value: '0x5' },
     { name: 'Sepolia', value: '0x0xaa36a7' },
+    { name: 'Polygon', value: '137' },
 ];
 
 export const networkMapping: { [key: string]: string } = {
     '0x1': 'Ethereum Mainnet',
     '0x5': 'Goerli',
     '0x0xaa36a7': 'Sepolia',
+    '137': 'Polygon',
 };
 
 interface NetworkSelectorProps {
