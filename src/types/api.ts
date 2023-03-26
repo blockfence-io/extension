@@ -19,6 +19,9 @@ export type Risk = {
 };
 
 export type DataEnrichment = {
+    title: string;
+    powered_by?: string;
+    icon?: string;
     stats: Stat[];
 };
 

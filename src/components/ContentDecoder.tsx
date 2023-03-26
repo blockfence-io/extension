@@ -12,7 +12,7 @@ import RadarIcon from '../assets/icons/radar-icon.svg';
 import ChatGPTIcon from '../assets/icons/chatgpt.svg';
 
 import * as Styled from './ContentDecoder.styles';
-import { EngineResponse } from '../types/api';
+import { DataEnrichment, EngineResponse } from '../types/api';
 
 interface ContentDecoderProps {
     to: string;
@@ -22,6 +22,42 @@ interface ContentDecoderProps {
 }
 
 export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeResult }: ContentDecoderProps) {
+    console.log('dapp:', analyzeResult.data_enrichments);
+    // MOCK
+    analyzeResult.data_enrichments = [
+        {
+            title: 'DAPP: CryptoKitties',
+            powered_by: 'Powered by DappRadar',
+            icon: 'https://blockfence-assets.s3.amazonaws.com/icons/dapraddar.png',
+            stats: [
+                {
+                    name: 'Website',
+                    value: 'https://www.cryptokitties.co',
+                },
+                {
+                    name: 'Description',
+                    value: 'In CryptoKitties, users collect and breed oh-so-adorable creatures that we call CryptoKitties! Each kitty has a unique genome that defines its appearance and traits. Players can breed their kitties to create new furry friends and unlock rare cattributes.',
+                },
+                {
+                    name: 'Balance',
+                    value: ' $87319477.8',
+                },
+                {
+                    name: 'Transactions',
+                    value: '65483',
+                },
+                {
+                    name: 'Volume',
+                    value: ' $1121k',
+                },
+                {
+                    name: 'Users',
+                    value: '27448',
+                },
+            ],
+        },
+    ];
+
     return (
         <>
             <Header
