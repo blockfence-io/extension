@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import * as Styled from './NetworkSelector.styles';
 
-// TODO - get this from the API
-
 const OPTIONS = [
     { name: 'Mainnet', value: '0x1' },
-    { name: 'Goerli', value: '0x5' },
-    { name: 'Sepolia', value: '0x0xaa36a7' },
     { name: 'Polygon', value: '137' },
+    { name: 'BSC', value: '56' },
+    { name: 'Arbitrum', value: '42161' },
+    { name: 'Optimism', value: '10' },
+    { name: 'Avalanche', value: '43114' },
 ];
 
 export const networkMapping: { [key: string]: string } = {
@@ -15,6 +15,14 @@ export const networkMapping: { [key: string]: string } = {
     '0x5': 'Goerli',
     '0x0xaa36a7': 'Sepolia',
     '137': 'Polygon',
+    '80001': 'Polygon Mumbai',
+    '56': 'BSC',
+    '42161': 'Arbitrum',
+    '421613': 'Arbitrum Goerli',
+    '10': 'Optimism',
+    '420': 'Optimism Goerli',
+    '43114': 'Avalanche',
+    '43113': 'Avalanche Fuji',
 };
 
 interface NetworkSelectorProps {
