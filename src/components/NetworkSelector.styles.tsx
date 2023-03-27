@@ -41,6 +41,12 @@ export const Options = styled.div`
 export const Option = styled.div`
     user-select: none;
     padding: 8px 8px;
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+    gap: 16px;
 
     &:hover {
         background: ${theme.primaryColor};
@@ -49,3 +55,8 @@ export const Option = styled.div`
 `;
 
 export const Selected = styled.div``;
+
+export const Icon = styled.div`
+    width: 32px;
+    height: 32px;
+`;
