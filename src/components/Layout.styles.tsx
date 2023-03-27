@@ -45,10 +45,12 @@ export const Body = styled.div`
 export const Footer = styled.footer`
     grid-area: footer;
 
-    padding: 0.5rem 20px;
+    padding: 6px 20px;
     display: flex;
     gap: 22px;
     justify-content: flex-start;
+
+    background: #f8f8f8;
 `;
 
 export const FloatingSettings = styled.footer`
@@ -113,4 +115,17 @@ export const Banner = styled.div`
     z-index: 20;
 
     user-select: none;
+`;
+
+export const Beta = styled.div`
+    /* color: #ffffffe3;
+    background: rgba(172, 16, 16, 0.52); */
+    /* background: #ff000033; */
+    color: rgba(172, 16, 16, 0.52);
+    padding: 4px 10px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    margin: 2px 0;
+    font-weight: 800;
 `;
