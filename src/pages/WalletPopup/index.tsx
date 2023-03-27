@@ -29,7 +29,7 @@ function Panel() {
     return (
         <Layout.Container style={{ minHeight: 'initial' }}>
             <ErrorBoundary>
-                {/* <Layout.Banner>BETA</Layout.Banner> */}
+                <Layout.Banner>BETA</Layout.Banner>
                 <Layout.Body>
                     <Results
                         chainId={chainId}
@@ -42,7 +42,7 @@ function Panel() {
                     <WebsiteURL iconOnly />
                     <GithubURL iconOnly />
                     <FeedbackURL style={{ flex: 1 }} />
-                    <Layout.Beta>BETA</Layout.Beta>
+                    {/* <Layout.Beta>BETA</Layout.Beta> */}
                 </Layout.Footer>
             </ErrorBoundary>
         </Layout.Container>

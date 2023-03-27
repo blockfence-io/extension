@@ -49,8 +49,6 @@ export const Footer = styled.footer`
     display: flex;
     gap: 22px;
     justify-content: flex-start;
-
-    background: #f8f8f8;
 `;
 
 export const FloatingSettings = styled.footer`
