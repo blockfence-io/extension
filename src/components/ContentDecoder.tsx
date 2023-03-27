@@ -6,6 +6,7 @@ import { Header } from './Header';
 import { Risk } from './Risk';
 import { networkMapping } from './NetworkSelector';
 import { Enrichment } from './Enrichment';
+import { FeedbackURL } from './WebsiteURL';
 
 import SpotlightIcon from '../assets/icons/spotlight.svg';
 import RadarIcon from '../assets/icons/radar-icon.svg';
@@ -57,6 +58,10 @@ export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeRe
                         <Risk key={id} risk={risk} />
                     ))}
                 </Collapsable>
+
+                <Styled.Feedback>
+                    <FeedbackURL />
+                </Styled.Feedback>
             </Styled.Results>
         </>
     );

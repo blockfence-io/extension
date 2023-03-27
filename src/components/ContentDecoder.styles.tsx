@@ -38,3 +38,8 @@ export const Copyrights = styled.div`
         margin-right: 5px;
     }
 `;
+
+export const Feedback = styled.div`
+    display: flex;
+    justify-content: center;
+`;
