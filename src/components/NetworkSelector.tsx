@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import * as Styled from './NetworkSelector.styles';
+
 import EthereumIcon from '../assets/icons/ethereum-logo.svg';
 import PolygonIcon from '../assets/icons/polygon-logo.svg';
 import BSCIcon from '../assets/icons/bsc-logo.svg';
@@ -62,7 +63,8 @@ export function NetworkSelector({ onChange }: NetworkSelectorProps) {
                     setHidden(!hidden);
                 }}
             >
-                {network.name}
+                <Styled.SmallIcon>{network.icon}</Styled.SmallIcon>
+                {/* {network.name} */}
             </Styled.Selected>
         </Styled.Container>
     );
