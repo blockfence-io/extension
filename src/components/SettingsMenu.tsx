@@ -23,9 +23,9 @@ export function SettingsMenu() {
                 initializer={storage.getEnableUrlAnalysis}
             />
             <Menu.Separator />
-            <FeedbackURL />
             <GithubURL />
             <WebsiteURL />
+            <FeedbackURL />
         </Menu.Menu>
     );
 }
