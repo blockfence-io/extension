@@ -18,7 +18,7 @@ export const Options = styled.div`
     border-radius: 2px;
     z-index: 100;
     overflow: hidden;
-    margin-top: 26px;
+    margin-top: 32px;
     margin-left: 0px;
 
     border-radius: 0 0 4px 4px;
