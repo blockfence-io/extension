@@ -4,7 +4,7 @@ import { useAsync } from 'react-async-hook';
 
 import * as Layout from '../../components/Layout.styles';
 import { Results } from '../../components/Results';
-import { WebsiteURL, GithubURL } from '../../components/WebsiteURL';
+import { WebsiteURL, GithubURL, FeedbackURL } from '../../components/WebsiteURL';
 import { ErrorBoundary } from '../../components/CriticalError';
 
 import { fetchDescription, fetchAnalyze } from '../../shared/api';
@@ -39,8 +39,10 @@ function Panel() {
                     />
                 </Layout.Body>
                 <Layout.Footer>
-                    <WebsiteURL />
-                    <GithubURL />
+                    <WebsiteURL iconOnly />
+                    <GithubURL iconOnly />
+                    <FeedbackURL style={{ flex: 1 }} />
+                    {/* <Layout.Beta>BETA</Layout.Beta> */}
                 </Layout.Footer>
             </ErrorBoundary>
         </Layout.Container>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { GithubURL, WebsiteURL } from '../components/WebsiteURL';
+import { FeedbackURL, GithubURL, WebsiteURL } from '../components/WebsiteURL';
 import * as Menu from '../components/UI/Menu';
 import * as storage from '../shared/storage';
 import { RadioMenuItem } from '../components/RadioMenuItem';
@@ -25,6 +25,7 @@ export function SettingsMenu() {
             <Menu.Separator />
             <GithubURL />
             <WebsiteURL />
+            <FeedbackURL />
         </Menu.Menu>
     );
 }
