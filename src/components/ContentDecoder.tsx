@@ -32,8 +32,16 @@ export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeRe
             />
 
             <Styled.Results>
-                <Collapsable title='Description' icon={<SpotlightIcon />} defaultState={true}>
-                    {analyzeResult.name !== '' && <Styled.ContractName>Name: {analyzeResult.name}</Styled.ContractName>}
+                <Collapsable
+                    title={analyzeResult.is_contract ? 'Contract Description' : 'Description'}
+                    icon={<SpotlightIcon />}
+                    defaultState={true}
+                >
+                    {analyzeResult.name !== '' && (
+                        <Styled.ContractName>
+                            {analyzeResult.is_contract ? 'Contract Name' : 'Name'}: {analyzeResult.name}
+                        </Styled.ContractName>
+                    )}
                     {descriptionResult ? (
                         <>
                             {descriptionResult}
