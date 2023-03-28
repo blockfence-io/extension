@@ -15,12 +15,6 @@ export function Enrichment({ dataEnrichment, defaultState = false }: EnrichmentP
 
     return (
         <Collapsable title={dataEnrichment.title} icon={logo} defaultState={defaultState}>
-            {dataEnrichment.link && (
-                <Styled.ExtensionsLink href={dataEnrichment.link} target='_blank' rel='noreferrer'>
-                    <img src={dataEnrichment.icon} width='24' /> Read more in {dataEnrichment.powered_by}
-                </Styled.ExtensionsLink>
-            )}
-
             {dataEnrichment.stats.map((stat, id) => (
                 <>
                     <Styled.Title key={id}>{stat.name}</Styled.Title>
@@ -28,11 +22,10 @@ export function Enrichment({ dataEnrichment, defaultState = false }: EnrichmentP
                 </>
             ))}
 
-            {dataEnrichment.powered_by && (
-                <Styled.PoweredBy>
-                    <img src={dataEnrichment.icon} width='24' />
-                    Powered by {dataEnrichment.powered_by}
-                </Styled.PoweredBy>
+            {dataEnrichment.link && (
+                <Styled.ExtensionsLink href={dataEnrichment.link} target='_blank' rel='noreferrer'>
+                    <img src={dataEnrichment.icon} width='24' /> Read more on {dataEnrichment.powered_by}
+                </Styled.ExtensionsLink>
             )}
         </Collapsable>
     );
