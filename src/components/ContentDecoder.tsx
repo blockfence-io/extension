@@ -32,10 +32,15 @@ export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeRe
             />
 
             <Styled.Results>
+                {analyzeResult.data_enrichments &&
+                    analyzeResult.data_enrichments.map((dataEnrichment, id) => (
+                        <Enrichment key={id} dataEnrichment={dataEnrichment} defaultState={false} />
+                    ))}
+
                 <Collapsable
                     title={analyzeResult.is_contract ? 'Contract Description' : 'Description'}
                     icon={<SpotlightIcon />}
-                    defaultState={true}
+                    defaultState={analyzeResult.data_enrichments ? false : true}
                 >
                     {analyzeResult.name !== '' && (
                         <Styled.ContractName>
@@ -54,11 +59,6 @@ export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeRe
                         <Placeholder />
                     )}
                 </Collapsable>
-
-                {analyzeResult.data_enrichments &&
-                    analyzeResult.data_enrichments.map((dataEnrichment, id) => (
-                        <Enrichment key={id} dataEnrichment={dataEnrichment} defaultState={false} />
-                    ))}
 
                 <Collapsable title='Fraud Analysis' icon={<RadarIcon />} defaultState={false}>
                     {analyzeResult.risks.map((risk, id) => (
