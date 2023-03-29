@@ -4,6 +4,7 @@ import { Button } from './UI/Button';
 import { Input } from './UI/Input';
 import { NetworkSelector } from './NetworkSelector';
 import { logNetworkChange } from '../shared/logs';
+import { usePersistentState } from '../shared/usePersistentState';
 
 import { Severity } from '../types/api';
 
@@ -18,7 +19,7 @@ interface SearchBarProps {
 
 export function SearchBar({ onClick, disabled, severity, compact }: SearchBarProps) {
     const [input, setInput] = useState('');
-    const [chainId, setChainId] = useState('0x1');
+    const [chainId, setChainId] = usePersistentState<string>('chainId', '0x1');
 
     function onNetworkChange(value: string) {
         setChainId(value);
@@ -27,7 +28,7 @@ export function SearchBar({ onClick, disabled, severity, compact }: SearchBarPro
 
     async function handleSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
         event.preventDefault();
-        await onClick(chainId, input);
+        if (chainId) await onClick(chainId, input);
     }
 
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -41,7 +42,7 @@ export function SearchBar({ onClick, disabled, severity, compact }: SearchBarPro
 
     return (
         <Styled.Form onSubmit={handleSubmit} severity={severity} compact={compact}>
-            <NetworkSelector onChange={onNetworkChange} />
+            <NetworkSelector onChange={onNetworkChange} value={chainId} />
             <Input
                 type='text'
                 value={input}
