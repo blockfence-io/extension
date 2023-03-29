@@ -33,11 +33,12 @@ export const networkMapping: { [key: string]: string } = {
 
 interface NetworkSelectorProps {
     onChange: (value: string) => void;
+    value: string | undefined;
 }
 
-export function NetworkSelector({ onChange }: NetworkSelectorProps) {
-    const [network, setNetwork] = useState(OPTIONS[0]);
+export function NetworkSelector({ onChange, value }: NetworkSelectorProps) {
     const [hidden, setHidden] = useState(true);
+    const currentOption = OPTIONS.find((option) => option.value === value);
 
     return (
         <Styled.Container>
@@ -47,7 +48,6 @@ export function NetworkSelector({ onChange }: NetworkSelectorProps) {
                         <Styled.Option
                             key={option.value}
                             onClick={() => {
-                                setNetwork(option);
                                 onChange(option.value);
                                 setHidden(true);
                             }}
@@ -63,7 +63,7 @@ export function NetworkSelector({ onChange }: NetworkSelectorProps) {
                     setHidden(!hidden);
                 }}
             >
-                <Styled.SmallIcon>{network.icon}</Styled.SmallIcon>
+                <Styled.SmallIcon>{currentOption && currentOption.icon}</Styled.SmallIcon>
                 {/* {network.name} */}
             </Styled.Selected>
         </Styled.Container>
