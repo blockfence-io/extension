@@ -34,7 +34,7 @@ export function FeedbackURL({ ...rest }) {
             <div>
                 <UilFeedback size='14' />
             </div>
-            <div>Send us feedback</div>
+            <div>Submit Feedback</div>
         </Styled.Link>
     );
 }
