@@ -19,17 +19,23 @@ export const Container = styled.div`
         position: absolute;
         top: -22%;
         left: -12%;
+        opacity: 0.4;
     }
 
     /* Arrow */
     & svg:last-child {
         z-index: 1;
-        margin-left: 8rem;
+        margin-left: 6rem;
         margin-top: 2rem;
 
         @media (max-width: ${mediaWidth.smallLaptop}) {
             display: none;
         }
+    }
+
+    /* Tablet */
+    @media (max-width: ${mediaWidth.smallLaptop}) {
+        padding-bottom: 1rem;
     }
 
     /* Mobile */

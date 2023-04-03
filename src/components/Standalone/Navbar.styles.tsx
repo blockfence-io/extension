@@ -16,10 +16,15 @@ export const Container = styled.div`
     }
 `;
 
-export const Logo = styled.div`
+export const Logo = styled.a`
     display: flex;
     align-items: center;
     gap: 20px;
+    color: white;
+
+    &:hover {
+        text-decoration: none;
+    }
 
     & svg {
         height: 40px;
@@ -32,8 +37,8 @@ export const Logo = styled.div`
 `;
 
 export const Company = styled.div`
-    font-size: 30px;
-    font-weight: 700;
+    font-size: 28px;
+    font-weight: 900;
 
     /* Mobile */
     @media (max-width: ${mediaWidth.tablet}) {
