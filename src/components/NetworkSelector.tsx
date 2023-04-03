@@ -21,6 +21,7 @@ export const networkMapping: { [key: string]: string } = {
     '0x1': 'Ethereum',
     '0x5': 'Goerli',
     '0x0xaa36a7': 'Sepolia',
+    '137': 'Polygon',
     '80001': 'Polygon Mumbai',
     '56': 'BSC',
     '42161': 'Arbitrum',
