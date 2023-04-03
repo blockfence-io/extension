@@ -15,11 +15,12 @@ interface SearchBarProps {
     disabled: boolean;
     severity: undefined | Severity;
     compact?: boolean;
+    persistent?: boolean;
 }
 
-export function SearchBar({ onClick, disabled, severity, compact }: SearchBarProps) {
+export function SearchBar({ onClick, disabled, severity, compact, persistent = true }: SearchBarProps) {
     const [input, setInput] = useState('');
-    const [chainId, setChainId] = usePersistentState<string>('chainId', '0x1');
+    const [chainId, setChainId] = persistent ? usePersistentState<string>('chainId', '0x1') : useState('0x1');
 
     function onNetworkChange(value: string) {
         setChainId(value);

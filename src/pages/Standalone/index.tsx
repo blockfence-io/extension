@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 
 import { Banner } from '../../components/Standalone/Banner';
 import { Navbar } from '../../components/Standalone/Navbar';
-import { PopupPanel } from '../Popup';
+import { PopupPanel } from '../Popup/PopupPanel';
 
 import { logPageView } from '../../shared/logs';
 
@@ -31,7 +31,7 @@ function App() {
                 <Banner />
                 <Styled.Extension>
                     <Styled.LayoutContainer>
-                        <PopupPanel hideAlpha hideSettings />
+                        <PopupPanel hideAlpha hideSettings standalone />
                     </Styled.LayoutContainer>
                 </Styled.Extension>
             </Styled.Body>
