@@ -4,7 +4,7 @@ on:
     workflow_dispatch:
         inputs:
             version:
-                description: 'Release version number'
+                description: 'Release version number (no letters)'
                 required: true
 
 jobs:
