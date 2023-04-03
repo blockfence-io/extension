@@ -40,6 +40,7 @@ export const Body = styled.div`
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    background: white;
 `;
 
 export const Footer = styled.footer`

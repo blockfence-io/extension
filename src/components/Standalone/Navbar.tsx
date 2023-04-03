@@ -14,7 +14,7 @@ const ICON_SIZE = '26px';
 export function Navbar() {
     return (
         <Styled.Container>
-            <Styled.Logo>
+            <Styled.Logo href='https://blockfence.io/' target='_blank' rel='noreferrer'>
                 <Logo />
                 <Styled.Company>Blockfence</Styled.Company>
             </Styled.Logo>

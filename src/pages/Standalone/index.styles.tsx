@@ -7,20 +7,30 @@ export const Page = styled.div`
     grid-template-rows: 80px 1fr;
     grid-template-areas: 'page-nav' 'page-body';
 
+    /* Mobile */
+    @media (max-width: ${mediaWidth.tablet}) {
+        grid-template-rows: 1fr;
+        grid-template-areas: 'page-body';
+    }
+
     height: 100vh;
     width: 100vw;
-    background: #51007d;
+    background: linear-gradient(180deg, #3e0c5f, black);
 `;
 
 export const Header = styled.header`
     grid-area: page-nav;
-    background: #3a0d57;
     z-index: 1;
     color: white;
 
     display: flex;
     justify-content: center;
     align-items: center;
+
+    /* Mobile */
+    @media (max-width: ${mediaWidth.tablet}) {
+        display: none;
+    }
 `;
 
 export const Body = styled.div`
@@ -65,6 +75,7 @@ export const Background = styled.div`
         right: 0;
         margin-right: -100px;
         top: 100px;
+        opacity: 0.4;
     }
 `;
 
@@ -85,17 +96,15 @@ export const LayoutContainer = styled.div`
         min-height: 400px;
         max-height: initial;
         height: initial;
-        background: white;
     }
 `;
 
 export const Extension = styled.div`
     z-index: 2;
-    background: white;
 
-    border-radius: 5px;
+    border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 0 0px 1px #a93cff5c, -6.15957px 8.21277px 18.4787px rgb(0 0 0 / 15%);
+    box-shadow: rgb(0 0 0 / 30%) 8px 8px 20px;
 
     /* Mobile */
     @media (max-width: ${mediaWidth.tablet}) {

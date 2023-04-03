@@ -8,7 +8,7 @@ export const Help = styled.div`
     justify-content: center;
     text-align: center;
     font-size: 16px;
-    width: 60%;
+    width: 40%;
     align-self: center;
     font-weight: 300;
     opacity: 0.8;
