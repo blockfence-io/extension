@@ -64,9 +64,7 @@ export function PopupPanel({ hideAlpha = false, hideSettings = false, standalone
             </Layout.Header>
 
             <Layout.Body>
-                {to === '' && (
-                    <Styled.Help>Enter an address to find out more about a smart contract and how it works</Styled.Help>
-                )}
+                {to === '' && <Styled.Help>Enter a blockchain address to analyze it</Styled.Help>}
 
                 <Results
                     chainId={chainId}
