@@ -25,6 +25,10 @@ jobs:
         env:
           GITHUB_ACTION_VERSION: ${{ github.event.inputs.version }}
 
+      - name: Install
+        run: |
+            npm install
+
       - name: Build
         run: npm run build
 
