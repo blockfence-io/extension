@@ -1,85 +1,87 @@
 name: Build and Release
 
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Release version number'
-        required: true
+    workflow_dispatch:
+        inputs:
+            version:
+                description: 'Release version number'
+                required: true
 
 jobs:
-  build-and-release:
-    runs-on: ubuntu-latest
+    build-and-release:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            security-events: write
+            actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
 
-      - name: Set environment variable
-        run: |
-          echo "NODE_ENV=production" >> $GITHUB_ENV
+            # - name: Setup Node
+            #   uses: actions/setup-node@v3
+            #   with:
+            #       node-version: 18
 
-      - name: Update manifest.json
-        run: |
-          sed -i.bak "s/\"version\": \".*\"/\"version\": \"$GITHUB_ACTION_VERSION\"/" src/manifest.json && rm src/manifest.json.bak
-        env:
-          GITHUB_ACTION_VERSION: ${{ github.event.inputs.version }}
+            - name: Update manifest.json
+              run: |
+                  sed -i.bak "s/\"version\": \".*\"/\"version\": \"$GITHUB_ACTION_VERSION\"/" src/manifest.json && rm src/manifest.json.bak
+              env:
+                  GITHUB_ACTION_VERSION: ${{ github.event.inputs.version }}
 
-      - name: Install
-        run: |
-            npm install
+            - name: Install ESLint
+              run: |
+                  npm install
 
-      - name: Build
-        run: npm run build
+            - name: Run ESLint
+              run: npm run lint-github
+              continue-on-error: true
 
-      - name: Compress build artifacts
-        uses: montudor/action-zip@v1
-        with:
-          args: "-r release.zip build/"
+            - name: Set environment variable
+              run: |
+                  echo "NODE_ENV=production" >> $GITHUB_ENV
 
-      - name: "Create release"
-        uses: "actions/github-script@v6"
-        with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
-          script: |
-            try {
-              const response = await github.rest.repos.createRelease({
-                draft: false,
-                generate_release_notes: true,
-                name: process.env.GITHUB_ACTION_VERSION,
-                owner: context.repo.owner,
-                prerelease: false,
-                repo: context.repo.repo,
-                tag_name: process.env.RELEASE_TAG,
-              });
+            - name: Build
+              run: |
+                  npm run build
 
-              core.exportVariable('RELEASE_ID', response.data.id);
-              core.exportVariable('RELEASE_UPLOAD_URL', response.data.upload_url);
-            } catch (error) {
-              core.setFailed(error.message);
-            }
+            - name: Compress build artifacts
+              uses: montudor/action-zip@v1
+              with:
+                  args: zip -qq -r release.zip build/
 
+            - name: 'Create release'
+              uses: 'actions/github-script@v6'
+              with:
+                  github-token: '${{ secrets.GITHUB_TOKEN }}'
+                  script: |
+                      try {
+                        const response = await github.rest.repos.createRelease({
+                          repo: context.repo.repo,
+                          owner: context.repo.owner,
+                          name: 'process.env.GITHUB_ACTION_VERSION',
+                          tag_name: 'process.env.RELEASE_TAG',
+                          draft: false,
+                          generate_release_notes: true,
+                          prerelease: false,
+                        });
 
-      # - name: Create release
-      #   uses: actions/create-release@v1
-      #   id: create_release
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     tag_name: ${{ github.event.inputs.version }}
-      #     release_name: Release ${{ github.event.inputs.version }}
-      #     body: |
-      #       This is the ${{ github.event.inputs.version }} release
-      #     draft: false
-      #     prerelease: false
+                        core.exportVariable('RELEASE_ID', response.data.id);
+                        core.exportVariable('RELEASE_UPLOAD_URL', response.data.upload_url);
+                      } catch (error) {
+                        console.log("@@@@@ Error")
+                        console.log(error.message)
+                        core.setFailed(error.message);
+                      }
 
-      # - name: Upload release asset
-      #   id: upload-release-asset
-      #   uses: actions/upload-release-asset@v1.0.1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-      #     asset_path: ./release.zip
-      #     asset_name: release.zip
-      #     asset_content_type: application/zip
+            # - name: Upload release asset
+            #   id: upload-release-asset
+            #   uses: actions/upload-release-asset@v1.0.1
+            #   env:
+            #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            #   with:
+            #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+            #     asset_path: ./release.zip
+            #     asset_name: release.zip
+            #     asset_content_type: application/zip
