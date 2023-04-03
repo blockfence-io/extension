@@ -41,9 +41,9 @@ jobs:
 
             - name: Load environment variables
               run: |
-                  echo ${{ vars.API_SERVER }} >> .env.production
-                  echo ${{ vars.API_KEY }} >> .env.production
-                  echo ${{ vars.AMPLITUDE_KEY }} >> .env.production
+                  echo API_SERVER=${{ vars.API_SERVER }} >> .env.production
+                  echo API_KEY=${{ vars.API_KEY }} >> .env.production
+                  echo AMPLITUDE_KEY=${{ vars.AMPLITUDE_KEY }} >> .env.production
 
             - name: Build
               run: |
@@ -52,12 +52,12 @@ jobs:
             - name: Compress build artifacts
               uses: montudor/action-zip@v1
               with:
-                  args: zip -qq -r release.zip build/
+                  args: zip -qq -r blockfence-${{ github.event.inputs.version }}.zip build/
 
             - name: Release
               uses: softprops/action-gh-release@v1
               with:
-                  files: release.zip
+                  files: blockfence-${{ github.event.inputs.version }}.zip
                   name: ${{ github.event.inputs.version }}
                   tag_name: ${{ github.event.inputs.version }}
                   generate_release_notes: true
