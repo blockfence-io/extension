@@ -55,6 +55,7 @@ jobs:
               uses: softprops/action-gh-release@v1
               with:
                   files: release.zip
+                  tag_name: ${{ github.event.inputs.version }}
                   generate_release_notes: true
 
             # - name: 'Create release'
