@@ -21,7 +21,7 @@ jobs:
 
       - name: Update manifest.json
         run: |
-          sed -i.bak "s/\"version\": \".*\"/\"version\": \"$GITHUB_ACTION_VERSION\"/" manifest.json && rm manifest.json.bak
+          sed -i.bak "s/\"version\": \".*\"/\"version\": \"$GITHUB_ACTION_VERSION\"/" src/manifest.json && rm src/manifest.json.bak
         env:
           GITHUB_ACTION_VERSION: ${{ github.event.inputs.version }}
 
