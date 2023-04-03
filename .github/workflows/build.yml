@@ -20,7 +20,8 @@ jobs:
           echo "NODE_ENV=production" >> $GITHUB_ENV
 
       - name: Update manifest.json
-        run: sed -i.bak "s/\"version\": \".*\"/\"version\": \"$GITHUB_ACTION_VERSION\"/" manifest.json && rm manifest.json.bak
+        run: |
+          sed -i.bak "s/\"version\": \".*\"/\"version\": \"$GITHUB_ACTION_VERSION\"/" manifest.json && rm manifest.json.bak
         env:
           GITHUB_ACTION_VERSION: ${{ github.event.inputs.version }}
 
