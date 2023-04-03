@@ -51,29 +51,35 @@ jobs:
               with:
                   args: zip -qq -r release.zip build/
 
-            - name: 'Create release'
-              uses: 'actions/github-script@v6'
+            - name: Release
+              uses: softprops/action-gh-release@v1
               with:
-                  github-token: '${{ secrets.GITHUB_TOKEN }}'
-                  script: |
-                      try {
-                        const response = await github.rest.repos.createRelease({
-                          repo: context.repo.repo,
-                          owner: context.repo.owner,
-                          name: ${{ GITHUB_ACTION_VERSION }},
-                          tag_name: ${{ GITHUB_ACTION_VERSION }},
-                          draft: false,
-                          generate_release_notes: true,
-                          prerelease: false,
-                        });
+                  files: release.zip
+                  generate_release_notes: true
 
-                        core.exportVariable('RELEASE_ID', response.data.id);
-                        core.exportVariable('RELEASE_UPLOAD_URL', response.data.upload_url);
-                      } catch (error) {
-                        console.log("@@@@@ Error")
-                        console.log(error.message)
-                        core.setFailed(error.message);
-                      }
+            # - name: 'Create release'
+            #   uses: 'actions/github-script@v6'
+            #   with:
+            #       github-token: '${{ secrets.GITHUB_TOKEN }}'
+            #       script: |
+            #           try {
+            #             const response = await github.rest.repos.createRelease({
+            #               repo: context.repo.repo,
+            #               owner: context.repo.owner,
+            #               name: ${{ GITHUB_ACTION_VERSION }},
+            #               tag_name: ${{ GITHUB_ACTION_VERSION }},
+            #               draft: false,
+            #               generate_release_notes: true,
+            #               prerelease: false,
+            #             });
+
+            #             core.exportVariable('RELEASE_ID', response.data.id);
+            #             core.exportVariable('RELEASE_UPLOAD_URL', response.data.upload_url);
+            #           } catch (error) {
+            #             console.log("@@@@@ Error")
+            #             console.log(error.message)
+            #             core.setFailed(error.message);
+            #           }
 
             # - name: Upload release asset
             #   id: upload-release-asset
