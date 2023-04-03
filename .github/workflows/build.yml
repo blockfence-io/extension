@@ -55,40 +55,7 @@ jobs:
               uses: softprops/action-gh-release@v1
               with:
                   files: release.zip
+                  name: ${{ github.event.inputs.version }}
                   tag_name: ${{ github.event.inputs.version }}
                   generate_release_notes: true
-
-            # - name: 'Create release'
-            #   uses: 'actions/github-script@v6'
-            #   with:
-            #       github-token: '${{ secrets.GITHUB_TOKEN }}'
-            #       script: |
-            #           try {
-            #             const response = await github.rest.repos.createRelease({
-            #               repo: context.repo.repo,
-            #               owner: context.repo.owner,
-            #               name: ${{ GITHUB_ACTION_VERSION }},
-            #               tag_name: ${{ GITHUB_ACTION_VERSION }},
-            #               draft: false,
-            #               generate_release_notes: true,
-            #               prerelease: false,
-            #             });
-
-            #             core.exportVariable('RELEASE_ID', response.data.id);
-            #             core.exportVariable('RELEASE_UPLOAD_URL', response.data.upload_url);
-            #           } catch (error) {
-            #             console.log("@@@@@ Error")
-            #             console.log(error.message)
-            #             core.setFailed(error.message);
-            #           }
-
-            # - name: Upload release asset
-            #   id: upload-release-asset
-            #   uses: actions/upload-release-asset@v1.0.1
-            #   env:
-            #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            #   with:
-            #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-            #     asset_path: ./release.zip
-            #     asset_name: release.zip
-            #     asset_content_type: application/zip
+                  prerelease: true
