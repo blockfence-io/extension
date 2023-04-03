@@ -60,8 +60,8 @@ jobs:
                         const response = await github.rest.repos.createRelease({
                           repo: context.repo.repo,
                           owner: context.repo.owner,
-                          name: process.env.GITHUB_ACTION_VERSION,
-                          tag_name: process.env.GITHUB_ACTION_VERSION,
+                          name: ${{ GITHUB_ACTION_VERSION }},
+                          tag_name: ${{ GITHUB_ACTION_VERSION }},
                           draft: false,
                           generate_release_notes: true,
                           prerelease: false,
