@@ -40,7 +40,8 @@ export const Container = styled.div`
 
     /* Mobile */
     @media (max-width: ${mediaWidth.tablet}) {
-        background: #3a0e57;
+        display: none;
+        /* background: #3a0e57;
         width: 100%;
         padding-bottom: 1rem;
         text-align: center;
@@ -48,7 +49,7 @@ export const Container = styled.div`
         /* Blob Style */
         & svg:first-child {
             display: none;
-        }
+        } */
     }
 `;
 

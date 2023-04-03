@@ -7,6 +7,12 @@ export const Page = styled.div`
     grid-template-rows: 80px 1fr;
     grid-template-areas: 'page-nav' 'page-body';
 
+    /* Mobile */
+    @media (max-width: ${mediaWidth.tablet}) {
+        grid-template-rows: 1fr;
+        grid-template-areas: 'page-body';
+    }
+
     height: 100vh;
     width: 100vw;
     background: linear-gradient(180deg, #3e0c5f, black);
@@ -20,6 +26,11 @@ export const Header = styled.header`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    /* Mobile */
+    @media (max-width: ${mediaWidth.tablet}) {
+        display: none;
+    }
 `;
 
 export const Body = styled.div`
