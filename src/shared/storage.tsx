@@ -27,3 +27,12 @@ export const addMutedAddresses = async (address: string) => {
     addresses.push(address);
     await chrome.storage.local.set({ mutedAddresses: addresses });
 };
+
+export const removeMutedAddresses = async (address: string) => {
+    const storage = await chrome.storage.local.get({ mutedAddresses: [] });
+    const index = storage.mutedAddresses.indexOf(address);
+    if (index > -1) {
+        storage.mutedAddresses.splice(index, 1);
+        await chrome.storage.local.set({ mutedAddresses: storage.mutedAddresses });
+    }
+};
