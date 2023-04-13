@@ -1,4 +1,4 @@
-import { getEnableHooks, getMutedAddresses } from '../shared/storage';
+import { getEnableHooks, isMutedAddresses } from '../shared/storage';
 import { TransactionEvent } from '../types/internal';
 import { getActiveTabUrl } from './getActiveTab';
 
@@ -108,6 +108,5 @@ async function shouldShowPopup(address: string) {
     const enabled = await getEnableHooks();
     if (!enabled) return false;
 
-    const mutedAddresses = await getMutedAddresses();
-    return !mutedAddresses.includes(address);
+    return !(await isMutedAddresses(address));
 }
