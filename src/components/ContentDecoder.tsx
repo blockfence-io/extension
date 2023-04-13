@@ -13,8 +13,7 @@ import ChatGPTIcon from '../assets/icons/chatgpt.svg';
 
 import * as Styled from './ContentDecoder.styles';
 import { EngineResponse } from '../types/api';
-
-import { addMutedAddresses, getMutedAddresses } from '../shared/storage';
+import { MuteButton } from './UI/MuteButton';
 
 interface ContentDecoderProps {
     to: string;
@@ -24,16 +23,9 @@ interface ContentDecoderProps {
 }
 
 export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeResult }: ContentDecoderProps) {
-    async function muteAddress() {
-        await addMutedAddresses(to);
-    }
-
     return (
         <>
-            {/* TODO Design Me */}
-            <button onClick={muteAddress} disabled={false} style={{ flex: 0 }}>
-                MUTE
-            </button>
+            <MuteButton address={to} />
             <Header
                 to={to}
                 network={networkMapping[chainId]}
