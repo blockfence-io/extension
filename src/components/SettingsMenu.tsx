@@ -4,6 +4,7 @@ import { FeedbackURL, GithubURL, WebsiteURL } from '../components/WebsiteURL';
 import * as Menu from '../components/UI/Menu';
 import * as storage from '../shared/storage';
 import { RadioMenuItem } from '../components/RadioMenuItem';
+import { ButtonMenuItem } from './ButtonMenuItem';
 
 export function SettingsMenu() {
     return (
@@ -21,6 +22,12 @@ export function SettingsMenu() {
                 attacks'
                 onValueChange={storage.setEnableUrlAnalysis}
                 initializer={storage.getEnableUrlAnalysis}
+            />
+            <Menu.Separator />
+            <ButtonMenuItem
+                title='Reset Muted Txs'
+                body='Delete all stored muted Transactions.'
+                onClick={storage.clearAllMutedAddresses}
             />
             <Menu.Separator />
             <GithubURL />

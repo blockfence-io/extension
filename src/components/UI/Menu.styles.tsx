@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import * as theme from '../../shared/theme';
 
 interface OverlayProps {
     visible: boolean;
@@ -65,6 +66,37 @@ export const Title = styled.h3`
 
 export const Body = styled.div`
     line-height: 20px;
+`;
+
+export const Item = styled.div`
+    line-height: 20px;
+`;
+
+export const Button = styled.div`
+    font-size: 0.8rem;
+    background-color: transparent;
+    padding: 4px 16px;
+    color: black;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+
+    transition: 0.1s;
+
+    opacity: 1;
+
+    &:hover {
+        opacity: 0.8;
+        text-decoration: none;
+        color: ${theme.primaryColor};
+
+        & svg {
+            fill: ${theme.primaryColor};
+        }
+    }
+
+    &:disabled {
+        opacity: 0.5;
+    }
 `;
 
 export const Separator = styled.hr`

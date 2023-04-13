@@ -36,3 +36,7 @@ export const removeMutedAddresses = async (address: string) => {
         await chrome.storage.local.set({ mutedAddresses: storage.mutedAddresses });
     }
 };
+
+export const clearAllMutedAddresses = async () => {
+    await chrome.storage.local.set({ mutedAddresses: [] });
+};
