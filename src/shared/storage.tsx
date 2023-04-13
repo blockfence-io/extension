@@ -20,3 +20,10 @@ export const getMutedAddresses = async () => {
     const storage = await chrome.storage.local.get({ mutedAddresses: [] });
     return storage.mutedAddresses;
 };
+
+export const addMutedAddresses = async (address: string) => {
+    const storage = await chrome.storage.local.get({ mutedAddresses: [] });
+    const addresses = storage.mutedAddresses ? storage.mutedAddresses : [];
+    addresses.push(address);
+    await chrome.storage.local.set({ mutedAddresses: addresses });
+};

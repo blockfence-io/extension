@@ -14,6 +14,8 @@ import ChatGPTIcon from '../assets/icons/chatgpt.svg';
 import * as Styled from './ContentDecoder.styles';
 import { EngineResponse } from '../types/api';
 
+import { addMutedAddresses, getMutedAddresses } from '../shared/storage';
+
 interface ContentDecoderProps {
     to: string;
     chainId?: string;
@@ -22,15 +24,22 @@ interface ContentDecoderProps {
 }
 
 export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeResult }: ContentDecoderProps) {
+    async function muteAddress() {
+        await addMutedAddresses(to);
+    }
+
     return (
         <>
+            {/* TODO Design Me */}
+            <button onClick={muteAddress} disabled={false} style={{ flex: 0 }}>
+                MUTE
+            </button>
             <Header
                 to={to}
                 network={networkMapping[chainId]}
                 severity={analyzeResult ? analyzeResult.severity : 'NONE'}
                 isContract={analyzeResult.is_contract}
             />
-
             <Styled.Results>
                 {analyzeResult.data_enrichments &&
                     analyzeResult.data_enrichments.map((dataEnrichment, id) => (
