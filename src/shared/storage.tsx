@@ -15,3 +15,8 @@ export const getEnableUrlAnalysis = async () => {
 export const setEnableUrlAnalysis = async (isEnabled: boolean) => {
     await chrome.storage.local.set({ enableUrlAnalysis: isEnabled });
 };
+
+export const getMutedAddresses = async () => {
+    const storage = await chrome.storage.local.get({ mutedAddresses: [] });
+    return storage.mutedAddresses;
+};
