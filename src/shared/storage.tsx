@@ -16,21 +16,22 @@ export const setEnableUrlAnalysis = async (isEnabled: boolean) => {
     await chrome.storage.local.set({ enableUrlAnalysis: isEnabled });
 };
 
-export const isMutedAddresses = async (address: string) => {
+export const isMutedAddresses = async (address: string, chainId: string) => {
     const storage = await chrome.storage.local.get({ mutedAddresses: [] });
-    return storage.mutedAddresses.includes(address);
+    return storage.mutedAddresses.includes(txID(address, chainId));
 };
 
-export const addMutedAddresses = async (address: string) => {
+export const addMutedAddresses = async (address: string, chainId: string) => {
     const storage = await chrome.storage.local.get({ mutedAddresses: [] });
     const addresses = storage.mutedAddresses ? storage.mutedAddresses : [];
-    addresses.push(address);
+    addresses.push(txID(address, chainId));
     await chrome.storage.local.set({ mutedAddresses: addresses });
 };
 
-export const removeMutedAddresses = async (address: string) => {
+export const removeMutedAddresses = async (address: string, chainId: string) => {
     const storage = await chrome.storage.local.get({ mutedAddresses: [] });
-    const index = storage.mutedAddresses.indexOf(address);
+
+    const index = storage.mutedAddresses.indexOf(txID(address, chainId));
     if (index > -1) {
         storage.mutedAddresses.splice(index, 1);
         await chrome.storage.local.set({ mutedAddresses: storage.mutedAddresses });
@@ -40,3 +41,7 @@ export const removeMutedAddresses = async (address: string) => {
 export const clearAllMutedAddresses = async () => {
     await chrome.storage.local.set({ mutedAddresses: [] });
 };
+
+function txID(address: string, chainId: string) {
+    return `${address}-${chainId}`;
+}

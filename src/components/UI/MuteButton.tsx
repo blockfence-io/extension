@@ -4,6 +4,7 @@ import { addMutedAddresses, isMutedAddresses, removeMutedAddresses } from '../..
 
 interface MuteButtonProps {
     address: string;
+    chainId: string;
 }
 
 export const Span = styled.span`
@@ -23,17 +24,17 @@ export const Span = styled.span`
 `;
 
 /* TODO Design Me */
-export function MuteButton({ address }: MuteButtonProps) {
+export function MuteButton({ address, chainId }: MuteButtonProps) {
     const [muted, setMuted] = useState(false);
     useEffect(() => {
-        isMutedAddresses(address).then((muted) => setMuted(muted));
+        isMutedAddresses(address, chainId).then((muted) => setMuted(muted));
     });
 
     async function toggleMute() {
         if (muted) {
-            await removeMutedAddresses(address);
+            await removeMutedAddresses(address, chainId);
         } else {
-            await addMutedAddresses(address);
+            await addMutedAddresses(address, chainId);
         }
         setMuted(!muted);
     }

@@ -25,7 +25,7 @@ interface ContentDecoderProps {
 export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeResult }: ContentDecoderProps) {
     return (
         <>
-            <MuteButton address={to} />
+            <MuteButton address={to} chainId={chainId} />
             <Header
                 to={to}
                 network={networkMapping[chainId]}
