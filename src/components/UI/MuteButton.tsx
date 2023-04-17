@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { addMutedAddresses, isMutedAddresses, removeMutedAddresses } from '../../shared/storage';
+import { txID } from '../../shared/storage';
+import { usePersistentState } from '../../shared/usePersistentState';
 
 interface MuteButtonProps {
     address: string;
@@ -25,19 +26,13 @@ export const Span = styled.span`
 
 /* TODO Design Me */
 export function MuteButton({ address, chainId }: MuteButtonProps) {
-    const [muted, setMuted] = useState(false);
-    useEffect(() => {
-        isMutedAddresses(address, chainId).then((muted) => setMuted(muted));
-    });
+    const [mutedAddresses, setMutedAddresses] = usePersistentState<{ [key: string]: boolean }>('mutedAddresses', {});
+    const txId = txID(address, chainId);
+    const isMuted = mutedAddresses?.[txId];
 
     async function toggleMute() {
-        if (muted) {
-            await removeMutedAddresses(address, chainId);
-        } else {
-            await addMutedAddresses(address, chainId);
-        }
-        setMuted(!muted);
+        setMutedAddresses({ ...mutedAddresses, [txId]: !isMuted });
     }
 
-    return <Span onClick={toggleMute}>{muted ? 'UNMUTE' : 'MUTE'}</Span>;
+    return <Span onClick={toggleMute}>{isMuted ? 'UNMUTE' : 'MUTE'}</Span>;
 }

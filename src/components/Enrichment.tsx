@@ -16,10 +16,10 @@ export function Enrichment({ dataEnrichment, defaultState = false }: EnrichmentP
     return (
         <Collapsable title={dataEnrichment.title} icon={logo} defaultState={defaultState}>
             {dataEnrichment.stats.map((stat, id) => (
-                <>
-                    <Styled.Title key={id}>{stat.name}</Styled.Title>
+                <React.Fragment key={id}>
+                    <Styled.Title>{stat.name}</Styled.Title>
                     {stat.value}
-                </>
+                </React.Fragment>
             ))}
 
             {dataEnrichment.link && (
