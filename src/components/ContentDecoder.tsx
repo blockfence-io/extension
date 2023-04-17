@@ -13,7 +13,6 @@ import ChatGPTIcon from '../assets/icons/chatgpt.svg';
 
 import * as Styled from './ContentDecoder.styles';
 import { EngineResponse } from '../types/api';
-import { MuteButton } from './UI/MuteButton';
 
 interface ContentDecoderProps {
     to: string;
@@ -26,12 +25,13 @@ interface ContentDecoderProps {
 export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeResult, url }: ContentDecoderProps) {
     return (
         <>
-            {url && <MuteButton address={to} chainId={chainId} url={url} />}
             <Header
                 to={to}
                 network={networkMapping[chainId]}
                 severity={analyzeResult ? analyzeResult.severity : 'NONE'}
                 isContract={analyzeResult.is_contract}
+                url={url}
+                chainId={chainId}
             />
             <Styled.Results>
                 {analyzeResult.data_enrichments &&

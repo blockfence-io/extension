@@ -1,29 +1,13 @@
 import React from 'react';
-import styled from 'styled-components';
 import { txID } from '../../shared/storage';
 import { usePersistentState } from '../../shared/usePersistentState';
+import { UilTvRetro, UilTvRetroSlash } from '@iconscout/react-unicons';
 
 interface MuteButtonProps {
     address: string;
     chainId: string;
     url: string;
 }
-
-export const Span = styled.span`
-    user-select: none;
-    cursor: pointer;
-
-    & svg {
-        vertical-align: bottom;
-        margin-right: 4px;
-    }
-
-    opacity: 0.8;
-    &:hover {
-        text-decoration: underline;
-        opacity: 1;
-    }
-`;
 
 /* TODO Design Me */
 export function MuteButton({ address, chainId, url }: MuteButtonProps) {
@@ -35,5 +19,5 @@ export function MuteButton({ address, chainId, url }: MuteButtonProps) {
         setMutedAddresses({ ...mutedAddresses, [txId]: !isMuted });
     }
 
-    return <Span onClick={toggleMute}>{isMuted ? 'UNMUTE' : 'MUTE'}</Span>;
+    return isMuted ? <UilTvRetroSlash onClick={toggleMute} size='32' /> : <UilTvRetro onClick={toggleMute} size='32' />;
 }
