@@ -6,6 +6,7 @@ import { usePersistentState } from '../../shared/usePersistentState';
 interface MuteButtonProps {
     address: string;
     chainId: string;
+    url: string;
 }
 
 export const Span = styled.span`
@@ -25,9 +26,9 @@ export const Span = styled.span`
 `;
 
 /* TODO Design Me */
-export function MuteButton({ address, chainId }: MuteButtonProps) {
+export function MuteButton({ address, chainId, url }: MuteButtonProps) {
     const [mutedAddresses, setMutedAddresses] = usePersistentState<{ [key: string]: boolean }>('mutedAddresses', {});
-    const txId = txID(address, chainId);
+    const txId = txID(address, chainId, url);
     const isMuted = mutedAddresses?.[txId];
 
     async function toggleMute() {

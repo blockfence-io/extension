@@ -20,12 +20,13 @@ interface ContentDecoderProps {
     chainId?: string;
     descriptionResult: string | undefined;
     analyzeResult: EngineResponse;
+    url?: string;
 }
 
-export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeResult }: ContentDecoderProps) {
+export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeResult, url }: ContentDecoderProps) {
     return (
         <>
-            <MuteButton address={to} chainId={chainId} />
+            {url && <MuteButton address={to} chainId={chainId} url={url} />}
             <Header
                 to={to}
                 network={networkMapping[chainId]}

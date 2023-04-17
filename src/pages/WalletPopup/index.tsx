@@ -36,6 +36,7 @@ function Panel() {
                         to={to}
                         analyzeResult={analyzeResult}
                         descriptionResult={descriptionResult}
+                        url={url}
                     />
                 </Layout.Body>
                 <Layout.Footer>

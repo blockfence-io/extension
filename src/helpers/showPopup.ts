@@ -58,11 +58,11 @@ export const showPopup = async (chainId: string, event: TransactionEvent) => {
     if (triggerType === 'request' && requestType === 'eth_sendTransaction') {
         // Runtime verification in case someone disabled the hook without reload window
         const address = (payload as Record<string, string>).from;
-        const enabled = await shouldShowPopup(address, chainId);
+        const url = await getActiveTabUrl();
+        const enabled = await shouldShowPopup(address, chainId, url);
         if (!enabled) return;
 
         const { top, left } = await getPosition();
-        const url = await getActiveTabUrl();
 
         const data: Record<string, string> = { url, chainId, ...(payload as Record<string, string>) };
         const searchParams = new URLSearchParams(data);
@@ -104,9 +104,9 @@ function closeWindowWithOther(targetWindowId: number, listeningWindowId: number)
     chrome.tabs.onRemoved.addListener(handler);
 }
 
-async function shouldShowPopup(address: string, chainId: string) {
+async function shouldShowPopup(address: string, chainId: string, domain: string) {
     const enabled = await getEnableHooks();
     if (!enabled) return false;
 
-    return !(await isMutedAddresses(address, chainId));
+    return !(await isMutedAddresses(address, chainId, domain));
 }
