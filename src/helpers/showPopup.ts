@@ -57,7 +57,7 @@ export const showPopup = async (chainId: string, event: TransactionEvent) => {
 
     if (triggerType === 'request' && requestType === 'eth_sendTransaction') {
         // Runtime verification in case someone disabled the hook without reload window
-        const address = (payload as Record<string, string>).from;
+        const address = (payload as Record<string, string>).to;
         const url = await getActiveTabUrl();
         const enabled = await shouldShowPopup(address, chainId, url);
         if (!enabled) return;
