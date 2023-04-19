@@ -72,26 +72,29 @@ export const Item = styled.div`
     line-height: 20px;
 `;
 
-export const Button = styled.div`
+export const Button = styled.button`
+    background-color: white;
+    color: ${theme.primaryColor};
+    border: 2px ${theme.primaryColor} solid;
+
+    border-radius: 34px;
+    cursor: pointer;
+
     font-size: 0.8rem;
-    background-color: transparent;
     padding: 4px 16px;
-    color: black;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 4px;
+    width: 100%;
+    user-select: none;
+    /* border-radius: 4px; */
 
     transition: 0.1s;
 
     opacity: 1;
 
     &:hover {
-        opacity: 0.8;
+        /* opacity: 0.8; */
         text-decoration: none;
-        color: ${theme.primaryColor};
-
-        & svg {
-            fill: ${theme.primaryColor};
-        }
+        color: #773dff;
+        border-color: #773dff;
     }
 
     &:disabled {

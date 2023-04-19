@@ -24,11 +24,8 @@ export function SettingsMenu() {
                 initializer={storage.getEnableUrlAnalysis}
             />
             <Menu.Separator />
-            <ButtonMenuItem
-                title='Reset Muted Txs'
-                body='Delete all stored muted Transactions.'
-                onClick={storage.clearAllMutedAddresses}
-            />
+            <ButtonMenuItem title='Reset Muted Txs' onClick={storage.clearAllMutedAddresses} />
+            <Menu.Body>Delete all stored muted Transactions.</Menu.Body>
             <Menu.Separator />
             <GithubURL />
             <WebsiteURL />
