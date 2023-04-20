@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Blockfence",
-    "version": "0.3.2",
+    "version": "0.3.4",
     "description": "Operate safely and securely in the crypto world with Blockfence: An open-source, community-driven browser extension.",
     "icons": {
         "16": "assets/icon-16.png",

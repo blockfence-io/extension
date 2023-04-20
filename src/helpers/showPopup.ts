@@ -1,4 +1,4 @@
-import { getEnableHooks } from '../shared/storage';
+import { getEnableHooks, isMutedAddresses } from '../shared/storage';
 import { TransactionEvent } from '../types/internal';
 import { getActiveTabUrl } from './getActiveTab';
 
@@ -53,15 +53,17 @@ async function waitForMetamaskWindowId() {
 }
 
 export const showPopup = async (chainId: string, event: TransactionEvent) => {
-    // Runtime verification in case someone disabled the hook without reload window
-    const enabled = await getEnableHooks();
-    if (!enabled) return;
-
     const { triggerType, requestType, payload } = event;
-    const { top, left } = await getPosition();
-    const url = await getActiveTabUrl();
 
     if (triggerType === 'request' && requestType === 'eth_sendTransaction') {
+        // Runtime verification in case someone disabled the hook without reload window
+        const address = (payload as Record<string, string>).to;
+        const url = await getActiveTabUrl();
+        const enabled = await shouldShowPopup(address, chainId, url);
+        if (!enabled) return;
+
+        const { top, left } = await getPosition();
+
         const data: Record<string, string> = { url, chainId, ...(payload as Record<string, string>) };
         const searchParams = new URLSearchParams(data);
         const popupUrl = `walletpopup.html?${searchParams.toString()}`;
@@ -100,4 +102,11 @@ function closeWindowWithOther(targetWindowId: number, listeningWindowId: number)
     }
 
     chrome.tabs.onRemoved.addListener(handler);
+}
+
+async function shouldShowPopup(address: string, chainId: string, domain: string) {
+    const enabled = await getEnableHooks();
+    if (!enabled) return false;
+
+    return !(await isMutedAddresses(address, chainId, domain));
 }

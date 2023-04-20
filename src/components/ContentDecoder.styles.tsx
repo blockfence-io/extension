@@ -15,6 +15,19 @@ export const Subtitle = styled.h3`
     margin-top: 1.5rem;
 `;
 
+export const Options = styled.div`
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+    &:not(:last-child) {
+        margin-bottom: 20px;
+    }
+`;
+
 export const Reponse = styled.div`
     text-align: left;
     font-weight: 300;

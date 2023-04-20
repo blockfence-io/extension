@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Collapsable } from './UI/Collapsable';
+import { MuteButton } from './UI/MuteButton';
 import { Placeholder } from './UI/Loader';
 import { Header } from './Header';
 import { Risk } from './Risk';
@@ -19,9 +20,10 @@ interface ContentDecoderProps {
     chainId?: string;
     descriptionResult: string | undefined;
     analyzeResult: EngineResponse;
+    url?: string;
 }
 
-export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeResult }: ContentDecoderProps) {
+export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeResult, url }: ContentDecoderProps) {
     return (
         <>
             <Header
@@ -29,8 +31,8 @@ export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeRe
                 network={networkMapping[chainId]}
                 severity={analyzeResult ? analyzeResult.severity : 'NONE'}
                 isContract={analyzeResult.is_contract}
+                url={url}
             />
-
             <Styled.Results>
                 {analyzeResult.data_enrichments &&
                     analyzeResult.data_enrichments.map((dataEnrichment, id) => (
@@ -65,6 +67,17 @@ export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeRe
                         <Risk key={id} risk={risk} />
                     ))}
                 </Collapsable>
+
+                {url && (
+                    <Styled.Options>
+                        <MuteButton
+                            address={to}
+                            chainId={chainId}
+                            url={url}
+                            text='Disable future alerts for this Transaction'
+                        />
+                    </Styled.Options>
+                )}
             </Styled.Results>
         </>
     );

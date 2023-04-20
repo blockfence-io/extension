@@ -11,9 +11,10 @@ interface ResultsProps {
     to: string;
     analyzeResult: UseAsyncReturn<EngineResponse>;
     descriptionResult: UseAsyncReturn<ChatResponse>;
+    url?: string;
 }
 
-export function Results({ chainId, to, analyzeResult, descriptionResult }: ResultsProps) {
+export function Results({ chainId, to, analyzeResult, descriptionResult, url }: ResultsProps) {
     const chatError =
         "GPT-3's experiencing some technical difficulties, but don't worry, our team's on it. In the meantime, give it another try or holla at us if you need a hand.";
 
@@ -27,6 +28,7 @@ export function Results({ chainId, to, analyzeResult, descriptionResult }: Resul
                     to={to}
                     analyzeResult={analyzeResult.result}
                     descriptionResult={descriptionResult.error ? chatError : descriptionResult.result?.description}
+                    url={url}
                 />
             )}
         </>
