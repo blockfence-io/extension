@@ -31,6 +31,7 @@ export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeRe
                 network={networkMapping[chainId]}
                 severity={analyzeResult ? analyzeResult.severity : 'NONE'}
                 isContract={analyzeResult.is_contract}
+                url={url}
             />
             <Styled.Results>
                 {analyzeResult.data_enrichments &&
@@ -69,14 +70,11 @@ export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeRe
 
                 {url && (
                     <Styled.Options>
-                        <p>
-                            <b>Request Origin</b> <a href={url}>{url}</a>
-                        </p>
                         <MuteButton
                             address={to}
                             chainId={chainId}
                             url={url}
-                            text='Mute monitoring transactions from this url'
+                            text='Disable future alerts for this Transaction'
                         />
                     </Styled.Options>
                 )}

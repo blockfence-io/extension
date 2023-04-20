@@ -84,14 +84,12 @@ export const Button = styled.button`
     padding: 4px 16px;
     width: 100%;
     user-select: none;
-    /* border-radius: 4px; */
 
     transition: 0.1s;
 
     opacity: 1;
 
     &:hover {
-        /* opacity: 0.8; */
         text-decoration: none;
         color: #773dff;
         border-color: #773dff;

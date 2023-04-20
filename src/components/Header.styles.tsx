@@ -35,8 +35,9 @@ export const URLLink = styled(Link)`
     text-overflow: ellipsis;
     color: white;
 
-    font-size: 10px;
+    font-size: 14px;
     opacity: 0.8;
+    font-weight: bold;
 `;
 
 export const Risk = styled.div<RiskProps>`

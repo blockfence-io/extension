@@ -12,6 +12,7 @@ interface HeaderProps {
     to: string;
     severity?: Types.Severity | undefined;
     isContract?: boolean;
+    url?: string;
 }
 
 const severityTitle: { [key in Types.Severity]: string } = {
@@ -22,12 +23,25 @@ const severityTitle: { [key in Types.Severity]: string } = {
     CRITICAL: 'Critical Risk',
 };
 
-export function Header({ network, to, severity, isContract = true }: HeaderProps) {
+export function Header({ network, to, severity, isContract = true, url }: HeaderProps) {
     const SeverityIcon = severity ? riskIcons[severity] : undefined;
     const formattedAddress = (to: string) => `${to.slice(0, 7)}...${to.slice(-4)}`.toUpperCase();
 
     return (
         <Styled.Container severity={severity}>
+            {url && (
+                <Styled.InfoList>
+                    <Styled.Info.Group>
+                        <Styled.Info.Title>Website</Styled.Info.Title>
+                        <Styled.Info.Value>
+                            <Styled.URLLink href={url} target='_blank' rel='noreferrer'>
+                                {url}
+                            </Styled.URLLink>
+                        </Styled.Info.Value>
+                    </Styled.Info.Group>
+                </Styled.InfoList>
+            )}
+
             <Styled.InfoList>
                 <Styled.Info.Group>
                     <Styled.Info.Title>Network</Styled.Info.Title>

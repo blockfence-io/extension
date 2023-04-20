@@ -34,7 +34,9 @@ export function SettingsMenu() {
 
             <Menu.Separator />
             <ButtonMenuItem title='Reset Muted Tx' onClick={clear} />
-            <Menu.Body style={{ marginTop: '6px' }}>{muteCount} transactions will be unmuted </Menu.Body>
+            <Menu.Body style={{ marginTop: '6px' }}>
+                Click this button to re-enable {muteCount} Muted Blockfence Analysis
+            </Menu.Body>
 
             <Menu.Separator />
             <GithubURL />
