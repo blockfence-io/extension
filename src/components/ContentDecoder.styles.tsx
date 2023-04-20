@@ -16,12 +16,11 @@ export const Subtitle = styled.h3`
 `;
 
 export const Options = styled.div`
-    /* border: 1px solid #dadce0; */
     border-radius: 5px;
 
     display: flex;
     flex-direction: column;
-    /* padding: 8px 14px; */
+
     gap: 10px;
 
     &:not(:last-child) {
