@@ -15,7 +15,7 @@ export const Container = styled.div<RiskProps>`
     display: flex;
     flex-direction: column;
     padding: 20px 20px 0 20px;
-    gap: 16px;
+    gap: 14px;
 
     font-size: 12px;
 
@@ -33,6 +33,10 @@ export const URLLink = styled(Link)`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: white;
+
+    font-size: 10px;
+    opacity: 0.8;
 `;
 
 export const Risk = styled.div<RiskProps>`

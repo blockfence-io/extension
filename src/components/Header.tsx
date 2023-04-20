@@ -6,15 +6,12 @@ import { Copy } from './UI/Copy';
 import { UilFileInfoAlt, UilUserExclamation } from '@iconscout/react-unicons';
 import { riskIcons } from '../shared/theme';
 import * as Styled from './Header.styles';
-import { MuteButton } from './UI/MuteButton';
 
 interface HeaderProps {
     network: string;
     to: string;
-    url?: string | undefined;
     severity?: Types.Severity | undefined;
     isContract?: boolean;
-    chainId: string;
 }
 
 const severityTitle: { [key in Types.Severity]: string } = {
@@ -25,27 +22,12 @@ const severityTitle: { [key in Types.Severity]: string } = {
     CRITICAL: 'Critical Risk',
 };
 
-export function Header({ url, network, to, severity, chainId, isContract = true }: HeaderProps) {
+export function Header({ network, to, severity, isContract = true }: HeaderProps) {
     const SeverityIcon = severity ? riskIcons[severity] : undefined;
     const formattedAddress = (to: string) => `${to.slice(0, 7)}...${to.slice(-4)}`.toUpperCase();
 
     return (
         <Styled.Container severity={severity}>
-            {url && (
-                <Styled.InfoList>
-                    <Styled.Info.Icon>
-                        <MuteButton address={to} chainId={chainId} url={url} />
-                    </Styled.Info.Icon>
-
-                    <Styled.Info.Group>
-                        <Styled.URLLink href={url} target='_blank' rel='noreferrer'>
-                            {url}
-                        </Styled.URLLink>
-                    </Styled.Info.Group>
-                    <Styled.Fill />
-                </Styled.InfoList>
-            )}
-
             <Styled.InfoList>
                 <Styled.Info.Group>
                     <Styled.Info.Title>Network</Styled.Info.Title>

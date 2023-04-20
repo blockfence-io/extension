@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Collapsable } from './UI/Collapsable';
+import { MuteButton } from './UI/MuteButton';
 import { Placeholder } from './UI/Loader';
 import { Header } from './Header';
 import { Risk } from './Risk';
@@ -30,8 +31,6 @@ export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeRe
                 network={networkMapping[chainId]}
                 severity={analyzeResult ? analyzeResult.severity : 'NONE'}
                 isContract={analyzeResult.is_contract}
-                url={url}
-                chainId={chainId}
             />
             <Styled.Results>
                 {analyzeResult.data_enrichments &&
@@ -67,6 +66,20 @@ export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeRe
                         <Risk key={id} risk={risk} />
                     ))}
                 </Collapsable>
+
+                {url && (
+                    <Styled.Options>
+                        <p>
+                            <b>Request Origin</b> <a href={url}>{url}</a>
+                        </p>
+                        <MuteButton
+                            address={to}
+                            chainId={chainId}
+                            url={url}
+                            text='Mute monitoring transactions from this url'
+                        />
+                    </Styled.Options>
+                )}
             </Styled.Results>
         </>
     );

@@ -5,8 +5,16 @@ import * as Menu from '../components/UI/Menu';
 import * as storage from '../shared/storage';
 import { RadioMenuItem } from '../components/RadioMenuItem';
 import { ButtonMenuItem } from './ButtonMenuItem';
+import { usePersistentState } from '../shared/usePersistentState';
 
 export function SettingsMenu() {
+    const [mutedAddresses, setMutedAddresses] = usePersistentState<{ [key: string]: boolean }>('mutedAddresses', {});
+    const muteCount = mutedAddresses ? Object.keys(mutedAddresses).length : 0;
+
+    async function clear() {
+        setMutedAddresses({});
+    }
+
     return (
         <Menu.Menu>
             <RadioMenuItem
@@ -23,9 +31,11 @@ export function SettingsMenu() {
                 onValueChange={storage.setEnableUrlAnalysis}
                 initializer={storage.getEnableUrlAnalysis}
             />
+
             <Menu.Separator />
-            <ButtonMenuItem title='Reset Muted Txs' onClick={storage.clearAllMutedAddresses} />
-            <Menu.Body>Delete all stored muted Transactions.</Menu.Body>
+            <ButtonMenuItem title='Reset Muted Tx' onClick={clear} />
+            <Menu.Body style={{ marginTop: '6px' }}>{muteCount} transactions will be unmuted </Menu.Body>
+
             <Menu.Separator />
             <GithubURL />
             <WebsiteURL />
