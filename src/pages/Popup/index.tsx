@@ -14,7 +14,7 @@ function Popup() {
     }, []);
 
     return (
-        <Layout.Container>
+        <Layout.Container fixedWidth>
             <PopupPanel />
         </Layout.Container>
     );

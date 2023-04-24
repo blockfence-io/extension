@@ -2,14 +2,20 @@ import styled, { css } from 'styled-components';
 import { Severity } from '../types/api';
 import * as theme from '../shared/theme';
 
-export const Container = styled.div`
+const POPUP_WIDTH = '376px';
+
+interface ContainerProps {
+    fixedWidth?: boolean;
+}
+
+export const Container = styled.div<ContainerProps>`
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto auto 1fr auto;
     grid-template-areas: 'huge-logo' 'header' 'body' 'footer';
     height: 100vh;
-    width: 100vw;
-    min-width: 376px;
+    width: ${(props) => (props.fixedWidth ? POPUP_WIDTH : '100vw')};
+    min-width: ${POPUP_WIDTH};
     min-height: 550px;
 `;
 
