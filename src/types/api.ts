@@ -30,6 +30,7 @@ export type DataEnrichment = {
 export type Stat = {
     name: string;
     value: string;
+    icon?: string;
 };
 
 export type EngineResponse = {
@@ -38,8 +39,23 @@ export type EngineResponse = {
     is_contract: boolean;
     risks: Risk[];
     data_enrichments: DataEnrichment[];
+    transaction_simulation: TransactionSimulation;
 };
 
 export type ChatResponse = {
     description: string;
 };
+
+export type TransactionSimulation = {
+    outgoing_transaction: SimulatedTransaction;
+    incoming_transaction: SimulatedTransaction;
+    gas_used: string;
+}
+
+export type SimulatedTransaction = {
+    from: string;
+    to: string;
+    amount: string;
+    name: string;
+    logo: string;
+}

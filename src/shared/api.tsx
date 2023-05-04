@@ -9,7 +9,10 @@ async function _fetchFunction<ResponseType>(
     page: string,
     chainId: string,
     to: string,
-    url: string
+    url: string,
+    from: string = '',
+    value: string = '',
+    data: string = ''
 ): Promise<ResponseType> {
     try {
         const response = await axios({
@@ -22,7 +25,10 @@ async function _fetchFunction<ResponseType>(
                 plugin: 'BROWSER',
                 chain_id: chainId,
                 transaction: {
+                    from,
                     to,
+                    value,
+                    data,
                 },
                 browser_data: {
                     url,
@@ -46,6 +52,6 @@ export const fetchDescription = async (chainId: string, to: string): Promise<Cha
     return _fetchFunction<ChatResponse>('chat', chainId, to, '');
 };
 
-export const fetchAnalyze = async (chainId: string, to: string, url: string): Promise<EngineResponse> => {
-    return _fetchFunction<EngineResponse>('analyze', chainId, to, url);
+export const fetchAnalyze = async (chainId: string, to: string, url: string, from: string = '', value: string = '', data: string = ''): Promise<EngineResponse> => {
+    return _fetchFunction<EngineResponse>('analyze', chainId, to, url, from, value, data);
 };
