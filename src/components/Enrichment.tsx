@@ -18,7 +18,10 @@ export function Enrichment({ dataEnrichment, defaultState = false }: EnrichmentP
             {dataEnrichment.stats.map((stat, id) => (
                 <React.Fragment key={id}>
                     <Styled.Title>{stat.name}</Styled.Title>
-                    {stat.value}
+                    <Styled.CenteredIconWithText>
+                        {stat.icon && <Styled.Icon><img src={stat.icon} width='18' /></Styled.Icon>}
+                        {stat.value}
+                    </Styled.CenteredIconWithText>
                 </React.Fragment>
             ))}
 

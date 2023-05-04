@@ -13,7 +13,7 @@ import RadarIcon from '../assets/icons/radar-icon.svg';
 import ChatGPTIcon from '../assets/icons/chatgpt.svg';
 
 import * as Styled from './ContentDecoder.styles';
-import { EngineResponse } from '../types/api';
+import { DataEnrichment, EngineResponse, TransactionSimulation } from '../types/api';
 
 interface ContentDecoderProps {
     to: string;
@@ -21,6 +21,32 @@ interface ContentDecoderProps {
     descriptionResult: string | undefined;
     analyzeResult: EngineResponse;
     url?: string;
+}
+
+function ShouldShowTransactionSimulation(transaction_simulation?: TransactionSimulation) {
+    return transaction_simulation?.outgoing_transaction.amount &&
+    transaction_simulation?.outgoing_transaction.name;
+}
+
+function CreateDataEnrichment(title: string, transactionSimulation: TransactionSimulation): DataEnrichment {
+    const stats = [
+        {
+            name: "Out",
+            value: transactionSimulation.outgoing_transaction.amount + ' ' + transactionSimulation.outgoing_transaction.name,
+            icon: transactionSimulation.outgoing_transaction.logo
+        }];
+        transactionSimulation.incoming_transaction.amount && stats.push(
+            {
+                name: "In",
+                value: transactionSimulation.incoming_transaction.amount + ' ' + transactionSimulation.incoming_transaction.name,
+                icon: transactionSimulation.incoming_transaction.logo
+            }
+        );
+    return {
+        title,
+        dapp_logo: '../assets/logo.png',
+        stats
+    };
 }
 
 export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeResult, url }: ContentDecoderProps) {
@@ -34,6 +60,11 @@ export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeRe
                 url={url}
             />
             <Styled.Results>
+                {ShouldShowTransactionSimulation(analyzeResult.transaction_simulation) && (
+                        <Enrichment dataEnrichment={CreateDataEnrichment('Transaction Simulation', analyzeResult.transaction_simulation)} defaultState={true} />
+                    )
+                }
+
                 {analyzeResult.data_enrichments &&
                     analyzeResult.data_enrichments.map((dataEnrichment, id) => (
                         <Enrichment key={id} dataEnrichment={dataEnrichment} defaultState={false} />
