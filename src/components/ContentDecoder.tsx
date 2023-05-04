@@ -13,7 +13,8 @@ import RadarIcon from '../assets/icons/radar-icon.svg';
 import ChatGPTIcon from '../assets/icons/chatgpt.svg';
 
 import * as Styled from './ContentDecoder.styles';
-import { DataEnrichment, EngineResponse, TransactionSimulation } from '../types/api';
+import { EngineResponse } from '../types/api';
+import { Simulation } from './Simulation';
 
 interface ContentDecoderProps {
     to: string;
@@ -21,27 +22,6 @@ interface ContentDecoderProps {
     descriptionResult: string | undefined;
     analyzeResult: EngineResponse;
     url?: string;
-}
-
-function CreateDataEnrichment(title: string, transactionSimulation: TransactionSimulation): DataEnrichment {
-    const stats = [
-        {
-            name: "Out",
-            value: transactionSimulation.outgoing_transaction.amount + ' ' + transactionSimulation.outgoing_transaction.name,
-            icon: transactionSimulation.outgoing_transaction.logo
-        }];
-        transactionSimulation.incoming_transaction.amount && stats.push(
-            {
-                name: "In",
-                value: transactionSimulation.incoming_transaction.amount + ' ' + transactionSimulation.incoming_transaction.name,
-                icon: transactionSimulation.incoming_transaction.logo
-            }
-        );
-    return {
-        title,
-        dapp_logo: '../assets/logo.png',
-        stats
-    };
 }
 
 export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeResult, url }: ContentDecoderProps) {
@@ -56,8 +36,8 @@ export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeRe
             />
             <Styled.Results>
                 {analyzeResult.transaction_simulation?.outgoing_transaction.amount &&
-                    analyzeResult.transaction_simulation?.outgoing_transaction.name && (
-                        <Enrichment dataEnrichment={CreateDataEnrichment('Transaction Simulation', analyzeResult.transaction_simulation)} defaultState={true} />
+                    analyzeResult.transaction_simulation?.outgoing_transaction.symbol && (
+                        <Simulation simulation={analyzeResult.transaction_simulation} defaultState={true} />
                     )
                 }
 

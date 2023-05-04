@@ -57,5 +57,6 @@ export type SimulatedTransaction = {
     to: string;
     amount: string;
     name: string;
+    symbol: string;
     logo: string;
 }

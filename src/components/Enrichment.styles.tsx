@@ -26,16 +26,6 @@ export const PoweredBy = styled.div`
     }
 `;
 
-export const CenteredIconWithText = styled.a`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-`;
-
-export const Icon = styled.a`
-padding-right: 6px;
-`;
-
 export const ExtensionsLink = styled.a`
     display: flex;
     justify-content: center;
