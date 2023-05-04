@@ -13,7 +13,7 @@ import RadarIcon from '../assets/icons/radar-icon.svg';
 import ChatGPTIcon from '../assets/icons/chatgpt.svg';
 
 import * as Styled from './ContentDecoder.styles';
-import { EngineResponse } from '../types/api';
+import { EngineResponse, TransactionSimulation } from '../types/api';
 import { Simulation } from './Simulation';
 
 interface ContentDecoderProps {
@@ -22,6 +22,13 @@ interface ContentDecoderProps {
     descriptionResult: string | undefined;
     analyzeResult: EngineResponse;
     url?: string;
+}
+
+const shouldShowSimulation = (transaction_simulation: TransactionSimulation) => {
+    return (transaction_simulation?.outgoing_transaction.amount &&
+    transaction_simulation?.outgoing_transaction.symbol) ||
+    (transaction_simulation?.incoming_transaction.amount &&
+        transaction_simulation?.incoming_transaction.symbol)
 }
 
 export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeResult, url }: ContentDecoderProps) {
@@ -35,8 +42,7 @@ export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeRe
                 url={url}
             />
             <Styled.Results>
-                {analyzeResult.transaction_simulation?.outgoing_transaction.amount &&
-                    analyzeResult.transaction_simulation?.outgoing_transaction.symbol && (
+                {analyzeResult.transaction_simulation && shouldShowSimulation(analyzeResult.transaction_simulation) && (
                         <Simulation simulation={analyzeResult.transaction_simulation} defaultState={true} />
                     )
                 }
