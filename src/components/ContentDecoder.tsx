@@ -23,11 +23,6 @@ interface ContentDecoderProps {
     url?: string;
 }
 
-function ShouldShowTransactionSimulation(transaction_simulation?: TransactionSimulation) {
-    return transaction_simulation?.outgoing_transaction.amount &&
-    transaction_simulation?.outgoing_transaction.name;
-}
-
 function CreateDataEnrichment(title: string, transactionSimulation: TransactionSimulation): DataEnrichment {
     const stats = [
         {
@@ -60,7 +55,8 @@ export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeRe
                 url={url}
             />
             <Styled.Results>
-                {ShouldShowTransactionSimulation(analyzeResult.transaction_simulation) && (
+                {analyzeResult.transaction_simulation?.outgoing_transaction.amount &&
+                    analyzeResult.transaction_simulation?.outgoing_transaction.name && (
                         <Enrichment dataEnrichment={CreateDataEnrichment('Transaction Simulation', analyzeResult.transaction_simulation)} defaultState={true} />
                     )
                 }

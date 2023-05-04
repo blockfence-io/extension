@@ -39,7 +39,7 @@ export type EngineResponse = {
     is_contract: boolean;
     risks: Risk[];
     data_enrichments: DataEnrichment[];
-    transaction_simulation: TransactionSimulation;
+    transaction_simulation?: TransactionSimulation;
 };
 
 export type ChatResponse = {
