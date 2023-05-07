@@ -30,7 +30,6 @@ export type DataEnrichment = {
 export type Stat = {
     name: string;
     value: string;
-    icon?: string;
 };
 
 export type EngineResponse = {

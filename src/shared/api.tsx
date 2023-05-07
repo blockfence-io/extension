@@ -10,9 +10,9 @@ async function _fetchFunction<ResponseType>(
     chainId: string,
     to: string,
     url: string,
-    from = '',
-    value = '',
-    data = ''
+    from?: string,
+    value?: string,
+    data?: string,
 ): Promise<ResponseType> {
     try {
         const response = await axios({

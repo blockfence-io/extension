@@ -24,7 +24,7 @@ interface ContentDecoderProps {
     url?: string;
 }
 
-const shouldShowSimulation = (transaction_simulation: TransactionSimulation) => {
+const shouldShowSimulation = (transaction_simulation?: TransactionSimulation) => {
     return (transaction_simulation?.outgoing_transaction.amount &&
     transaction_simulation?.outgoing_transaction.symbol) ||
     (transaction_simulation?.incoming_transaction.amount &&
@@ -42,7 +42,7 @@ export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeRe
                 url={url}
             />
             <Styled.Results>
-                {analyzeResult.transaction_simulation && shouldShowSimulation(analyzeResult.transaction_simulation) && (
+                {shouldShowSimulation(analyzeResult.transaction_simulation) && (
                         <Simulation simulation={analyzeResult.transaction_simulation} defaultState={true} />
                     )
                 }
