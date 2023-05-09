@@ -48,14 +48,17 @@ export type ChatResponse = {
 export type TransactionSimulation = {
     outgoing_transaction: SimulatedTransaction;
     incoming_transaction: SimulatedTransaction;
-    gas_used: string;
+    gas_used: number;
+    gas_symbol: string;
+    gas_usd: number;
 }
 
 export type SimulatedTransaction = {
     from: string;
     to: string;
-    amount: string;
+    amount: number;
     name: string;
     symbol: string;
     logo: string;
+    usd: number;
 }
