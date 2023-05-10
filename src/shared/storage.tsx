@@ -21,9 +21,5 @@ export const isMutedAddresses = async (address: string, chainId: string, domain:
     return storage.mutedAddresses[txID(address, chainId, domain)];
 };
 
-export const clearAllMutedAddresses = async () => {
-    await chrome.storage.local.set({ mutedAddresses: {} });
-};
-
 export const txID = (address: string, chainId: string, domain: string) => `${address}-${chainId}-${domain}`;
 export const mutedAddressesKey = 'mutedAddresses';

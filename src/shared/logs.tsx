@@ -51,6 +51,15 @@ export function logButtonClick(name: string, properties: object) {
     amplitude.track(name + ' Button Clicked', properties);
 }
 
+export function logToggleMute(isMute: boolean | undefined, properties: object) {
+    const state = isMute ? 'ON' : 'OFF';
+    amplitude.track(' Mute toggle ' + state, properties);
+}
+
+export function logClearMutedTxsClick() {
+    amplitude.track('Muted Txs Cleared');
+}
+
 export function logCriticalError(error: Error) {
     console.log({ message: error.message, stack: error.stack?.toString() });
     amplitude.track('Render Crash', { message: error.message, stack: error.stack?.toString() });
