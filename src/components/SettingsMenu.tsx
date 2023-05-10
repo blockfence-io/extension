@@ -6,12 +6,14 @@ import * as storage from '../shared/storage';
 import { RadioMenuItem } from '../components/RadioMenuItem';
 import { ButtonMenuItem } from './ButtonMenuItem';
 import { usePersistentState } from '../shared/usePersistentState';
+import { logClearMutedTxsClick } from '../shared/logs';
 
 export function SettingsMenu() {
     const [mutedAddresses, setMutedAddresses] = usePersistentState<{ [key: string]: boolean }>('mutedAddresses', {});
     const muteCount = mutedAddresses ? Object.keys(mutedAddresses).length : 0;
 
     async function clear() {
+        logClearMutedTxsClick();
         setMutedAddresses({});
     }
 
