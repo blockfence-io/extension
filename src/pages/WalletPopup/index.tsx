@@ -16,11 +16,14 @@ import { logPageView } from '../../shared/logs';
 
 function Panel() {
     const urlSearchParams = new URLSearchParams(window.location.search);
+    const from = urlSearchParams.get('from') || '';
     const to = urlSearchParams.get('to') || '';
+    const value = urlSearchParams.get('value') || '';
+    const data = urlSearchParams.get('data') || '';
     const chainId: string = urlSearchParams.get('chainId') || '0x1';
     const url: string = urlSearchParams.get('url') || '';
     const descriptionResult = useAsync(fetchDescription, [chainId, to]);
-    const analyzeResult = useAsync(fetchAnalyze, [chainId, to, url]);
+    const analyzeResult = useAsync(fetchAnalyze, [chainId, to, url, from, value, data]);
 
     useEffect(() => {
         logPageView('Wallet Popup');
