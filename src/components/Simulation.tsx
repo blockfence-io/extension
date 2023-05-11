@@ -39,10 +39,10 @@ export function Simulation({ simulation, defaultState = false }: SimulationProps
                     
                 </Styled.SectionContainer>
             </Styled.Container>
-            <Styled.CenteredIconWithText>
+            {/* <Styled.CenteredIconWithText>
                 <div>Gas used: {getAmountString(simulation?.gas_used, simulation?.gas_symbol)}</div>
                 {simulation?.gas_usd && <div>~${getFormattedNumber(simulation?.gas_usd)}</div>}
-            </Styled.CenteredIconWithText>
+            </Styled.CenteredIconWithText> */}
         </Collapsable>
     );
 }
