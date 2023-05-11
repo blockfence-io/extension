@@ -33,9 +33,8 @@ export function PopupPanel({ hideAlpha = false, hideSettings = false, standalone
     async function handleClick(chainId: string, to: string) {
         setChainId(chainId);
         setTo(to);
-        const url = standalone ? undefined : await getActiveTabUrl();
         descriptionResult.execute(chainId, to);
-        analyzeResult.execute(chainId, to, url);
+        analyzeResult.execute(chainId, to, undefined); // disable URL check for manual address search
         logSearchClick(to, chainId);
     }
 
