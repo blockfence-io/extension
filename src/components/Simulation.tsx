@@ -15,6 +15,10 @@ const getAmountString = (amount?: number, symbol?: string) => {
     return amount ? `${getFormattedNumber(amount)} ${symbol}` : "0";
 }
 
+const shouldShowUSD = (amount?: number) => {
+    return amount && amount > 0
+}
+
 export function Simulation({ simulation, defaultState = false }: SimulationProps) {
     return (
         
@@ -25,7 +29,9 @@ export function Simulation({ simulation, defaultState = false }: SimulationProps
                     <Styled.CenteredIconWithText>
                         {getAmountString(simulation?.outgoing_transaction.amount, simulation?.outgoing_transaction.symbol)}
                         {simulation?.outgoing_transaction.logo && <img src={simulation.outgoing_transaction.logo} width='18' />}
-                        {simulation?.outgoing_transaction.usd && <div>~${getFormattedNumber(simulation?.outgoing_transaction.usd)}</div>}
+                        {shouldShowUSD(simulation?.outgoing_transaction.usd) == true &&
+                            <div>~${getFormattedNumber(simulation?.outgoing_transaction.usd)}</div>
+                        }
                     </Styled.CenteredIconWithText>
                     
                 </Styled.SectionContainer>
@@ -34,7 +40,9 @@ export function Simulation({ simulation, defaultState = false }: SimulationProps
                     <Styled.CenteredIconWithText>
                         {getAmountString(simulation?.incoming_transaction.amount, simulation?.incoming_transaction.symbol)}
                         {simulation?.incoming_transaction.logo && <img src={simulation.incoming_transaction.logo} width='18' />}
-                        {simulation?.incoming_transaction.usd && <div>~${getFormattedNumber(simulation?.incoming_transaction.usd)}</div>}
+                        {shouldShowUSD(simulation?.incoming_transaction.usd) == true &&
+                            <div>~${getFormattedNumber(simulation?.incoming_transaction.usd)}</div>
+                        }
                     </Styled.CenteredIconWithText>
                     
                 </Styled.SectionContainer>
