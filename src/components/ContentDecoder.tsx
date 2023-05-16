@@ -25,10 +25,8 @@ interface ContentDecoderProps {
 }
 
 const shouldShowSimulation = (transaction_simulation?: TransactionSimulation) => {
-    return (transaction_simulation?.outgoing_transaction.amount &&
-    transaction_simulation?.outgoing_transaction.symbol) ||
-    (transaction_simulation?.incoming_transaction.amount &&
-        transaction_simulation?.incoming_transaction.symbol)
+    return transaction_simulation?.outgoing_transaction.symbol.length != 0 ||
+        transaction_simulation?.incoming_transaction.symbol.length != 0
 }
 
 export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeResult, url }: ContentDecoderProps) {
