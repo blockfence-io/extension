@@ -1,5 +1,5 @@
 import React from 'react';
-import { TransactionSimulation } from '../types/api';
+import { SimulatedTransaction, TransactionSimulation } from '../types/api';
 import { Collapsable } from './UI/Collapsable';
 import { UilExchangeAlt } from '@iconscout/react-unicons'
 
@@ -9,6 +9,10 @@ import { getFormattedNumber } from '../helpers/getFormattedNumber';
 interface SimulationProps {
     simulation?: TransactionSimulation;
     defaultState: boolean;
+}
+
+const shouldShowSection = (transaction?: SimulatedTransaction) => {
+    return transaction != null && transaction.amount > 0 && transaction.symbol
 }
 
 const getAmountString = (amount?: number, symbol?: string) => {
@@ -24,6 +28,7 @@ export function Simulation({ simulation, defaultState = false }: SimulationProps
         
         <Collapsable title="Transaction Simulation" icon={<UilExchangeAlt />} defaultState={defaultState}>            
             <Styled.Container>
+                {shouldShowSection(simulation?.outgoing_transaction) &&
                 <Styled.SectionContainer>
                     <Styled.Bold>{"Out"}</Styled.Bold>
                     <Styled.CenteredIconWithText>
@@ -33,8 +38,9 @@ export function Simulation({ simulation, defaultState = false }: SimulationProps
                             <div>${getFormattedNumber(simulation?.outgoing_transaction.usd)}</div>
                         }
                     </Styled.CenteredIconWithText>
-                    
                 </Styled.SectionContainer>
+                }
+                {shouldShowSection(simulation?.incoming_transaction) &&
                 <Styled.SectionContainer>
                     <Styled.Bold>{"In"}</Styled.Bold>
                     <Styled.CenteredIconWithText>
@@ -44,8 +50,8 @@ export function Simulation({ simulation, defaultState = false }: SimulationProps
                             <div>${getFormattedNumber(simulation?.incoming_transaction.usd)}</div>
                         }
                     </Styled.CenteredIconWithText>
-                    
                 </Styled.SectionContainer>
+                }
             </Styled.Container>
             {/* <Styled.CenteredIconWithText>
                 <div>Gas used: {getAmountString(simulation?.gas_used, simulation?.gas_symbol)}</div>
