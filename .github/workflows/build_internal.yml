@@ -16,11 +16,6 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v3
 
-            # - name: Setup Node
-            #   uses: actions/setup-node@v3
-            #   with:
-            #       node-version: 18
-
             - name: Update manifest.json
               run: |
                   sed -i.bak "s/\"version\": \".*\"/\"version\": \"$GITHUB_ACTION_VERSION\"/" src/manifest.json && rm src/manifest.json.bak
@@ -56,4 +51,9 @@ jobs:
               with:
                 name: internal-build
                 path: blockfence-${{ github.sha }}-internal.zip
-                
+
+            - name: notify slack
+              id: slack
+              uses: slackapi/slack-github-action@v1.23.0
+              env:
+                SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
