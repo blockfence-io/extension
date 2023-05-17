@@ -52,12 +52,8 @@ jobs:
                   zip -qq -r ../blockfence-${{ github.sha }}-internal.zip *
                   cd ..
 
-            - name: Release
-              uses: softprops/action-gh-release@v1
+            - uses: actions/upload-artifact@v3
               with:
-                  files: blockfence-${{ github.sha }}-internal.zip
-                  name: internal-release
-                  tag_name: blockfence-${{ github.sha }}-internal
-                  generate_release_notes: false
-                  prerelease: true
-
+                name: internal-build
+                path: blockfence-${{ github.sha }}-internal.zip
+                
