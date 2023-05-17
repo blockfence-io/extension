@@ -1,62 +1,81 @@
 import React from 'react';
+
 import { SimulatedTransaction, TransactionSimulation } from '../types/api';
-import { Collapsable } from './UI/Collapsable';
-import { UilExchangeAlt } from '@iconscout/react-unicons'
+import { getFormattedNumber } from '../helpers/getFormattedNumber';
+import TxIcon from '../assets/icons/tx-icon.svg';
 
 import * as Styled from './Simulation.styles';
-import { getFormattedNumber } from '../helpers/getFormattedNumber';
 
+enum Direction {
+    In = 'In',
+    Out = 'Out',
+}
 interface SimulationProps {
-    simulation?: TransactionSimulation;
-    defaultState: boolean;
+    simulation: TransactionSimulation;
 }
 
 const shouldShowSection = (transaction?: SimulatedTransaction) => {
-    return transaction != null && transaction.amount > 0 && transaction.symbol
-}
+    return transaction && transaction.amount > 0 && transaction.symbol;
+};
 
 const getAmountString = (amount?: number, symbol?: string) => {
-    return amount ? `${getFormattedNumber(amount)} ${symbol}` : "0";
-}
+    return amount ? `${getFormattedNumber(amount)} ${symbol}` : '0';
+};
 
 const shouldShowUSD = (amount?: number) => {
-    return amount && amount > 0
+    return amount && amount > 0;
+};
+
+export function Simulation({ simulation }: SimulationProps) {
+    const showOutgoing = shouldShowSection(simulation.outgoing_transaction);
+    const showIncoming = shouldShowSection(simulation.incoming_transaction);
+    const showGas = simulation.gas_used && simulation.gas_symbol && simulation.gas_usd;
+
+    return (
+        <>
+            <Styled.Container>
+                {showOutgoing && (
+                    <TransactionPart direction={Direction.Out} transaction={simulation.outgoing_transaction} />
+                )}
+                {showOutgoing && showIncoming && (
+                    <Styled.Icon>
+                        <TxIcon />
+                    </Styled.Icon>
+                )}
+                {showIncoming && (
+                    <TransactionPart direction={Direction.In} transaction={simulation.incoming_transaction} />
+                )}
+            </Styled.Container>
+
+            {showGas && (
+                <Styled.GasContainer>
+                    <div>estimated gas</div>
+                    <div style={{ fontWeight: 'bold' }}>
+                        {getAmountString(simulation.gas_used, simulation.gas_symbol)}
+                    </div>
+                    {simulation.gas_usd && <div>${getFormattedNumber(simulation.gas_usd)}</div>}
+                </Styled.GasContainer>
+            )}
+        </>
+    );
 }
 
-export function Simulation({ simulation, defaultState = false }: SimulationProps) {
+interface TransactionPartProps {
+    direction: Direction;
+    transaction: SimulatedTransaction;
+}
+
+function TransactionPart({ direction, transaction }: TransactionPartProps) {
     return (
-        
-        <Collapsable title="Transaction Simulation" icon={<UilExchangeAlt />} defaultState={defaultState}>            
-            <Styled.Container>
-                {shouldShowSection(simulation?.outgoing_transaction) &&
-                <Styled.SectionContainer>
-                    <Styled.Bold>{"Out"}</Styled.Bold>
-                    <Styled.CenteredIconWithText>
-                        {getAmountString(simulation?.outgoing_transaction.amount, simulation?.outgoing_transaction.symbol)}
-                        {simulation?.outgoing_transaction.logo && <img src={simulation.outgoing_transaction.logo} width='18' />}
-                        {shouldShowUSD(simulation?.outgoing_transaction.usd) == true &&
-                            <div>${getFormattedNumber(simulation?.outgoing_transaction.usd)}</div>
-                        }
-                    </Styled.CenteredIconWithText>
-                </Styled.SectionContainer>
-                }
-                {shouldShowSection(simulation?.incoming_transaction) &&
-                <Styled.SectionContainer>
-                    <Styled.Bold>{"In"}</Styled.Bold>
-                    <Styled.CenteredIconWithText>
-                        {getAmountString(simulation?.incoming_transaction.amount, simulation?.incoming_transaction.symbol)}
-                        {simulation?.incoming_transaction.logo && <img src={simulation.incoming_transaction.logo} width='18' />}
-                        {shouldShowUSD(simulation?.incoming_transaction.usd) == true &&
-                            <div>${getFormattedNumber(simulation?.incoming_transaction.usd)}</div>
-                        }
-                    </Styled.CenteredIconWithText>
-                </Styled.SectionContainer>
-                }
-            </Styled.Container>
-            {/* <Styled.CenteredIconWithText>
-                <div>Gas used: {getAmountString(simulation?.gas_used, simulation?.gas_symbol)}</div>
-                {simulation?.gas_usd && <div>${getFormattedNumber(simulation?.gas_usd)}</div>}
-            </Styled.CenteredIconWithText> */}
-        </Collapsable>
+        <Styled.SectionContainer>
+            <Styled.Direction>{direction}</Styled.Direction>
+            <Styled.Amount>
+                {transaction.logo && <img src={transaction.logo} width='22' />}
+                {getAmountString(transaction.amount, transaction.symbol)}
+            </Styled.Amount>
+            <Styled.EstimatedValue color={direction == Direction.In ? 'Red' : 'Green'}>
+                {shouldShowUSD(transaction.usd) == true && <div>${getFormattedNumber(transaction.usd)}</div>}
+            </Styled.EstimatedValue>
+        </Styled.SectionContainer>
     );
 }
