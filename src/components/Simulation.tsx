@@ -14,7 +14,7 @@ interface SimulationProps {
     simulation: TransactionSimulation;
 }
 
-const shouldShowSection = (transaction?: SimulatedTransaction) => {
+const validTransaction = (transaction?: SimulatedTransaction) => {
     return transaction && transaction.amount > 0 && transaction.symbol;
 };
 
@@ -27,22 +27,22 @@ const shouldShowUSD = (amount?: number) => {
 };
 
 export function Simulation({ simulation }: SimulationProps) {
-    const showOutgoing = shouldShowSection(simulation.outgoing_transaction);
-    const showIncoming = shouldShowSection(simulation.incoming_transaction);
+    const validOutgoing = validTransaction(simulation.outgoing_transaction);
+    const validIncoming = validTransaction(simulation.incoming_transaction);
     const showGas = simulation.gas_used && simulation.gas_symbol && simulation.gas_usd;
 
     return (
         <>
             <Styled.Container>
-                {showOutgoing && (
+                {simulation.outgoing_transaction && validOutgoing && (
                     <TransactionPart direction={Direction.Out} transaction={simulation.outgoing_transaction} />
                 )}
-                {showOutgoing && showIncoming && (
+                {validOutgoing && validIncoming && (
                     <Styled.Icon>
                         <TxIcon />
                     </Styled.Icon>
                 )}
-                {showIncoming && (
+                {simulation.incoming_transaction && validIncoming && (
                     <TransactionPart direction={Direction.In} transaction={simulation.incoming_transaction} />
                 )}
             </Styled.Container>
