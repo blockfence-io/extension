@@ -6,7 +6,7 @@ on:
 jobs:
     build-internal:
         runs-on: ubuntu-latest
-        environment: production
+        environment: staging
         permissions:
             contents: write
             security-events: write
