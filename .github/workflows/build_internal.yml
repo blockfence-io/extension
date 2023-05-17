@@ -1,7 +1,7 @@
 name: Build and Release
 
 on:
-    push
+    [push]
         
 jobs:
     build-internal:
@@ -48,14 +48,15 @@ jobs:
             - name: Compress build artifacts
               run: |
                   cd build
-                  zip -qq -r ../blockfence-internal.zip *
+                  zip -qq -r ../blockfence-${{ github.sha }}-internal".zip *
                   cd ..
 
             - name: Release
               uses: softprops/action-gh-release@v1
               with:
-                  files: blockfence-internal.zip
+                  files: blockfence-${{ github.sha }}-internal".zip
                   name: internal-release
+                  tag_name: blockfence-${{ github.sha }}-internal"
                   generate_release_notes: false
                   prerelease: true
 
