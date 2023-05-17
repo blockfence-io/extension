@@ -57,3 +57,7 @@ jobs:
               uses: slackapi/slack-github-action@v1.23.0
               env:
                 SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+              payload: |
+                {
+                  "text": "New version uploaded to staging: check it out at the github actions page",
+                }
