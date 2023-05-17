@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run npm run dev",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "npm",
+            "args": ["run", "dev"],
+            "console": "integratedTerminal"
+        }
+    ]
+}

@@ -11,6 +11,7 @@ import { Enrichment } from './Enrichment';
 import SpotlightIcon from '../assets/icons/spotlight.svg';
 import RadarIcon from '../assets/icons/radar-icon.svg';
 import ChatGPTIcon from '../assets/icons/chatgpt.svg';
+import { UilExchangeAlt } from '@iconscout/react-unicons';
 
 import * as Styled from './ContentDecoder.styles';
 import { EngineResponse, TransactionSimulation } from '../types/api';
@@ -25,9 +26,11 @@ interface ContentDecoderProps {
 }
 
 const shouldShowSimulation = (transaction_simulation?: TransactionSimulation) => {
-    return transaction_simulation?.outgoing_transaction.symbol.length != 0 ||
+    return (
+        transaction_simulation?.outgoing_transaction.symbol.length != 0 ||
         transaction_simulation?.incoming_transaction.symbol.length != 0
-}
+    );
+};
 
 export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeResult, url }: ContentDecoderProps) {
     return (
@@ -40,10 +43,11 @@ export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeRe
                 url={url}
             />
             <Styled.Results>
-                {shouldShowSimulation(analyzeResult.transaction_simulation) && (
-                        <Simulation simulation={analyzeResult.transaction_simulation} defaultState={true} />
-                    )
-                }
+                {analyzeResult.transaction_simulation && shouldShowSimulation(analyzeResult.transaction_simulation) && (
+                    <Collapsable title='Transaction Simulation' icon={<UilExchangeAlt />} defaultState={true}>
+                        <Simulation simulation={analyzeResult.transaction_simulation} />
+                    </Collapsable>
+                )}
 
                 {analyzeResult.data_enrichments &&
                     analyzeResult.data_enrichments.map((dataEnrichment, id) => (

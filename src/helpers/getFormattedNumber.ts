@@ -1,4 +1,7 @@
-export function getFormattedNumber(input: number, defaultDigitsAfterDecimalPoint = 3): number {
+export function getFormattedNumber(input?: number, defaultDigitsAfterDecimalPoint = 3): number {
+    if (input === undefined) {
+        return 0
+    }
     const numString = input.toString();
 
     if (!numString.includes(".")) {
