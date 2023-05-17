@@ -27,8 +27,8 @@ interface ContentDecoderProps {
 
 const shouldShowSimulation = (transaction_simulation?: TransactionSimulation) => {
     return (
-        transaction_simulation?.outgoing_transaction.symbol.length != 0 ||
-        transaction_simulation?.incoming_transaction.symbol.length != 0
+        transaction_simulation?.outgoing_transaction?.symbol.length != 0 ||
+        transaction_simulation?.incoming_transaction?.symbol.length != 0
     );
 };
 
