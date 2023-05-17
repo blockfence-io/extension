@@ -58,7 +58,8 @@ jobs:
               with:
                 payload: |
                   {
-                    "text": "New version uploaded to staging: check it out at the github actions page"
+                    "text": "New version uploaded to staging: check it out at the github actions page
+                    \n https://github.com/blockfence-io/extension/actions/runs/${{ github.run_id }}"
                   }
               env:
                 SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
