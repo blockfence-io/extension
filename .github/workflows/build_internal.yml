@@ -1,12 +1,9 @@
 name: Build and Release
 
 on:
-    workflow_dispatch:
-        inputs:
-            version:
-                description: 'Release version number (no letters)'
-                required: true
-
+    workflow_dispatch
+    push
+        
 jobs:
     build-internal:
         runs-on: ubuntu-latest
@@ -52,15 +49,14 @@ jobs:
             - name: Compress build artifacts
               run: |
                   cd build
-                  zip -qq -r ../blockfence-${{ github.event.inputs.version }}-internal.zip *
+                  zip -qq -r ../blockfence-internal.zip *
                   cd ..
 
             - name: Release
               uses: softprops/action-gh-release@v1
               with:
-                  files: blockfence-${{ github.event.inputs.version }}-internal.zip
-                  name: ${{ github.event.inputs.version }}
-                  tag_name: ${{ github.event.inputs.version }}-internal
+                  files: blockfence-internal.zip
+                  name: internal-release
                   generate_release_notes: false
                   prerelease: true
 
