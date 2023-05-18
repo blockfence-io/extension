@@ -8,7 +8,6 @@ import { SettingsMenu } from '../../components/SettingsMenu';
 import { ErrorBoundary } from '../../components/CriticalError';
 
 import { fetchAnalyze, fetchDescription } from '../../shared/api';
-import { getActiveTabUrl } from '../../helpers/getActiveTab';
 import * as Styled from './index.styled';
 
 import Logo from '../../assets/logo-white.svg';
