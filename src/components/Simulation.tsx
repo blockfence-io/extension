@@ -73,9 +73,9 @@ function TransactionPart({ direction, transaction }: TransactionPartProps) {
                 {transaction.logo && <img src={transaction.logo} width='22' />}
                 {getAmountString(transaction.amount, transaction.symbol)}
             </Styled.Amount>
-            {transaction.usd && (
+            {shouldShowUSD(transaction.usd) && (
                 <Styled.EstimatedValue color={direction == Direction.In ? 'Green' : 'Red'}>
-                    {shouldShowUSD(transaction.usd) == true && <div>${getFormattedNumber(transaction.usd)}</div>}
+                    <div>${getFormattedNumber(transaction.usd)}</div>
                 </Styled.EstimatedValue>
             )}
         </Styled.SectionContainer>
