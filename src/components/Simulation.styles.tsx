@@ -39,6 +39,7 @@ export const SectionContainer = styled.div`
     align-items: center;
     flex: 1;
     gap: 8px;
+    align-self: baseline;
 `;
 
 export const Direction = styled.div`

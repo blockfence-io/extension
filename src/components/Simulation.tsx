@@ -73,9 +73,11 @@ function TransactionPart({ direction, transaction }: TransactionPartProps) {
                 {transaction.logo && <img src={transaction.logo} width='18' />}
                 {getAmountString(transaction.amount, transaction.symbol)}
             </Styled.Amount>
-            <Styled.EstimatedValue color={direction == Direction.In ? 'Green' : 'Red'}>
-                {shouldShowUSD(transaction.usd) == true && <div>${getFormattedNumber(transaction.usd)}</div>}
-            </Styled.EstimatedValue>
+            {shouldShowUSD(transaction.usd) && (
+                <Styled.EstimatedValue color={direction == Direction.In ? 'Green' : 'Red'}>
+                    <div>${getFormattedNumber(transaction.usd)}</div>
+                </Styled.EstimatedValue>
+            )}
         </Styled.SectionContainer>
     );
 }
