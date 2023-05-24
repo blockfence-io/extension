@@ -39,12 +39,19 @@ export function logPageView(name: string) {
     amplitude.track('Page View', eventProperties);
 }
 
-export function logSearchClick(to: string, chainId: string) {
+export function logAddressSearchClick(to: string, chainId: string) {
     const eventProperties = {
-        to: to,
-        chainId: chainId,
+        to,
+        chainId,
     };
-    logButtonClick('Search', eventProperties);
+    logButtonClick('Search-Address', eventProperties);
+}
+
+export function logUrlSearchClick(url: string) {
+    const eventProperties = {
+        url,
+    };
+    logButtonClick('Search-URL', eventProperties);
 }
 
 export function logButtonClick(name: string, properties: object) {

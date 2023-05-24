@@ -12,7 +12,7 @@ async function _fetchFunction<ResponseType>(
     url: string,
     from?: string,
     value?: string,
-    data?: string,
+    data?: string
 ): Promise<ResponseType> {
     try {
         const response = await axios({
@@ -52,6 +52,13 @@ export const fetchDescription = async (chainId: string, to: string): Promise<Cha
     return _fetchFunction<ChatResponse>('chat', chainId, to, '');
 };
 
-export const fetchAnalyze = async (chainId: string, to: string, url: string, from = '', value = '', data = ''): Promise<EngineResponse> => {
+export const fetchAnalyze = async (
+    chainId: string,
+    to: string,
+    url: string,
+    from = '',
+    value = '',
+    data = ''
+): Promise<EngineResponse> => {
     return _fetchFunction<EngineResponse>('analyze', chainId, to, url, from, value, data);
 };
