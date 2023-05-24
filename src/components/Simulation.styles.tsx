@@ -11,10 +11,11 @@ export const Container = styled.div`
     flex-direction: row;
     padding-bottom: 6px;
     align-items: center;
+    gap: 8px;
 `;
 
 export const Icon = styled.div`
-    width: 31px;
+    width: 30px;
 `;
 
 export const GasContainer = styled.div`
@@ -52,7 +53,7 @@ export const Amount = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 
     font-size: 18px;
     font-weight: 800;

@@ -70,7 +70,7 @@ function TransactionPart({ direction, transaction }: TransactionPartProps) {
         <Styled.SectionContainer>
             <Styled.Direction>{direction}</Styled.Direction>
             <Styled.Amount>
-                {transaction.logo && <img src={transaction.logo} width='22' />}
+                {transaction.logo && <img src={transaction.logo} width='18' />}
                 {getAmountString(transaction.amount, transaction.symbol)}
             </Styled.Amount>
             {shouldShowUSD(transaction.usd) && (
