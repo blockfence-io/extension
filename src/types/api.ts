@@ -62,3 +62,19 @@ export type SimulatedTransaction = {
     logo: string;
     usd: number;
 };
+
+export type FeedbackRequest = {
+    analyze_request: {
+        chain_id: string;
+        to: string;
+        url: string;
+    };
+    analyze_response: EngineResponse;
+    manual_search: boolean;
+    user_happy: boolean;
+    user_comment: string;
+};
+
+export type FeedbackResponse = {
+    message: string; //unused for now
+};
