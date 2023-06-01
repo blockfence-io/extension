@@ -4,7 +4,7 @@ import { UilThumbsDown, UilThumbsUp } from '@iconscout/react-unicons';
 import { logButtonClick } from '../../shared/logs';
 
 interface FeedbackProps {
-    onClick: (thumbsUp: boolean, comment: string) => void;
+    onClick: (thumbsUp: boolean, comment: string) => Promise<void>;
 }
 
 enum FeedbackState {
@@ -19,23 +19,27 @@ export function Feedback({ onClick }: FeedbackProps) {
 
     const title = 'Was this information helpful?';
 
-    const onThumbUp = () => {
+    const onThumbUp = async () => {
         if (selected === FeedbackState.LOADING || selected === FeedbackState.THUMBS_UP) {
             return;
         }
         logButtonClick('thumb up', {});
-        onClick(true, '');
         setSelected(FeedbackState.LOADING);
-        setTimeout(() => setSelected(FeedbackState.THUMBS_UP), 1000);
+        try {
+            await onClick(true, '');
+            setSelected(FeedbackState.THUMBS_UP);
+        } catch (e) {
+            setSelected(FeedbackState.NONE);
+        }
     };
-    const onThumbDown = () => {
+    const onThumbDown = async () => {
         if (selected === FeedbackState.LOADING || selected === FeedbackState.THUMBS_DOWN) {
             return;
         }
         logButtonClick('thumb down', {});
-        onClick(false, '');
         setSelected(FeedbackState.LOADING);
-        setTimeout(() => setSelected(FeedbackState.THUMBS_DOWN), 1000);
+        await onClick(false, '');
+        setSelected(FeedbackState.THUMBS_DOWN);
     };
 
     const disabled = selected === FeedbackState.LOADING;

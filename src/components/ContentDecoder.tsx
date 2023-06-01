@@ -35,10 +35,9 @@ const shouldShowSimulation = (transaction_simulation?: TransactionSimulation) =>
 };
 
 export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeResult, url }: ContentDecoderProps) {
-    const onFeedbackClick = (thumbsUp: boolean, comment: string) => {
-        console.log('Feedback Clicked');
-        const isManualSearch = url ? true : false; // TODO: we shoul have a better way to do this
-        postFeedback(chainId, to, url || '', analyzeResult, isManualSearch, thumbsUp, comment);
+    const onFeedbackClick = async (thumbsUp: boolean, comment: string) => {
+        const isManualSearch = url ? true : false; // TODO: we should have a better way to do this
+        await postFeedback(chainId, to, url || '', analyzeResult, isManualSearch, thumbsUp, comment);
     };
 
     return (
