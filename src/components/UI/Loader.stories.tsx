@@ -1,8 +1,13 @@
+import type { Meta } from '@storybook/react';
 import React from 'react';
 import { Collapsable } from './Collapsable';
 import { UilLamp } from '@iconscout/react-unicons';
 
 import { Placeholder } from './Loader';
+
+const meta: Meta<typeof Placeholder> = {
+    component: Placeholder,
+};
 
 export const Normal = () => (
     <div style={{ width: '350px' }}>
@@ -11,3 +16,5 @@ export const Normal = () => (
         </Collapsable>
     </div>
 );
+
+export default meta;

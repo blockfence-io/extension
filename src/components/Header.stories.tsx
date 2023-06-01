@@ -1,6 +1,11 @@
+import type { Meta } from '@storybook/react';
 import React, { useState } from 'react';
 import { Severity } from '../types/api';
 import { Header } from './Header';
+
+const meta: Meta<typeof Header> = {
+    component: Header,
+};
 
 export const Default = () => (
     <div style={{ width: '370px' }}>
@@ -73,3 +78,5 @@ export const WithoutURL = () => (
         <Header to='0xdd0ba6a96Aae2A2031536eD255d77459dE937fD2' network='Ethereum Mainnet' severity='NONE' />
     </div>
 );
+
+export default meta;
