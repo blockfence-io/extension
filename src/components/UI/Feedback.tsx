@@ -17,7 +17,10 @@ enum FeedbackState {
 export function Feedback({ onClick }: FeedbackProps) {
     const [selected, setSelected] = useState<FeedbackState>(0);
 
-    const title = 'Was this information helpful?';
+    const title =
+        selected === FeedbackState.NONE || selected === FeedbackState.LOADING
+            ? 'Was this information helpful?'
+            : 'Thank you for your feedback!';
 
     const onThumbUp = async () => {
         if (selected === FeedbackState.LOADING || selected === FeedbackState.THUMBS_UP) {
