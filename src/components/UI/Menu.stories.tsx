@@ -1,6 +1,13 @@
+import type { Meta } from '@storybook/react';
 import React, { useState } from 'react';
 import * as Menu from './Menu';
 import { Radio } from './Radio';
+
+const meta: Meta<typeof Radio> = {
+    component: Radio,
+};
+
+export default meta;
 
 export const Default = () => {
     const [enabled, setEnabled] = useState(false);
