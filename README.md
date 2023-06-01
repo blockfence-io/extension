@@ -52,12 +52,12 @@ In order to build a production version:
 NODE_ENV=production npm run build
 ```
 
-### Ladle UI Stories
+### Storybook
 
-To run Ladle stories:
+To run Storybook stories:
 
 ```
-npm run ladle
+npm run storybook
 ```
 
 > ### Disclaimer
