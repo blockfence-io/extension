@@ -27,8 +27,8 @@ interface ContentDecoderProps {
 
 const shouldShowSimulation = (transaction_simulation?: TransactionSimulation) => {
     return (
-        transaction_simulation?.outgoing_transaction?.symbol.length != 0 ||
-        transaction_simulation?.incoming_transaction?.symbol.length != 0
+        transaction_simulation?.outgoing_transaction?.symbol?.length != 0 ||
+        transaction_simulation?.incoming_transaction?.symbol?.length != 0
     );
 };
 
@@ -57,7 +57,7 @@ export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeRe
                 <Collapsable
                     title={analyzeResult.is_contract ? 'Contract Description' : 'Description'}
                     icon={<SpotlightIcon />}
-                    defaultState={analyzeResult.data_enrichments.length > 0 ? false : true}
+                    defaultState={analyzeResult.data_enrichments?.length > 0 ? false : true}
                 >
                     {analyzeResult.name !== '' && (
                         <Styled.ContractName>
