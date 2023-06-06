@@ -37,7 +37,7 @@ export type EngineResponse = {
     severity: Severity;
     is_contract: boolean;
     risks: Risk[];
-    data_enrichments: DataEnrichment[];
+    data_enrichments?: DataEnrichment[];
     transaction_simulation?: TransactionSimulation;
 };
 
