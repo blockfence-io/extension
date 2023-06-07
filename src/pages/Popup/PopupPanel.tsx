@@ -6,6 +6,7 @@ import { Results } from '../../components/Results';
 import { SearchBar } from '../../components/SearchBar';
 import { SettingsMenu } from '../../components/SettingsMenu';
 import { ErrorBoundary } from '../../components/CriticalError';
+import { Layout as NewLayout } from '../../components/New/Layout';
 
 import { fetchAnalyze, fetchDescription } from '../../shared/api';
 import * as Styled from './index.styled';
@@ -41,16 +42,39 @@ export function PopupPanel({ hideAlpha = false, hideSettings = false, standalone
 
     return (
         <ErrorBoundary>
-            {!hideAlpha && <Layout.Banner>BETA</Layout.Banner>}
+            <NewLayout
+                fullpageMode={!!to}
+                severity={analyzeResult.result?.severity}
+                panel={
+                    <SearchBar
+                        onClick={handleClick}
+                        disabled={analyzeResult.loading || descriptionResult.loading}
+                        severity={analyzeResult.result?.severity}
+                        compact={compact}
+                        persistent={!standalone}
+                    />
+                }
+                body={
+                    <>
+                        <Results
+                            chainId={chainId}
+                            to={to}
+                            analyzeResult={analyzeResult}
+                            descriptionResult={descriptionResult}
+                        />
+                    </>
+                }
+            />
+            {/* {!hideAlpha && <Layout.Banner>BETA</Layout.Banner>} */}
 
-            <Layout.Logo hidden={compact}>
+            {/* <Layout.Logo hidden={compact}>
                 <Logo />
                 <div>Blockfence</div>
-            </Layout.Logo>
+            </Layout.Logo> */}
 
-            <Layout.FloatingSettings>{!hideSettings && !compact && <SettingsMenu />}</Layout.FloatingSettings>
+            {/* <Layout.FloatingSettings>{!hideSettings && !compact && <SettingsMenu />}</Layout.FloatingSettings> */}
 
-            <Layout.Header severity={analyzeResult.result?.severity}>
+            {/* <Layout.Header severity={analyzeResult.result?.severity}>
                 <SearchBar
                     onClick={handleClick}
                     disabled={analyzeResult.loading || descriptionResult.loading}
@@ -59,9 +83,9 @@ export function PopupPanel({ hideAlpha = false, hideSettings = false, standalone
                     persistent={!standalone}
                 />
                 {!hideSettings && compact && <SettingsMenu />}
-            </Layout.Header>
+            </Layout.Header> */}
 
-            <Layout.Body>
+            {/* <Layout.Body>
                 {to === '' && <Styled.Help>Enter a blockchain address to analyze it</Styled.Help>}
 
                 <Results
@@ -70,7 +94,7 @@ export function PopupPanel({ hideAlpha = false, hideSettings = false, standalone
                     analyzeResult={analyzeResult}
                     descriptionResult={descriptionResult}
                 />
-            </Layout.Body>
+            </Layout.Body> */}
         </ErrorBoundary>
     );
 }

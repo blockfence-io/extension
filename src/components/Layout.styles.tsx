@@ -16,7 +16,7 @@ export const Container = styled.div<ContainerProps>`
     height: 100vh;
     width: ${(props) => (props.fixedWidth ? POPUP_WIDTH : '100vw')};
     min-width: ${POPUP_WIDTH};
-    min-height: 550px;
+    min-height: 600px;
 `;
 
 interface HeaderProps {
