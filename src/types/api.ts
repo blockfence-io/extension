@@ -37,7 +37,7 @@ export type EngineResponse = {
     severity: Severity;
     is_contract: boolean;
     risks: Risk[];
-    data_enrichments: DataEnrichment[];
+    data_enrichments?: DataEnrichment[];
     transaction_simulation?: TransactionSimulation;
 };
 
@@ -61,4 +61,20 @@ export type SimulatedTransaction = {
     symbol: string;
     logo: string;
     usd: number;
+};
+
+export type FeedbackRequest = {
+    analyze_request: {
+        chain_id: string;
+        to: string;
+        url: string;
+    };
+    analyze_response: EngineResponse;
+    manual_search: boolean;
+    user_happy: boolean;
+    user_comment: string;
+};
+
+export type FeedbackResponse = {
+    message: string; //unused for now
 };
