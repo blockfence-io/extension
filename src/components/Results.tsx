@@ -15,9 +15,6 @@ interface ResultsProps {
 }
 
 export function Results({ chainId, to, analyzeResult, descriptionResult, url }: ResultsProps) {
-    const chatError =
-        "GPT-3's experiencing some technical difficulties, but don't worry, our team's on it. In the meantime, give it another try or holla at us if you need a hand.";
-
     return (
         <>
             {analyzeResult.loading && <LoadingMessage />}
@@ -27,7 +24,7 @@ export function Results({ chainId, to, analyzeResult, descriptionResult, url }: 
                     chainId={chainId}
                     to={to}
                     analyzeResult={analyzeResult.result}
-                    descriptionResult={descriptionResult.error ? chatError : descriptionResult.result?.description}
+                    descriptionResultAsync={descriptionResult}
                     url={url}
                 />
             )}
