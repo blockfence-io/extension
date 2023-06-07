@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -70,31 +69,3 @@ export const SwitchLabel = styled.label`
         }
     }
 `;
-
-interface RadioProps {
-    label?: undefined | string;
-    onChange: (value: boolean) => void;
-    value: boolean;
-    disabled?: boolean;
-}
-
-export function Radio({ onChange, value, disabled = false, label }: RadioProps) {
-    return (
-        <Container>
-            <SwitchLabel>
-                <input
-                    type='checkbox'
-                    checked={value}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        onChange(e.target.checked);
-                    }}
-                    disabled={disabled}
-                />
-                {!disabled && <Slider />}
-            </SwitchLabel>
-            {label}
-        </Container>
-    );
-}
-
-export default Radio;

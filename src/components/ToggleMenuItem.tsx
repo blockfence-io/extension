@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 
-import { Radio } from './UI/Radio';
+import { Toggle } from './UI/Toggle';
 import * as Menu from './UI/Menu';
 import * as Logger from '../shared/logs';
 
-interface RadioMenuItemProps {
+interface ToggleMenuItemProps {
     title: string;
     body: string;
     onValueChange: (enable: boolean) => Promise<void>;
     initializer: () => Promise<boolean>;
 }
 
-export function RadioMenuItem({ title, body, onValueChange, initializer }: RadioMenuItemProps) {
+export function ToggleMenuItem({ title, body, onValueChange, initializer }: ToggleMenuItemProps) {
     const [enable, setEnable] = useState<boolean | null>(null);
 
     async function onToggleClicked(enable: boolean) {
@@ -28,7 +28,7 @@ export function RadioMenuItem({ title, body, onValueChange, initializer }: Radio
         <>
             <Menu.Title>
                 <div>{title}</div>
-                <Radio onChange={onToggleClicked} value={enable || false} disabled={enable === null} />
+                <Toggle onChange={onToggleClicked} value={enable || false} disabled={enable === null} />
             </Menu.Title>
             <Menu.Body>{body}</Menu.Body>
         </>

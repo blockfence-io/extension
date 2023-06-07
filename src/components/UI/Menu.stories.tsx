@@ -1,10 +1,10 @@
 import type { Meta } from '@storybook/react';
 import React, { useState } from 'react';
 import * as Menu from './Menu';
-import { Radio } from './Radio';
+import { Toggle } from './Toggle';
 
-const meta: Meta<typeof Radio> = {
-    component: Radio,
+const meta: Meta<typeof Toggle> = {
+    component: Toggle,
 };
 
 export default meta;
@@ -16,7 +16,7 @@ export const Default = () => {
             <Menu.Menu>
                 <Menu.Title>
                     <div>Active Mode</div>
-                    <Radio
+                    <Toggle
                         value={enabled}
                         onChange={(newStatus) => {
                             setEnabled(newStatus);
