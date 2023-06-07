@@ -1,26 +1,20 @@
 import styled from 'styled-components';
-import { Severity } from '../types/api';
 import * as theme from '../shared/theme';
 
-interface FormProps {
-    severity: undefined | Severity;
-    compact?: boolean;
-}
-
-export const Form = styled.form<FormProps>`
+export const Form = styled.form`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex: 1;
 
     font-size: 12px;
-    // make the child elements fill the parent horizontally
-    width: 95%;
-
-    padding: ${(props) => (props.compact ? '10px 6px' : '18px 10px')};
+    padding: 0px;
     border-radius: 6px;
-    gap: ${(props) => (props.compact ? '10px' : '14px')};
-
-    background: ${(props) => (props.severity ? theme.riskBackground[props.severity] : theme.riskText.NONE)};
+    gap: 18px;
 
     transition: all 0.75s ease;
+`;
+
+export const Header = styled.h2`
+    font-size: 14px;
+    font-weight: bold;
 `;

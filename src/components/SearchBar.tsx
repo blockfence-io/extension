@@ -6,33 +6,35 @@ import { NetworkSelector } from './NetworkSelector';
 import { logNetworkChange } from '../shared/logs';
 import { usePersistentState } from '../shared/usePersistentState';
 import { getActiveTabUrl } from '../helpers/getActiveTab';
-import { Radio } from './UI/Radio';
-
-import { Severity } from '../types/api';
+import { RadioGroup, RadioOption } from './UI/Radio';
 
 import * as Styled from './SearchBar.styles';
+
+const searchOptions: RadioOption[] = [
+    {
+        key: 1,
+        title: 'Blockchain Address',
+    },
+    {
+        key: 2,
+        title: 'URL',
+    },
+];
 
 interface SearchBarProps {
     onAddressClick: (chainId: string, to: string) => void;
     onURLClick: (url: string) => void;
-    disabled: boolean;
-    severity: undefined | Severity;
-    compact?: boolean;
+    disabled?: boolean;
     persistent?: boolean;
 }
 
-export function SearchBar({
-    onAddressClick,
-    onURLClick,
-    disabled,
-    severity,
-    compact,
-    persistent = true,
-}: SearchBarProps) {
+export function SearchBar({ onAddressClick, onURLClick, disabled = false, persistent = true }: SearchBarProps) {
     const [address, setAddress] = useState('');
     const [chainId, setChainId] = persistent ? usePersistentState<string>('chainId', '0x1') : useState('0x1');
     const [url, setUrl] = useState('');
-    const [isAddress, setIsAddress] = useState(true);
+    // const [isAddress, setIsAddress] = useState(true);
+    const [searchMode, setSearchMode] = useState(searchOptions[0].key);
+    const isAddress = searchMode == searchOptions[0].key;
 
     async function initUrl() {
         const url = await getActiveTabUrl();
@@ -79,12 +81,14 @@ export function SearchBar({
     };
 
     return (
-        <Styled.Form onSubmit={handleSubmit} severity={severity} compact={compact}>
-            {!compact && <Radio onChange={setIsAddress} value={isAddress} disabled={false} />}
+        <Styled.Form onSubmit={handleSubmit}>
+            <Styled.Header>Search by</Styled.Header>
+            <RadioGroup selected={searchMode} onChange={setSearchMode} options={searchOptions} />
             {isAddress && (
                 <>
                     <NetworkSelector onChange={onNetworkChange} value={chainId} />
                     <Input
+                        title='Address'
                         type='text'
                         value={address}
                         onChange={handleAddressChange}
@@ -98,6 +102,7 @@ export function SearchBar({
 
             {!isAddress && (
                 <Input
+                    title='URL'
                     type='url'
                     value={url}
                     onChange={handleUrlChange}

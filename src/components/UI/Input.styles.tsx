@@ -3,6 +3,7 @@ import * as theme from '../../shared/theme';
 
 export const Container = styled.div`
     position: relative;
+    display: flex;
 `;
 
 export const Title = styled.label`
