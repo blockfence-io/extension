@@ -5,6 +5,11 @@ import { Icon } from '@iconscout/react-unicons';
 export const primaryColor = '#3A0DA3';
 export const primaryBackground = 'linear-gradient(144deg,#180c33 -47.75%,#3a0da3 93.28%)';
 
+export const errorColor = '#eb0000';
+export const errorBackground = `${errorColor}0C`;
+
+export const inputBorderColor = '#777777';
+
 export const fieldBorder = '#DADCE0';
 
 export const riskText: { [key in Severity]: string } = {
