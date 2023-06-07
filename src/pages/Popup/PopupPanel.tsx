@@ -16,7 +16,7 @@ import Logo from '../../assets/logo-white.svg';
 import '../../shared/reset.css';
 import '../../shared/font.css';
 
-import { logSearchClick } from '../../shared/logs';
+import { logAddressSearchClick, logUrlSearchClick } from '../../shared/logs';
 
 interface PopupPanelProps {
     hideAlpha?: boolean;
@@ -27,18 +27,26 @@ interface PopupPanelProps {
 export function PopupPanel({ hideAlpha = false, hideSettings = false, standalone = false }: PopupPanelProps) {
     const [to, setTo] = useState('');
     const [chainId, setChainId] = useState('0x1');
+    const [url, setURL] = useState('');
+
     const descriptionResult = useAsyncCallback(async (chainId, to) => fetchDescription(chainId, to));
     const analyzeResult = useAsyncCallback(async (chainId, to, url) => fetchAnalyze(chainId, to, url));
 
-    async function handleClick(chainId: string, to: string) {
-        setChainId(chainId);
-        setTo(to);
-        descriptionResult.execute(chainId, to);
-        analyzeResult.execute(chainId, to, undefined); // disable URL check for manual address search
-        logSearchClick(to, chainId);
+    async function submitUrl(url: string) {
+        setURL(url);
+        analyzeResult.execute(undefined, undefined, url);
+        logUrlSearchClick(url);
     }
 
-    const compact = to !== '';
+    async function submitAddress(chainId: string, to: string) {
+        setChainId(chainId || '');
+        setTo(to || '');
+        descriptionResult.execute(chainId, to);
+        analyzeResult.execute(chainId, to, undefined);
+        logAddressSearchClick(to, chainId);
+    }
+
+    const compact = to !== '' || url !== '';
 
     return (
         <ErrorBoundary>
@@ -47,7 +55,8 @@ export function PopupPanel({ hideAlpha = false, hideSettings = false, standalone
                 severity={analyzeResult.result?.severity}
                 panel={
                     <SearchBar
-                        onClick={handleClick}
+                        onAddressClick={submitAddress}
+                        onURLClick={submitUrl}
                         disabled={analyzeResult.loading || descriptionResult.loading}
                         severity={analyzeResult.result?.severity}
                         compact={compact}
@@ -76,12 +85,14 @@ export function PopupPanel({ hideAlpha = false, hideSettings = false, standalone
 
             {/* <Layout.Header severity={analyzeResult.result?.severity}>
                 <SearchBar
-                    onClick={handleClick}
+                    onAddressClick={submitAddress}
+                    onURLClick={submitUrl}
                     disabled={analyzeResult.loading || descriptionResult.loading}
                     severity={analyzeResult.result?.severity}
                     compact={compact}
                     persistent={!standalone}
                 />
+
                 {!hideSettings && compact && <SettingsMenu />}
             </Layout.Header> */}
 
@@ -91,6 +102,7 @@ export function PopupPanel({ hideAlpha = false, hideSettings = false, standalone
                 <Results
                     chainId={chainId}
                     to={to}
+                    url={url}
                     analyzeResult={analyzeResult}
                     descriptionResult={descriptionResult}
                 />

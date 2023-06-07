@@ -13,6 +13,8 @@ export const Form = styled.form<FormProps>`
     flex: 1;
 
     font-size: 12px;
+    // make the child elements fill the parent horizontally
+    width: 95%;
 
     padding: ${(props) => (props.compact ? '10px 6px' : '18px 10px')};
     border-radius: 6px;
