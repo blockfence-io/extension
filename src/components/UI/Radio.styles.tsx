@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import * as theme from '../../shared/theme';
 
 export const Container = styled.button`
     display: inline-flex;
@@ -14,10 +15,10 @@ export const Container = styled.button`
 
     &:hover,
     &:focus {
-        color: #3a0da3;
+        color: ${theme.primaryColor};
 
         & div {
-            border-color: #3a0da3;
+            border-color: ${theme.primaryColor};
         }
     }
 `;
@@ -30,7 +31,7 @@ interface FakeRadioProps {
 
 export const FakeRadio = styled.div<FakeRadioProps>`
     border-radius: 50%;
-    border: 1.5px #777777 solid;
+    border: 1.5px ${theme.inputBorderColor} solid;
     width: 16px;
     height: 16px;
 
@@ -44,7 +45,7 @@ export const FakeRadio = styled.div<FakeRadioProps>`
         left: 2px;
         bottom: 2px;
         /* CIRCLE: Disabled State */
-        background-color: #3a0da3;
+        background-color: ${theme.primaryColor};
         transition: 0.15s;
         border-radius: 50%;
         opacity: 0;
@@ -53,7 +54,7 @@ export const FakeRadio = styled.div<FakeRadioProps>`
     ${(props) =>
         props.checked &&
         css`
-            border-color: #3a0da3;
+            border-color: ${theme.primaryColor};
             &::before {
                 opacity: 1;
             }

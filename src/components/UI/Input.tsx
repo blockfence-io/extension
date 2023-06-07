@@ -1,22 +1,15 @@
-import styled from 'styled-components';
+import React, { InputHTMLAttributes } from 'react';
+import * as Styled from './Input.styles';
 
-export const Input = styled.input`
-    padding: 6px 6px;
-    color: white;
+type InputProps = InputHTMLAttributes<HTMLInputElement> & {
+    title?: string;
+};
 
-    border: none;
-    background: none;
-
-    border-bottom: 1px solid #ffffff80;
-    transition: 0.2s;
-
-    &::placeholder {
-        color: #ffffffc2;
-    }
-
-    &:focus {
-        border-bottom: 1px solid #ffffff;
-        outline: none;
-        background: #ffffff1a;
-    }
-`;
+export function Input({ title, ...rest }: InputProps) {
+    return (
+        <Styled.Container>
+            {title && <Styled.Title>{title}</Styled.Title>}
+            <Styled.Input {...rest} />
+        </Styled.Container>
+    );
+}

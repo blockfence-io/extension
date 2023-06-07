@@ -10,6 +10,7 @@ const config: StorybookConfig = {
     docs: {
         autodocs: 'tag',
     },
+    staticDirs: ['../src/assets'], //👈 Configures the static asset folder in Storybook
     webpackFinal: async (config) => {
         const fileLoaderRule = config.module.rules.find((rule) => rule.test && rule.test.test('.svg'));
         fileLoaderRule.exclude = /\.svg$/;
