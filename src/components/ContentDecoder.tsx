@@ -16,6 +16,8 @@ import { UilExchangeAlt } from '@iconscout/react-unicons';
 import * as Styled from './ContentDecoder.styles';
 import { EngineResponse, TransactionSimulation } from '../types/api';
 import { Simulation } from './Simulation';
+import { Feedback } from './UI/Feedback';
+import { postFeedback } from '../shared/api';
 
 interface ContentDecoderProps {
     to: string;
@@ -33,6 +35,11 @@ const shouldShowSimulation = (transaction_simulation?: TransactionSimulation) =>
 };
 
 export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeResult, url }: ContentDecoderProps) {
+    const onFeedbackClick = async (thumbsUp: boolean, comment: string) => {
+        const isManualSearch = url ? true : false; // TODO: we should have a better way to do this
+        await postFeedback(chainId, to, url || '', analyzeResult, isManualSearch, thumbsUp, comment);
+    };
+
     return (
         <>
             <Header
@@ -95,6 +102,10 @@ export function ContentDecoder({ to, chainId = '1', descriptionResult, analyzeRe
                         />
                     </Styled.Options>
                 )}
+
+                <Styled.Options>
+                    <Feedback onClick={onFeedbackClick} />
+                </Styled.Options>
             </Styled.Results>
         </>
     );
