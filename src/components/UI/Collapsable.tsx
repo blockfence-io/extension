@@ -1,29 +1,39 @@
 import React, { useState } from 'react';
-import { UilPlus, UilMinus } from '@iconscout/react-unicons';
+import { useCollapse } from 'react-collapsed';
+
+import { UilAngleDown, UilAngleUp } from '@iconscout/react-unicons';
+
 import * as Styled from './Collapsable.styles';
 
 interface CollapsableProps {
     icon?: React.ReactNode | undefined;
     title: string;
+    subtitle?: string;
     children: React.ReactNode;
     defaultState?: boolean;
 }
 
-export function Collapsable({ title, children, icon, defaultState = false }: CollapsableProps) {
-    const [visible, setVisible] = useState(defaultState);
+export function Collapsable({ title, subtitle, children, icon, defaultState = false }: CollapsableProps) {
+    const [isExpanded, setExpanded] = useState(defaultState);
+    const { getCollapseProps } = useCollapse({ isExpanded });
 
     function toggle() {
-        setVisible(!visible);
+        setExpanded(!isExpanded);
     }
 
     return (
-        <Styled.Container>
+        <Styled.Panel>
             <Styled.Header onClick={toggle}>
-                {icon && <Styled.Icon>{icon}</Styled.Icon>}
-                <Styled.Title>{title}</Styled.Title>
-                {visible ? <UilMinus size='18' /> : <UilPlus size='18' />}
+                {icon && <Styled.Icon type='normal'>{icon}</Styled.Icon>}
+                <Styled.Multiline>
+                    <Styled.Title>{title}</Styled.Title>
+                    {subtitle && <Styled.Subtitle>{subtitle}</Styled.Subtitle>}
+                </Styled.Multiline>
+                <Styled.Accessory>
+                    {isExpanded ? <UilAngleDown size='22' /> : <UilAngleUp size='22' />}
+                </Styled.Accessory>
             </Styled.Header>
-            {visible && <Styled.Body>{children}</Styled.Body>}
-        </Styled.Container>
+            <Styled.Body {...getCollapseProps()}>{children}</Styled.Body>
+        </Styled.Panel>
     );
 }

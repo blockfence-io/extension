@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { IconContainer } from './UI/IconContainer';
 
 export const Container = styled.div`
     display: flex;
@@ -38,30 +39,8 @@ export const Info = styled.div`
     }
 `;
 
-export interface IconProps {
-    type: 'normal' | 'url' | 'address';
-}
-
-const iconColors = {
-    normal: '#efefef',
-    url: '#F2F9FF',
-    address: '#FFF1F9',
-};
-
-export const Icon = styled.div<IconProps>`
+export const Icon = styled(IconContainer)`
     grid-area: Icon;
-    background: ${(props) => iconColors[props.type]};
-    border-radius: 10px;
-    height: 44px;
-    width: 44px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    & svg {
-        width: 28px;
-    }
 `;
 
 export const Key = styled.div`

@@ -1,14 +1,8 @@
 import styled from 'styled-components';
+import { IconContainer } from './IconContainer';
+import { Panel as UIPanel } from './Panel';
 
-export const Container = styled.div`
-    border: 1px solid #dadce0;
-    border-radius: 5px;
-
-    display: flex;
-    flex-direction: column;
-    padding: 8px 14px;
-    gap: 10px;
-
+export const Panel = styled(UIPanel)`
     &:not(:last-child) {
         margin-bottom: 20px;
     }
@@ -26,20 +20,36 @@ export const Header = styled.div`
     cursor: pointer;
 `;
 
-export const Title = styled.div`
+export const Multiline = styled.div`
     flex: 1;
-    font-weight: 800;
-    font-size: 16px;
-    padding: 6px 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 `;
 
-export const Icon = styled.div`
-    padding-right: 6px;
+export const Title = styled.div`
+    font-weight: bold;
+    font-size: 16px;
+`;
+
+export const Subtitle = styled.div`
+    font-weight: 500;
+    color: #777777;
+    font-size: 10px;
+`;
+
+export const Icon = styled(IconContainer)`
+    margin-right: 12px;
 `;
 
 export const Body = styled.div`
-    font-weight: 300;
-    font-size: 14px;
-    line-height: 18px;
-    color: #707070;
+    margin-top: 12px;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 20px;
+`;
+
+export const Accessory = styled.div`
+    color: #777777;
 `;

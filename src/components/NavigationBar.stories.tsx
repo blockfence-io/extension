@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { Meta } from '@storybook/react';
-import { Panel } from './Layout';
+import { Panel } from './UI/Panel';
 
 import { NavigationBar } from './NavigationBar';
 

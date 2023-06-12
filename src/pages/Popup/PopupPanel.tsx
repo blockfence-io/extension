@@ -9,11 +9,10 @@ import { Layout, Banner } from '../../components/Layout';
 import { Button } from '../../components/UI/Button';
 
 import { fetchAnalyze, fetchDescription } from '../../shared/api';
+import { logAddressSearchClick, logUrlSearchClick } from '../../shared/logs';
 
 import '../../shared/reset.css';
 import '../../shared/font.css';
-
-import { logAddressSearchClick, logUrlSearchClick } from '../../shared/logs';
 
 interface PopupPanelProps {
     hideAlpha?: boolean;
