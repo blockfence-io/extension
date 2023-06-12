@@ -1,5 +1,5 @@
 import { Severity } from '../types/api';
-import { UilExclamationTriangle, UilExclamationCircle } from '@iconscout/react-unicons';
+import { UilExclamationTriangle } from '@iconscout/react-unicons';
 import { Icon } from '@iconscout/react-unicons';
 
 export const primaryColor = '#3A0DA3';

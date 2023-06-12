@@ -4,7 +4,7 @@ import { useAsync } from 'react-async-hook';
 
 import { Results } from '../../components/Results';
 import { ErrorBoundary } from '../../components/CriticalError';
-import { Layout, Banner } from '../../components/New/Layout';
+import { Layout, Banner } from '../../components/Layout';
 
 import { fetchDescription, fetchAnalyze } from '../../shared/api';
 

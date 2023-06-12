@@ -3,7 +3,6 @@ import React from 'react';
 import { Collapsable } from './UI/Collapsable';
 import { MuteButton } from './UI/MuteButton';
 import { Placeholder } from './UI/Loader';
-import { Header } from './Header';
 import { Risk } from './Risk';
 import { Enrichment } from './Enrichment';
 

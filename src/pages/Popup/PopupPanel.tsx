@@ -5,7 +5,7 @@ import { Results } from '../../components/Results';
 import { NavigationBar } from '../../components/NavigationBar';
 import { SearchBar, SearchMode, SearchState } from '../../components/SearchBar';
 import { ErrorBoundary } from '../../components/CriticalError';
-import { Layout, Banner } from '../../components/New/Layout';
+import { Layout, Banner } from '../../components/Layout';
 import { Button } from '../../components/UI/Button';
 
 import { fetchAnalyze, fetchDescription } from '../../shared/api';
@@ -19,7 +19,6 @@ import { logAddressSearchClick, logUrlSearchClick } from '../../shared/logs';
 interface PopupPanelProps {
     hideAlpha?: boolean;
     hideSettings?: boolean;
-    standalone?: boolean;
 }
 
 const emptyState = {
@@ -29,7 +28,7 @@ const emptyState = {
     address: '',
 };
 
-export function PopupPanel({ hideAlpha = false, hideSettings = false, standalone = false }: PopupPanelProps) {
+export function PopupPanel({ hideAlpha = false, hideSettings = false }: PopupPanelProps) {
     const [searchInput, setSearchInput] = useState<SearchState>(emptyState);
 
     const [to, setTo] = useState('');

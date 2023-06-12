@@ -1,12 +1,12 @@
 import React, { ReactNode } from 'react';
-import { Animate, AnimateGroup } from 'react-simple-animate';
+import { Animate } from 'react-simple-animate';
 
-import { SettingsMenu } from '../../components/SettingsMenu';
+import { SettingsMenu } from '../components/SettingsMenu';
 
-import ComputerImage from '../../assets/computer.svg';
-import Logo from '../../assets/logo-full-white.svg';
+import ComputerImage from '../assets/computer.svg';
+import Logo from '../assets/logo-full-white.svg';
 
-import * as types from '../../types/api';
+import * as types from '../types/api';
 import * as Styled from './Layout.styles';
 
 export { Panel, Banner } from './Layout.styles';
@@ -14,7 +14,6 @@ export { Panel, Banner } from './Layout.styles';
 type LayoutProps = {
     fullpageMode?: boolean;
     showSettings?: boolean;
-    isLoading?: boolean;
 
     severity?: types.Severity | undefined;
 
@@ -29,15 +28,7 @@ const severityTitle: { [key in types.Severity]: string } = {
     HIGH: 'High Risk',
 };
 
-export function Layout({
-    panel,
-    body,
-    footer,
-    severity,
-    fullpageMode = false,
-    showSettings = true,
-    isLoading = false,
-}: LayoutProps) {
+export function Layout({ panel, body, footer, severity, fullpageMode = false, showSettings = true }: LayoutProps) {
     console.log('Severity: ', severity);
     return (
         <Styled.Container>

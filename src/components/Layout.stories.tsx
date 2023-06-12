@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
 import { Layout } from './Layout';
-import { SearchBar, SearchMode, SearchState } from '../SearchBar';
-import { Button } from '../UI/Button';
+import { SearchBar, SearchMode, SearchState } from './SearchBar';
+import { Button } from './UI/Button';
 
 const meta: Meta<typeof Layout> = {
     component: Layout,
