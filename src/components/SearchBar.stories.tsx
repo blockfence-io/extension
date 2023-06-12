@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { Meta } from '@storybook/react';
-import { Panel } from './New/Layout';
+import { Panel } from './Layout';
 
 import { SearchBar, SearchState, SearchMode } from './SearchBar';
 
