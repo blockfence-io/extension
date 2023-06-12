@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Risk as RiskType } from '../types/api';
-import { UilPlus, UilMinus } from '@iconscout/react-unicons';
+import { UilAngleDown, UilAngleUp } from '@iconscout/react-unicons';
 import { riskIcons } from '../shared/theme';
+import { useCollapse } from 'react-collapsed';
 
 import * as Styled from './Risk.styles';
 
@@ -10,12 +11,15 @@ interface RiskProps {
     defaultState?: boolean;
 }
 
+export { RiskGroup } from './Risk.styles';
+
 export function Risk({ risk, defaultState = false }: RiskProps) {
-    const [visible, setVisible] = useState(defaultState);
+    const [isExpanded, setExpanded] = useState(defaultState);
+    const { getCollapseProps } = useCollapse({ isExpanded });
     const SeverityIcon = risk && risk.severity ? riskIcons[risk.severity] : undefined;
 
     function toggle() {
-        setVisible(!visible);
+        setExpanded(!isExpanded);
     }
 
     return (
@@ -29,15 +33,14 @@ export function Risk({ risk, defaultState = false }: RiskProps) {
                     {SeverityIcon && <SeverityIcon size='16' />}
                     <Styled.SeverityName>{risk.severity ? risk.severity : 'NO RISKS FOUND'}</Styled.SeverityName>
                 </Styled.Severity>
-                {visible ? <UilMinus size='15' /> : <UilPlus size='15' />}
+                {isExpanded ? <UilAngleUp size='15' /> : <UilAngleDown size='16' />}
             </Styled.Header>
-            {visible && (
-                <Styled.Body>
-                    {risk.findings.map(({ description }, id) => (
-                        <Styled.Finding key={id}>{description}</Styled.Finding>
-                    ))}
-                </Styled.Body>
-            )}
+
+            <Styled.Body {...getCollapseProps()}>
+                {risk.findings.map(({ description }, id) => (
+                    <Styled.Finding key={id}>{description}</Styled.Finding>
+                ))}
+            </Styled.Body>
         </Styled.Container>
     );
 }

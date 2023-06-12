@@ -107,7 +107,7 @@ export const Body = styled.div`
 `;
 
 export const Footer = styled.div`
-    padding: 25px;
+    padding: 20px 25px;
     display: flex;
     flex-direction: column;
 `;

@@ -1,17 +1,11 @@
 import styled from 'styled-components';
+import { Panel } from './Panel';
 
-export const Container = styled.div`
-    border: 1px solid #dadce0;
-    border-radius: 5px;
-
+export const Container = styled(Panel)`
     display: flex;
     flex-direction: row;
-    padding: 8px 14px;
+    padding: 12px 14px;
     gap: 10px;
-
-    &:not(:last-child) {
-        margin-bottom: 20px;
-    }
 
     align-items: center;
 `;
@@ -23,8 +17,8 @@ export const Icon = styled.div`
 
 export const Body = styled.div`
     font-weight: 300;
-    font-size: 14px;
+    font-size: 10px;
+    font-weight: 500;
     line-height: 18px;
-    color: #707070;
     flex: 1;
 `;
