@@ -5,6 +5,8 @@ import BackgroundChipImage from '../../assets/background_chip_centered.png';
 import * as types from '../../types/api';
 import * as theme from '../../shared/theme';
 
+const POPUP_WIDTH = '376px';
+
 interface BackgroundProps {
     severity: types.Severity | undefined;
 }
@@ -13,10 +15,14 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     height: 100%;
+    background: ${theme.primaryBackground};
+
+    min-width: ${POPUP_WIDTH};
+    min-height: 600px;
 `;
 
 export const Header = styled.div`
-    padding: 1rem;
+    padding: 1.1rem 1.2rem 0 1.2rem;
     display: flex;
     justify-content: space-between;
 `;
@@ -52,20 +58,20 @@ export const Background = styled.div<BackgroundProps>`
 
                 background-position: top center;
                 background-repeat: no-repeat;
-                background-size: 145%;
+                background-size: 135%;
             }
         `}
 
     /* Computer SVG Image */
     & svg#computer {
         align-self: center;
-        height: 280px;
+        height: 180px;
         position: relative;
     }
 `;
 
 export const Panel = styled.div`
-    min-height: 100px;
+    min-height: 86px;
 
     background: #ffffff;
     box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.05);
@@ -96,11 +102,13 @@ export const PanelHeader = styled.div<BackgroundProps>`
 
 export const Body = styled.div`
     flex: 1;
-    padding: 25px;
+    padding: 5px;
 `;
 
 export const Footer = styled.div`
     padding: 25px;
+    display: flex;
+    flex-direction: column;
 `;
 
 // 50/50 Height recolor trick
@@ -111,4 +119,23 @@ export const PanelBackground = styled.div`
 
     /* background: linear-gradient(to bottom, #3a0da3 50%, rgba(255, 0, 0, 0) 50%); */
     background: linear-gradient(to top, #f0f6ff 50%, rgba(255, 0, 0, 0) 50%);
+`;
+
+export const Banner = styled.div`
+    display: inline-block;
+    color: #ffffffe3;
+    background: rgba(172, 16, 16, 0.52);
+    border-radius: 1px;
+    font-weight: 800;
+    font-size: 10px;
+    padding: 2px 40px;
+
+    position: fixed;
+    bottom: 12px;
+    right: -40px;
+    transform: rotate(-45deg);
+
+    z-index: 20;
+
+    user-select: none;
 `;

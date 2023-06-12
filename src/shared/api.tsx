@@ -1,6 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import { ChatResponse, EngineResponse, ErrorResponse, FeedbackRequest, FeedbackResponse } from '../types/api';
 import { logException } from '../shared/logs';
+import { SupportedNetworks } from '../types/networks';
 
 const BASE_URL = process.env.API_SERVER;
 const API_KEY = process.env.API_KEY;
@@ -89,7 +90,7 @@ const _postFeedback = async (req: FeedbackRequest): Promise<FeedbackResponse> =>
 };
 
 export const postFeedback = async (
-    chain_id: string,
+    chain_id: keyof typeof SupportedNetworks,
     to: string,
     url: string,
     analyze_response: EngineResponse,
@@ -98,7 +99,7 @@ export const postFeedback = async (
     user_comment: string
 ): Promise<FeedbackResponse> => {
     const req: FeedbackRequest = {
-        analyze_request: { chain_id, to, url },
+        analyze_request: { chain_id: chain_id as string, to, url },
         analyze_response,
         manual_search,
         user_happy,

@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import { useAsyncCallback } from 'react-async-hook';
 
-import * as Layout from '../../components/Layout.styles';
 import { Results } from '../../components/Results';
-import { SearchBar } from '../../components/SearchBar';
-import { SettingsMenu } from '../../components/SettingsMenu';
+import { NavigationBar } from '../../components/NavigationBar';
+import { SearchBar, SearchMode, SearchState } from '../../components/SearchBar';
 import { ErrorBoundary } from '../../components/CriticalError';
-import { Layout as NewLayout } from '../../components/New/Layout';
+import { Layout, Banner } from '../../components/New/Layout';
+import { Button } from '../../components/UI/Button';
 
 import { fetchAnalyze, fetchDescription } from '../../shared/api';
-import * as Styled from './index.styled';
-
-import Logo from '../../assets/logo-white.svg';
+import { SupportedNetworks } from '../../types/networks';
 
 import '../../shared/reset.css';
 import '../../shared/font.css';
@@ -24,9 +22,18 @@ interface PopupPanelProps {
     standalone?: boolean;
 }
 
+const emptyState = {
+    mode: SearchMode.Address,
+    chainId: '0x1',
+    url: '',
+    address: '',
+};
+
 export function PopupPanel({ hideAlpha = false, hideSettings = false, standalone = false }: PopupPanelProps) {
+    const [searchInput, setSearchInput] = useState<SearchState>(emptyState);
+
     const [to, setTo] = useState('');
-    const [chainId, setChainId] = useState('0x1');
+    const [chainId, setChainId] = useState<keyof typeof SupportedNetworks>('0x1');
     const [url, setURL] = useState('');
 
     const descriptionResult = useAsyncCallback(async (chainId, to) => fetchDescription(chainId, to));
@@ -39,74 +46,57 @@ export function PopupPanel({ hideAlpha = false, hideSettings = false, standalone
     }
 
     async function submitAddress(chainId: string, to: string) {
-        setChainId(chainId || '');
+        setChainId((chainId as keyof typeof SupportedNetworks) || '0x1');
         setTo(to || '');
         descriptionResult.execute(chainId, to);
         analyzeResult.execute(chainId, to, undefined);
         logAddressSearchClick(to, chainId);
     }
 
+    async function scan() {
+        if (searchInput.mode === SearchMode.Address) {
+            await submitAddress(searchInput.chainId, searchInput.address);
+        } else {
+            await submitUrl(searchInput.url);
+        }
+    }
+
+    function reset() {
+        setTo('');
+        setURL('');
+        setSearchInput(emptyState);
+        analyzeResult.reset();
+        descriptionResult.reset();
+    }
+
     const compact = to !== '' || url !== '';
 
     return (
         <ErrorBoundary>
-            <NewLayout
-                fullpageMode={!!to}
+            <Layout
+                showSettings={!hideSettings}
+                fullpageMode={compact}
                 severity={analyzeResult.result?.severity}
                 panel={
-                    <SearchBar
-                        onAddressClick={submitAddress}
-                        onURLClick={submitUrl}
-                        disabled={analyzeResult.loading || descriptionResult.loading}
-                        severity={analyzeResult.result?.severity}
-                        compact={compact}
-                        persistent={!standalone}
-                    />
+                    compact ? (
+                        <NavigationBar onBack={reset} url={url} network={chainId} address={to} />
+                    ) : (
+                        <SearchBar onChange={setSearchInput} state={searchInput} />
+                    )
                 }
                 body={
-                    <>
+                    analyzeResult ? (
                         <Results
                             chainId={chainId}
                             to={to}
                             analyzeResult={analyzeResult}
                             descriptionResult={descriptionResult}
                         />
-                    </>
+                    ) : undefined
                 }
+                footer={!compact ? <Button onClick={scan}>Scan</Button> : undefined}
             />
-            {/* {!hideAlpha && <Layout.Banner>BETA</Layout.Banner>} */}
-
-            {/* <Layout.Logo hidden={compact}>
-                <Logo />
-                <div>Blockfence</div>
-            </Layout.Logo> */}
-
-            {/* <Layout.FloatingSettings>{!hideSettings && !compact && <SettingsMenu />}</Layout.FloatingSettings> */}
-
-            {/* <Layout.Header severity={analyzeResult.result?.severity}>
-                <SearchBar
-                    onAddressClick={submitAddress}
-                    onURLClick={submitUrl}
-                    disabled={analyzeResult.loading || descriptionResult.loading}
-                    severity={analyzeResult.result?.severity}
-                    compact={compact}
-                    persistent={!standalone}
-                />
-
-                {!hideSettings && compact && <SettingsMenu />}
-            </Layout.Header> */}
-
-            {/* <Layout.Body>
-                {to === '' && <Styled.Help>Enter a blockchain address to analyze it</Styled.Help>}
-
-                <Results
-                    chainId={chainId}
-                    to={to}
-                    url={url}
-                    analyzeResult={analyzeResult}
-                    descriptionResult={descriptionResult}
-                />
-            </Layout.Body> */}
+            {!hideAlpha && <Banner>BETA</Banner>}
         </ErrorBoundary>
     );
 }

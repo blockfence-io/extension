@@ -5,16 +5,16 @@ import { SettingsMenu } from '../../components/SettingsMenu';
 
 import ComputerImage from '../../assets/computer.svg';
 import Logo from '../../assets/logo-full-white.svg';
-// import ComputerImagePng from '../../assets/computer.png';
 
 import * as types from '../../types/api';
 import * as Styled from './Layout.styles';
 
-export { Panel } from './Layout.styles';
+export { Panel, Banner } from './Layout.styles';
 
 type LayoutProps = {
     fullpageMode?: boolean;
     showSettings?: boolean;
+    isLoading?: boolean;
 
     severity?: types.Severity | undefined;
 
@@ -29,36 +29,45 @@ const severityTitle: { [key in types.Severity]: string } = {
     HIGH: 'High Risk',
 };
 
-export function Layout({ fullpageMode = false, showSettings = true, severity, panel, body, footer }: LayoutProps) {
+export function Layout({
+    panel,
+    body,
+    footer,
+    severity,
+    fullpageMode = false,
+    showSettings = true,
+    isLoading = false,
+}: LayoutProps) {
+    console.log('Severity: ', severity);
     return (
         <Styled.Container>
             <Styled.Background severity={severity}>
                 <Header showSettings={showSettings} />
-                <AnimateGroup play={fullpageMode}>
-                    <AnimatedComputerImage />
-                    <AnimatedPanelHeader severity={severity} isVisible={!fullpageMode} />
-                </AnimateGroup>
+                {/* <AnimateGroup play={fullpageMode}> */}
+                <AnimatedComputerImage isVisible={fullpageMode} />
+                <AnimatedPanelHeader severity={severity} />
+                {/* </AnimateGroup> */}
                 <Styled.PanelBackground>
                     <Styled.Panel>{panel || ''}</Styled.Panel>
                 </Styled.PanelBackground>
             </Styled.Background>
 
-            {body && <Styled.Body>{body}</Styled.Body>}
+            <Styled.Body>{body}</Styled.Body>
             {footer && <Styled.Footer>{footer}</Styled.Footer>}
         </Styled.Container>
     );
 }
 
-function AnimatedComputerImage() {
+function AnimatedComputerImage({ isVisible }: { isVisible: boolean }) {
     return (
         <Animate
-            // play={isVisible}
-            sequenceIndex={0}
+            play={isVisible}
+            // sequenceIndex={0}
             start={{
                 opacity: 1,
                 filter: 'blur(0)',
                 scale: '1',
-                height: '280px',
+                height: '150px',
                 transform: 'translate(0, 0)',
                 alignSelf: 'center',
             }}
@@ -77,12 +86,12 @@ function AnimatedComputerImage() {
     );
 }
 
-function AnimatedPanelHeader({ isVisible, severity }: { isVisible: boolean; severity?: types.Severity }) {
-    const title = severity ? severityTitle[severity] : '';
+function AnimatedPanelHeader({ severity }: { severity?: types.Severity }) {
+    const title = severity ? severityTitle[severity] : '\u00A0';
     return (
         <Animate
-            // play={isVisible}
-            sequenceIndex={0}
+            play={!!severity}
+            // sequenceIndex={1}
             end={{
                 opacity: 1,
                 transform: 'translate(0, 0)',

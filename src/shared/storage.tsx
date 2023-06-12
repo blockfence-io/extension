@@ -1,3 +1,5 @@
+import { SupportedNetworks } from '../types/networks';
+
 export const getEnableHooks = async () => {
     const storage = await chrome.storage.local.get({ enableHooks: true });
     return storage.enableHooks;
@@ -21,5 +23,6 @@ export const isMutedAddresses = async (address: string, chainId: string, domain:
     return storage.mutedAddresses[txID(address, chainId, domain)];
 };
 
-export const txID = (address: string, chainId: string, domain: string) => `${address}-${chainId}-${domain}`;
+export const txID = (address: string, chainId: keyof typeof SupportedNetworks, domain: string) =>
+    `${address}-${chainId}-${domain}`;
 export const mutedAddressesKey = 'mutedAddresses';

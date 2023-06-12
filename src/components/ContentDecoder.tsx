@@ -5,7 +5,6 @@ import { MuteButton } from './UI/MuteButton';
 import { Placeholder } from './UI/Loader';
 import { Header } from './Header';
 import { Risk } from './Risk';
-import { networkMapping } from './NetworkSelector';
 import { Enrichment } from './Enrichment';
 
 import SpotlightIcon from '../assets/icons/spotlight.svg';
@@ -19,10 +18,11 @@ import { Simulation } from './Simulation';
 import { UseAsyncReturn } from 'react-async-hook';
 import { Feedback } from './UI/Feedback';
 import { postFeedback } from '../shared/api';
+import { SupportedNetworks } from '../types/networks';
 
 interface ContentDecoderProps {
     to: string;
-    chainId?: string;
+    chainId?: keyof typeof SupportedNetworks;
     descriptionResultAsync: UseAsyncReturn<ChatResponse>;
     analyzeResult: EngineResponse;
     url?: string;
@@ -48,7 +48,7 @@ export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, anal
         <>
             <Header
                 to={to}
-                network={networkMapping[chainId]}
+                network={SupportedNetworks[chainId].title}
                 severity={analyzeResult ? analyzeResult.severity : 'NONE'}
                 isContract={analyzeResult.is_contract}
                 url={url}

@@ -4,10 +4,11 @@ import { usePersistentState } from '../../shared/usePersistentState';
 import { UilCheckSquare, UilSquareFull } from '@iconscout/react-unicons';
 import { logClearMutedTxsClick } from '../../shared/logs';
 import * as Styled from './MuteButton.styles';
+import { SupportedNetworks } from '../../types/networks';
 
 interface MuteButtonProps {
     address: string;
-    chainId: string;
+    chainId: keyof typeof SupportedNetworks;
     text: string;
     url: string;
 }

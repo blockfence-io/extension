@@ -13,11 +13,7 @@ function Popup() {
         logPageView('Popup');
     }, []);
 
-    return (
-        <Layout.Container fixedWidth>
-            <PopupPanel />
-        </Layout.Container>
-    );
+    return <PopupPanel />;
 }
 
 const container = window.document.querySelector('#app-container');

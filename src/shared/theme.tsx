@@ -3,7 +3,7 @@ import { UilExclamationTriangle, UilExclamationCircle } from '@iconscout/react-u
 import { Icon } from '@iconscout/react-unicons';
 
 export const primaryColor = '#3A0DA3';
-export const primaryBackground = 'linear-gradient(144deg,#180c33 -47.75%,#3a0da3 93.28%)';
+export const primaryBackground = '#f0f6ff';
 
 export const errorColor = '#eb0000';
 export const errorBackground = `${errorColor}0C`;

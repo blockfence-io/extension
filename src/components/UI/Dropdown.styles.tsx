@@ -5,7 +5,6 @@ export const Container = styled.div`
     position: relative;
     font-size: 0.8rem;
     display: inline-flex;
-    width: 300px;
 
     flex-direction: column;
 `;
@@ -47,7 +46,7 @@ export const Title = styled.label`
 
 export const Option = styled.div`
     user-select: none;
-    padding: 8px 8px;
+    padding: 8px 16px;
     flex-direction: row;
     display: flex;
     justify-content: flex-start;
@@ -60,6 +59,11 @@ export const Option = styled.div`
         background: ${theme.primaryColor};
         color: white;
     }
+
+    &:first-of-type {
+        border-top: 1px ${theme.fieldBorder} solid;
+        margin-top: 4px;
+    }
 `;
 
 interface SelectedPropsProps {
@@ -69,8 +73,9 @@ interface SelectedPropsProps {
 export const Selected = styled.div<SelectedPropsProps>`
     display: flex;
     align-items: center;
-    padding: 18px 16px;
+    padding: 10px 16px;
     font-size: 14px; // TODO
+    height: 58px;
 
     border: none;
     background: none;
@@ -101,8 +106,8 @@ export const Icon = styled.div`
 `;
 
 export const SmallIcon = styled.div`
-    width: 20px;
-    height: 20px;
+    width: 28px;
+    height: 28px;
 `;
 
 export const Placeholder = styled.div`
