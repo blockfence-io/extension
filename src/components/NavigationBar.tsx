@@ -15,9 +15,10 @@ interface NavigationBarProps {
     address?: string;
     url?: string;
     onBack: () => void;
+    disabled?: boolean;
 }
 
-export function NavigationBar({ onBack, network, address, url }: NavigationBarProps) {
+export function NavigationBar({ onBack, network, address, url, disabled = false }: NavigationBarProps) {
     const formatAddress = (address: string) => `${address.slice(0, 8)}...${address.slice(-4)}`.toUpperCase();
     const networkName = network ? SupportedNetworks[network].title : '';
     const networkIcon = network ? SupportedNetworks[network].icon : undefined;
@@ -25,7 +26,7 @@ export function NavigationBar({ onBack, network, address, url }: NavigationBarPr
     return (
         <Styled.Container>
             <Styled.Navigation>
-                <Button variant='light' iconOnly onClick={onBack}>
+                <Button variant='light' iconOnly onClick={onBack} disabled={disabled}>
                     <UilArrowLeft />
                 </Button>
             </Styled.Navigation>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as Styled from './Radio.styles';
 
 interface RadioProps {
@@ -13,7 +13,7 @@ export function Radio({ onChange, checked, label }: RadioProps) {
     }
 
     return (
-        <Styled.Container tabIndex={0} onClick={toggle}>
+        <Styled.Container tabIndex={0} onClick={toggle} type='button'>
             <Styled.FakeRadio checked={checked} />
             <Styled.Label>{label}</Styled.Label>
         </Styled.Container>

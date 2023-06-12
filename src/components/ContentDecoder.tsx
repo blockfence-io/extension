@@ -46,13 +46,6 @@ export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, anal
 
     return (
         <>
-            <Header
-                to={to}
-                network={SupportedNetworks[chainId].title}
-                severity={analyzeResult ? analyzeResult.severity : 'NONE'}
-                isContract={analyzeResult.is_contract}
-                url={url}
-            />
             <Styled.Results>
                 {analyzeResult.transaction_simulation && shouldShowSimulation(analyzeResult.transaction_simulation) && (
                     <Collapsable title='Transaction Simulation' icon={<UilExchangeAlt />} defaultState={true}>

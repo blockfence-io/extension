@@ -53,7 +53,8 @@ export function PopupPanel({ hideAlpha = false, hideSettings = false, standalone
         logAddressSearchClick(to, chainId);
     }
 
-    async function scan() {
+    async function handleSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
+        event.preventDefault();
         if (searchInput.mode === SearchMode.Address) {
             await submitAddress(searchInput.chainId, searchInput.address);
         } else {
@@ -70,32 +71,41 @@ export function PopupPanel({ hideAlpha = false, hideSettings = false, standalone
     }
 
     const compact = to !== '' || url !== '';
+    const isLoading = analyzeResult.loading || descriptionResult.loading;
 
     return (
         <ErrorBoundary>
-            <Layout
-                showSettings={!hideSettings}
-                fullpageMode={compact}
-                severity={analyzeResult.result?.severity}
-                panel={
-                    compact ? (
-                        <NavigationBar onBack={reset} url={url} network={chainId} address={to} />
-                    ) : (
-                        <SearchBar onChange={setSearchInput} state={searchInput} />
-                    )
-                }
-                body={
-                    analyzeResult ? (
-                        <Results
-                            chainId={chainId}
-                            to={to}
-                            analyzeResult={analyzeResult}
-                            descriptionResult={descriptionResult}
-                        />
-                    ) : undefined
-                }
-                footer={!compact ? <Button onClick={scan}>Scan</Button> : undefined}
-            />
+            <form onSubmit={handleSubmit}>
+                <Layout
+                    showSettings={!hideSettings}
+                    fullpageMode={compact}
+                    severity={analyzeResult.result?.severity}
+                    panel={
+                        compact ? (
+                            <NavigationBar
+                                onBack={reset}
+                                url={url}
+                                network={chainId}
+                                address={to}
+                                disabled={isLoading}
+                            />
+                        ) : (
+                            <SearchBar onChange={setSearchInput} state={searchInput} />
+                        )
+                    }
+                    body={
+                        analyzeResult ? (
+                            <Results
+                                chainId={chainId}
+                                to={to}
+                                analyzeResult={analyzeResult}
+                                descriptionResult={descriptionResult}
+                            />
+                        ) : undefined
+                    }
+                    footer={!compact ? <Button type='submit'>Scan</Button> : undefined}
+                />
+            </form>
             {!hideAlpha && <Banner>BETA</Banner>}
         </ErrorBoundary>
     );
