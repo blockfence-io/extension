@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Button } from './UI/Button';
 import { Input } from './UI/Input';
+import { Dropdown } from './UI/Dropdown';
 import { NetworkSelector } from './NetworkSelector';
 import { logNetworkChange } from '../shared/logs';
 import { usePersistentState } from '../shared/usePersistentState';
@@ -21,6 +22,21 @@ const searchOptions: RadioOption[] = [
     },
 ];
 
+import EthereumIcon from '../assets/icons/ethereum-logo.svg';
+import PolygonIcon from '../assets/icons/polygon-logo.svg';
+import BSCIcon from '../assets/icons/bsc-logo.svg';
+import ArbitrumIcon from '../assets/icons/arbitrum-logo.svg';
+import AvalanchIcon from '../assets/icons/avalanche-logo.svg';
+import OptimismIcon from '../assets/icons/optimism-logo.svg';
+
+const networkOptions: DropdownOption[] = [
+    { title: 'Ethereum', key: '0x1', icon: <EthereumIcon /> },
+    { title: 'Polygon', key: '137', icon: <PolygonIcon /> },
+    { title: 'BSC', key: '56', icon: <BSCIcon /> },
+    { title: 'Arbitrum', key: '42161', icon: <ArbitrumIcon /> },
+    { title: 'Optimism', key: '10', icon: <OptimismIcon /> },
+    { title: 'Avalanche', key: '43114', icon: <AvalanchIcon /> },
+];
 interface SearchBarProps {
     onAddressClick: (chainId: string, to: string) => void;
     onURLClick: (url: string) => void;
@@ -86,7 +102,8 @@ export function SearchBar({ onAddressClick, onURLClick, disabled = false, persis
             <RadioGroup selected={searchMode} onChange={setSearchMode} options={searchOptions} />
             {isAddress && (
                 <>
-                    <NetworkSelector onChange={onNetworkChange} value={chainId} />
+                    <Dropdown title='Network' onChange={onNetworkChange} value={chainId} options={networkOptions} />
+                    {/* <NetworkSelector onChange={onNetworkChange} value={chainId} /> */}
                     <Input
                         title='Address'
                         type='text'

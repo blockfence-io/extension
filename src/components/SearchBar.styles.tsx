@@ -9,7 +9,7 @@ export const Form = styled.form`
     font-size: 12px;
     padding: 0px;
     border-radius: 6px;
-    gap: 18px;
+    gap: 20px;
 
     transition: all 0.75s ease;
 `;
