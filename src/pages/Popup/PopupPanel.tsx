@@ -9,7 +9,6 @@ import { Layout, Banner } from '../../components/Layout';
 import { Button } from '../../components/UI/Button';
 
 import { fetchAnalyze, fetchDescription } from '../../shared/api';
-import { SupportedNetworks } from '../../types/networks';
 
 import '../../shared/reset.css';
 import '../../shared/font.css';
@@ -29,24 +28,20 @@ const emptyState = {
 };
 
 export function PopupPanel({ hideAlpha = false, hideSettings = false }: PopupPanelProps) {
+    const [compactMode, setCompactMode] = useState(false);
     const [searchInput, setSearchInput] = useState<SearchState>(emptyState);
-
-    const [to, setTo] = useState('');
-    const [chainId, setChainId] = useState<keyof typeof SupportedNetworks>('0x1');
-    const [url, setURL] = useState('');
 
     const descriptionResult = useAsyncCallback(async (chainId, to) => fetchDescription(chainId, to));
     const analyzeResult = useAsyncCallback(async (chainId, to, url) => fetchAnalyze(chainId, to, url));
 
     async function submitUrl(url: string) {
-        setURL(url);
+        setCompactMode(true);
         analyzeResult.execute(undefined, undefined, url);
         logUrlSearchClick(url);
     }
 
     async function submitAddress(chainId: string, to: string) {
-        setChainId((chainId as keyof typeof SupportedNetworks) || '0x1');
-        setTo(to || '');
+        setCompactMode(true);
         descriptionResult.execute(chainId, to);
         analyzeResult.execute(chainId, to, undefined);
         logAddressSearchClick(to, chainId);
@@ -62,14 +57,12 @@ export function PopupPanel({ hideAlpha = false, hideSettings = false }: PopupPan
     }
 
     function reset() {
-        setTo('');
-        setURL('');
         setSearchInput(emptyState);
+        setCompactMode(false);
         analyzeResult.reset();
         descriptionResult.reset();
     }
 
-    const compact = to !== '' || url !== '';
     const isLoading = analyzeResult.loading || descriptionResult.loading;
 
     return (
@@ -77,15 +70,15 @@ export function PopupPanel({ hideAlpha = false, hideSettings = false }: PopupPan
             <form onSubmit={handleSubmit}>
                 <Layout
                     showSettings={!hideSettings}
-                    fullpageMode={compact}
+                    fullpageMode={compactMode}
                     severity={analyzeResult.result?.severity}
                     panel={
-                        compact ? (
+                        compactMode ? (
                             <NavigationBar
                                 onBack={reset}
-                                url={url}
-                                network={chainId}
-                                address={to}
+                                url={searchInput.url}
+                                network={searchInput.chainId}
+                                address={searchInput.address}
                                 disabled={isLoading}
                             />
                         ) : (
@@ -95,14 +88,14 @@ export function PopupPanel({ hideAlpha = false, hideSettings = false }: PopupPan
                     body={
                         analyzeResult ? (
                             <Results
-                                chainId={chainId}
-                                to={to}
+                                chainId={searchInput.chainId}
+                                to={searchInput.address}
                                 analyzeResult={analyzeResult}
                                 descriptionResult={descriptionResult}
                             />
                         ) : undefined
                     }
-                    footer={!compact ? <Button type='submit'>Scan</Button> : undefined}
+                    footer={!compactMode ? <Button type='submit'>Scan</Button> : undefined}
                 />
             </form>
             {!hideAlpha && <Banner>BETA</Banner>}

@@ -118,8 +118,7 @@ export const PanelBackground = styled.div`
     flex-direction: column;
     padding: 0 25px;
 
-    /* background: linear-gradient(to bottom, #3a0da3 50%, rgba(255, 0, 0, 0) 50%); */
-    background: linear-gradient(to top, #f0f6ff 50%, rgba(255, 0, 0, 0) 50%);
+    background: linear-gradient(to top, ${theme.primaryBackground} 50%, rgba(255, 0, 0, 0) 50%);
 `;
 
 export const Banner = styled.div`
