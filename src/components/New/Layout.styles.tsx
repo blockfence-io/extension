@@ -25,6 +25,7 @@ export const Header = styled.div`
     padding: 1.1rem 1.2rem 0 1.2rem;
     display: flex;
     justify-content: space-between;
+    min-height: 60px;
 `;
 
 export const Background = styled.div<BackgroundProps>`

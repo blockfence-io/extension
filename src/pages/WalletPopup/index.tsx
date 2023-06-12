@@ -2,10 +2,9 @@ import React, { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { useAsync } from 'react-async-hook';
 
-import * as Layout from '../../components/Layout.styles';
 import { Results } from '../../components/Results';
-import { WebsiteURL, GithubURL, FeedbackURL } from '../../components/WebsiteURL';
 import { ErrorBoundary } from '../../components/CriticalError';
+import { Layout, Banner } from '../../components/New/Layout';
 
 import { fetchDescription, fetchAnalyze } from '../../shared/api';
 
@@ -30,26 +29,27 @@ function Panel() {
     }, []);
 
     return (
-        <Layout.Container style={{ minHeight: 'initial' }}>
-            <ErrorBoundary>
-                <Layout.Banner>BETA</Layout.Banner>
-                <Layout.Body>
-                    <Results
-                        chainId={chainId}
-                        to={to}
-                        analyzeResult={analyzeResult}
-                        descriptionResult={descriptionResult}
-                        url={url}
-                    />
-                </Layout.Body>
-                <Layout.Footer>
-                    <WebsiteURL iconOnly />
-                    <GithubURL iconOnly />
-                    <FeedbackURL style={{ flex: 1 }} />
-                    {/* <Layout.Beta>BETA</Layout.Beta> */}
-                </Layout.Footer>
-            </ErrorBoundary>
-        </Layout.Container>
+        <ErrorBoundary>
+            <Layout
+                showSettings={false}
+                fullpageMode={true}
+                severity={analyzeResult.result?.severity}
+                panel={<div>TBD Transaction Simulation</div>}
+                body={
+                    analyzeResult ? (
+                        <Results
+                            chainId={chainId}
+                            to={to}
+                            analyzeResult={analyzeResult}
+                            descriptionResult={descriptionResult}
+                            url={url}
+                        />
+                    ) : undefined
+                }
+                footer={<div>Footer</div>}
+            />
+            <Banner>BETA</Banner>
+        </ErrorBoundary>
     );
 }
 
