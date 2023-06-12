@@ -5,7 +5,7 @@ import { getActiveTabUrl } from './getActiveTab';
 const WALLET_NOTIFICATION_WIDTH = 360;
 
 const EXTENSION_WIDTH = 400;
-const EXTENSION_HEIGHT = 550;
+const EXTENSION_HEIGHT = 600;
 const FOCUS_TIMEOUT = 20;
 const RETRIES_COUNT = 25;
 

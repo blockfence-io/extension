@@ -1,27 +1,26 @@
 @font-face {
-    font-family: 'Metropolis';
-    src: url('../assets/font/Metropolis-ExtraLight.woff2') format('woff2');
-    font-weight: 300; /* 300 */
-}
-
-@font-face {
-    font-family: 'Metropolis';
-    src: url('../assets/font/Metropolis-Regular.woff2') format('woff2');
+    font-family: 'FFClanPro';
+    src: url('../assets/font/FFClanProRegular.woff2') format('woff2'),
+        url('../assets/font/FFClanProRegular.woff') format('woff');
     font-weight: normal; /* 400 */
 }
 
 @font-face {
-    font-family: 'Metropolis';
-    src: url('../assets/font/Metropolis-Medium.woff2') format('woff2');
-    font-weight: bold; /* 700 */
+    font-family: 'FFClanPro';
+    /* src: url('../assets/font/FFClanProMedium.TTF'); */
+    src: url('../assets/font/FFClanProMedium.woff2') format('woff2'),
+        url('../assets/font/FFClanProMedium.woff') format('woff');
+    font-weight: 500; /* Medium */
 }
 
 @font-face {
-    font-family: 'Metropolis';
-    src: url('../assets/font/Metropolis-SemiBold.woff2') format('woff2');
-    font-weight: 800;
+    font-family: 'FFClanPro';
+    src: url('../assets/font/FFClanProBold.woff2') format('woff2'),
+        url('../assets/font/FFClanProBold.woff') format('woff');
+    font-weight: bold; /* 700 */
 }
 
-body {
-    font-family: 'Metropolis', sans-serif;
+body,
+button {
+    font-family: 'FFClanPro', sans-serif !important;
 }

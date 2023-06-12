@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { Collapsable } from './UI/Collapsable';
-import { Risk } from './Risk';
+import { RiskGroup, Risk } from './Risk';
 import { Risk as RiskType } from '../types/api';
 
 const meta: Meta<typeof Risk> = {
-    title: 'Risk',
     component: Risk,
 };
 
@@ -54,14 +53,16 @@ const risks: RiskType[] = [
     },
 ];
 
-// export const Default = () => {
-//     return (
-//         <div style={{ width: '350px' }}>
-//             <Collapsable title='Spotlight'>
-//                 {risks.map((risk, id) => (
-//                     <Risk key={id} risk={risk} />
-//                 ))}
-//             </Collapsable>
-//         </div>
-//     );
-// };
+export const Primary = () => {
+    return (
+        <div style={{ width: '350px' }}>
+            <Collapsable title='Spotlight' defaultState={true}>
+                <RiskGroup>
+                    {risks.map((risk, id) => (
+                        <Risk key={id} risk={risk} />
+                    ))}
+                </RiskGroup>
+            </Collapsable>
+        </div>
+    );
+};

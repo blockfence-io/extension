@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import * as Layout from '../../components/Layout.styles';
 import { PopupPanel } from './PopupPanel';
 import { logPageView } from '../../shared/logs';
 
@@ -13,11 +12,7 @@ function Popup() {
         logPageView('Popup');
     }, []);
 
-    return (
-        <Layout.Container fixedWidth>
-            <PopupPanel />
-        </Layout.Container>
-    );
+    return <PopupPanel />;
 }
 
 const container = window.document.querySelector('#app-container');

@@ -18,9 +18,7 @@ interface HeaderProps {
 const severityTitle: { [key in Types.Severity]: string } = {
     NONE: 'No Risks Found',
     LOW: 'Pay attention',
-    MEDIUM: 'Medium Risk',
     HIGH: 'High Risk',
-    CRITICAL: 'Critical Risk',
 };
 
 export function Header({ network, to, severity, isContract = true, url }: HeaderProps) {

@@ -3,7 +3,7 @@ import React from 'react';
 import { FeedbackURL, GithubURL, WebsiteURL } from '../components/WebsiteURL';
 import * as Menu from '../components/UI/Menu';
 import * as storage from '../shared/storage';
-import { RadioMenuItem } from '../components/RadioMenuItem';
+import { ToggleMenuItem } from './ToggleMenuItem';
 import { ButtonMenuItem } from './ButtonMenuItem';
 import { usePersistentState } from '../shared/usePersistentState';
 import { logClearMutedTxsClick } from '../shared/logs';
@@ -19,14 +19,14 @@ export function SettingsMenu() {
 
     return (
         <Menu.Menu>
-            <RadioMenuItem
+            <ToggleMenuItem
                 title='Active Mode'
                 body='The Blockfence Extension will Automatically Pop-Up in Active Mode for Every Transaction'
                 onValueChange={storage.setEnableHooks}
                 initializer={storage.getEnableHooks}
             />
             <Menu.Separator />
-            <RadioMenuItem
+            <ToggleMenuItem
                 title='URL Analysis'
                 body='The Blockfence Extension will use the current URL to Analyze the Transaction and search for phishing
                 attacks'

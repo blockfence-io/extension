@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { UilEllipsisV } from '@iconscout/react-unicons';
+import { UilSetting } from '@iconscout/react-unicons';
 
 import * as Styled from './Menu.styles';
 export { Title, Body, Separator, Link } from './Menu.styles';
@@ -21,7 +21,7 @@ export function Menu({ children }: MenuProps) {
     return (
         <Styled.Container>
             <Styled.Controller visible={visible} onClick={toggleMenu}>
-                <UilEllipsisV size='16' />
+                <UilSetting size={28} />
             </Styled.Controller>
             <Styled.Overlay visible={visible}>{children}</Styled.Overlay>
         </Styled.Container>

@@ -5,9 +5,10 @@ import { ChatResponse, EngineResponse } from '../types/api';
 
 import { ContentDecoder } from './ContentDecoder';
 import { ErrorMessage, LoadingMessage } from './PageMessages';
+import { SupportedNetworks } from '../types/networks';
 
 interface ResultsProps {
-    chainId: string;
+    chainId: keyof typeof SupportedNetworks;
     to: string;
     analyzeResult: UseAsyncReturn<EngineResponse>;
     descriptionResult: UseAsyncReturn<ChatResponse>;

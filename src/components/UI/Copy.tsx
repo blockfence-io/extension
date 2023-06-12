@@ -13,13 +13,14 @@ interface CopyProps {
 export const Span = styled.span`
     user-select: none;
     cursor: pointer;
+    line-height: 0;
 
     & svg {
         vertical-align: bottom;
         margin-right: 4px;
     }
 
-    opacity: 0.8;
+    opacity: 0.5;
     &:hover {
         text-decoration: underline;
         opacity: 1;

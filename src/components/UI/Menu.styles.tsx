@@ -47,7 +47,7 @@ export const Controller = styled.div<OverlayProps>`
     cursor: pointer;
 
     &:hover {
-        opacity: 0.9;
+        opacity: 0.7;
     }
 `;
 

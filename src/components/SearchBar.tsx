@@ -1,71 +1,68 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
-import { Button } from './UI/Button';
 import { Input } from './UI/Input';
-import { NetworkSelector } from './NetworkSelector';
+import { Dropdown } from './UI/Dropdown';
 import { logNetworkChange } from '../shared/logs';
-import { usePersistentState } from '../shared/usePersistentState';
 import { getActiveTabUrl } from '../helpers/getActiveTab';
-import { Radio } from './UI/Radio';
+import { RadioGroup, RadioOption } from './UI/Radio';
 
-import { Severity } from '../types/api';
+import { networkDropdownOptions } from '../types/networks';
 
 import * as Styled from './SearchBar.styles';
 
-interface SearchBarProps {
-    onAddressClick: (chainId: string, to: string) => void;
-    onURLClick: (url: string) => void;
-    disabled: boolean;
-    severity: undefined | Severity;
-    compact?: boolean;
-    persistent?: boolean;
+export enum SearchMode {
+    Address = 'address',
+    URL = 'url',
 }
 
-export function SearchBar({
-    onAddressClick,
-    onURLClick,
-    disabled,
-    severity,
-    compact,
-    persistent = true,
-}: SearchBarProps) {
-    const [address, setAddress] = useState('');
-    const [chainId, setChainId] = persistent ? usePersistentState<string>('chainId', '0x1') : useState('0x1');
-    const [url, setUrl] = useState('');
-    const [isAddress, setIsAddress] = useState(true);
+export type SearchState = {
+    mode: SearchMode;
+    chainId: string;
+    address: string;
+    url: string;
+};
 
-    async function initUrl() {
-        const url = await getActiveTabUrl();
-        setUrl(url);
-    }
+const searchOptions: RadioOption[] = [
+    {
+        key: SearchMode.Address,
+        title: 'Blockchain Address',
+    },
+    {
+        key: SearchMode.URL,
+        title: 'URL',
+    },
+];
+interface SearchBarProps {
+    state: SearchState;
+    onChange: (state: SearchState) => void;
+}
 
-    if (persistent) {
-        useEffect(() => {
-            initUrl();
-        }, []);
-    }
+export function SearchBar({ state, onChange }: SearchBarProps) {
+    const isAddress = state.mode === SearchMode.Address;
 
-    function onNetworkChange(value: string) {
-        setChainId(value);
-        logNetworkChange(value);
-    }
-
-    async function handleSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
-        event.preventDefault();
-        if (isAddress) {
-            onAddressClick(chainId || '0x1', address);
-        } else {
-            onURLClick(url);
+    useEffect(() => {
+        if (state.mode === SearchMode.URL) {
+            loadUrl();
         }
+    }, [state.mode]);
+
+    async function loadUrl() {
+        const url = await getActiveTabUrl();
+        onChange({ ...state, url });
+    }
+
+    function onNetworkChange(chainId: string) {
+        onChange({ ...state, chainId });
+        logNetworkChange(chainId);
     }
 
     const handleAddressChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-        setAddress(event.target.value);
+        onChange({ ...state, address: event.target.value });
         event.currentTarget.setCustomValidity('');
     };
 
     const handleUrlChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-        setUrl(event.target.value);
+        onChange({ ...state, url: event.target.value });
         event.currentTarget.setCustomValidity('');
     };
 
@@ -74,19 +71,26 @@ export function SearchBar({
         event.currentTarget.setCustomValidity(msg);
     };
 
-    const isButtonDisabled = () => {
-        return disabled || (isAddress && address === '') || (!isAddress && url === '');
-    };
-
     return (
-        <Styled.Form onSubmit={handleSubmit} severity={severity} compact={compact}>
-            {!compact && <Radio onChange={setIsAddress} value={isAddress} disabled={false} />}
+        <Styled.Container>
+            <Styled.Header>Search by</Styled.Header>
+            <RadioGroup
+                selected={state.mode}
+                onChange={(mode) => onChange({ ...state, mode: mode as SearchMode })}
+                options={searchOptions}
+            />
             {isAddress && (
                 <>
-                    <NetworkSelector onChange={onNetworkChange} value={chainId} />
+                    <Dropdown
+                        title='Network'
+                        onChange={onNetworkChange}
+                        value={state.chainId}
+                        options={networkDropdownOptions}
+                    />
                     <Input
+                        title='Address'
                         type='text'
-                        value={address}
+                        value={state.address}
                         onChange={handleAddressChange}
                         style={{ flex: 1 }}
                         pattern='0x.{40}'
@@ -98,17 +102,15 @@ export function SearchBar({
 
             {!isAddress && (
                 <Input
+                    title='URL'
                     type='url'
-                    value={url}
+                    value={state.url}
                     onChange={handleUrlChange}
                     style={{ flex: 1 }}
                     onInvalid={setInvalidMessage}
                     autoFocus
                 />
             )}
-            <Button type='submit' disabled={isButtonDisabled()} style={{ flex: 0 }}>
-                Scan
-            </Button>
-        </Styled.Form>
+        </Styled.Container>
     );
 }

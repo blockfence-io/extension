@@ -51,6 +51,13 @@ var options = {
                 exclude: /node_modules/,
             },
 
+            // Images
+            {
+                test: /\.(png|jpe?g|gif)$/i,
+                loader: 'file-loader',
+                exclude: /node_modules/,
+            },
+
             // SVG Images
             {
                 test: /\.svg$/i,

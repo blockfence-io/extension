@@ -1,22 +1,16 @@
-import styled from 'styled-components';
+import React from 'react';
 
-export const Button = styled.button`
-    font-size: 0.8rem;
-    width: 25%;
-    background-color: transparent;
-    padding: 4px 16px;
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 4px;
+import * as Styled from './Button.styles';
 
-    transition: 0.1s;
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    iconOnly?: boolean;
+    variant?: 'light' | 'fill';
+}
 
-    &:hover {
-        background: #ffffff20;
-        border: 1px solid rgba(255, 255, 255, 0.5);
-    }
-
-    &:disabled {
-        opacity: 0.5;
-    }
-`;
+export const Button: React.FC<ButtonProps> = ({ children, variant = 'fill', iconOnly = false, ...rest }) => {
+    return (
+        <Styled.Button variant={variant} iconOnly={iconOnly} {...rest}>
+            {children}
+        </Styled.Button>
+    );
+};

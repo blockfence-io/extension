@@ -7,7 +7,9 @@ export type ErrorResponse = {
     message: string;
 };
 
-export type Severity = 'NONE' | 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+// TODO Delete comment
+// export type Severity = 'NONE' | 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+export type Severity = 'NONE' | 'LOW' | 'HIGH';
 
 export type Risk = {
     analyzerName: string;
