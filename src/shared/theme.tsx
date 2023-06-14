@@ -15,6 +15,8 @@ export const inputBorderColor = '#777777';
 export const dividerBorderColer = '#D9D9D9';
 export const fieldBorder = '#DADCE0';
 
+export const linkColor = '#006BFF';
+
 export const riskText: { [key in Severity]: string } = {
     NONE: '#00B341',
     LOW: '#00B341',

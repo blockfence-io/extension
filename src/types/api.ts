@@ -22,11 +22,28 @@ export type Risk = {
 
 export type DataEnrichment = {
     title: string;
-    link?: string;
-    powered_by?: string;
-    icon?: string;
     dapp_logo?: string;
-    stats: Stat[];
+
+    type?: string; // new ???
+    description?: string;
+    long_description?: string;
+
+    link?: string; // deprecated
+    powered_by?: string; // deprecated
+    icon?: string; // deprecated
+    stats?: Stat[]; // deprecated
+
+    metrics?: {
+        name: string;
+        amount: number;
+        tooltip?: string;
+    }[];
+
+    powered_by_data?: {
+        icon: string;
+        link: string;
+        name: string;
+    };
 };
 
 export type Stat = {

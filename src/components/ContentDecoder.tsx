@@ -124,7 +124,6 @@ export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, anal
                                 </RiskGroup>
                             </Collapsable>
                         )}
-
                         {analyzeResult.bf_web_analysis && analyzeResult.bf_web_analysis.length > 0 && (
                             <Collapsable title='Website' icon={<AddressIcon />} defaultState={false}>
                                 <RiskGroup>
