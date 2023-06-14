@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Collapsable } from './UI/Collapsable';
 import { MuteButton } from './UI/MuteButton';
@@ -18,6 +18,7 @@ import { postFeedback } from '../shared/api';
 import { SupportedNetworks } from '../types/networks';
 import { Panel } from './UI/Panel';
 import { NavigationBar } from './NavigationBar';
+import { TabOptions, Tabs } from './UI/Tabs';
 
 interface ContentDecoderProps {
     to: string;
@@ -37,7 +38,14 @@ const shouldShowSimulation = (transaction_simulation?: TransactionSimulation) =>
 const chatError =
     "GPT-3's experiencing some technical difficulties, but don't worry, our team's on it. In the meantime, give it another try or holla at us if you need a hand.";
 
+const tabOptions: TabOptions[] = [
+    { key: '1', title: 'Info' },
+    { key: '2', title: 'Analysis' },
+];
+
 export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, analyzeResult, url }: ContentDecoderProps) {
+    const [tab, setTab] = useState('1');
+
     const onFeedbackClick = async (thumbsUp: boolean, comment: string) => {
         const isManualSearch = url ? true : false; // TODO: we should have a better way to do this
         await postFeedback(chainId, to, url || '', analyzeResult, isManualSearch, thumbsUp, comment);
@@ -52,47 +60,67 @@ export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, anal
                         <NavigationBar address={to} url={url} compact />
                     </Panel>
                 )}
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+                    <Tabs selected={tab} onChange={setTab} options={tabOptions} />
+                </div>
 
-                {analyzeResult.data_enrichments &&
-                    analyzeResult.data_enrichments.map((dataEnrichment, id) => (
-                        <Enrichment key={id} dataEnrichment={dataEnrichment} defaultState={false} />
-                    ))}
-                {(descriptionResultAsync.loading || descriptionResultAsync.error || descriptionResultAsync.result) && (
-                    <Collapsable
-                        title={analyzeResult.is_contract ? 'Contract Description' : 'Description'}
-                        icon={<SpotlightIcon />}
-                        defaultState={
-                            analyzeResult.data_enrichments && analyzeResult.data_enrichments.length > 0 ? false : true
-                        }
-                    >
-                        {analyzeResult.name !== '' && (
-                            <Styled.ContractName>
-                                {analyzeResult.is_contract ? 'Contract Name' : 'Name'}: {analyzeResult.name}
-                            </Styled.ContractName>
+                {tab === '1' && (
+                    <>
+                        {/* DAPP */}
+                        {analyzeResult.data_enrichments &&
+                            analyzeResult.data_enrichments.map((dataEnrichment, id) => (
+                                <Enrichment key={id} dataEnrichment={dataEnrichment} defaultState={false} />
+                            ))}
+
+                        {/* Description */}
+                        {(descriptionResultAsync.loading ||
+                            descriptionResultAsync.error ||
+                            descriptionResultAsync.result) && (
+                            <Collapsable
+                                title={analyzeResult.is_contract ? 'Contract Description' : 'Description'}
+                                icon={<SpotlightIcon />}
+                                defaultState={
+                                    analyzeResult.data_enrichments && analyzeResult.data_enrichments.length > 0
+                                        ? false
+                                        : true
+                                }
+                            >
+                                {analyzeResult.name !== '' && (
+                                    <Styled.ContractName>
+                                        {analyzeResult.is_contract ? 'Contract Name' : 'Name'}: {analyzeResult.name}
+                                    </Styled.ContractName>
+                                )}
+                                {descriptionResultAsync.loading ? (
+                                    <Placeholder />
+                                ) : (
+                                    <>
+                                        {descriptionResultAsync.error
+                                            ? chatError
+                                            : descriptionResultAsync.result?.description}
+                                        <Styled.Copyrights>
+                                            <ChatGPTIcon />
+                                            Powered by OpenAI
+                                        </Styled.Copyrights>
+                                    </>
+                                )}
+                            </Collapsable>
                         )}
-                        {descriptionResultAsync.loading ? (
-                            <Placeholder />
-                        ) : (
-                            <>
-                                {descriptionResultAsync.error ? chatError : descriptionResultAsync.result?.description}
-                                <Styled.Copyrights>
-                                    <ChatGPTIcon />
-                                    Powered by OpenAI
-                                </Styled.Copyrights>
-                            </>
-                        )}
-                    </Collapsable>
+                    </>
                 )}
 
-                <Collapsable title='Fraud Analysis' icon={<RadarIcon />} defaultState={false}>
-                    {analyzeResult.risks && analyzeResult.risks.length > 0 && (
-                        <RiskGroup>
-                            {analyzeResult.risks.map((risk, id) => (
-                                <Risk key={id} risk={risk} />
-                            ))}
-                        </RiskGroup>
-                    )}
-                </Collapsable>
+                {tab === '2' && (
+                    <>
+                        <Collapsable title='Fraud Analysis' icon={<RadarIcon />} defaultState={false}>
+                            {analyzeResult.risks && analyzeResult.risks.length > 0 && (
+                                <RiskGroup>
+                                    {analyzeResult.risks.map((risk, id) => (
+                                        <Risk key={id} risk={risk} />
+                                    ))}
+                                </RiskGroup>
+                            )}
+                        </Collapsable>
+                    </>
+                )}
 
                 {url && (
                     <Styled.Options>

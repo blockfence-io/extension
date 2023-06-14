@@ -72,7 +72,6 @@ function WalletPopup() {
                         />
                     ) : undefined
                 }
-                // footer={<div>Footer</div>}
             />
             <Banner>BETA</Banner>
         </ErrorBoundary>

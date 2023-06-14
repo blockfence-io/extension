@@ -16,7 +16,12 @@ export function Tabs({ options, onChange, selected }: TabsProps) {
     return (
         <Styled.Container>
             {options.map((option) => (
-                <Styled.Option selected={option.key === selected} key={option.key} onClick={() => onChange(option.key)}>
+                <Styled.Option
+                    type='button'
+                    selected={option.key === selected}
+                    key={option.key}
+                    onClick={() => onChange(option.key)}
+                >
                     {option.title}
                 </Styled.Option>
             ))}
