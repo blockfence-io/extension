@@ -26,25 +26,19 @@ const shouldShowUSD = (amount?: number) => {
 export function Simulation({ simulation }: SimulationProps) {
     const validOutgoing = validTransaction(simulation.outgoing_transaction);
     const validIncoming = validTransaction(simulation.incoming_transaction);
-    const showGas = simulation.gas_used && simulation.gas_symbol && simulation.gas_usd;
 
     let totalConversion = 0;
     if (simulation.outgoing_transaction?.usd) totalConversion += simulation.outgoing_transaction.usd;
-    if (simulation.gas_usd) totalConversion += simulation.gas_usd;
-
-    const gasEntryWorkaround: SimulatedTransaction = {
-        symbol: simulation.gas_symbol || '',
-        amount: simulation.gas_used || 0,
-        usd: simulation.gas_usd,
-        logo: 'https://static.alchemyapi.io/images/network-assets/eth.png',
-    };
+    if (simulation.outgoing_gas?.usd) totalConversion += simulation.outgoing_gas.usd;
 
     return (
         <Styled.Container>
             {simulation.outgoing_transaction && validOutgoing && (
                 <SimulationEntry entryType={EntryType.Out} transaction={simulation.outgoing_transaction} />
             )}
-            {showGas && <SimulationEntry entryType={EntryType.Gas} transaction={gasEntryWorkaround} />}
+            {simulation.outgoing_gas && (
+                <SimulationEntry entryType={EntryType.Gas} transaction={simulation.outgoing_gas} />
+            )}
             {validOutgoing && validIncoming && (
                 <Styled.Divider>
                     <TxIcon />

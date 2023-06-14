@@ -29,9 +29,15 @@ const fakeData: TransactionSimulation = {
         logo: 'https://static.alchemyapi.io/images/assets/3408.png',
         usd: 0.020943,
     },
-    gas_used: 137964,
-    gas_symbol: 'GWEI',
-    gas_usd: 3.4300754912986546,
+    outgoing_gas: {
+        from: '',
+        to: '',
+        amount: 138020,
+        name: '',
+        symbol: 'GWEI',
+        logo: 'https://static.alchemyapi.io/images/network-assets/eth.png',
+        usd: 4.500102780328754,
+    },
 };
 
 const fakeDataMissing: TransactionSimulation = {

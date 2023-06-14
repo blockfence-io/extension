@@ -38,7 +38,12 @@ export type EngineResponse = {
     name: string;
     severity: Severity;
     is_contract: boolean;
-    risks: Risk[];
+    risks: Risk[]; // Deprecated
+
+    bf_blockchain_analysis?: Risk[];
+    bf_web_analysis?: Risk[];
+    partners_analysis?: Risk[];
+
     data_enrichments?: DataEnrichment[];
     transaction_simulation?: TransactionSimulation;
 };
@@ -50,9 +55,7 @@ export type ChatResponse = {
 export type TransactionSimulation = {
     outgoing_transaction?: SimulatedTransaction;
     incoming_transaction?: SimulatedTransaction;
-    gas_used?: number;
-    gas_symbol?: string;
-    gas_usd?: number;
+    outgoing_gas?: SimulatedTransaction;
 };
 
 export type SimulatedTransaction = {

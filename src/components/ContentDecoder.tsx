@@ -8,6 +8,9 @@ import { Enrichment } from './Enrichment';
 
 import SpotlightIcon from '../assets/icons/spotlight.svg';
 import RadarIcon from '../assets/icons/radar-icon.svg';
+import AddressIcon from '../assets/icons/address.svg';
+import ContractIcon from '../assets/icons/contract.svg';
+import PartnersIcon from '../assets/icons/partners.svg';
 import ChatGPTIcon from '../assets/icons/chatgpt.svg';
 
 import * as Styled from './ContentDecoder.styles';
@@ -60,6 +63,8 @@ export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, anal
                         <NavigationBar address={to} url={url} compact />
                     </Panel>
                 )}
+
+                {/* Tabs */}
                 <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
                     <Tabs selected={tab} onChange={setTab} options={tabOptions} />
                 </div>
@@ -110,15 +115,34 @@ export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, anal
 
                 {tab === '2' && (
                     <>
-                        <Collapsable title='Fraud Analysis' icon={<RadarIcon />} defaultState={false}>
-                            {analyzeResult.risks && analyzeResult.risks.length > 0 && (
+                        {analyzeResult.bf_blockchain_analysis && analyzeResult.bf_blockchain_analysis.length > 0 && (
+                            <Collapsable title='Smart Contract' icon={<ContractIcon />} defaultState={false}>
                                 <RiskGroup>
-                                    {analyzeResult.risks.map((risk, id) => (
+                                    {analyzeResult.bf_blockchain_analysis.map((risk, id) => (
                                         <Risk key={id} risk={risk} />
                                     ))}
                                 </RiskGroup>
-                            )}
-                        </Collapsable>
+                            </Collapsable>
+                        )}
+
+                        {analyzeResult.bf_web_analysis && analyzeResult.bf_web_analysis.length > 0 && (
+                            <Collapsable title='Website' icon={<AddressIcon />} defaultState={false}>
+                                <RiskGroup>
+                                    {analyzeResult.bf_web_analysis.map((risk, id) => (
+                                        <Risk key={id} risk={risk} />
+                                    ))}
+                                </RiskGroup>
+                            </Collapsable>
+                        )}
+                        {analyzeResult.partners_analysis && analyzeResult.partners_analysis.length > 0 && (
+                            <Collapsable title='Partners' icon={<PartnersIcon />} defaultState={false}>
+                                <RiskGroup>
+                                    {analyzeResult.partners_analysis.map((risk, id) => (
+                                        <Risk key={id} risk={risk} />
+                                    ))}
+                                </RiskGroup>
+                            </Collapsable>
+                        )}
                     </>
                 )}
 
