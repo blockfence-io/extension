@@ -49,9 +49,9 @@ export function PopupPanel({ hideAlpha = false, hideSettings = false }: PopupPan
     async function handleSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
         event.preventDefault();
         if (searchInput.mode === SearchMode.Address) {
-            await submitAddress(searchInput.chainId, searchInput.address);
+            if (searchInput.address !== '') await submitAddress(searchInput.chainId, searchInput.address);
         } else {
-            await submitUrl(searchInput.url);
+            if (searchInput.url !== '') await submitUrl(searchInput.url);
         }
     }
 

@@ -6,9 +6,10 @@ import TxIcon from '../assets/icons/tx-icon.svg';
 
 import * as Styled from './Simulation.styles';
 
-enum Direction {
+enum EntryType {
     In = 'In',
     Out = 'Out',
+    Gas = 'Gas',
 }
 interface SimulationProps {
     simulation: TransactionSimulation;
@@ -16,10 +17,6 @@ interface SimulationProps {
 
 const validTransaction = (transaction?: SimulatedTransaction) => {
     return transaction && transaction.amount > 0 && transaction.symbol;
-};
-
-const getAmountString = (amount?: number, symbol?: string) => {
-    return amount ? `${getFormattedNumber(amount)} ${symbol}` : '0';
 };
 
 const shouldShowUSD = (amount?: number) => {
@@ -31,52 +28,61 @@ export function Simulation({ simulation }: SimulationProps) {
     const validIncoming = validTransaction(simulation.incoming_transaction);
     const showGas = simulation.gas_used && simulation.gas_symbol && simulation.gas_usd;
 
-    return (
-        <>
-            <Styled.Container>
-                {simulation.outgoing_transaction && validOutgoing && (
-                    <TransactionPart direction={Direction.Out} transaction={simulation.outgoing_transaction} />
-                )}
-                {validOutgoing && validIncoming && (
-                    <Styled.Icon>
-                        <TxIcon />
-                    </Styled.Icon>
-                )}
-                {simulation.incoming_transaction && validIncoming && (
-                    <TransactionPart direction={Direction.In} transaction={simulation.incoming_transaction} />
-                )}
-            </Styled.Container>
+    let totalConversion = 0;
+    if (simulation.outgoing_transaction?.usd) totalConversion += simulation.outgoing_transaction.usd;
+    if (simulation.gas_usd) totalConversion += simulation.gas_usd;
 
-            {showGas && (
-                <Styled.GasContainer>
-                    <div>estimated gas</div>
-                    <div style={{ fontWeight: 'bold' }}>
-                        {getAmountString(simulation.gas_used, simulation.gas_symbol)}
-                    </div>
-                    {simulation.gas_usd && <div>${getFormattedNumber(simulation.gas_usd)}</div>}
-                </Styled.GasContainer>
+    const gasEntryWorkaround: SimulatedTransaction = {
+        symbol: simulation.gas_symbol || '',
+        amount: simulation.gas_used || 0,
+        usd: simulation.gas_usd,
+        logo: 'https://static.alchemyapi.io/images/network-assets/eth.png',
+    };
+
+    return (
+        <Styled.Container>
+            {simulation.outgoing_transaction && validOutgoing && (
+                <SimulationEntry entryType={EntryType.Out} transaction={simulation.outgoing_transaction} />
             )}
-        </>
+            {showGas && <SimulationEntry entryType={EntryType.Gas} transaction={gasEntryWorkaround} />}
+            {validOutgoing && validIncoming && (
+                <Styled.Divider>
+                    <TxIcon />
+                </Styled.Divider>
+            )}
+            {simulation.incoming_transaction && validIncoming && (
+                <SimulationEntry entryType={EntryType.In} transaction={simulation.incoming_transaction} />
+            )}
+            <Styled.Total>
+                Total Conversion: <Styled.TotalValue>${getFormattedNumber(totalConversion)}</Styled.TotalValue>
+            </Styled.Total>
+        </Styled.Container>
     );
 }
 
-interface TransactionPartProps {
-    direction: Direction;
+interface SimulationEntryProps {
     transaction: SimulatedTransaction;
+    entryType: EntryType;
 }
 
-function TransactionPart({ direction, transaction }: TransactionPartProps) {
+function SimulationEntry({ transaction, entryType }: SimulationEntryProps) {
     return (
         <Styled.SectionContainer>
-            <Styled.Direction>{direction}</Styled.Direction>
-            <Styled.Amount>
-                {transaction.logo && <img src={transaction.logo} width='18' />}
-                {getAmountString(transaction.amount, transaction.symbol)}
-            </Styled.Amount>
-            {shouldShowUSD(transaction.usd) && (
-                <Styled.EstimatedValue color={direction == Direction.In ? 'Green' : 'Red'}>
-                    <div>${getFormattedNumber(transaction.usd)}</div>
-                </Styled.EstimatedValue>
+            <Styled.Logo>{transaction.logo && <img src={transaction.logo} width='18' />}</Styled.Logo>
+            <Styled.Symbol>
+                {transaction.symbol} {entryType === EntryType.Gas && <Styled.Hint>Gas</Styled.Hint>}
+            </Styled.Symbol>
+
+            <Styled.Amount>{getFormattedNumber(transaction.amount || 0)}</Styled.Amount>
+
+            <Styled.EstimatedValue>
+                {shouldShowUSD(transaction.usd) && `$${getFormattedNumber(transaction.usd)}`}
+            </Styled.EstimatedValue>
+
+            {entryType === EntryType.In ? (
+                <Styled.FakeIcon color='Green'>+</Styled.FakeIcon>
+            ) : (
+                <Styled.FakeIcon color='Red'>-</Styled.FakeIcon>
             )}
         </Styled.SectionContainer>
     );

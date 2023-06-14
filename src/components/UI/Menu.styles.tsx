@@ -18,9 +18,9 @@ export const Overlay = styled.div<OverlayProps>`
     top: 0;
     margin-top: -4px;
     right: 0;
-    width: 200px;
+    width: 240px;
     background: #f8f8f8;
-    padding: 24px 20px 10px 20px;
+    padding: 30px 20px 10px 20px;
 
     font-size: 12px;
     color: #494949;
@@ -57,7 +57,7 @@ export const Title = styled.h3`
     gap: 12px;
     font-weight: 800;
     margin-bottom: 10px;
-    padding-right: 10px;
+    padding-right: 18px;
 
     & > div:first-child {
         flex: 1;

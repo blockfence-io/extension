@@ -9,15 +9,15 @@ import { Enrichment } from './Enrichment';
 import SpotlightIcon from '../assets/icons/spotlight.svg';
 import RadarIcon from '../assets/icons/radar-icon.svg';
 import ChatGPTIcon from '../assets/icons/chatgpt.svg';
-import { UilExchangeAlt } from '@iconscout/react-unicons';
 
 import * as Styled from './ContentDecoder.styles';
 import { ChatResponse, EngineResponse, TransactionSimulation } from '../types/api';
-import { Simulation } from './Simulation';
 import { UseAsyncReturn } from 'react-async-hook';
 import { Feedback } from './UI/Feedback';
 import { postFeedback } from '../shared/api';
 import { SupportedNetworks } from '../types/networks';
+import { Panel } from './UI/Panel';
+import { NavigationBar } from './NavigationBar';
 
 interface ContentDecoderProps {
     to: string;
@@ -46,10 +46,11 @@ export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, anal
     return (
         <>
             <Styled.Results>
+                {/* Simulation was shown on panel, we should show Tx summary instead */}
                 {analyzeResult.transaction_simulation && shouldShowSimulation(analyzeResult.transaction_simulation) && (
-                    <Collapsable title='Transaction Simulation' icon={<UilExchangeAlt />} defaultState={true}>
-                        <Simulation simulation={analyzeResult.transaction_simulation} />
-                    </Collapsable>
+                    <Panel style={{ padding: '10px', marginBottom: '20px' }}>
+                        <NavigationBar address={to} url={url} compact />
+                    </Panel>
                 )}
 
                 {analyzeResult.data_enrichments &&
@@ -95,12 +96,14 @@ export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, anal
 
                 {url && (
                     <Styled.Options>
-                        <MuteButton
-                            address={to}
-                            chainId={chainId}
-                            url={url}
-                            text='Disable future alerts for this Transaction'
-                        />
+                        <Panel>
+                            <MuteButton
+                                address={to}
+                                chainId={chainId}
+                                url={url}
+                                text='Disable future alerts for this Transaction'
+                            />
+                        </Panel>
                     </Styled.Options>
                 )}
 

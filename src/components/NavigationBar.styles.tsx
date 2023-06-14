@@ -1,7 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { IconContainer } from './UI/IconContainer';
 
-export const Container = styled.div`
+interface ContainerProps {
+    compact?: boolean;
+}
+
+export const Container = styled.div<ContainerProps>`
     display: flex;
     flex-direction: row;
     flex: 1;
@@ -16,14 +20,14 @@ export const Container = styled.div`
 
 export const Navigation = styled.div``;
 
-export const InfoGroup = styled.div`
+export const InfoGroup = styled.div<ContainerProps>`
     display: flex;
-    flex-direction: column;
+    flex-direction: ${(props) => (props.compact ? 'row' : 'column')};
     gap: 10px;
     flex: 1;
 `;
 
-export const Info = styled.div`
+export const Info = styled.div<ContainerProps>`
     display: grid;
     grid-template-columns: min-content 1fr;
     grid-template-rows: 1fr 1fr;
@@ -34,8 +38,16 @@ export const Info = styled.div`
         'Icon Value';
 
     &:not(:last-child):not(:only-child) {
-        padding-bottom: 10px;
-        border-bottom: 1px #d9d9d9 solid;
+        ${(props) =>
+            props.compact
+                ? css`
+                      padding-right: 10px;
+                      border-right: 1px #d9d9d9 solid;
+                  `
+                : css`
+                      padding-bottom: 10px;
+                      border-bottom: 1px #d9d9d9 solid;
+                  `}
     }
 `;
 
@@ -43,7 +55,7 @@ export const Icon = styled(IconContainer)`
     grid-area: Icon;
 `;
 
-export const Key = styled.div`
+export const Key = styled.div<ContainerProps>`
     grid-area: Key;
     color: #777777;
     font-size: 10px;
@@ -53,7 +65,7 @@ export const Key = styled.div`
     align-items: center;
 `;
 
-export const Value = styled.div`
+export const Value = styled.div<ContainerProps>`
     grid-area: Value;
     font-size: 14px;
     font-weight: 500;

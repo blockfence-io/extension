@@ -56,13 +56,13 @@ export type TransactionSimulation = {
 };
 
 export type SimulatedTransaction = {
-    from: string;
-    to: string;
-    amount: number;
-    name: string;
     symbol: string;
-    logo: string;
-    usd: number;
+    amount: number;
+    from?: string;
+    to?: string;
+    name?: string;
+    logo?: string;
+    usd?: number;
 };
 
 export type FeedbackRequest = {

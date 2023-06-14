@@ -5,15 +5,25 @@ import { useAsync } from 'react-async-hook';
 import { Results } from '../../components/Results';
 import { ErrorBoundary } from '../../components/CriticalError';
 import { Layout, Banner } from '../../components/Layout';
+import { Panel } from '../../components/UI/Panel';
 
 import { fetchDescription, fetchAnalyze } from '../../shared/api';
+import { TransactionSimulation } from '../../types/api';
+import { logPageView } from '../../shared/logs';
 
 import '../../shared/reset.css';
 import '../../shared/font.css';
+import { Simulation } from '../../components/Simulation';
+import { NavigationBar } from '../../components/NavigationBar';
 
-import { logPageView } from '../../shared/logs';
+const shouldShowSimulation = (transaction_simulation?: TransactionSimulation) => {
+    return (
+        transaction_simulation?.outgoing_transaction?.symbol?.length != 0 ||
+        transaction_simulation?.incoming_transaction?.symbol?.length != 0
+    );
+};
 
-function Panel() {
+function WalletPopup() {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const from = urlSearchParams.get('from') || '';
     const to = urlSearchParams.get('to') || '';
@@ -23,6 +33,12 @@ function Panel() {
     const url: string = urlSearchParams.get('url') || '';
     const descriptionResult = useAsync(fetchDescription, [chainId, to]);
     const analyzeResult = useAsync(fetchAnalyze, [chainId, to, url, from, value, data]);
+
+    const simulationData =
+        analyzeResult.result?.transaction_simulation &&
+        shouldShowSimulation(analyzeResult.result.transaction_simulation)
+            ? analyzeResult.result?.transaction_simulation
+            : undefined;
 
     useEffect(() => {
         logPageView('Wallet Popup');
@@ -34,7 +50,17 @@ function Panel() {
                 showSettings={false}
                 fullpageMode={true}
                 severity={analyzeResult.result?.severity}
-                panel={<div>TBD Transaction Simulation</div>}
+                panel={
+                    analyzeResult.result ? (
+                        simulationData ? (
+                            <Simulation simulation={simulationData} />
+                        ) : (
+                            <NavigationBar network={chainId} address={to} url={url} />
+                        )
+                    ) : (
+                        'Analysing...'
+                    )
+                }
                 body={
                     analyzeResult ? (
                         <Results
@@ -46,7 +72,7 @@ function Panel() {
                         />
                     ) : undefined
                 }
-                footer={<div>Footer</div>}
+                // footer={<div>Footer</div>}
             />
             <Banner>BETA</Banner>
         </ErrorBoundary>
@@ -55,4 +81,4 @@ function Panel() {
 
 const container = window.document.querySelector('#app-container');
 const root = createRoot(container as Element);
-root.render(<Panel />);
+root.render(<WalletPopup />);

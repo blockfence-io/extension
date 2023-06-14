@@ -12,7 +12,7 @@ export const errorColor = '#eb0000';
 export const errorBackground = `${errorColor}0C`;
 
 export const inputBorderColor = '#777777';
-
+export const dividerBorderColer = '#D9D9D9';
 export const fieldBorder = '#DADCE0';
 
 export const riskText: { [key in Severity]: string } = {
