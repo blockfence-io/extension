@@ -7,9 +7,9 @@ export type ErrorResponse = {
     message: string;
 };
 
-// TODO Delete comment
+// TODO Delete comment and merge to a single risk of low/medium/high for both risk and findings
 // export type Severity = 'NONE' | 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
-export type Severity = 'NONE' | 'LOW' | 'HIGH';
+export type Severity = 'NONE' | 'LOW' | 'MEDIUM' | 'HIGH';
 
 export type Risk = {
     analyzerName: string;

@@ -24,6 +24,7 @@ type LayoutProps = {
 const severityTitle: { [key in types.Severity]: string } = {
     NONE: 'Low Risk',
     LOW: 'Medium Risk',
+    MEDIUM: 'Medium Risk',
     HIGH: 'High Risk',
 };
 

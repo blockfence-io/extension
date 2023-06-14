@@ -3,7 +3,7 @@ import React from 'react';
 import { Collapsable } from './UI/Collapsable';
 import { MuteButton } from './UI/MuteButton';
 import { Placeholder } from './UI/Loader';
-import { Risk } from './Risk';
+import { Risk, RiskGroup } from './Risk';
 import { Enrichment } from './Enrichment';
 
 import SpotlightIcon from '../assets/icons/spotlight.svg';
@@ -84,9 +84,13 @@ export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, anal
                 )}
 
                 <Collapsable title='Fraud Analysis' icon={<RadarIcon />} defaultState={false}>
-                    {analyzeResult.risks.map((risk, id) => (
-                        <Risk key={id} risk={risk} />
-                    ))}
+                    {analyzeResult.risks && analyzeResult.risks.length > 0 && (
+                        <RiskGroup>
+                            {analyzeResult.risks.map((risk, id) => (
+                                <Risk key={id} risk={risk} />
+                            ))}
+                        </RiskGroup>
+                    )}
                 </Collapsable>
 
                 {url && (

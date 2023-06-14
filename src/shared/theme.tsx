@@ -1,6 +1,9 @@
 import { Severity } from '../types/api';
-import { UilExclamationTriangle } from '@iconscout/react-unicons';
 import { Icon } from '@iconscout/react-unicons';
+
+import GaugeLow from '../assets/icons/gauge-low.svg';
+import GaugeMedium from '../assets/icons/gauge-medium.svg';
+import GaugeHigh from '../assets/icons/gauge-high.svg';
 
 export const primaryColor = '#3A0DA3';
 export const primaryBackground = '#f0f6ff';
@@ -14,8 +17,9 @@ export const fieldBorder = '#DADCE0';
 
 export const riskText: { [key in Severity]: string } = {
     NONE: '#00B341',
-    LOW: '#dfc700',
-    // MEDIUM: '#FF7A00',
+    LOW: '#00B341',
+    // LOW: '#dfc700',
+    MEDIUM: '#dfc700',
     HIGH: '#D80000',
     // CRITICAL: '#D80000',
 };
@@ -23,16 +27,16 @@ export const riskText: { [key in Severity]: string } = {
 export const riskBackground: { [key in Severity]: string } = {
     NONE: 'linear-gradient(95.2deg, #00b903 1.02%, #00d703 100%)',
     LOW: 'linear-gradient(95.2deg, #ceb800 1.02%, #dfc700 100%)',
-    // MEDIUM: 'linear-gradient(95.2deg, #FF7A00 1.02%, #FF8B24 100%)',
+    MEDIUM: 'linear-gradient(95.2deg, #ceb800 1.02%, #dfc700 100%)',
     HIGH: 'linear-gradient(95.2deg, #BE0404 1.02%, #D80000 100%)',
     // CRITICAL: 'linear-gradient(95.2deg, #BE0404 1.02%, #D80000 100%)',
 };
 
 export const riskIcons: { [key in Severity]: Icon | undefined } = {
-    NONE: undefined,
-    LOW: undefined,
-    // MEDIUM: UilExclamationCircle,
-    HIGH: UilExclamationTriangle,
+    NONE: GaugeLow,
+    LOW: GaugeLow,
+    MEDIUM: GaugeMedium,
+    HIGH: GaugeHigh,
     // CRITICAL: UilExclamationTriangle,
 };
 
