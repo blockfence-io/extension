@@ -101,10 +101,12 @@ export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, anal
                                         {descriptionResultAsync.error
                                             ? chatError
                                             : descriptionResultAsync.result?.description}
-                                        <Styled.Copyrights>
-                                            <ChatGPTIcon />
-                                            Powered by OpenAI
-                                        </Styled.Copyrights>
+                                        {analyzeResult.is_contract && (
+                                            <Styled.Copyrights>
+                                                <ChatGPTIcon />
+                                                Powered by OpenAI
+                                            </Styled.Copyrights>
+                                        )}
                                     </>
                                 )}
                             </Collapsable>
