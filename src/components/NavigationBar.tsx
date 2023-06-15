@@ -56,9 +56,11 @@ export function NavigationBar({
                                 <AddressIcon />
                             </Styled.Icon>
                         )}
-                        <Styled.Key>Address</Styled.Key>
+                        <Styled.Key>
+                            Address <Copy text={address} size='16' />
+                        </Styled.Key>
                         <Styled.Value>
-                            <div>{formatAddress(address)}</div> <Copy text={address} size='16' />
+                            <div>{formatAddress(address)}</div>
                         </Styled.Value>
                     </Styled.Info>
                 )}
@@ -69,7 +71,10 @@ export function NavigationBar({
                                 <URLIcon />
                             </Styled.Icon>
                         )}
-                        <Styled.Key>URL</Styled.Key>
+                        <Styled.Key>
+                            URL
+                            <Copy text={url} size='16' />
+                        </Styled.Key>
                         <Styled.TruncatedValue>{url}</Styled.TruncatedValue>
                     </Styled.Info>
                 )}
