@@ -5,7 +5,6 @@ import { useAsync } from 'react-async-hook';
 import { Results } from '../../components/Results';
 import { ErrorBoundary } from '../../components/CriticalError';
 import { Layout, Banner } from '../../components/Layout';
-import { Panel } from '../../components/UI/Panel';
 
 import { fetchDescription, fetchAnalyze } from '../../shared/api';
 import { TransactionSimulation } from '../../types/api';
@@ -58,7 +57,7 @@ function WalletPopup() {
                             <NavigationBar network={chainId} address={to} url={url} />
                         )
                     ) : (
-                        'Analysing...'
+                        ''
                     )
                 }
                 body={

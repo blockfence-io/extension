@@ -7,7 +7,6 @@ import { Risk, RiskGroup } from './Risk';
 import { Enrichment } from './Enrichment';
 
 import SpotlightIcon from '../assets/icons/spotlight.svg';
-import RadarIcon from '../assets/icons/radar-icon.svg';
 import AddressIcon from '../assets/icons/address.svg';
 import ContractIcon from '../assets/icons/contract.svg';
 import PartnersIcon from '../assets/icons/partners.svg';
