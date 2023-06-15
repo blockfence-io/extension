@@ -10,6 +10,19 @@ interface EnrichmentProps {
     defaultState?: boolean;
 }
 
+function formatNumber(num: number): string {
+    if (Math.abs(num) >= 1.0e9) {
+        return Math.round(num / 1.0e8) / 10 + 'B';
+    }
+    if (Math.abs(num) >= 1.0e6) {
+        return Math.round(num / 1.0e5) / 10 + 'M';
+    }
+    if (Math.abs(num) >= 1.0e3) {
+        return Math.round(num / 1.0e2) / 10 + 'k';
+    }
+    return num.toString();
+}
+
 export function Enrichment({ dataEnrichment, defaultState = false }: EnrichmentProps) {
     const [readMore, setReadMore] = useState(false);
     const logo = dataEnrichment.dapp_logo ? <img src={dataEnrichment.dapp_logo} width='24' /> : <RadarIcon />;
@@ -25,7 +38,7 @@ export function Enrichment({ dataEnrichment, defaultState = false }: EnrichmentP
                     {dataEnrichment.metrics?.map((metric) => (
                         <Styled.Metric key={metric.name}>
                             <Styled.MetricTitle>{metric.name}</Styled.MetricTitle>
-                            <Styled.MetricValue>{metric.amount}</Styled.MetricValue>
+                            <Styled.MetricValue>{formatNumber(metric.amount)}</Styled.MetricValue>
                         </Styled.Metric>
                     ))}
                 </Styled.MetricsTable>
