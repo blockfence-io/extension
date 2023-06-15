@@ -7,9 +7,9 @@ export type ErrorResponse = {
     message: string;
 };
 
-// TODO Delete comment
+// TODO Delete comment and merge to a single risk of low/medium/high for both risk and findings
 // export type Severity = 'NONE' | 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
-export type Severity = 'NONE' | 'LOW' | 'HIGH';
+export type Severity = 'NONE' | 'LOW' | 'MEDIUM' | 'HIGH';
 
 export type Risk = {
     analyzerName: string;
@@ -22,11 +22,28 @@ export type Risk = {
 
 export type DataEnrichment = {
     title: string;
-    link?: string;
-    powered_by?: string;
-    icon?: string;
     dapp_logo?: string;
-    stats: Stat[];
+
+    type?: string; // new ???
+    description?: string;
+    long_description?: string;
+
+    link?: string; // deprecated
+    powered_by?: string; // deprecated
+    icon?: string; // deprecated
+    stats?: Stat[]; // deprecated
+
+    metrics?: {
+        name: string;
+        amount: number;
+        tooltip?: string;
+    }[];
+
+    powered_by_data?: {
+        icon: string;
+        link: string;
+        name: string;
+    };
 };
 
 export type Stat = {
@@ -38,7 +55,12 @@ export type EngineResponse = {
     name: string;
     severity: Severity;
     is_contract: boolean;
-    risks: Risk[];
+    risks: Risk[]; // Deprecated
+
+    bf_blockchain_analysis?: Risk[];
+    bf_web_analysis?: Risk[];
+    partners_analysis?: Risk[];
+
     data_enrichments?: DataEnrichment[];
     transaction_simulation?: TransactionSimulation;
 };
@@ -50,19 +72,17 @@ export type ChatResponse = {
 export type TransactionSimulation = {
     outgoing_transaction?: SimulatedTransaction;
     incoming_transaction?: SimulatedTransaction;
-    gas_used?: number;
-    gas_symbol?: string;
-    gas_usd?: number;
+    outgoing_gas?: SimulatedTransaction;
 };
 
 export type SimulatedTransaction = {
-    from: string;
-    to: string;
-    amount: number;
-    name: string;
     symbol: string;
-    logo: string;
-    usd: number;
+    amount: number;
+    from?: string;
+    to?: string;
+    name?: string;
+    logo?: string;
+    usd?: number;
 };
 
 export type FeedbackRequest = {

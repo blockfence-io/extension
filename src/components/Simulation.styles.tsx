@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import * as theme from '../shared/theme';
 
 export const Palette = {
     Red: '#FF3F3F',
@@ -8,38 +9,39 @@ export const Palette = {
 
 export const Container = styled.div`
     display: flex;
-    flex-direction: row;
-    padding-bottom: 6px;
-    align-items: center;
+    flex-direction: column;
+    margin-bottom: 6px;
+    align-items: stretch;
     gap: 8px;
 `;
 
-export const Icon = styled.div`
-    width: 30px;
-`;
-
-export const GasContainer = styled.div`
+export const Divider = styled.div`
     display: flex;
-    flex-direction: row;
-    align-items: center;
     justify-content: center;
-    gap: 10px;
+    & svg {
+        height: 30px;
+        z-index: 30;
+        border-left: 10px white solid;
+        border-right: 10px white solid;
+    }
 
-    border-top: 1px #d9d9d9 solid;
-    padding-top: 8px;
-    margin: 0 10px;
-    margin-top: 10px;
-    font-weight: normal;
-    font-size: 12px;
+    position: relative;
+    &:before {
+        position: absolute;
+        content: ' ';
+        left: 0;
+        right: 0;
+        z-index: 20;
+        top: 15px;
+        border-bottom: 1px ${theme.dividerBorderColer} solid;
+    }
 `;
 
 export const SectionContainer = styled.div`
     display: flex;
-    flex-direction: column;
     align-items: center;
     flex: 1;
     gap: 8px;
-    align-self: baseline;
 `;
 
 export const Direction = styled.div`
@@ -49,30 +51,71 @@ export const Direction = styled.div`
     font-size: 12px;
 `;
 
-export const Amount = styled.div`
+export const Symbol = styled.div`
+    flex: 2;
+
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 6px;
 
-    font-size: 18px;
-    font-weight: 800;
+    font-size: 14px;
+    font-weight: bold;
     color: black;
 `;
 
-interface EstimatedValueProps {
+export const Logo = styled.div`
+    height: 20px;
+    width: 20px;
+`;
+
+export const Amount = styled.div`
+    flex: 1;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: right;
+    color: #777777;
+`;
+
+export const Hint = styled.div`
+    font-size: 11px;
+    font-weight: 500;
+    color: #777777;
+`;
+
+export const EstimatedValue = styled.div`
+    text-align: right;
+    flex: 1;
+    font-size: 14px;
+    font-weight: 500;
+`;
+
+interface FakeIconProps {
     color: keyof typeof Palette;
 }
 
-export const EstimatedValue = styled.div<EstimatedValueProps>`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
+export const FakeIcon = styled.div<FakeIconProps>`
+    border-radius: 50%;
+    background: ${(props) => Palette[props.color]};
+    width: 16px;
+    line-height: 16px;
+    text-align: center;
+    font-size: 18px;
+    color: white;
+    user-select: none;
+`;
+
+export const Total = styled.div`
+    margin-top: 4px;
+    background-color: #f4f7fd;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+`;
+
+export const TotalValue = styled.span`
+    color: ${Palette.Green};
     font-weight: bold;
-    padding: 4px 18px;
-    border-radius: 14px;
-    color: ${(props) => Palette[props.color]};
-    background: ${(props) => Palette[props.color]}18; /* 20 is ~0.1 opacity */
 `;

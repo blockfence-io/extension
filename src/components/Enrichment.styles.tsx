@@ -31,21 +31,63 @@ export const ExtensionsLink = styled.a`
     justify-content: center;
     align-items: center;
 
-    font-weight: normal;
-    color: ${theme.primaryColor};
+    font-weight: 500;
+    color: ${theme.linkColor};
 
-    font-weight: normal;
-    color: #0d37a3;
-    margin-bottom: 8px;
-    border: 1px solid #0d37a3;
-    border-radius: 6px;
-    padding: 6px;
     font-size: 12px;
     text-align: center;
-    opacity: 0.7;
+    opacity: 0.8;
+
+    & img {
+        margin-right: 4px;
+    }
 
     &:hover {
         text-decoration: none;
         opacity: 1;
     }
+`;
+
+export const ReadMoreLink = styled.span`
+    font-weight: 500;
+    color: ${theme.linkColor};
+
+    font-size: 12px;
+    cursor: pointer;
+
+    & img {
+        margin-right: 4px;
+    }
+
+    opacity: 0.8;
+    &:hover {
+        text-decoration: none;
+        opacity: 1;
+    }
+`;
+
+export const MetricsTable = styled.div`
+    margin: 12px 0;
+    display: flex;
+    font-size: 10px;
+
+    border: 1px #f6f5f8 solid;
+    border-radius: 6px;
+`;
+
+export const Metric = styled.div`
+    flex: 1;
+`;
+
+export const MetricTitle = styled.div`
+    font-size: 8px;
+    font-weight: 500;
+    color: #777777;
+    background: #f6f5f8;
+    padding: 2px 8px;
+`;
+
+export const MetricValue = styled.div`
+    padding: 2px 8px;
+    font-weight: 500;
 `;

@@ -14,46 +14,61 @@ interface NavigationBarProps {
     network?: keyof typeof SupportedNetworks;
     address?: string;
     url?: string;
-    onBack: () => void;
+    compact?: boolean;
+    onBack?: () => void;
     disabled?: boolean;
 }
 
-export function NavigationBar({ onBack, network, address, url, disabled = false }: NavigationBarProps) {
+export function NavigationBar({
+    onBack,
+    network,
+    address,
+    url,
+    disabled = false,
+    compact = false,
+}: NavigationBarProps) {
     const formatAddress = (address: string) => `${address.slice(0, 8)}...${address.slice(-4)}`.toUpperCase();
     const networkName = network ? SupportedNetworks[network].title : '';
     const networkIcon = network ? SupportedNetworks[network].icon : undefined;
 
     return (
         <Styled.Container>
-            <Styled.Navigation>
-                <Button variant='light' iconOnly onClick={onBack} disabled={disabled}>
-                    <UilArrowLeft />
-                </Button>
-            </Styled.Navigation>
+            {onBack && (
+                <Styled.Navigation>
+                    <Button variant='light' iconOnly onClick={onBack} disabled={disabled}>
+                        <UilArrowLeft />
+                    </Button>
+                </Styled.Navigation>
+            )}
 
-            <Styled.InfoGroup>
-                {network && address ? (
-                    <>
-                        <Styled.Info>
-                            <Styled.Icon type='normal'>{networkIcon}</Styled.Icon>
-                            <Styled.Key>Network</Styled.Key>
-                            <Styled.Value>{networkName}</Styled.Value>
-                        </Styled.Info>
-                        <Styled.Info>
+            <Styled.InfoGroup compact={compact}>
+                {network && (
+                    <Styled.Info compact={compact}>
+                        {!compact && <Styled.Icon type='normal'>{networkIcon}</Styled.Icon>}
+                        <Styled.Key>Network</Styled.Key>
+                        <Styled.Value>{networkName}</Styled.Value>
+                    </Styled.Info>
+                )}
+                {address && (
+                    <Styled.Info compact={compact}>
+                        {!compact && (
                             <Styled.Icon type='address'>
                                 <AddressIcon />
                             </Styled.Icon>
-                            <Styled.Key>Address</Styled.Key>
-                            <Styled.Value>
-                                <div>{formatAddress(address)}</div> <Copy text={address} size='16' />
-                            </Styled.Value>
-                        </Styled.Info>
-                    </>
-                ) : (
-                    <Styled.Info>
-                        <Styled.Icon type='url'>
-                            <URLIcon />
-                        </Styled.Icon>
+                        )}
+                        <Styled.Key>Address</Styled.Key>
+                        <Styled.Value>
+                            <div>{formatAddress(address)}</div> <Copy text={address} size='16' />
+                        </Styled.Value>
+                    </Styled.Info>
+                )}
+                {url && (
+                    <Styled.Info compact={compact}>
+                        {!compact && (
+                            <Styled.Icon type='url'>
+                                <URLIcon />
+                            </Styled.Icon>
+                        )}
                         <Styled.Key>URL</Styled.Key>
                         <Styled.TruncatedValue>{url}</Styled.TruncatedValue>
                     </Styled.Info>

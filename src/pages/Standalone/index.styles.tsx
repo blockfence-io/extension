@@ -103,7 +103,7 @@ export const Extension = styled.div`
     z-index: 2;
 
     border-radius: 10px;
-    overflow: hidden;
+    /* overflow: hidden; */
     box-shadow: rgb(0 0 0 / 30%) 8px 8px 20px;
 
     /* Mobile */

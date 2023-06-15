@@ -29,10 +29,7 @@ export function Risk({ risk, defaultState = false }: RiskProps) {
                     <img src={risk.icon} width='24' />
                 </Styled.Icon>
                 <Styled.Title>{risk.analyzerName}</Styled.Title>
-                <Styled.Severity severity={risk.severity}>
-                    {SeverityIcon && <SeverityIcon size='16' />}
-                    <Styled.SeverityName>{risk.severity ? risk.severity : 'NO RISKS FOUND'}</Styled.SeverityName>
-                </Styled.Severity>
+                <Styled.Severity severity={risk.severity}>{SeverityIcon && <SeverityIcon />}</Styled.Severity>
                 {isExpanded ? <UilAngleUp size='15' /> : <UilAngleDown size='16' />}
             </Styled.Header>
 

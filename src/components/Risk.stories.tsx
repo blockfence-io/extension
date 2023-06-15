@@ -13,7 +13,7 @@ type Story = StoryObj<typeof Risk>;
 
 const risks: RiskType[] = [
     {
-        analyzerName: 'Forta Networks',
+        analyzerName: 'An analyzer with a really long name',
         findings: [
             {
                 description: 'No Threats Detected by Forta Networks',

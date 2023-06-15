@@ -31,7 +31,7 @@ function App() {
                 <Banner />
                 <Styled.Extension>
                     <Styled.LayoutContainer>
-                        <PopupPanel hideAlpha hideSettings />
+                        <PopupPanel hideAlpha />
                     </Styled.LayoutContainer>
                 </Styled.Extension>
             </Styled.Body>

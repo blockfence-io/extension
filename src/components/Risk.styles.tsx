@@ -9,7 +9,7 @@ interface RiskProps {
 export const RiskGroup = styled.div`
     border-radius: 6px;
     border: 1px #f0f0f0 solid;
-    padding: 12px 14px;
+    padding: 8px 14px;
 `;
 
 export const Container = styled.div`
@@ -39,6 +39,10 @@ export const Title = styled.div`
 
     font-weight: 500;
     font-size: 12px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 `;
 
 export const Severity = styled.div<RiskProps>`
@@ -48,6 +52,10 @@ export const Severity = styled.div<RiskProps>`
     font-size: 12px;
     font-weight: 800;
     color: ${(props) => (props.severity ? theme.riskText[props.severity] : theme.riskText.NONE)};
+
+    & > svg {
+        width: 24px;
+    }
 `;
 
 export const SeverityName = styled.div`
