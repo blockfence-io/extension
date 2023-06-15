@@ -10,13 +10,21 @@ interface EnrichmentProps {
     defaultState?: boolean;
 }
 
+function cleanupDescription(s: string | undefined): string {
+    if (!s) {
+        return '';
+    }
+    return s.replace('<p>', '').replace('</p>', '');
+}
+
 export function Enrichment({ dataEnrichment, defaultState = false }: EnrichmentProps) {
     const [readMore, setReadMore] = useState(false);
     const logo = dataEnrichment.dapp_logo ? <img src={dataEnrichment.dapp_logo} width='24' /> : <RadarIcon />;
 
     return (
         <Collapsable title={dataEnrichment.title} icon={logo} defaultState={defaultState}>
-            {dataEnrichment.description} {readMore && dataEnrichment.long_description}
+            {cleanupDescription(dataEnrichment.description)}
+            {readMore && cleanupDescription(dataEnrichment.long_description)}
             {dataEnrichment.long_description && !readMore && (
                 <Styled.ReadMoreLink onClick={() => setReadMore(true)}>Read more...</Styled.ReadMoreLink>
             )}
