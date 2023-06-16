@@ -15,7 +15,12 @@ export function Enrichment({ dataEnrichment, defaultState = false }: EnrichmentP
     const logo = dataEnrichment.dapp_logo ? <img src={dataEnrichment.dapp_logo} width='24' /> : <RadarIcon />;
 
     return (
-        <Collapsable title={dataEnrichment.title} icon={logo} defaultState={defaultState}>
+        <Collapsable
+            title={dataEnrichment.title}
+            icon={logo}
+            defaultState={defaultState}
+            subtitle={dataEnrichment.type}
+        >
             {dataEnrichment.description} {readMore && dataEnrichment.long_description}
             {dataEnrichment.long_description && !readMore && (
                 <Styled.ReadMoreLink onClick={() => setReadMore(true)}>Read more...</Styled.ReadMoreLink>
