@@ -51,3 +51,9 @@ export const Copyrights = styled.div`
         margin-right: 5px;
     }
 `;
+
+export const Tab = styled.div`
+    &:not(:last-child) {
+        margin-bottom: 20px;
+    }
+`;

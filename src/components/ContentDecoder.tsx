@@ -72,9 +72,9 @@ export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, anal
                     <Tabs selected={tab} onChange={setTab} options={tabOptions} />
                 </div>
 
-                {tab === infoTab && renderInfoTab(analyzeResult, descriptionResultAsync)}
+                {renderInfoTab(tab, analyzeResult, descriptionResultAsync)}
 
-                {tab === analysisTab && renderAnalysisTab(analyzeResult)}
+                {renderAnalysisTab(tab, analyzeResult)}
 
                 {url && renderMuteButton(to, chainId, url)}
 
@@ -101,11 +101,12 @@ function renderMuteButton(to: string, chainId: keyof typeof SupportedNetworks, u
 }
 
 function renderInfoTab(
+    tab: string,
     analyzeResult: EngineResponse,
     descriptionResultAsync: UseAsyncReturn<ChatResponse>
 ): React.ReactNode {
     return (
-        <>
+        <Styled.Tab hidden={tab != infoTab}>
             {/* DAPP */}
             {analyzeResult.data_enrichments &&
                 analyzeResult.data_enrichments.map((dataEnrichment, id) => (
@@ -139,13 +140,13 @@ function renderInfoTab(
                     )}
                 </Collapsable>
             )}
-        </>
+        </Styled.Tab>
     );
 }
 
-function renderAnalysisTab(analyzeResult: EngineResponse): React.ReactNode {
+function renderAnalysisTab(tab: string, analyzeResult: EngineResponse): React.ReactNode {
     return (
-        <>
+        <Styled.Tab hidden={tab != analysisTab}>
             {analyzeResult.bf_blockchain_analysis && analyzeResult.bf_blockchain_analysis.length > 0 && (
                 <Collapsable title='Smart Contract' icon={<ContractIcon />} defaultState={false}>
                     <RiskGroup>
@@ -173,6 +174,6 @@ function renderAnalysisTab(analyzeResult: EngineResponse): React.ReactNode {
                     </RiskGroup>
                 </Collapsable>
             )}
-        </>
+        </Styled.Tab>
     );
 }
