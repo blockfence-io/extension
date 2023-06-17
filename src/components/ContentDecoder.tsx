@@ -147,7 +147,11 @@ function renderAnalysisTab(analyzeResult: EngineResponse): React.ReactNode {
     return (
         <>
             {analyzeResult.bf_blockchain_analysis && analyzeResult.bf_blockchain_analysis.length > 0 && (
-                <Collapsable title='Smart Contract' icon={<ContractIcon />} defaultState={false}>
+                <Collapsable
+                    title={analyzeResult.is_contract ? 'Smart Contract' : 'EOA'}
+                    icon={<ContractIcon />}
+                    defaultState={false}
+                >
                     <RiskGroup>
                         {analyzeResult.bf_blockchain_analysis.map((risk, id) => (
                             <Risk key={id} risk={risk} />
