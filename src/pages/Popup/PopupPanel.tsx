@@ -37,7 +37,7 @@ export function PopupPanel({ hideAlpha = false, hideSettings = false }: PopupPan
     };
     useEffect(() => {
         initChainId();
-    }, [searchInput]);
+    }, []);
 
     const descriptionResult = useAsyncCallback(async (chainId, to) => fetchDescription(chainId, to));
     const analyzeResult = useAsyncCallback(async (chainId, to, url) => fetchAnalyze(chainId, to, url));
