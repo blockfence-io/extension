@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAsyncCallback } from 'react-async-hook';
 
 import { Results } from '../../components/Results';
@@ -13,6 +13,7 @@ import { logAddressSearchClick, logUrlSearchClick } from '../../shared/logs';
 
 import '../../shared/reset.css';
 import '../../shared/font.css';
+import { getPrefferedChinId, setPreferredChainId } from '../../shared/storage';
 
 interface PopupPanelProps {
     hideAlpha?: boolean;
@@ -30,6 +31,14 @@ export function PopupPanel({ hideAlpha = false, hideSettings = false }: PopupPan
     const [compactMode, setCompactMode] = useState(false);
     const [searchInput, setSearchInput] = useState<SearchState>(emptyState);
 
+    const initChainId = async () => {
+        const chainId = await getPrefferedChinId();
+        setSearchInput({ ...searchInput, chainId });
+    };
+    useEffect(() => {
+        initChainId();
+    }, []);
+
     const descriptionResult = useAsyncCallback(async (chainId, to) => fetchDescription(chainId, to));
     const analyzeResult = useAsyncCallback(async (chainId, to, url) => fetchAnalyze(chainId, to, url));
 
@@ -44,6 +53,11 @@ export function PopupPanel({ hideAlpha = false, hideSettings = false }: PopupPan
         descriptionResult.execute(chainId, to);
         analyzeResult.execute(chainId, to, undefined);
         logAddressSearchClick(to, chainId);
+    }
+
+    function onSetSearchInput(state: SearchState) {
+        setPreferredChainId(state.chainId);
+        setSearchInput(state);
     }
 
     async function handleSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
@@ -81,7 +95,7 @@ export function PopupPanel({ hideAlpha = false, hideSettings = false }: PopupPan
                                 disabled={isLoading}
                             />
                         ) : (
-                            <SearchBar onChange={setSearchInput} state={searchInput} />
+                            <SearchBar onChange={onSetSearchInput} state={searchInput} />
                         )
                     }
                     body={
