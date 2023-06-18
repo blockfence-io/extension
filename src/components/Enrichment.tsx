@@ -46,10 +46,15 @@ function InfoTooltip(name: string, text: string) {
 
 export function Enrichment({ dataEnrichment, defaultState = false }: EnrichmentProps) {
     const [readMore, setReadMore] = useState(false);
-    const logo = dataEnrichment.dapp_logo ? <img src={dataEnrichment.dapp_logo} width='24' /> : <RadarIcon />;
-
+    const logo = dataEnrichment.dapp_logo ? <img src={dataEnrichment.dapp_logo} width='36' /> : <RadarIcon />;
     return (
-        <Collapsable title={dataEnrichment.title} icon={logo} defaultState={defaultState}>
+        <Collapsable
+            title={dataEnrichment.title}
+            icon={logo}
+            defaultState={defaultState}
+            subtitle={dataEnrichment.type}
+            iconType={'transparant'}
+        >
             {cleanupDescription(dataEnrichment.description)}
             {readMore && cleanupDescription(dataEnrichment.long_description)}
             {dataEnrichment.long_description && !readMore && (
