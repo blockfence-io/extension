@@ -50,7 +50,10 @@ export function Simulation({ simulation }: SimulationProps) {
                 <SimulationEntry entryType={EntryType.In} transaction={simulation.incoming_transaction} />
             )}
             <Styled.Total>
-                Total Conversion: <Styled.TotalValue>${getFormattedNumber(totalConversion)}</Styled.TotalValue>
+                Total Conversion:{' '}
+                <Styled.TotalValue style={{ color: totalConversion >= 0 ? Styled.Palette.Green : Styled.Palette.Red }}>
+                    ${getFormattedNumber(totalConversion)}
+                </Styled.TotalValue>
             </Styled.Total>
         </Styled.Container>
     );

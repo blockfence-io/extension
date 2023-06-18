@@ -116,6 +116,5 @@ export const Total = styled.div`
 `;
 
 export const TotalValue = styled.span`
-    color: ${Palette.Green};
     font-weight: bold;
 `;
