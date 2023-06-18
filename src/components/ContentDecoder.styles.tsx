@@ -35,12 +35,6 @@ export const Reponse = styled.div`
     line-height: 1.4;
 `;
 
-export const ContractName = styled.div`
-    font-weight: bold;
-    margin-bottom: 6px;
-    font-size: 12px;
-`;
-
 export const Copyrights = styled.div`
     color: black;
     font-size: 10px;
