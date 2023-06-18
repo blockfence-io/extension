@@ -9,6 +9,7 @@ import { Button } from './UI/Button';
 import { Copy } from './UI/Copy';
 
 import * as Styled from './NavigationBar.styles';
+import { Tooltip } from 'react-tooltip';
 
 interface NavigationBarProps {
     network?: keyof typeof SupportedNetworks;
@@ -70,7 +71,10 @@ export function NavigationBar({
                             </Styled.Icon>
                         )}
                         <Styled.Key>URL</Styled.Key>
-                        <Styled.TruncatedValue>{url}</Styled.TruncatedValue>
+                        <Styled.TruncatedValue data-tooltip-id={url} data-tooltip-content={url}>
+                            {url}
+                        </Styled.TruncatedValue>
+                        <Tooltip id={url} />
                     </Styled.Info>
                 )}
             </Styled.InfoGroup>
