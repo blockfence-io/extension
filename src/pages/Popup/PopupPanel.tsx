@@ -43,12 +43,17 @@ export function PopupPanel({ hideAlpha = false, hideSettings = false }: PopupPan
     const analyzeResult = useAsyncCallback(async (chainId, to, url) => fetchAnalyze(chainId, to, url));
 
     async function submitUrl(url: string) {
+        searchInput.address = '';
+        searchInput.chainId = '';
+        setSearchInput(searchInput);
         setCompactMode(true);
         analyzeResult.execute(undefined, undefined, url);
         logUrlSearchClick(url);
     }
 
     async function submitAddress(chainId: string, to: string) {
+        searchInput.url = '';
+        setSearchInput(searchInput);
         setCompactMode(true);
         descriptionResult.execute(chainId, to);
         analyzeResult.execute(chainId, to, undefined);
