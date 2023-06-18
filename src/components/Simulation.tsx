@@ -5,6 +5,7 @@ import { getFormattedNumber } from '../helpers/getFormattedNumber';
 import TxIcon from '../assets/icons/tx-icon.svg';
 
 import * as Styled from './Simulation.styles';
+import { InfoTooltip } from './UI/InfoTooltip';
 
 enum EntryType {
     In = 'In',
@@ -64,7 +65,11 @@ function SimulationEntry({ transaction, entryType }: SimulationEntryProps) {
         <Styled.SectionContainer>
             <Styled.Logo>{transaction.logo && <img src={transaction.logo} width='18' />}</Styled.Logo>
             <Styled.Symbol>
-                {transaction.symbol} {entryType === EntryType.Gas && <Styled.Hint>Gas</Styled.Hint>}
+                {transaction.symbol}
+                {entryType === EntryType.Gas && <Styled.Hint>Gas</Styled.Hint>}
+                {entryType === EntryType.Gas && (
+                    <InfoTooltip name='simulation' tooltipText='Gas prices are estimated' />
+                )}
             </Styled.Symbol>
 
             <Styled.Amount>{getFormattedNumber(transaction.amount || 0)}</Styled.Amount>
