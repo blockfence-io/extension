@@ -49,7 +49,14 @@ const tabOptions: TabOptions[] = [
 ];
 
 export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, analyzeResult, url }: ContentDecoderProps) {
-    const defaultTab = analyzeResult.severity === 'NONE' ? infoTab : analysisTab;
+    const showInfoTab = !infoTabIsEmpty(analyzeResult, descriptionResultAsync);
+    console.log('showInfoTab', showInfoTab);
+    if (!showInfoTab) {
+        //delete the info tab if it's empty from tabOptions
+        tabOptions.splice(0, 1);
+    }
+    const defaultTab = showInfoTab && analyzeResult.severity === 'NONE' ? infoTab : analysisTab;
+
     const [tab, setTab] = useState(defaultTab);
 
     const onFeedbackClick = async (thumbsUp: boolean, comment: string) => {
@@ -68,9 +75,11 @@ export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, anal
                 )}
 
                 {/* Tabs */}
-                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-                    <Tabs selected={tab} onChange={setTab} options={tabOptions} />
-                </div>
+                {tabOptions.length > 1 && (
+                    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+                        <Tabs selected={tab} onChange={setTab} options={tabOptions} />
+                    </div>
+                )}
 
                 {renderInfoTab(tab, analyzeResult, descriptionResultAsync)}
 
@@ -105,6 +114,11 @@ function renderInfoTab(
     analyzeResult: EngineResponse,
     descriptionResultAsync: UseAsyncReturn<ChatResponse>
 ): React.ReactNode {
+    const descriptionTitle = analyzeResult.is_contract
+        ? analyzeResult.name != ''
+            ? analyzeResult.name
+            : 'Smart Contract'
+        : 'Wallet';
     return (
         <Styled.Tab hidden={tab != infoTab}>
             {/* DAPP */}
@@ -116,17 +130,13 @@ function renderInfoTab(
             {/* Description */}
             {(descriptionResultAsync.loading || descriptionResultAsync.error || descriptionResultAsync.result) && (
                 <Collapsable
-                    title={analyzeResult.is_contract ? 'Contract Description' : 'Description'}
+                    title={descriptionTitle}
                     icon={<SpotlightIcon />}
                     defaultState={
                         analyzeResult.data_enrichments && analyzeResult.data_enrichments.length > 0 ? false : true
                     }
+                    subtitle={analyzeResult.is_contract ? 'Smart Contract Description' : 'EOA'}
                 >
-                    {analyzeResult.name !== '' && (
-                        <Styled.ContractName>
-                            {analyzeResult.is_contract ? 'Contract Name' : 'Name'}: {analyzeResult.name}
-                        </Styled.ContractName>
-                    )}
                     {descriptionResultAsync.loading ? (
                         <Placeholder />
                     ) : (
@@ -182,4 +192,8 @@ function renderAnalysisTab(tab: string, analyzeResult: EngineResponse): React.Re
             )}
         </Styled.Tab>
     );
+}
+
+function infoTabIsEmpty(analyzeResult: EngineResponse, descriptionResultAsync: UseAsyncReturn<ChatResponse>): boolean {
+    return analyzeResult?.data_enrichments?.length == 0 && descriptionResultAsync.status == 'not-requested';
 }
