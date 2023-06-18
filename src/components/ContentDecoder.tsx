@@ -49,7 +49,13 @@ const tabOptions: TabOptions[] = [
 ];
 
 export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, analyzeResult, url }: ContentDecoderProps) {
-    const defaultTab = analyzeResult.severity === 'NONE' ? infoTab : analysisTab;
+    const showInfoTab = !infoTabIsEmpty(analyzeResult, descriptionResultAsync);
+    if (!showInfoTab) {
+        //delete the info tab if it's empty from tabOptions
+        tabOptions.splice(0, 1);
+    }
+    const defaultTab = showInfoTab && analyzeResult.severity === 'NONE' ? infoTab : analysisTab;
+
     const [tab, setTab] = useState(defaultTab);
 
     const onFeedbackClick = async (thumbsUp: boolean, comment: string) => {
@@ -68,9 +74,11 @@ export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, anal
                 )}
 
                 {/* Tabs */}
-                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-                    <Tabs selected={tab} onChange={setTab} options={tabOptions} />
-                </div>
+                {tabOptions.length > 1 && (
+                    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+                        <Tabs selected={tab} onChange={setTab} options={tabOptions} />
+                    </div>
+                )}
 
                 {renderInfoTab(tab, analyzeResult, descriptionResultAsync)}
 
@@ -181,5 +189,12 @@ function renderAnalysisTab(tab: string, analyzeResult: EngineResponse): React.Re
                 </Collapsable>
             )}
         </Styled.Tab>
+    );
+}
+
+function infoTabIsEmpty(analyzeResult: EngineResponse, descriptionResultAsync: UseAsyncReturn<ChatResponse>): boolean {
+    return (
+        analyzeResult?.data_enrichments?.length == 0 &&
+        (descriptionResultAsync.loading && descriptionResultAsync.error && descriptionResultAsync.result) == false
     );
 }
