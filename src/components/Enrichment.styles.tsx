@@ -85,9 +85,39 @@ export const MetricTitle = styled.div`
     color: #777777;
     background: #f6f5f8;
     padding: 2px 8px;
+    // make this container horizontal
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+    // make it centered vertically
+    align-items: center;
 `;
 
 export const MetricValue = styled.div`
     padding: 2px 8px;
     font-weight: 500;
+`;
+
+export const InfoIcon = styled.div`
+    background: #777777;
+    // make the background a circle
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    // center the text
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // make the text white
+    color: white;
+    // make the text a bit transparent
+    opacity: 0.8;
+    // add a bit of margin to the right
+    margin-right: 4px;
+    // make the cursor a pointer
+    cursor: pointer;
+    // add a bit of padding
+    padding: 4px;
+    // make the font a bit smaller
+    font-size: 6px;
 `;
