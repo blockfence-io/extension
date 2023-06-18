@@ -3,7 +3,7 @@ import { Animate } from 'react-simple-animate';
 
 import { SettingsMenu } from './SettingsMenu';
 
-import ComputerImage from '../assets/computer.svg';
+import EhtereumImage from '../assets/etherium.png';
 import Logo from '../assets/logo-full-white.svg';
 
 import * as types from '../types/api';
@@ -71,7 +71,7 @@ function AnimatedComputerImage({ isVisible }: { isVisible: boolean }) {
             }}
             easeType='cubic-bezier(0.445, 0.05, 0.55, 0.95)'
         >
-            <ComputerImage id='computer' />
+            <img id='computer' src={EhtereumImage} />
         </Animate>
     );
 }
