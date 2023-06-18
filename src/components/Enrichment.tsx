@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { DataEnrichment } from '../types/api';
 import { Collapsable } from './UI/Collapsable';
 import RadarIcon from '../assets/icons/radar-icon.svg';
-import { Tooltip } from 'react-tooltip';
-import * as theme from '../shared/theme';
 
 import * as Styled from './Enrichment.styles';
+import { InfoTooltip } from './UI/InfoTooltip';
 
 interface EnrichmentProps {
     dataEnrichment: DataEnrichment;
@@ -32,18 +31,6 @@ function formatNumber(num: number): string {
     return num.toString();
 }
 
-function InfoTooltip(name: string, text: string) {
-    const id = 'name-' + name;
-    return (
-        <>
-            <Styled.InfoIcon data-tooltip-id={id} data-tooltip-content={text}>
-                i
-            </Styled.InfoIcon>
-            <Tooltip style={{ background: theme.tooltipBG }} id={id} />
-        </>
-    );
-}
-
 export function Enrichment({ dataEnrichment, defaultState = false }: EnrichmentProps) {
     const [readMore, setReadMore] = useState(false);
     const logo = dataEnrichment.dapp_logo ? <img src={dataEnrichment.dapp_logo} width='24' /> : <RadarIcon />;
@@ -65,7 +52,8 @@ export function Enrichment({ dataEnrichment, defaultState = false }: EnrichmentP
                     {dataEnrichment.metrics?.map((metric) => (
                         <Styled.Metric key={metric.name}>
                             <Styled.MetricTitle>
-                                {metric.name} {metric.tooltip && InfoTooltip(metric.name, metric.tooltip)}
+                                {metric.name}{' '}
+                                {metric.tooltip && <InfoTooltip name={metric.name} tooltipText={metric.tooltip} />}
                             </Styled.MetricTitle>
                             <Styled.MetricValue>{formatNumber(metric.amount)}</Styled.MetricValue>
                         </Styled.Metric>
