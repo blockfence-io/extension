@@ -2,7 +2,6 @@ import React from 'react';
 
 import { UilArrowLeft } from '@iconscout/react-unicons';
 import URLIcon from '../assets/icons/url.svg';
-import AddressIcon from '../assets/icons/address.svg';
 
 import { SupportedNetworks } from '../types/networks';
 import { Button } from './UI/Button';
@@ -38,7 +37,6 @@ export function NavigationBar({
     compact = false,
 }: NavigationBarProps) {
     const formatAddress = (address: string) => `${address.slice(0, 8)}...${address.slice(-4)}`.toUpperCase();
-    const networkName = network ? SupportedNetworks[network].title : '';
     const networkIcon = network ? SupportedNetworks[network].icon : undefined;
 
     return (
@@ -52,18 +50,11 @@ export function NavigationBar({
             )}
 
             <Styled.InfoGroup compact={compact}>
-                {network && (
-                    <Styled.Info compact={compact}>
-                        {!compact && <Styled.Icon type='normal'>{networkIcon}</Styled.Icon>}
-                        <Styled.Key>Network</Styled.Key>
-                        <Styled.Value>{networkName}</Styled.Value>
-                    </Styled.Info>
-                )}
                 {address && (
                     <Styled.Info compact={compact}>
                         {!compact && (
                             <Styled.Icon type='address'>
-                                <AddressIcon />
+                                <Styled.Icon type='normal'>{networkIcon}</Styled.Icon>
                             </Styled.Icon>
                         )}
                         <Styled.Key>
