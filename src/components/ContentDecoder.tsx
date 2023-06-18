@@ -40,13 +40,17 @@ const shouldShowSimulation = (transaction_simulation?: TransactionSimulation) =>
 const chatError =
     "GPT-3's experiencing some technical difficulties, but don't worry, our team's on it. In the meantime, give it another try or holla at us if you need a hand.";
 
+const infoTab = '1';
+const analysisTab = '2';
+
 const tabOptions: TabOptions[] = [
-    { key: '1', title: 'Info' },
-    { key: '2', title: 'Analysis' },
+    { key: infoTab, title: 'Info' },
+    { key: analysisTab, title: 'Analysis' },
 ];
 
 export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, analyzeResult, url }: ContentDecoderProps) {
-    const [tab, setTab] = useState('1');
+    const defaultTab = analyzeResult.severity === 'NONE' ? infoTab : analysisTab;
+    const [tab, setTab] = useState(defaultTab);
 
     const onFeedbackClick = async (thumbsUp: boolean, comment: string) => {
         const isManualSearch = url ? true : false; // TODO: we should have a better way to do this
@@ -68,101 +72,110 @@ export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, anal
                     <Tabs selected={tab} onChange={setTab} options={tabOptions} />
                 </div>
 
-                {tab === '1' && (
-                    <>
-                        {/* DAPP */}
-                        {analyzeResult.data_enrichments &&
-                            analyzeResult.data_enrichments.map((dataEnrichment, id) => (
-                                <Enrichment key={id} dataEnrichment={dataEnrichment} defaultState={false} />
-                            ))}
+                {renderInfoTab(tab, analyzeResult, descriptionResultAsync)}
 
-                        {/* Description */}
-                        {(descriptionResultAsync.loading ||
-                            descriptionResultAsync.error ||
-                            descriptionResultAsync.result) && (
-                            <Collapsable
-                                title={analyzeResult.is_contract ? 'Contract Description' : 'Description'}
-                                icon={<SpotlightIcon />}
-                                defaultState={
-                                    analyzeResult.data_enrichments && analyzeResult.data_enrichments.length > 0
-                                        ? false
-                                        : true
-                                }
-                            >
-                                {analyzeResult.name !== '' && (
-                                    <Styled.ContractName>
-                                        {analyzeResult.is_contract ? 'Contract Name' : 'Name'}: {analyzeResult.name}
-                                    </Styled.ContractName>
-                                )}
-                                {descriptionResultAsync.loading ? (
-                                    <Placeholder />
-                                ) : (
-                                    <>
-                                        {descriptionResultAsync.error
-                                            ? chatError
-                                            : descriptionResultAsync.result?.description}
-                                        {analyzeResult.is_contract && (
-                                            <Styled.Copyrights>
-                                                <ChatGPTIcon />
-                                                Powered by OpenAI
-                                            </Styled.Copyrights>
-                                        )}
-                                    </>
-                                )}
-                            </Collapsable>
-                        )}
-                    </>
-                )}
+                {renderAnalysisTab(tab, analyzeResult)}
 
-                {tab === '2' && (
-                    <>
-                        {analyzeResult.bf_blockchain_analysis && analyzeResult.bf_blockchain_analysis.length > 0 && (
-                            <Collapsable title='Smart Contract' icon={<ContractIcon />} defaultState={false}>
-                                <RiskGroup>
-                                    {analyzeResult.bf_blockchain_analysis.map((risk, id) => (
-                                        <Risk key={id} risk={risk} />
-                                    ))}
-                                </RiskGroup>
-                            </Collapsable>
-                        )}
-                        {analyzeResult.bf_web_analysis && analyzeResult.bf_web_analysis.length > 0 && (
-                            <Collapsable title='Website' icon={<AddressIcon />} defaultState={false}>
-                                <RiskGroup>
-                                    {analyzeResult.bf_web_analysis.map((risk, id) => (
-                                        <Risk key={id} risk={risk} />
-                                    ))}
-                                </RiskGroup>
-                            </Collapsable>
-                        )}
-                        {analyzeResult.partners_analysis && analyzeResult.partners_analysis.length > 0 && (
-                            <Collapsable title='Partners' icon={<PartnersIcon />} defaultState={false}>
-                                <RiskGroup>
-                                    {analyzeResult.partners_analysis.map((risk, id) => (
-                                        <Risk key={id} risk={risk} />
-                                    ))}
-                                </RiskGroup>
-                            </Collapsable>
-                        )}
-                    </>
-                )}
-
-                {url && (
-                    <Styled.Options>
-                        <Panel>
-                            <MuteButton
-                                address={to}
-                                chainId={chainId}
-                                url={url}
-                                text='Disable future alerts for this Transaction'
-                            />
-                        </Panel>
-                    </Styled.Options>
-                )}
+                {url && renderMuteButton(to, chainId, url)}
 
                 <Styled.Options>
                     <Feedback onClick={onFeedbackClick} />
                 </Styled.Options>
             </Styled.Results>
         </>
+    );
+}
+function renderMuteButton(to: string, chainId: keyof typeof SupportedNetworks, url: string): React.ReactNode {
+    return (
+        <Styled.Options>
+            <Panel>
+                <MuteButton
+                    address={to}
+                    chainId={chainId}
+                    url={url}
+                    text='Disable future alerts for this Transaction'
+                />
+            </Panel>
+        </Styled.Options>
+    );
+}
+
+function renderInfoTab(
+    tab: string,
+    analyzeResult: EngineResponse,
+    descriptionResultAsync: UseAsyncReturn<ChatResponse>
+): React.ReactNode {
+    return (
+        <Styled.Tab hidden={tab != infoTab}>
+            {/* DAPP */}
+            {analyzeResult.data_enrichments &&
+                analyzeResult.data_enrichments.map((dataEnrichment, id) => (
+                    <Enrichment key={id} dataEnrichment={dataEnrichment} defaultState={false} />
+                ))}
+
+            {/* Description */}
+            {(descriptionResultAsync.loading || descriptionResultAsync.error || descriptionResultAsync.result) && (
+                <Collapsable
+                    title={analyzeResult.is_contract ? 'Contract Description' : 'Description'}
+                    icon={<SpotlightIcon />}
+                    defaultState={
+                        analyzeResult.data_enrichments && analyzeResult.data_enrichments.length > 0 ? false : true
+                    }
+                >
+                    {analyzeResult.name !== '' && (
+                        <Styled.ContractName>
+                            {analyzeResult.is_contract ? 'Contract Name' : 'Name'}: {analyzeResult.name}
+                        </Styled.ContractName>
+                    )}
+                    {descriptionResultAsync.loading ? (
+                        <Placeholder />
+                    ) : (
+                        <>
+                            {descriptionResultAsync.error ? chatError : descriptionResultAsync.result?.description}
+                            {analyzeResult.is_contract && (
+                                <Styled.Copyrights>
+                                    <ChatGPTIcon />
+                                    Powered by OpenAI
+                                </Styled.Copyrights>
+                            )}
+                        </>
+                    )}
+                </Collapsable>
+            )}
+        </Styled.Tab>
+    );
+}
+
+function renderAnalysisTab(tab: string, analyzeResult: EngineResponse): React.ReactNode {
+    return (
+        <Styled.Tab hidden={tab != analysisTab}>
+            {analyzeResult.bf_blockchain_analysis && analyzeResult.bf_blockchain_analysis.length > 0 && (
+                <Collapsable title='Smart Contract' icon={<ContractIcon />} defaultState={false}>
+                    <RiskGroup>
+                        {analyzeResult.bf_blockchain_analysis.map((risk, id) => (
+                            <Risk key={id} risk={risk} />
+                        ))}
+                    </RiskGroup>
+                </Collapsable>
+            )}
+            {analyzeResult.bf_web_analysis && analyzeResult.bf_web_analysis.length > 0 && (
+                <Collapsable title='Website' icon={<AddressIcon />} defaultState={false}>
+                    <RiskGroup>
+                        {analyzeResult.bf_web_analysis.map((risk, id) => (
+                            <Risk key={id} risk={risk} />
+                        ))}
+                    </RiskGroup>
+                </Collapsable>
+            )}
+            {analyzeResult.partners_analysis && analyzeResult.partners_analysis.length > 0 && (
+                <Collapsable title='Partners' icon={<PartnersIcon />} defaultState={false}>
+                    <RiskGroup>
+                        {analyzeResult.partners_analysis.map((risk, id) => (
+                            <Risk key={id} risk={risk} />
+                        ))}
+                    </RiskGroup>
+                </Collapsable>
+            )}
+        </Styled.Tab>
     );
 }
