@@ -132,10 +132,12 @@ function renderInfoTab(
                     ) : (
                         <>
                             {descriptionResultAsync.error ? chatError : descriptionResultAsync.result?.description}
-                            <Styled.Copyrights>
-                                <ChatGPTIcon />
-                                Powered by OpenAI
-                            </Styled.Copyrights>
+                            {analyzeResult.is_contract && (
+                                <Styled.Copyrights>
+                                    <ChatGPTIcon />
+                                    Powered by OpenAI
+                                </Styled.Copyrights>
+                            )}
                         </>
                     )}
                 </Collapsable>
@@ -148,7 +150,11 @@ function renderAnalysisTab(tab: string, analyzeResult: EngineResponse): React.Re
     return (
         <Styled.Tab hidden={tab != analysisTab}>
             {analyzeResult.bf_blockchain_analysis && analyzeResult.bf_blockchain_analysis.length > 0 && (
-                <Collapsable title='Smart Contract' icon={<ContractIcon />} defaultState={false}>
+                <Collapsable
+                    title={analyzeResult.is_contract ? 'Smart Contract' : 'EOA'}
+                    icon={<ContractIcon />}
+                    defaultState={false}
+                >
                     <RiskGroup>
                         {analyzeResult.bf_blockchain_analysis.map((risk, id) => (
                             <Risk key={id} risk={risk} />
