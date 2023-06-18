@@ -12,6 +12,13 @@ interface EnrichmentProps {
     defaultState?: boolean;
 }
 
+function cleanupDescription(s: string | undefined): string {
+    if (!s) {
+        return '';
+    }
+    return s.replace('<p>', '').replace('</p>', '');
+}
+
 function formatNumber(num: number): string {
     if (Math.abs(num) >= 1.0e9) {
         return Math.round(num / 1.0e8) / 10 + 'B';
@@ -43,7 +50,8 @@ export function Enrichment({ dataEnrichment, defaultState = false }: EnrichmentP
 
     return (
         <Collapsable title={dataEnrichment.title} icon={logo} defaultState={defaultState}>
-            {dataEnrichment.description} {readMore && dataEnrichment.long_description}
+            {cleanupDescription(dataEnrichment.description)}
+            {readMore && cleanupDescription(dataEnrichment.long_description)}
             {dataEnrichment.long_description && !readMore && (
                 <Styled.ReadMoreLink onClick={() => setReadMore(true)}>Read more...</Styled.ReadMoreLink>
             )}
