@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { DataEnrichment } from '../types/api';
 import { Collapsable } from './UI/Collapsable';
 import RadarIcon from '../assets/icons/radar-icon.svg';
+import { Tooltip } from 'react-tooltip';
+import * as theme from '../shared/theme';
 
 import * as Styled from './Enrichment.styles';
 
@@ -15,6 +17,18 @@ function cleanupDescription(s: string | undefined): string {
         return '';
     }
     return s.replace('<p>', '').replace('</p>', '');
+}
+
+function InfoTooltip(name: string, text: string) {
+    const id = 'name-' + name;
+    return (
+        <>
+            <Styled.InfoIcon data-tooltip-id={id} data-tooltip-content={text}>
+                i
+            </Styled.InfoIcon>
+            <Tooltip style={{ background: theme.tooltipBG }} id={id} />
+        </>
+    );
 }
 
 export function Enrichment({ dataEnrichment, defaultState = false }: EnrichmentProps) {
@@ -32,7 +46,9 @@ export function Enrichment({ dataEnrichment, defaultState = false }: EnrichmentP
                 <Styled.MetricsTable>
                     {dataEnrichment.metrics?.map((metric) => (
                         <Styled.Metric key={metric.name}>
-                            <Styled.MetricTitle>{metric.name}</Styled.MetricTitle>
+                            <Styled.MetricTitle>
+                                {metric.name} {metric.tooltip && InfoTooltip(metric.name, metric.tooltip)}
+                            </Styled.MetricTitle>
                             <Styled.MetricValue>{metric.amount}</Styled.MetricValue>
                         </Styled.Metric>
                     ))}
