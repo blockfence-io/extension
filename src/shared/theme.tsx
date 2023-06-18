@@ -19,19 +19,16 @@ export const linkColor = '#006BFF';
 
 export const riskText: { [key in Severity]: string } = {
     NONE: '#00B341',
-    LOW: '#00B341',
-    // LOW: '#dfc700',
+    LOW: '#dfc700',
     MEDIUM: '#dfc700',
     HIGH: '#D80000',
-    // CRITICAL: '#D80000',
 };
 
 export const riskBackground: { [key in Severity]: string } = {
     NONE: 'linear-gradient(95.2deg, #00b903 1.02%, #00d703 100%)',
-    LOW: 'linear-gradient(95.2deg, #ceb800 1.02%, #dfc700 100%)',
-    MEDIUM: 'linear-gradient(95.2deg, #ceb800 1.02%, #dfc700 100%)',
+    LOW: 'linear-gradient(95.2deg,#ce9000 1.02%,#efe111 100%)',
+    MEDIUM: 'linear-gradient(95.2deg,#ce9000 1.02%,#efe111 100%)',
     HIGH: 'linear-gradient(95.2deg, #BE0404 1.02%, #D80000 100%)',
-    // CRITICAL: 'linear-gradient(95.2deg, #BE0404 1.02%, #D80000 100%)',
 };
 
 export const riskIcons: { [key in Severity]: Icon | undefined } = {
@@ -39,12 +36,13 @@ export const riskIcons: { [key in Severity]: Icon | undefined } = {
     LOW: GaugeLow,
     MEDIUM: GaugeMedium,
     HIGH: GaugeHigh,
-    // CRITICAL: UilExclamationTriangle,
 };
 
 export const mediaWidth = {
     mobile: '375px',
     tablet: '768px',
-    smallLaptop: '1200px', // 1024?
+    smallLaptop: '1200px',
     largeDisplay: '1440px',
 };
+
+export const tooltipBG = '#888888';
