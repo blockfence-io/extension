@@ -29,8 +29,9 @@ export function Simulation({ simulation }: SimulationProps) {
     const validIncoming = validTransaction(simulation.incoming_transaction);
 
     let totalConversion = 0;
-    if (simulation.outgoing_transaction?.usd) totalConversion += simulation.outgoing_transaction.usd;
-    if (simulation.outgoing_gas?.usd) totalConversion += simulation.outgoing_gas.usd;
+    if (simulation.outgoing_transaction?.usd) totalConversion -= simulation.outgoing_transaction.usd;
+    if (simulation.incoming_transaction?.usd) totalConversion += simulation.incoming_transaction.usd;
+    if (simulation.outgoing_gas?.usd) totalConversion -= simulation.outgoing_gas.usd;
 
     return (
         <Styled.Container>
