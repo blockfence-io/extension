@@ -19,6 +19,16 @@ interface NavigationBarProps {
     disabled?: boolean;
 }
 
+function cleanupURL(url: string): string {
+    if (url.startsWith('http://')) {
+        return url.substring(7);
+    } else if (url.startsWith('https://')) {
+        return url.substring(8);
+    } else {
+        return url;
+    }
+}
+
 export function NavigationBar({
     onBack,
     network,
@@ -56,9 +66,11 @@ export function NavigationBar({
                                 <AddressIcon />
                             </Styled.Icon>
                         )}
-                        <Styled.Key>Address</Styled.Key>
+                        <Styled.Key>
+                            Address <Copy text={address} size='16' />
+                        </Styled.Key>
                         <Styled.Value>
-                            <div>{formatAddress(address)}</div> <Copy text={address} size='16' />
+                            <div>{formatAddress(address)}</div>
                         </Styled.Value>
                     </Styled.Info>
                 )}
@@ -69,8 +81,11 @@ export function NavigationBar({
                                 <URLIcon />
                             </Styled.Icon>
                         )}
-                        <Styled.Key>URL</Styled.Key>
-                        <Styled.TruncatedValue>{url}</Styled.TruncatedValue>
+                        <Styled.Key>
+                            URL
+                            <Copy text={url} size='16' />
+                        </Styled.Key>
+                        <Styled.TruncatedValue>{cleanupURL(url)}</Styled.TruncatedValue>
                     </Styled.Info>
                 )}
             </Styled.InfoGroup>
