@@ -19,6 +19,19 @@ function cleanupDescription(s: string | undefined): string {
     return s.replace('<p>', '').replace('</p>', '');
 }
 
+function formatNumber(num: number): string {
+    if (Math.abs(num) >= 1.0e9) {
+        return Math.round(num / 1.0e8) / 10 + 'B';
+    }
+    if (Math.abs(num) >= 1.0e6) {
+        return Math.round(num / 1.0e5) / 10 + 'M';
+    }
+    if (Math.abs(num) >= 1.0e3) {
+        return Math.round(num / 1.0e2) / 10 + 'k';
+    }
+    return num.toString();
+}
+
 function InfoTooltip(name: string, text: string) {
     const id = 'name-' + name;
     return (
@@ -49,7 +62,7 @@ export function Enrichment({ dataEnrichment, defaultState = false }: EnrichmentP
                             <Styled.MetricTitle>
                                 {metric.name} {metric.tooltip && InfoTooltip(metric.name, metric.tooltip)}
                             </Styled.MetricTitle>
-                            <Styled.MetricValue>{metric.amount}</Styled.MetricValue>
+                            <Styled.MetricValue>{formatNumber(metric.amount)}</Styled.MetricValue>
                         </Styled.Metric>
                     ))}
                 </Styled.MetricsTable>
