@@ -33,7 +33,7 @@ export const riskBackground: { [key in Severity]: string } = {
 
 export const riskIcons: { [key in Severity]: Icon | undefined } = {
     NONE: GaugeLow,
-    LOW: GaugeLow,
+    LOW: GaugeMedium,
     MEDIUM: GaugeMedium,
     HIGH: GaugeHigh,
 };
