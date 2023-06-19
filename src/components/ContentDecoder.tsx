@@ -6,7 +6,8 @@ import { Placeholder } from './UI/Loader';
 import { Risk, RiskGroup } from './Risk';
 import { Enrichment } from './Enrichment';
 
-import SpotlightIcon from '../assets/icons/spotlight.svg';
+import URLIcon from '../assets/icons/url.svg';
+
 import AddressIcon from '../assets/icons/address.svg';
 import ContractIcon from '../assets/icons/contract.svg';
 import PartnersIcon from '../assets/icons/partners.svg';
@@ -50,7 +51,6 @@ const tabOptions: TabOptions[] = [
 
 export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, analyzeResult, url }: ContentDecoderProps) {
     const showInfoTab = !infoTabIsEmpty(analyzeResult, descriptionResultAsync);
-    console.log('showInfoTab', showInfoTab);
     if (!showInfoTab) {
         //delete the info tab if it's empty from tabOptions
         tabOptions.splice(0, 1);
@@ -131,7 +131,8 @@ function renderInfoTab(
             {(descriptionResultAsync.loading || descriptionResultAsync.error || descriptionResultAsync.result) && (
                 <Collapsable
                     title={descriptionTitle}
-                    icon={<SpotlightIcon />}
+                    icon={<AddressIcon />}
+                    iconType='address'
                     defaultState={
                         analyzeResult.data_enrichments && analyzeResult.data_enrichments.length > 0 ? false : true
                     }
@@ -164,6 +165,7 @@ function renderAnalysisTab(tab: string, analyzeResult: EngineResponse): React.Re
                     title={analyzeResult.is_contract ? 'Smart Contract' : 'EOA'}
                     icon={<ContractIcon />}
                     defaultState={false}
+                    iconType='contract'
                 >
                     <RiskGroup>
                         {analyzeResult.bf_blockchain_analysis.map((risk, id) => (
@@ -173,7 +175,7 @@ function renderAnalysisTab(tab: string, analyzeResult: EngineResponse): React.Re
                 </Collapsable>
             )}
             {analyzeResult.bf_web_analysis && analyzeResult.bf_web_analysis.length > 0 && (
-                <Collapsable title='Website' icon={<AddressIcon />} defaultState={false}>
+                <Collapsable title='Website' icon={<URLIcon />} defaultState={false} iconType='url'>
                     <RiskGroup>
                         {analyzeResult.bf_web_analysis.map((risk, id) => (
                             <Risk key={id} risk={risk} />
@@ -182,7 +184,7 @@ function renderAnalysisTab(tab: string, analyzeResult: EngineResponse): React.Re
                 </Collapsable>
             )}
             {analyzeResult.partners_analysis && analyzeResult.partners_analysis.length > 0 && (
-                <Collapsable title='Partners' icon={<PartnersIcon />} defaultState={false}>
+                <Collapsable title='Partners' icon={<PartnersIcon />} defaultState={false} iconType='partners'>
                     <RiskGroup>
                         {analyzeResult.partners_analysis.map((risk, id) => (
                             <Risk key={id} risk={risk} />
