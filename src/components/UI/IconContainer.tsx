@@ -1,13 +1,16 @@
 import styled from 'styled-components';
 
+export type IconType = 'normal' | 'url' | 'address' | 'transparant';
+
 export interface IconProps {
-    type: 'normal' | 'url' | 'address';
+    type: IconType;
 }
 
 const iconColors = {
     normal: '#efefef',
     url: '#F2F9FF',
     address: '#FFF1F9',
+    transparant: 'transparent',
 };
 
 export const IconContainer = styled.div<IconProps>`

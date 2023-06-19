@@ -19,6 +19,10 @@ export const Container = styled.div`
 
     min-width: ${POPUP_WIDTH};
     min-height: 600px;
+
+    //Add vertical scrollbar if needed
+    overflow-y: auto;
+    overflow-x: hidden;
 `;
 
 export const Header = styled.div`
