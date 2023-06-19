@@ -43,6 +43,7 @@ export function Enrichment({ dataEnrichment, defaultState = false }: EnrichmentP
             iconType={'transparant'}
         >
             {cleanupDescription(dataEnrichment.description)}
+            <br />
             {readMore && cleanupDescription(dataEnrichment.long_description)}
             {dataEnrichment.long_description && !readMore && (
                 <Styled.ReadMoreLink onClick={() => setReadMore(true)}>Read more...</Styled.ReadMoreLink>
