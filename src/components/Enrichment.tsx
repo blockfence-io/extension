@@ -60,7 +60,7 @@ export function Enrichment({ dataEnrichment, defaultState = false }: EnrichmentP
                     ))}
                 </Styled.MetricsTable>
             )}
-            {dataEnrichment.powered_by_data && (
+            {dataEnrichment.powered_by_data?.link && dataEnrichment.powered_by_data?.name && (
                 <Styled.ExtensionsLink href={dataEnrichment.powered_by_data.link} target='_blank' rel='noreferrer'>
                     <img src={dataEnrichment.powered_by_data.icon} width='24' /> Read more on{' '}
                     {dataEnrichment.powered_by_data.name}
