@@ -29,8 +29,9 @@ export function Simulation({ simulation }: SimulationProps) {
     const validIncoming = validTransaction(simulation.incoming_transaction);
 
     let totalConversion = 0;
-    if (simulation.outgoing_transaction?.usd) totalConversion += simulation.outgoing_transaction.usd;
-    if (simulation.outgoing_gas?.usd) totalConversion += simulation.outgoing_gas.usd;
+    if (simulation.outgoing_transaction?.usd) totalConversion -= simulation.outgoing_transaction.usd;
+    if (simulation.incoming_transaction?.usd) totalConversion += simulation.incoming_transaction.usd;
+    if (simulation.outgoing_gas?.usd) totalConversion -= simulation.outgoing_gas.usd;
 
     return (
         <Styled.Container>
@@ -49,7 +50,10 @@ export function Simulation({ simulation }: SimulationProps) {
                 <SimulationEntry entryType={EntryType.In} transaction={simulation.incoming_transaction} />
             )}
             <Styled.Total>
-                Total Conversion: <Styled.TotalValue>${getFormattedNumber(totalConversion)}</Styled.TotalValue>
+                Total Conversion:{' '}
+                <Styled.TotalValue style={{ color: totalConversion >= 0 ? Styled.Palette.Green : Styled.Palette.Red }}>
+                    ${getFormattedNumber(totalConversion)}
+                </Styled.TotalValue>
             </Styled.Total>
         </Styled.Container>
     );
