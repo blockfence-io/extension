@@ -9,7 +9,7 @@ export interface IconProps {
 const iconColors = {
     normal: '#efefef',
     url: '#F2F9FF',
-    address: '#FF7CCB1A', //'#FFF1F9',
+    address: '#FF7CCB1A',
     transparant: 'transparent',
     contract: '#FFF5F5',
     partners: '#F4F1FF',
