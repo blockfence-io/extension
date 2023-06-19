@@ -52,11 +52,7 @@ export function NavigationBar({
             <Styled.InfoGroup compact={compact}>
                 {address && (
                     <Styled.Info compact={compact}>
-                        {!compact && (
-                            <Styled.Icon type='address'>
-                                <Styled.Icon type='normal'>{networkIcon}</Styled.Icon>
-                            </Styled.Icon>
-                        )}
+                        {!compact && <Styled.Icon type='normal'>{networkIcon}</Styled.Icon>}
                         <Styled.Key>
                             Address <Copy text={address} size='16' />
                         </Styled.Key>

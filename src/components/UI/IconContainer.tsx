@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export type IconType = 'normal' | 'url' | 'address' | 'transparant';
+export type IconType = 'normal' | 'url' | 'address' | 'transparant' | 'contract' | 'partners';
 
 export interface IconProps {
     type: IconType;
@@ -9,8 +9,10 @@ export interface IconProps {
 const iconColors = {
     normal: '#efefef',
     url: '#F2F9FF',
-    address: '#FFF1F9',
+    address: '#FF7CCB1A', //'#FFF1F9',
     transparant: 'transparent',
+    contract: '#FFF5F5',
+    partners: '#F4F1FF',
 };
 
 export const IconContainer = styled.div<IconProps>`
