@@ -50,7 +50,6 @@ const tabOptions: TabOptions[] = [
 
 export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, analyzeResult, url }: ContentDecoderProps) {
     const showInfoTab = !infoTabIsEmpty(analyzeResult, descriptionResultAsync);
-    console.log('showInfoTab', showInfoTab);
     if (!showInfoTab) {
         //delete the info tab if it's empty from tabOptions
         tabOptions.splice(0, 1);
