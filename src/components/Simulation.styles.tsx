@@ -118,8 +118,3 @@ export const Total = styled.div`
 export const TotalValue = styled.span`
     font-weight: bold;
 `;
-
-export const tooltipStyle = {
-    background: theme.tooltipBG,
-    zIndex: 100,
-};
