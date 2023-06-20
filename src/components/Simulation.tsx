@@ -7,8 +7,6 @@ import TxIcon from '../assets/icons/tx-icon.svg';
 import * as Styled from './Simulation.styles';
 import { InfoTooltip } from './UI/InfoTooltip';
 import { Tooltip } from 'react-tooltip';
-import * as theme from '../shared/theme';
-import { CSSProperties } from 'styled-components';
 
 enum EntryType {
     In = 'In',
