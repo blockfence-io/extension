@@ -10,13 +10,13 @@ export interface InfoIconProps {
 }
 
 export const InfoTooltip: React.FC<InfoIconProps> = ({ name, tooltipText }) => {
+    const children = <Styled.Content>{tooltipText}</Styled.Content>;
+
     const id = 'name-' + name;
     return (
         <>
-            <Styled.InfoIcon data-tooltip-id={id} data-tooltip-content={tooltipText}>
-                i
-            </Styled.InfoIcon>
-            <Tooltip style={{ background: theme.tooltipBG }} id={id} />
+            <Styled.InfoIcon data-tooltip-id={id}>i</Styled.InfoIcon>
+            <Tooltip id={id} children={children} />
         </>
     );
 };
