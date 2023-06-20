@@ -35,7 +35,7 @@ const to = '0x00000000000000adc04c56bf30ac9d3c0aaf14dc';
 const url = 'https://opensea.io/collection/ringerpunks';
 const analyzeResult: EngineResponse = {
     severity: 'NONE',
-    name: 'Seaport',
+    name: 'Seaport is a very very long name',
     risks: [
         {
             analyzerName: 'Address Familiarity Score',
