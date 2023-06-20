@@ -6,6 +6,7 @@ import TxIcon from '../assets/icons/tx-icon.svg';
 
 import * as Styled from './Simulation.styles';
 import { InfoTooltip } from './UI/InfoTooltip';
+import { Tooltip } from 'react-tooltip';
 
 enum EntryType {
     In = 'In',
@@ -78,8 +79,13 @@ function SimulationEntry({ transaction, entryType }: SimulationEntryProps) {
 
             <Styled.Amount>{getFormattedNumber(transaction.amount || 0)}</Styled.Amount>
 
-            <Styled.EstimatedValue>
+            <Styled.EstimatedValue
+                data-tooltip-id={'amout-' + entryType}
+                data-tooltip-content={'Prices provided by CoinGecko'}
+            >
                 {shouldShowUSD(transaction.usd) && `$${getFormattedNumber(transaction.usd)}`}
+
+                <Tooltip style={Styled.tooltipStyle} id={'amout-' + entryType} place='top' />
             </Styled.EstimatedValue>
 
             {entryType === EntryType.In ? (
