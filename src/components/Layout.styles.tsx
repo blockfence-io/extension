@@ -68,9 +68,9 @@ export const Background = styled.div<BackgroundProps>`
         `}
 
     /* Computer SVG Image */
-    & img#computer {
+    & svg#computer {
         align-self: center;
-        height: 200px;
+        height: 180px;
         position: relative;
     }
 `;
