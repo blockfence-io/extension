@@ -80,7 +80,7 @@ export const Metric = styled.div`
 `;
 
 export const MetricTitle = styled.div`
-    font-size: 8px;
+    font-size: 10px;
     font-weight: 500;
     color: #777777;
     background: #f6f5f8;

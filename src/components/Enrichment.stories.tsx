@@ -25,7 +25,8 @@ const fakeData: DataEnrichment = {
         {
             name: 'Users',
             amount: 735,
-            tooltip: 'Number of Users',
+            tooltip:
+                'Number of Users I am a very long tooltip I like to be long so I can test the width of the tooltip and see if it is working correctly or not.',
         },
         {
             name: 'Transactions',

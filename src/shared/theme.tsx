@@ -44,5 +44,3 @@ export const mediaWidth = {
     smallLaptop: '1200px',
     largeDisplay: '1440px',
 };
-
-export const tooltipBG = '#888888';
