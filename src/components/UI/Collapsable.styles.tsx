@@ -31,6 +31,11 @@ export const Multiline = styled.div`
 export const Title = styled.div`
     font-weight: bold;
     font-size: 16px;
+    // cut the text short if it's too long
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 240px;
 `;
 
 export const Subtitle = styled.div`
