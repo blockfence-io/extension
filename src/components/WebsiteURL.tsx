@@ -30,7 +30,7 @@ export function GithubURL({ iconOnly = false }: { iconOnly?: boolean }) {
 
 export function FeedbackURL({ ...rest }) {
     return (
-        <Styled.Link href='https://gxj5vszn2bg.typeform.com/to/bivONce2' target='_blank' rel='noreferrer' {...rest}>
+        <Styled.Link href='https://blockfence.io/contact/' target='_blank' rel='noreferrer' {...rest}>
             <div>
                 <UilFeedback size='14' />
             </div>
