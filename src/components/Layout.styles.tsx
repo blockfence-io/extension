@@ -32,13 +32,16 @@ export const Header = styled.div`
     min-height: 60px;
 `;
 
+/* background: ${(props) => (props.severity ? theme.riskBackground[props.severity] : theme.primaryColor)}; */
 export const Background = styled.div<BackgroundProps>`
     position: relative;
     display: flex;
     flex-direction: column;
 
     /* background-color: ${theme.primaryColor}; */
-    background: ${(props) => (props.severity ? theme.riskBackground[props.severity] : theme.primaryColor)};
+    background: linear-gradient(134deg, #0000000d 1.02%, #ffffff66 100%);
+    background-color: ${(props) => (props.severity ? theme.riskBackgroundFlat[props.severity] : theme.primaryColor)};
+    transition: all 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
 
     /* TODO: Might be removable */
     & > div {
@@ -46,24 +49,28 @@ export const Background = styled.div<BackgroundProps>`
     }
 
     /* Image background trick to set opacity to 0.4 */
+    &:before {
+        content: ' ';
+        opacity: 0;
+        z-index: 0;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: absolute;
+        background-image: url(${BackgroundChipImage});
+
+        background-position: top center;
+        background-repeat: no-repeat;
+        background-size: 135%;
+        transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
     ${(props) =>
         props.severity === undefined &&
         css`
             &:before {
-                content: ' ';
                 opacity: 0.4;
-                z-index: 0;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                display: block;
-                position: absolute;
-                background-image: url(${BackgroundChipImage});
-
-                background-position: top center;
-                background-repeat: no-repeat;
-                background-size: 135%;
             }
         `}
 
