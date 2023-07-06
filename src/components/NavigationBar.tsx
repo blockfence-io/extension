@@ -37,7 +37,7 @@ export function NavigationBar({
     compact = false,
 }: NavigationBarProps) {
     const formatAddress = (address: string) => `${address.slice(0, 8)}...${address.slice(-4)}`.toUpperCase();
-    const networkIcon = network ? SupportedNetworks[network].icon : undefined;
+    const networkIcon = network ? SupportedNetworks[network]?.icon : undefined;
 
     return (
         <Styled.Container>

@@ -9,6 +9,7 @@ import AvalanchIcon from '../assets/icons/avalanche-logo.svg';
 import OptimismIcon from '../assets/icons/optimism-logo.svg';
 
 export const networkDropdownOptions: DropdownOption[] = [
+    { title: 'Ethereum', key: '1', icon: <EthereumIcon /> },
     { title: 'Ethereum', key: '0x1', icon: <EthereumIcon /> },
     { title: 'Polygon', key: '137', icon: <PolygonIcon /> },
     { title: 'BSC', key: '56', icon: <BSCIcon /> },
