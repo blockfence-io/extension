@@ -32,14 +32,13 @@ export const Header = styled.div`
     min-height: 60px;
 `;
 
-/* background: ${(props) => (props.severity ? theme.riskBackground[props.severity] : theme.primaryColor)}; */
 export const Background = styled.div<BackgroundProps>`
     position: relative;
     display: flex;
     flex-direction: column;
 
-    /* background-color: ${theme.primaryColor}; */
-    background: linear-gradient(134deg, #0000000d 1.02%, #ffffff66 100%);
+    background-blend-mode: color-burn;
+    background: linear-gradient(134deg, #00000021 1.02%, #ffffff66 100%);
     background-color: ${(props) => (props.severity ? theme.riskBackgroundFlat[props.severity] : theme.primaryColor)};
     transition: all 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
 

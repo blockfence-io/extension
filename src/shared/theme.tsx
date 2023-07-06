@@ -33,8 +33,8 @@ export const riskBackground: { [key in Severity]: string } = {
 
 export const riskBackgroundFlat: { [key in Severity]: string } = {
     NONE: '#00b903',
-    LOW: '#ce9000',
-    MEDIUM: '#ce9000',
+    LOW: '#e6cb0b',
+    MEDIUM: '#e6cb0b',
     HIGH: '#BE0404',
 };
 
