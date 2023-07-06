@@ -40,7 +40,7 @@ export const NoBackWithAll = () => {
     return (
         <Panel style={{ width: '330px' }}>
             <NavigationBar
-                network='0x1'
+                network='1'
                 address='0x9008d19f58aabd9ed0d60971565aa8510560ab41'
                 url='http://www.google.com/this/is/some/long/address'
             />

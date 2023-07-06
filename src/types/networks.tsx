@@ -10,13 +10,20 @@ import OptimismIcon from '../assets/icons/optimism-logo.svg';
 
 export const networkDropdownOptions: DropdownOption[] = [
     { title: 'Ethereum', key: '1', icon: <EthereumIcon /> },
-    { title: 'Ethereum', key: '0x1', icon: <EthereumIcon /> },
     { title: 'Polygon', key: '137', icon: <PolygonIcon /> },
     { title: 'BSC', key: '56', icon: <BSCIcon /> },
     { title: 'Arbitrum', key: '42161', icon: <ArbitrumIcon /> },
     { title: 'Optimism', key: '10', icon: <OptimismIcon /> },
     { title: 'Avalanche', key: '43114', icon: <AvalanchIcon /> },
 ];
+
+// Add hex values
+export const networkDropdownOptionsExpanded: DropdownOption[] = [];
+networkDropdownOptions.forEach((item) => {
+    const hexKey = '0x' + parseInt(item.key).toString(16);
+    networkDropdownOptionsExpanded.push(item);
+    networkDropdownOptionsExpanded.push({ title: item.title, key: hexKey, icon: item.icon });
+});
 
 export function keyBy<
     A extends object,
@@ -30,4 +37,4 @@ export function keyBy<
     );
 }
 
-export const SupportedNetworks = keyBy(networkDropdownOptions, 'key');
+export const SupportedNetworks = keyBy(networkDropdownOptionsExpanded, 'key');

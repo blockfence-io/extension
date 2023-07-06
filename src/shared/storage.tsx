@@ -28,7 +28,7 @@ export const txID = (address: string, chainId: keyof typeof SupportedNetworks, d
 export const mutedAddressesKey = 'mutedAddresses';
 
 export const getPrefferedChinId = async () => {
-    const storage = await chrome.storage.local.get({ preferredChainId: '0x1' });
+    const storage = await chrome.storage.local.get({ preferredChainId: '1' });
     return storage.preferredChainId;
 };
 
