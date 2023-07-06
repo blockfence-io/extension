@@ -17,7 +17,7 @@ import AvalanchIcon from '../../assets/icons/avalanche-logo.svg';
 import OptimismIcon from '../../assets/icons/optimism-logo.svg';
 
 const OPTIONS: DropdownOption[] = [
-    { title: 'Ethereum', key: '0x1', icon: <EthereumIcon /> },
+    { title: 'Ethereum', key: '1', icon: <EthereumIcon /> },
     { title: 'Polygon', key: '137', icon: <PolygonIcon /> },
     { title: 'BSC', key: '56', icon: <BSCIcon /> },
     { title: 'Arbitrum', key: '42161', icon: <ArbitrumIcon /> },
@@ -26,7 +26,7 @@ const OPTIONS: DropdownOption[] = [
 ];
 
 export const Primary = () => {
-    const [selected, setSelected] = useState<string | undefined>('0x1');
+    const [selected, setSelected] = useState<string | undefined>('1');
 
     return (
         <Dropdown

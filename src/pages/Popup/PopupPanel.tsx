@@ -22,7 +22,7 @@ interface PopupPanelProps {
 
 const emptyState = {
     mode: SearchMode.Address,
-    chainId: '0x1',
+    chainId: '1',
     url: '',
     address: '',
 };
