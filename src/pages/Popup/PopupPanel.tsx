@@ -10,9 +10,12 @@ import { Button } from '../../components/UI/Button';
 
 import { fetchAnalyze, fetchDescription } from '../../shared/api';
 import { logAddressSearchClick, logUrlSearchClick } from '../../shared/logs';
+import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 
 import '../../shared/reset.css';
 import '../../shared/font.css';
+import 'overlayscrollbars/overlayscrollbars.css';
+
 import { getPrefferedChinId, setPreferredChainId } from '../../shared/storage';
 
 interface PopupPanelProps {
@@ -85,37 +88,39 @@ export function PopupPanel({ hideAlpha = false, hideSettings = false }: PopupPan
 
     return (
         <ErrorBoundary>
-            <form onSubmit={handleSubmit}>
-                <Layout
-                    showSettings={!hideSettings}
-                    fullpageMode={compactMode}
-                    severity={analyzeResult.result?.severity}
-                    panel={
-                        compactMode ? (
-                            <NavigationBar
-                                onBack={reset}
-                                url={searchInput.url}
-                                network={searchInput.chainId}
-                                address={searchInput.address}
-                                disabled={isLoading}
-                            />
-                        ) : (
-                            <SearchBar onChange={onSetSearchInput} state={searchInput} />
-                        )
-                    }
-                    body={
-                        analyzeResult ? (
-                            <Results
-                                chainId={searchInput.chainId}
-                                to={searchInput.address}
-                                analyzeResult={analyzeResult}
-                                descriptionResult={descriptionResult}
-                            />
-                        ) : undefined
-                    }
-                    footer={!compactMode ? <Button type='submit'>Scan</Button> : undefined}
-                />
-            </form>
+            <OverlayScrollbarsComponent defer style={{ width: '376px', height: '600px' }}>
+                <form onSubmit={handleSubmit}>
+                    <Layout
+                        showSettings={!hideSettings}
+                        fullpageMode={compactMode}
+                        severity={analyzeResult.result?.severity}
+                        panel={
+                            compactMode ? (
+                                <NavigationBar
+                                    onBack={reset}
+                                    url={searchInput.url}
+                                    network={searchInput.chainId}
+                                    address={searchInput.address}
+                                    disabled={isLoading}
+                                />
+                            ) : (
+                                <SearchBar onChange={onSetSearchInput} state={searchInput} />
+                            )
+                        }
+                        body={
+                            analyzeResult ? (
+                                <Results
+                                    chainId={searchInput.chainId}
+                                    to={searchInput.address}
+                                    analyzeResult={analyzeResult}
+                                    descriptionResult={descriptionResult}
+                                />
+                            ) : undefined
+                        }
+                        footer={!compactMode ? <Button type='submit'>Scan</Button> : undefined}
+                    />
+                </form>
+            </OverlayScrollbarsComponent>
             {!hideAlpha && <Banner>BETA</Banner>}
         </ErrorBoundary>
     );
