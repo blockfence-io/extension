@@ -9,7 +9,7 @@ export const Container = styled.div`
 
 export const Logo = styled.div`
     flex: 2;
-    background: ${theme.primaryBackground};
+    background: ${theme.primaryColor};
     color: white;
 
     display: flex;
