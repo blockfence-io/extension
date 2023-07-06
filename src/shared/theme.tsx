@@ -31,6 +31,13 @@ export const riskBackground: { [key in Severity]: string } = {
     HIGH: 'linear-gradient(95.2deg, #BE0404 1.02%, #D80000 100%)',
 };
 
+export const riskBackgroundFlat: { [key in Severity]: string } = {
+    NONE: '#00b903',
+    LOW: '#e6cb0b',
+    MEDIUM: '#e6cb0b',
+    HIGH: '#BE0404',
+};
+
 export const riskIcons: { [key in Severity]: Icon | undefined } = {
     NONE: GaugeLow,
     LOW: GaugeMedium,
