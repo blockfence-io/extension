@@ -6,19 +6,13 @@ import { logPageView } from '../../shared/logs';
 
 import '../../shared/reset.css';
 import '../../shared/font.css';
-import 'overlayscrollbars/overlayscrollbars.css';
-import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 
 function Popup() {
     useEffect(() => {
         logPageView('Popup');
     }, []);
 
-    return (
-        <OverlayScrollbarsComponent defer style={{ width: '376px', height: '600px' }}>
-            <PopupPanel />
-        </OverlayScrollbarsComponent>
-    );
+    return <PopupPanel />;
 }
 
 const container = window.document.querySelector('#app-container');
