@@ -19,6 +19,7 @@ import 'overlayscrollbars/overlayscrollbars.css';
 import { getPrefferedChinId, setPreferredChainId } from '../../shared/storage';
 
 interface PopupPanelProps {
+    fullscreen?: boolean;
     hideAlpha?: boolean;
     hideSettings?: boolean;
 }
@@ -30,7 +31,7 @@ const emptyState = {
     address: '',
 };
 
-export function PopupPanel({ hideAlpha = false, hideSettings = false }: PopupPanelProps) {
+export function PopupPanel({ hideAlpha = false, hideSettings = false, fullscreen = false }: PopupPanelProps) {
     const [compactMode, setCompactMode] = useState(false);
     const [searchInput, setSearchInput] = useState<SearchState>(emptyState);
 
@@ -86,41 +87,49 @@ export function PopupPanel({ hideAlpha = false, hideSettings = false }: PopupPan
 
     const isLoading = analyzeResult.loading || descriptionResult.loading;
 
+    const extensionForm = (
+        <form onSubmit={handleSubmit}>
+            <Layout
+                showSettings={!hideSettings}
+                fullpageMode={compactMode}
+                severity={analyzeResult.result?.severity}
+                panel={
+                    compactMode ? (
+                        <NavigationBar
+                            onBack={reset}
+                            url={searchInput.url}
+                            network={searchInput.chainId}
+                            address={searchInput.address}
+                            disabled={isLoading}
+                        />
+                    ) : (
+                        <SearchBar onChange={onSetSearchInput} state={searchInput} />
+                    )
+                }
+                body={
+                    analyzeResult ? (
+                        <Results
+                            chainId={searchInput.chainId}
+                            to={searchInput.address}
+                            analyzeResult={analyzeResult}
+                            descriptionResult={descriptionResult}
+                        />
+                    ) : undefined
+                }
+                footer={!compactMode ? <Button type='submit'>Scan</Button> : undefined}
+            />
+        </form>
+    );
+
     return (
         <ErrorBoundary>
-            <OverlayScrollbarsComponent defer style={{ width: '376px', height: '600px' }}>
-                <form onSubmit={handleSubmit}>
-                    <Layout
-                        showSettings={!hideSettings}
-                        fullpageMode={compactMode}
-                        severity={analyzeResult.result?.severity}
-                        panel={
-                            compactMode ? (
-                                <NavigationBar
-                                    onBack={reset}
-                                    url={searchInput.url}
-                                    network={searchInput.chainId}
-                                    address={searchInput.address}
-                                    disabled={isLoading}
-                                />
-                            ) : (
-                                <SearchBar onChange={onSetSearchInput} state={searchInput} />
-                            )
-                        }
-                        body={
-                            analyzeResult ? (
-                                <Results
-                                    chainId={searchInput.chainId}
-                                    to={searchInput.address}
-                                    analyzeResult={analyzeResult}
-                                    descriptionResult={descriptionResult}
-                                />
-                            ) : undefined
-                        }
-                        footer={!compactMode ? <Button type='submit'>Scan</Button> : undefined}
-                    />
-                </form>
-            </OverlayScrollbarsComponent>
+            {fullscreen ? (
+                extensionForm
+            ) : (
+                <OverlayScrollbarsComponent defer style={{ width: '376px', height: '600px' }}>
+                    {extensionForm}
+                </OverlayScrollbarsComponent>
+            )}
             {!hideAlpha && <Banner>BETA</Banner>}
         </ErrorBoundary>
     );
