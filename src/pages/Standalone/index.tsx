@@ -12,7 +12,7 @@ function App() {
         logPageView('Standalone');
     }, []);
 
-    return <PopupPanel hideAlpha hideSettings fullscreen />;
+    return <PopupPanel hideAlpha hideSettings fullscreen hideLogo />;
 }
 
 const container = window.document.querySelector('#app-container');

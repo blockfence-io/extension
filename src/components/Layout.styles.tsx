@@ -145,3 +145,7 @@ export const Banner = styled.div`
 
     user-select: none;
 `;
+
+export const Filler = styled.div`
+    height: 20px;
+`;
