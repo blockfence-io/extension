@@ -16,3 +16,10 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
 
     sendResponse({ status: 'ok' });
 });
+
+chrome.runtime.onInstalled.addListener((details) => {
+    if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
+        chrome.tabs.create({ url: 'https://blockfence.io/thank-you/' });
+        // chrome.runtime.setUninstallURL('https://blockfence.io/feedback/');
+    }
+});
