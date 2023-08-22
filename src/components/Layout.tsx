@@ -13,6 +13,7 @@ export { Banner } from './Layout.styles';
 type LayoutProps = {
     fullpageMode?: boolean;
     showSettings?: boolean;
+    hideLogo?: boolean;
 
     severity?: types.Severity | undefined;
 
@@ -28,11 +29,19 @@ const severityTitle: { [key in types.Severity]: string } = {
     HIGH: 'High Risk',
 };
 
-export function Layout({ panel, body, footer, severity, fullpageMode = false, showSettings = true }: LayoutProps) {
+export function Layout({
+    panel,
+    body,
+    footer,
+    severity,
+    fullpageMode = false,
+    showSettings = true,
+    hideLogo = false,
+}: LayoutProps) {
     return (
         <Styled.Container>
             <Styled.Background severity={severity}>
-                <Header showSettings={showSettings} />
+                {hideLogo ? <Styled.Filler></Styled.Filler> : <Header showSettings={showSettings} />}
                 {/* <AnimateGroup play={fullpageMode}> */}
                 <AnimatedComputerImage isVisible={fullpageMode} />
                 <AnimatedPanelHeader severity={severity} />

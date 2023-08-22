@@ -19,6 +19,7 @@ import 'overlayscrollbars/overlayscrollbars.css';
 import { getPrefferedChinId, setPreferredChainId } from '../../shared/storage';
 
 interface PopupPanelProps {
+    hideLogo?: boolean;
     fullscreen?: boolean;
     hideAlpha?: boolean;
     hideSettings?: boolean;
@@ -31,7 +32,12 @@ const emptyState = {
     address: '',
 };
 
-export function PopupPanel({ hideAlpha = false, hideSettings = false, fullscreen = false }: PopupPanelProps) {
+export function PopupPanel({
+    hideAlpha = false,
+    hideSettings = false,
+    fullscreen = false,
+    hideLogo = false,
+}: PopupPanelProps) {
     const [compactMode, setCompactMode] = useState(false);
     const [searchInput, setSearchInput] = useState<SearchState>(emptyState);
 
@@ -93,6 +99,7 @@ export function PopupPanel({ hideAlpha = false, hideSettings = false, fullscreen
                 showSettings={!hideSettings}
                 fullpageMode={compactMode}
                 severity={analyzeResult.result?.severity}
+                hideLogo={hideLogo}
                 panel={
                     compactMode ? (
                         <NavigationBar
