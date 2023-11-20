@@ -26,9 +26,10 @@ import { TabOptions, Tabs } from './UI/Tabs';
 interface ContentDecoderProps {
     to: string;
     chainId?: keyof typeof SupportedNetworks;
-    descriptionResultAsync: UseAsyncReturn<ChatResponse>;
+    descriptionResultAsync?: UseAsyncReturn<ChatResponse>;
     analyzeResult: EngineResponse;
     url?: string;
+    shouldRenderMuteButton?: boolean;
 }
 
 const shouldShowSimulation = (transaction_simulation?: TransactionSimulation) => {
@@ -49,7 +50,7 @@ const tabOptions: TabOptions[] = [
     { key: analysisTab, title: 'Analysis' },
 ];
 
-export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, analyzeResult, url }: ContentDecoderProps) {
+export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, analyzeResult, url, shouldRenderMuteButton = true }: ContentDecoderProps) {
     const showInfoTab = !infoTabIsEmpty(analyzeResult, descriptionResultAsync);
     if (!showInfoTab) {
         //delete the info tab if it's empty from tabOptions
@@ -85,7 +86,7 @@ export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, anal
 
                 {renderAnalysisTab(tab, analyzeResult)}
 
-                {url && renderMuteButton(to, chainId, url)}
+                {url && shouldRenderMuteButton && renderMuteButton(to, chainId, url)}
 
                 <Styled.Options>
                     <Feedback onClick={onFeedbackClick} />
@@ -112,7 +113,7 @@ function renderMuteButton(to: string, chainId: keyof typeof SupportedNetworks, u
 function renderInfoTab(
     tab: string,
     analyzeResult: EngineResponse,
-    descriptionResultAsync: UseAsyncReturn<ChatResponse>
+    descriptionResultAsync?: UseAsyncReturn<ChatResponse>
 ): React.ReactNode {
     const descriptionTitle = analyzeResult.is_contract
         ? analyzeResult.name != ''
@@ -128,7 +129,7 @@ function renderInfoTab(
                 ))}
 
             {/* Description */}
-            {(descriptionResultAsync.loading || descriptionResultAsync.error || descriptionResultAsync.result) && (
+            {(descriptionResultAsync?.loading || descriptionResultAsync?.error || descriptionResultAsync?.result) && (
                 <Collapsable
                     title={descriptionTitle}
                     icon={<AddressIcon />}
@@ -196,6 +197,6 @@ function renderAnalysisTab(tab: string, analyzeResult: EngineResponse): React.Re
     );
 }
 
-function infoTabIsEmpty(analyzeResult: EngineResponse, descriptionResultAsync: UseAsyncReturn<ChatResponse>): boolean {
-    return analyzeResult?.data_enrichments?.length == 0 && descriptionResultAsync.status == 'not-requested';
+function infoTabIsEmpty(analyzeResult: EngineResponse, descriptionResultAsync?: UseAsyncReturn<ChatResponse>): boolean {
+    return analyzeResult?.data_enrichments?.length == 0 && descriptionResultAsync?.status == 'not-requested';
 }
