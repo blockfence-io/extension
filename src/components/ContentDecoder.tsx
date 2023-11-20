@@ -198,5 +198,5 @@ function renderAnalysisTab(tab: string, analyzeResult: EngineResponse): React.Re
 }
 
 function infoTabIsEmpty(analyzeResult: EngineResponse, descriptionResultAsync?: UseAsyncReturn<ChatResponse>): boolean {
-    return analyzeResult?.data_enrichments?.length == 0 && descriptionResultAsync?.status == 'not-requested';
+    return analyzeResult?.data_enrichments?.length == 0 && (descriptionResultAsync == null || descriptionResultAsync?.status == 'not-requested');
 }
