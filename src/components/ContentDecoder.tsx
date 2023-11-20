@@ -26,7 +26,7 @@ import { TabOptions, Tabs } from './UI/Tabs';
 interface ContentDecoderProps {
     to: string;
     chainId?: keyof typeof SupportedNetworks;
-    descriptionResultAsync: UseAsyncReturn<ChatResponse>;
+    descriptionResultAsync?: UseAsyncReturn<ChatResponse>;
     analyzeResult: EngineResponse;
     url?: string;
     shouldRenderMuteButton?: boolean;
@@ -113,7 +113,7 @@ function renderMuteButton(to: string, chainId: keyof typeof SupportedNetworks, u
 function renderInfoTab(
     tab: string,
     analyzeResult: EngineResponse,
-    descriptionResultAsync: UseAsyncReturn<ChatResponse>
+    descriptionResultAsync?: UseAsyncReturn<ChatResponse>
 ): React.ReactNode {
     const descriptionTitle = analyzeResult.is_contract
         ? analyzeResult.name != ''
@@ -129,7 +129,7 @@ function renderInfoTab(
                 ))}
 
             {/* Description */}
-            {(descriptionResultAsync.loading || descriptionResultAsync.error || descriptionResultAsync.result) && (
+            {(descriptionResultAsync?.loading || descriptionResultAsync?.error || descriptionResultAsync?.result) && (
                 <Collapsable
                     title={descriptionTitle}
                     icon={<AddressIcon />}
@@ -197,6 +197,6 @@ function renderAnalysisTab(tab: string, analyzeResult: EngineResponse): React.Re
     );
 }
 
-function infoTabIsEmpty(analyzeResult: EngineResponse, descriptionResultAsync: UseAsyncReturn<ChatResponse>): boolean {
-    return analyzeResult?.data_enrichments?.length == 0 && descriptionResultAsync.status == 'not-requested';
+function infoTabIsEmpty(analyzeResult: EngineResponse, descriptionResultAsync?: UseAsyncReturn<ChatResponse>): boolean {
+    return analyzeResult?.data_enrichments?.length == 0 && descriptionResultAsync?.status == 'not-requested';
 }

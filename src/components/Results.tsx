@@ -11,7 +11,7 @@ interface ResultsProps {
     chainId: keyof typeof SupportedNetworks;
     to: string;
     analyzeResult: UseAsyncReturn<EngineResponse>;
-    descriptionResult: UseAsyncReturn<ChatResponse>;
+    descriptionResult?: UseAsyncReturn<ChatResponse>;
     url?: string;
     shouldRenderMuteButton?: boolean;
 }

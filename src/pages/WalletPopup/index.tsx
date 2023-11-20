@@ -30,8 +30,8 @@ function WalletPopup() {
     const data = urlSearchParams.get('data') || '';
     const chainId: string = urlSearchParams.get('chainId') || '0x1';
     const url: string = urlSearchParams.get('url') || '';
-    const renderMuteButton = urlSearchParams.get('renderMuteButton') || 'true';
-    const descriptionResult = useAsync(fetchDescription, [chainId, to]);
+    const renderMuteAndChat:boolean = (urlSearchParams.get('renderMuteAndChat') || 'true') === 'true';
+    const descriptionResult = renderMuteAndChat ? useAsync(fetchDescription, [chainId, to]) : undefined;
     const analyzeResult = useAsync(fetchAnalyze, [chainId, to, url, from, value, data]);
 
     const simulationData =
@@ -69,7 +69,7 @@ function WalletPopup() {
                             analyzeResult={analyzeResult}
                             descriptionResult={descriptionResult}
                             url={url}
-                            shouldRenderMuteButton={renderMuteButton == 'true'}
+                            shouldRenderMuteButton={renderMuteAndChat}
                         />
                     ) : undefined
                 }
