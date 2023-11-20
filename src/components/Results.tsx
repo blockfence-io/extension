@@ -13,9 +13,10 @@ interface ResultsProps {
     analyzeResult: UseAsyncReturn<EngineResponse>;
     descriptionResult: UseAsyncReturn<ChatResponse>;
     url?: string;
+    shouldRenderMuteButton?: boolean;
 }
 
-export function Results({ chainId, to, analyzeResult, descriptionResult, url }: ResultsProps) {
+export function Results({ chainId, to, analyzeResult, descriptionResult, url, shouldRenderMuteButton }: ResultsProps) {
     return (
         <>
             {analyzeResult.loading && <LoadingMessage />}
@@ -27,6 +28,7 @@ export function Results({ chainId, to, analyzeResult, descriptionResult, url }: 
                     analyzeResult={analyzeResult.result}
                     descriptionResultAsync={descriptionResult}
                     url={url}
+                    shouldRenderMuteButton={shouldRenderMuteButton}
                 />
             )}
         </>

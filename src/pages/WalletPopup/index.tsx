@@ -30,6 +30,7 @@ function WalletPopup() {
     const data = urlSearchParams.get('data') || '';
     const chainId: string = urlSearchParams.get('chainId') || '0x1';
     const url: string = urlSearchParams.get('url') || '';
+    const renderMuteButton = urlSearchParams.get('renderMuteButton') || 'true';
     const descriptionResult = useAsync(fetchDescription, [chainId, to]);
     const analyzeResult = useAsync(fetchAnalyze, [chainId, to, url, from, value, data]);
 
@@ -68,6 +69,7 @@ function WalletPopup() {
                             analyzeResult={analyzeResult}
                             descriptionResult={descriptionResult}
                             url={url}
+                            shouldRenderMuteButton={renderMuteButton == 'true'}
                         />
                     ) : undefined
                 }

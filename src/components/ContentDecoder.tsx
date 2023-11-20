@@ -29,6 +29,7 @@ interface ContentDecoderProps {
     descriptionResultAsync: UseAsyncReturn<ChatResponse>;
     analyzeResult: EngineResponse;
     url?: string;
+    shouldRenderMuteButton?: boolean;
 }
 
 const shouldShowSimulation = (transaction_simulation?: TransactionSimulation) => {
@@ -49,7 +50,7 @@ const tabOptions: TabOptions[] = [
     { key: analysisTab, title: 'Analysis' },
 ];
 
-export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, analyzeResult, url }: ContentDecoderProps) {
+export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, analyzeResult, url, shouldRenderMuteButton = true }: ContentDecoderProps) {
     const showInfoTab = !infoTabIsEmpty(analyzeResult, descriptionResultAsync);
     if (!showInfoTab) {
         //delete the info tab if it's empty from tabOptions
@@ -85,7 +86,7 @@ export function ContentDecoder({ to, chainId = '1', descriptionResultAsync, anal
 
                 {renderAnalysisTab(tab, analyzeResult)}
 
-                {url && renderMuteButton(to, chainId, url)}
+                {url && shouldRenderMuteButton && renderMuteButton(to, chainId, url)}
 
                 <Styled.Options>
                     <Feedback onClick={onFeedbackClick} />
