@@ -35,3 +35,12 @@ export const getPrefferedChinId = async () => {
 export const setPreferredChainId = async (chainId: string) => {
     await chrome.storage.local.set({ preferredChainId: chainId });
 };
+
+export const getPromotionCounter = async () => {
+    const storage = await chrome.storage.local.get({ counter: true });
+    return storage.counter || 0;
+};
+
+export const setPromotionCounter = async (counter: number) => {
+    await chrome.storage.local.set({ counter });
+};

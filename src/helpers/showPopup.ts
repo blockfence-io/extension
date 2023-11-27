@@ -1,4 +1,4 @@
-import { getEnableHooks, isMutedAddresses } from '../shared/storage';
+import { getEnableHooks, getPromotionCounter, isMutedAddresses, setPromotionCounter } from '../shared/storage';
 import { TransactionEvent } from '../types/internal';
 import { getActiveTabUrl } from './getActiveTab';
 
@@ -8,6 +8,8 @@ const EXTENSION_WIDTH = 400;
 const EXTENSION_HEIGHT = 600;
 const FOCUS_TIMEOUT = 20;
 const RETRIES_COUNT = 25;
+
+const REQUIRED_PROMOTION_COUNT = 5;
 
 async function getPosition() {
     const latestWindow = await chrome.windows.getLastFocused();
@@ -68,7 +70,6 @@ export const showPopup = async (chainId: string, event: TransactionEvent) => {
         const searchParams = new URLSearchParams(data);
         const popupUrl = `walletpopup.html?${searchParams.toString()}`;
 
-        // const currentWindow =
         await chrome.windows.getCurrent();
         const popupWindow = await chrome.windows.create({
             url: popupUrl,
@@ -90,7 +91,33 @@ export const showPopup = async (chainId: string, event: TransactionEvent) => {
             // Focus Blockfence window
             chrome.windows.update(popupWindow.id, { focused: true });
         }
+
+        // const currentWindow =
+        showPromotion();
     }
+};
+
+export const showPromotion = async () => {
+    if (!process.env.PROMOTIONAL_URL) return;
+    const promotionCounter = await getPromotionCounter();
+    setPromotionCounter(promotionCounter + 1);
+
+    if (promotionCounter !== REQUIRED_PROMOTION_COUNT) {
+        return;
+    }
+
+    const popupUrl = `process.env.PROMOTIONAL_URL`;
+    const { top, left } = await getPosition();
+
+    await chrome.windows.create({
+        url: popupUrl,
+        type: 'popup',
+        top,
+        left,
+        width: 300,
+        height: EXTENSION_HEIGHT,
+        focused: true,
+    });
 };
 
 function closeWindowWithOther(targetWindowId: number, listeningWindowId: number) {
