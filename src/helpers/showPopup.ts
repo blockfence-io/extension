@@ -98,7 +98,6 @@ export const showPopup = async (chainId: string, event: TransactionEvent) => {
 };
 
 export const showPromotion = async () => {
-    if (!process.env.PROMOTIONAL_URL) return;
     const promotionCounter = await getPromotionCounter();
     setPromotionCounter(promotionCounter + 1);
 
@@ -106,7 +105,7 @@ export const showPromotion = async () => {
         return;
     }
 
-    const popupUrl = `process.env.PROMOTIONAL_URL`;
+    const popupUrl = 'promotion.html';
     const { top, left } = await getPosition();
 
     await chrome.windows.create({
@@ -114,7 +113,7 @@ export const showPromotion = async () => {
         type: 'popup',
         top,
         left,
-        width: 300,
+        width: EXTENSION_WIDTH,
         height: EXTENSION_HEIGHT,
         focused: true,
     });

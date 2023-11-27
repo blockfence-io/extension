@@ -17,6 +17,7 @@ var options = {
         standalone: path.join(__dirname, 'src', 'pages', 'Standalone', 'index.tsx'),
         popup: path.join(__dirname, 'src', 'pages', 'Popup', 'index.tsx'),
         walletpopup: path.join(__dirname, 'src', 'pages', 'WalletPopup', 'index.tsx'),
+        promotion: path.join(__dirname, 'src', 'pages', 'Promotion', 'index.tsx'),
         background: path.join(__dirname, 'src', 'scripts', 'background', 'index.ts'),
         content: path.join(__dirname, 'src', 'scripts', 'content', 'index.ts'),
         attach: path.join(__dirname, 'src', 'scripts', 'content', 'attach.ts'),
@@ -141,6 +142,13 @@ var options = {
             template: path.join(__dirname, 'src', 'pages', 'WalletPopup', 'index.html'),
             filename: 'walletpopup.html',
             chunks: ['walletpopup'],
+            cache: false,
+        }),
+
+        new HtmlPlugin({
+            template: path.join(__dirname, 'src', 'pages', 'Promotion', 'index.html'),
+            filename: 'promotion.html',
+            chunks: ['promotion'],
             cache: false,
         }),
 
