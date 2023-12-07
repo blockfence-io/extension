@@ -102,9 +102,10 @@ export const showPromotion = async () => {
     const promotionCounter = await getPromotionCounter();
     setPromotionCounter(promotionCounter + 1);
 
-    if (promotionCounter !== REQUIRED_PROMOTION_COUNT) {
-        return;
-    }
+    // Disabled local descision (moved to server)
+    // if (promotionCounter !== REQUIRED_PROMOTION_COUNT) {
+    //     return;
+    // }
 
     // Check if promotion is available
     try {

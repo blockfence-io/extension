@@ -104,6 +104,7 @@ export type FeedbackResponse = {
 export type QuestStatusRequest = {
     count: number;
 };
+
 export type QuestStatusResponse = {
     active: boolean;
 };
