@@ -100,3 +100,18 @@ export type FeedbackRequest = {
 export type FeedbackResponse = {
     message: string; //unused for now
 };
+
+export type QuestStatusRequest = {
+    count: number;
+};
+export type QuestStatusResponse = {
+    active: boolean;
+};
+
+export type QuestRewardRequest = {
+    email: string;
+};
+
+export type QuestRewardResponse = {
+    success: boolean;
+};

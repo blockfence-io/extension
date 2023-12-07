@@ -42,7 +42,6 @@ You must provide a valid `.env` file with the following fields:
 API_SERVER=
 API_KEY=
 AMPLITUDE_KEY=<optional>
-PROMOTIONAL_URL=<https://....>
 ```
 
 ## Release

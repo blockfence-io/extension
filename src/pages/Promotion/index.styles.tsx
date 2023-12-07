@@ -1,8 +1,8 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import * as theme from '../../shared/theme';
 
-export const Container = styled.div`
+export const Container = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -42,4 +42,18 @@ export const Message = styled.div`
     text-align: center;
     margin: 0 1%;
     line-height: 2;
+`;
+
+export const Success = styled.div`
+    font-size: 14px;
+    line-height: 2;
+    font-weight: bold;
+    text-align: center;
+`;
+
+export const Error = styled.div`
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    color: ${theme.errorColor};
 `;

@@ -1,3 +1,4 @@
+import { questStatus } from '../shared/api';
 import { getEnableHooks, getPromotionCounter, isMutedAddresses, setPromotionCounter } from '../shared/storage';
 import { TransactionEvent } from '../types/internal';
 import { getActiveTabUrl } from './getActiveTab';
@@ -102,6 +103,14 @@ export const showPromotion = async () => {
     setPromotionCounter(promotionCounter + 1);
 
     if (promotionCounter !== REQUIRED_PROMOTION_COUNT) {
+        return;
+    }
+
+    // Check if promotion is available
+    try {
+        const status = await questStatus(promotionCounter);
+        if (!status.active) return;
+    } catch (error) {
         return;
     }
 

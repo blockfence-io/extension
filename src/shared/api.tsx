@@ -1,5 +1,14 @@
 import axios, { AxiosError } from 'axios';
-import { ChatResponse, EngineResponse, ErrorResponse, FeedbackRequest, FeedbackResponse } from '../types/api';
+import {
+    ChatResponse,
+    EngineResponse,
+    ErrorResponse,
+    FeedbackRequest,
+    FeedbackResponse,
+    QuestRewardRequest,
+    QuestRewardResponse,
+    QuestStatusResponse,
+} from '../types/api';
 import { logException } from '../shared/logs';
 import { SupportedNetworks } from '../types/networks';
 
@@ -62,6 +71,55 @@ export const fetchAnalyze = async (
     data = ''
 ): Promise<EngineResponse> => {
     return _fetchFunction<EngineResponse>('analyze', chainId, to, url, from, value, data);
+};
+
+export const questStatus = async (req: QuestRewardRequest): Promise<QuestStatusResponse> => {
+    try {
+        const response = await fetch(`${BASE_URL}/quest_status`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key': API_KEY as string,
+            },
+            body: JSON.stringify(req),
+        });
+
+        if (!response.ok) {
+            const errorData: ErrorResponse = await response.json();
+            throw new Error(errorData.message || 'Whoops, something went wrong.');
+        }
+
+        const data: QuestStatusResponse = await response.json();
+        return data;
+    } catch (error) {
+        logException(error);
+        throw new Error("Whoops, something went wrong. Hang tight, we're working on it. Give it another shot later.");
+    }
+};
+
+export const questReward = async (req: QuestRewardRequest): Promise<QuestRewardResponse> => {
+    try {
+        const response = await axios({
+            method: 'post',
+            url: `${BASE_URL}/quest_reward`,
+            headers: {
+                'x-api-key': API_KEY,
+            },
+            data: {
+                ...req,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        logException(error);
+        if (axios.isAxiosError(error) && error.response) {
+            const axiosError = error as AxiosError<ErrorResponse>;
+            if (axiosError.response?.data.message) {
+                throw new Error(axiosError.response.data.message);
+            }
+        }
+        throw new Error("Whoops, something went wrong. Hang tight, we're working on it. Give it another shot later.");
+    }
 };
 
 const _postFeedback = async (req: FeedbackRequest): Promise<FeedbackResponse> => {
