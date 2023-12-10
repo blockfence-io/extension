@@ -10,8 +10,6 @@ const EXTENSION_HEIGHT = 600;
 const FOCUS_TIMEOUT = 20;
 const RETRIES_COUNT = 25;
 
-const REQUIRED_PROMOTION_COUNT = 5;
-
 async function getPosition() {
     const latestWindow = await chrome.windows.getLastFocused();
 
@@ -93,19 +91,13 @@ export const showPopup = async (chainId: string, event: TransactionEvent) => {
             chrome.windows.update(popupWindow.id, { focused: true });
         }
 
-        // const currentWindow =
-        showPromotion();
+        checkShowPromotion();
     }
 };
 
-export const showPromotion = async () => {
+export const checkShowPromotion = async () => {
     const promotionCounter = await getPromotionCounter();
     setPromotionCounter(promotionCounter + 1);
-
-    // Disabled local descision (moved to server)
-    // if (promotionCounter !== REQUIRED_PROMOTION_COUNT) {
-    //     return;
-    // }
 
     // Check if promotion is available
     try {

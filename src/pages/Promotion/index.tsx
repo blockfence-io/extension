@@ -15,7 +15,7 @@ import { questReward } from '../../shared/api';
 
 const errorMessage = 'Error occurred while submitting your reward, please try again.';
 
-function WalletPopup() {
+function PromotionPopup() {
     const [value, setValue] = useState('');
     const [loading, setLoading] = useState(false);
     const [submitted, setSubmitted] = useState(false);
@@ -23,7 +23,7 @@ function WalletPopup() {
 
     async function handleSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
         event.preventDefault();
-        await setLoading(true);
+        setLoading(true);
         setError(undefined);
         try {
             const result = await questReward({ email: value });
@@ -32,7 +32,7 @@ function WalletPopup() {
         } catch (error) {
             setError(errorMessage);
         } finally {
-            await setLoading(false);
+            setLoading(false);
         }
     }
 
@@ -44,7 +44,7 @@ function WalletPopup() {
                 <Styled.Header>Congratulations!</Styled.Header>
 
                 <Styled.Message>
-                    You are eligible for a free NFT that will give you free access to Dappradar PRO.
+                    You are eligible for a free NFT that will grant you free access to Dappradar PRO.
                 </Styled.Message>
 
                 <Styled.Body>
@@ -65,11 +65,13 @@ function WalletPopup() {
                     {submitted && !error && (
                         <Styled.Success>
                             We have sent the reward to your email.
-                            <br /> Check your inbox for further instructions.
+                            <br />
+                            Please check your inbox for further instructions.
                         </Styled.Success>
                     )}
                     {error && <Styled.Error>{error}</Styled.Error>}
 
+                    {/* TODO Swap the quest URL with the blockfence quest */}
                     <p>
                         For more details:{' '}
                         <a href='https://dappradar.com/rewards/quests' target='_blank' rel='noreferrer'>
@@ -84,4 +86,4 @@ function WalletPopup() {
 
 const container = window.document.querySelector('#app-container');
 const root = createRoot(container as Element);
-root.render(<WalletPopup />);
+root.render(<PromotionPopup />);

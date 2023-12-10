@@ -37,8 +37,8 @@ export const setPreferredChainId = async (chainId: string) => {
 };
 
 export const getPromotionCounter = async () => {
-    const storage = await chrome.storage.local.get({ counter: true });
-    return storage.counter || 0;
+    const storage = await chrome.storage.local.get({ counter: 0 });
+    return storage.counter;
 };
 
 export const setPromotionCounter = async (counter: number) => {

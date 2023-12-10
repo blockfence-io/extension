@@ -6,6 +6,7 @@ import {
     FeedbackRequest,
     FeedbackResponse,
     QuestRewardRequest,
+    QuestStatusRequest,
     QuestRewardResponse,
     QuestStatusResponse,
 } from '../types/api';
@@ -73,8 +74,9 @@ export const fetchAnalyze = async (
     return _fetchFunction<EngineResponse>('analyze', chainId, to, url, from, value, data);
 };
 
-export const questStatus = async (req: QuestRewardRequest): Promise<QuestStatusResponse> => {
+export const questStatus = async (count: number): Promise<QuestStatusResponse> => {
     try {
+        const req: QuestStatusRequest = { count };
         const response = await fetch(`${BASE_URL}/quest_status`, {
             method: 'POST',
             headers: {
