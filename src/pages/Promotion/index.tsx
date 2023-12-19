@@ -31,8 +31,14 @@ function PromotionPopup() {
         setError(undefined);
         try {
             const result = await questReward({ email: value });
-            if (result.success) setSubmitted(true);
-            else setError(errorMessage);
+            if (result.success) {
+                setTimeout(() => {
+                    window.close();
+                }, 5000);
+                setSubmitted(true);
+            } else {
+                setError(errorMessage);
+            }
         } catch (error) {
             setError(errorMessage);
         } finally {
@@ -74,8 +80,6 @@ function PromotionPopup() {
                         </Styled.Success>
                     )}
                     {error && <Styled.Error>{error}</Styled.Error>}
-
-                    {/* TODO Swap the quest URL with the blockfence quest */}
                     <p>
                         Blockfence and DappRadar will never send you spam and will never share your email address with
                         anyone.
