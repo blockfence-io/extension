@@ -18,6 +18,8 @@ export const Container = styled.form`
 export const Header = styled.div`
     font-weight: 500;
     font-size: 24px;
+    // center the text align
+    text-align: center;
 `;
 
 export const Body = styled.div`
@@ -42,6 +44,12 @@ export const Message = styled.div`
     text-align: center;
     margin: 0 1%;
     line-height: 2;
+`;
+
+export const Link = styled.a`
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
 `;
 
 export const Success = styled.div`

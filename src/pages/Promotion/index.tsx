@@ -15,6 +15,10 @@ import { questReward } from '../../shared/api';
 
 const errorMessage = 'Error occurred while submitting your reward, please try again.';
 
+function visitDappradar() {
+    window.open('https://dappradar.com/account/pro-membership', '_blank');
+}
+
 function PromotionPopup() {
     const [value, setValue] = useState('');
     const [loading, setLoading] = useState(false);
@@ -40,11 +44,11 @@ function PromotionPopup() {
         <ErrorBoundary>
             <Styled.Container onSubmit={handleSubmit}>
                 <Logo style={{ height: '80px' }} />
-
-                <Styled.Header>Congratulations!</Styled.Header>
-
+                <Styled.Header>Thank you for using Blockfence</Styled.Header>
                 <Styled.Message>
-                    You are eligible for a free NFT that will grant you free access to Dappradar PRO.
+                    <br /> Here's a little surprise from us...
+                    <br /> You just unlocked <b>1-month</b> of free access to the data analytics platform{' '}
+                    <Styled.Link onClick={visitDappradar}>DappRadar PRO</Styled.Link>
                 </Styled.Message>
 
                 <Styled.Body>
@@ -53,12 +57,12 @@ function PromotionPopup() {
                             <Input
                                 title='Email'
                                 type='email'
-                                placeholder='Enter address'
+                                placeholder='Email address'
                                 value={value}
                                 onChange={(e) => setValue(e.target.value)}
                             />
                             <Button type='submit' disabled={loading}>
-                                Claim your reward now
+                                Send instructions how to claim{' '}
                             </Button>
                         </>
                     )}
@@ -73,10 +77,8 @@ function PromotionPopup() {
 
                     {/* TODO Swap the quest URL with the blockfence quest */}
                     <p>
-                        For more details:{' '}
-                        <a href='https://dappradar.com/rewards/quests' target='_blank' rel='noreferrer'>
-                            https://dappradar.com/rewards/quests
-                        </a>
+                        Blockfence and DappRadar will never send you spam and will never share your email address with
+                        anyone.
                     </p>
                 </Styled.Body>
             </Styled.Container>
