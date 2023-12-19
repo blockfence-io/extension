@@ -52,7 +52,7 @@ function PromotionPopup() {
                 <Logo style={{ height: '80px' }} />
                 <Styled.Header>Thank you for using Blockfence</Styled.Header>
                 <Styled.Message>
-                    <br /> Here's a little surprise from us...
+                    <br /> Here is a little surprise from us...
                     <br /> You just unlocked <b>1-month</b> of free access to the data analytics platform{' '}
                     <Styled.Link onClick={visitDappradar}>DappRadar PRO</Styled.Link>
                 </Styled.Message>
